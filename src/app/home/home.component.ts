@@ -4,15 +4,24 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+import { WallComponent } from './wall/wall.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatIcon, MatIconButton, MatMenu, MatMenuItem, MatToolbar, RouterLink, MatMenuTrigger],
+  imports: [
+    MatIcon,
+    MatIconButton,
+    MatMenu,
+    MatMenuItem,
+    MatToolbar,
+    RouterLink,
+    MatMenuTrigger,
+    WallComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
   title = 'tnakan';
-
 }
