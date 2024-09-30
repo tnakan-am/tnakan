@@ -1,8 +1,8 @@
-<mat-toolbar>
+<mat-toolbar class="sticky top-0 z-10">
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>{{ title }}</span>
+  <span>{{ 'title' | translate }}</span>
   <span class="example-spacer"></span>
   <button
     mat-icon-button
@@ -16,9 +16,17 @@
     <a routerLink="/login" mat-menu-item>Login</a>
     <a routerLink="/registration" mat-menu-item>Register</a>
   </mat-menu>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
+          [matMenuTriggerFor]="lang"
+  >
+    <mat-icon>language</mat-icon>
   </button>
+  <mat-menu #lang="matMenu">
+    <button (click)="changeLanguage('en')" mat-menu-item>English</button>
+    <button (click)="changeLanguage('rus')" mat-menu-item>Russian</button>
+    <button (click)="changeLanguage('hy')" mat-menu-item>Armenian</button>
+  </mat-menu>
 </mat-toolbar>
-
-<app-wall />
+<div class="p-6">
+  <app-wall />
+</div>
