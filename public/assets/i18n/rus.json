@@ -1,3 +1,16 @@
 {
-  "title": "Home made rus"
+  "title": "Home made rus",
+  "login": {
+    "login": "Login rus",
+    "password": "Enter your Password rus",
+    "email": "Enter your email rus",
+    "forgot": "Forgot password rus"
+  },
+  "messages": {
+    "error": {
+      "required": "This field is required rus",
+      "email": "Not valid email rus",
+      "password": "Passwords must be at least 6 characters rus"
+    }
+  }
 }
