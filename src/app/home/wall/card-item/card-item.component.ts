@@ -14,7 +14,7 @@ import {
   standalone: true,
   imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle, MatCardTitle],
   templateUrl: './card-item.component.html',
-  styleUrl: './card-item.component.css',
+  styleUrl: './card-item.component.scss',
 })
 export class CardItemComponent {
   @Input() product: any;

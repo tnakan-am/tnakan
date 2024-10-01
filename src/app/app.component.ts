@@ -20,10 +20,10 @@ import { TranslateService } from '@ngx-translate/core';
     RouterLink,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   constructor(private translateService: TranslateService) {
-    translateService.setDefaultLang('hy');
+    translateService.setDefaultLang('en');
   }
 }

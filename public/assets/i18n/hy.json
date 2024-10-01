@@ -1,16 +1,35 @@
 {
-  "title": "Home made hy",
+  "title": "Hy Home made",
   "login": {
-    "login": "Login hy",
-    "password": "Enter your Password hy",
-    "email": "Enter your email hy",
-    "forgot": "Forgot password hy"
+    "login": "Hy Login",
+    "forgot": "Hy Forgot password"
+  },
+  "fields": {
+    "password": "Hy Enter your Password",
+    "rePassword": "Hy Re Enter your Password",
+    "email": "Hy Enter your email",
+    "name": "Hy Name",
+    "phone": "Hy Name",
+    "surname": "Hy Surname",
+    "hvhh": "Hy HVHH",
+    "company": "Hy Company Name"
+  },
+  "registration": {
+    "registration": "Hy Registration"
+  },
+  "buttons": {
+    "submit": "Hy Submit",
+    "back": "Hy Back"
   },
   "messages": {
-    "error": {
-      "required": "This field is required hy",
-      "email": "Not valid email hy",
-      "password": "Passwords must be at least 6 characters hy"
+    "errors": {
+      "required": "Hy This field is required",
+      "email": "Hy Not valid email",
+      "match": "Hy Do NOT Match",
+      "number": "Hy Must be numbers",
+      "pattern": "Hy Field doesn't meet pattern",
+      "minlength": "Hy Minimum length requirements {{number}}",
+      "password": "Hy Passwords must be at least 6 characters"
     }
   }
 }

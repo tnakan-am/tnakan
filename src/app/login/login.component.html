@@ -3,7 +3,7 @@
     <h1>{{ 'login.login' | translate }}</h1>
     <form [formGroup]="form" class="flex-col flex">
       <mat-form-field class="w-100">
-        <mat-label>{{ 'login.email' | translate }}</mat-label>
+        <mat-label>{{ 'fields.email' | translate }}</mat-label>
         <input
           matInput
           placeholder="pat@example.com"
@@ -12,11 +12,11 @@
           required
         />
         @if (email?.invalid) {
-        <mat-error>{{ 'messages.error.' + emailErrorMessage() | translate }}</mat-error>
+        <mat-error>{{ 'messages.errors.' + emailErrorMessage() | translate }}</mat-error>
         }
       </mat-form-field>
       <mat-form-field class="w-100">
-        <mat-label>{{'login.password' | translate}}</mat-label>
+        <mat-label>{{'fields.password' | translate}}</mat-label>
         <input
           type="password"
           matInput
@@ -26,7 +26,7 @@
           required
         />
         @if (password?.invalid) {
-        <mat-error>{{ 'messages.error.' + passErrorMessage() | translate }}</mat-error>
+        <mat-error>{{ 'messages.errors.' + passErrorMessage() | translate }}</mat-error>
         }
       </mat-form-field>
       <button [disabled]="form.invalid" mat-raised-button>Submit</button>
