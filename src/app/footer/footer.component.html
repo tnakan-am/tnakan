@@ -1,0 +1,21 @@
+<footer class="footerStyle">
+  <div>
+    <nav>
+      <a href="/terms" style="color: white;">Terms & Conditions</a> |
+      <a href="mailto:artursahakyan1992@gmail.com" style="color: white;">Contact Us</a> |
+      <span>Phone: +37477777777</span> |
+
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
+              [matMenuTriggerFor]="lang"
+      >
+        <mat-icon>language</mat-icon>
+      </button>
+      <mat-menu #lang="matMenu">
+        <button (click)="changeLanguage('en')" mat-menu-item>English</button>
+        <button (click)="changeLanguage('rus')" mat-menu-item>Russian</button>
+        <button (click)="changeLanguage('hy')" mat-menu-item>Armenian</button>
+      </mat-menu>
+    </nav>
+    <p>&copy; 2024 Your Company. All rights reserved.</p>
+  </div>
+</footer>
