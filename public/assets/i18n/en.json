@@ -1,3 +1,16 @@
 {
-  "title": "Home made en"
+  "title": "Home made en",
+  "login": {
+    "login": "Login",
+    "password": "Enter your Password",
+    "email": "Enter your email",
+    "forgot": "Forgot password"
+  },
+  "messages": {
+    "error": {
+      "required": "This field is required",
+      "email": "Not valid email",
+      "password": "Passwords must be at least 6 characters"
+    }
+  }
 }

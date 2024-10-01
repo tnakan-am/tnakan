@@ -1,3 +1,16 @@
 {
-  "title": "Home made hy"
+  "title": "Home made hy",
+  "login": {
+    "login": "Login hy",
+    "password": "Enter your Password hy",
+    "email": "Enter your email hy",
+    "forgot": "Forgot password hy"
+  },
+  "messages": {
+    "error": {
+      "required": "This field is required hy",
+      "email": "Not valid email hy",
+      "password": "Passwords must be at least 6 characters hy"
+    }
+  }
 }
