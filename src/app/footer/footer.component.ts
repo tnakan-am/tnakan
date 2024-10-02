@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -18,6 +18,7 @@ import { MatIconButton } from '@angular/material/button';
     MatMenuTrigger,
     MatIconButton,
     MatMenuItem,
+    TranslateModule,
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
@@ -28,8 +29,6 @@ export class FooterComponent {
   }
 
   changeLanguage(language: string) {
-    // Change the language
     this.translateService.use(language);
-    console.log('Language changed to:', language);
   }
 }

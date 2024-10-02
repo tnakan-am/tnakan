@@ -12,5 +12,10 @@
       "email": "Not valid email hy",
       "password": "Passwords must be at least 6 characters hy"
     }
+  },
+  "languages": {
+    "english": "Անգլերեն",
+    "russian": "Ռուսերեն",
+    "armenian": "Հայերեն"
   }
 }

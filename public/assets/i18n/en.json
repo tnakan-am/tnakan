@@ -12,5 +12,10 @@
       "email": "Not valid email",
       "password": "Passwords must be at least 6 characters"
     }
+  },
+  "languages": {
+    "english": "English",
+    "russian": "Russian",
+    "armenian": "Armenian"
   }
 }

@@ -24,19 +24,11 @@ import { FooterComponent } from './footer/footer.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit {
-  isShowFooter: boolean = true;
+export class AppComponent {
 
   constructor(
     private translateService: TranslateService,
-    private router: Router,
   ) {
     translateService.setDefaultLang('hy');
-  }
-
-  ngOnInit(): void {
-    this.router.events.subscribe((events: any) => {
-      this.isShowFooter = (events.url !== '/login' && events.url !== '/registration');
-    })
   }
 }
