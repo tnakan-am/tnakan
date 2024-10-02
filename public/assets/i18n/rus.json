@@ -1,16 +1,35 @@
 {
-  "title": "Home made rus",
+  "title": "Rus Home made",
   "login": {
-    "login": "Login rus",
-    "password": "Enter your Password rus",
-    "email": "Enter your email rus",
-    "forgot": "Forgot password rus"
+    "login": "Rus Login",
+    "forgot": "Rus Forgot password"
+  },
+  "fields": {
+    "password": "Rus Enter your Password",
+    "rePassword": "Rus Re Enter your Password",
+    "email": "Rus Enter your email",
+    "name": "Rus Name",
+    "phone": "Rus Phone",
+    "surname": "Rus Surname",
+    "hvhh": "Rus HVHH",
+    "company": "Rus Company Name"
+  },
+  "registration": {
+    "registration": "Rus Registration"
+  },
+  "buttons": {
+    "submit": "Rus Submit",
+    "back": "Rus Back"
   },
   "messages": {
-    "error": {
-      "required": "This field is required rus",
-      "email": "Not valid email rus",
-      "password": "Passwords must be at least 6 characters rus"
+    "errors": {
+      "required": "Rus This field is required",
+      "email": "Rus Not valid email",
+      "match": "Rus Do NOT Match",
+      "number": "Rus Must be numbers",
+      "pattern": "Rus Field doesn't meet pattern",
+      "minlength": "Rus Minimum length requirements {{number}}",
+      "password": "Rus Passwords must be at least 6 characters"
     }
   }
 }
