@@ -6,7 +6,7 @@ import { CardItemComponent } from './card-item/card-item.component';
   standalone: true,
   imports: [CardItemComponent],
   templateUrl: './wall.component.html',
-  styleUrl: './wall.component.css',
+  styleUrl: './wall.component.scss',
 })
 export class WallComponent {
   products = (new Array(8)).map(value => ({id: Math.random()}));

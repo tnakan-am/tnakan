@@ -1,15 +1,34 @@
 {
-  "title": "Home made en",
+  "title": "Home made",
   "login": {
     "login": "Login",
-    "password": "Enter your Password",
-    "email": "Enter your email",
     "forgot": "Forgot password"
   },
+  "fields": {
+    "password": "Enter your Password",
+    "rePassword": "Re Enter your Password",
+    "email": "Enter your email",
+    "name": "Name",
+    "phone": "Phone",
+    "surname": "Surname",
+    "hvhh": "HVHH",
+    "company": "Company Name"
+  },
+  "registration": {
+    "registration": "Registration"
+  },
+  "buttons": {
+    "submit": "Submit",
+    "back": "Back"
+  },
   "messages": {
-    "error": {
+    "errors": {
       "required": "This field is required",
       "email": "Not valid email",
+      "match": "Do NOT Match",
+      "number": "Must be numbers",
+      "pattern": "Field doesn't meet pattern",
+      "minlength": "Minimum length requirements {{number}}",
       "password": "Passwords must be at least 6 characters"
     }
   },

@@ -1,1 +1,159 @@
-<p>registration works!</p>
+<div class="w-100 flex justify-center justify-items-center items-center h-full login-container">
+  <div class="example-container">
+    <h1>{{ 'registration.registration' | translate }}</h1>
+
+    <mat-tab-group>
+      <mat-tab label="Customer">
+        <ng-template matTabContent>
+          <form [formGroup]="form" (ngSubmit)="formSubmit()" class="flex-col flex">
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.email' | translate }}</mat-label>
+              <input matInput placeholder="pat@example.com" formControlName="email" required />
+              @if (form.get('email')?.invalid) {
+              <mat-error>{{ 'messages.errors.email' | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.phone' | translate }}</mat-label>
+              <input matInput placeholder="+37410123456" formControlName="phone" />
+              @if (form.get('phone')?.invalid) {
+              <mat-error>{{ errorMessage(form.get('phone')!) | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.name' | translate }}</mat-label>
+              <input matInput placeholder="Name" formControlName="name" />
+              @if (form.get('name')?.invalid) {
+              <mat-error>{{ errorMessage(form.get('name')!) | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.surname' | translate }}</mat-label>
+              <input matInput placeholder="Surname" formControlName="surname" />
+              @if (form.get('surname')?.invalid) {
+              <mat-error>{{ errorMessage(form.get('surname')!) | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.password' | translate }}</mat-label>
+              <input
+                type="password"
+                matInput
+                placeholder="password"
+                formControlName="password"
+                required
+              />
+              @if (form.get('password')?.invalid) {
+              <mat-error>{{
+                errorMessage(form.get('password')!) | translate : { number: 6 }
+              }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.rePassword' | translate }}</mat-label>
+              <input
+                type="password"
+                matInput
+                placeholder="re password"
+                formControlName="rePassword"
+                required
+              />
+              @if (form.get('rePassword')?.invalid) {
+              <mat-error>{{
+                errorMessage(form.get('rePassword')!) || 'messages.errors.match'
+                  | translate : { number: 6 }
+              }}</mat-error>
+              }
+            </mat-form-field>
+
+            <div class="w-100 flex justify-between">
+              <button [disabled]="form.invalid" mat-flat-button>
+                {{ 'buttons.submit' | translate }}
+              </button>
+              <a href="" routerLink="/" mat-raised-button>{{ 'buttons.back' | translate }}</a>
+            </div>
+          </form>
+        </ng-template>
+      </mat-tab>
+
+      <!--      Business form -->
+      <mat-tab label="Business">
+        <ng-template matTabContent>
+          <form [formGroup]="businessForm" (ngSubmit)="businessFormSubmit()" class="flex-col flex">
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.email' | translate }}</mat-label>
+              <input matInput placeholder="pat@example.com" formControlName="email" required />
+              @if (businessForm.get('email')?.invalid) {
+              <mat-error>{{ errorMessage(businessForm.get('email')!) | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.phone' | translate }}</mat-label>
+              <input matInput placeholder="+37499123456" formControlName="phone" required />
+              @if (businessForm.get('phone')?.invalid) {
+              <mat-error>{{ errorMessage(businessForm.get('phone')!) | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.company' | translate }}</mat-label>
+              <input matInput placeholder="Poxos Poxosyan" formControlName="company" />
+              @if (businessForm.get('company')?.invalid) {
+              <mat-error>{{ 'messages.errors.required' | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.hvhh' | translate }}</mat-label>
+              <input matInput placeholder="01234567" formControlName="hvhh" />
+              @if (businessForm.get('hvhh')?.invalid) {
+              <mat-error>{{ 'messages.errors.number' | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.password' | translate }}</mat-label>
+              <input
+                type="password"
+                matInput
+                placeholder="password"
+                formControlName="password"
+                required
+              />
+              @if (businessForm.get('password')?.invalid) {
+              <mat-error>{{ 'messages.errors.pass' | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-100">
+              <mat-label>{{ 'fields.rePassword' | translate }}</mat-label>
+              <input
+                type="password"
+                matInput
+                placeholder="re password"
+                formControlName="rePassword"
+                required
+              />
+              @if (businessForm.get('rePassword')?.invalid) {
+              <mat-error>{{ 'messages.errors.match' | translate }}</mat-error>
+              }
+            </mat-form-field>
+
+            <div class="w-100 flex justify-between">
+              <button [disabled]="businessForm.invalid" mat-flat-button>
+                {{ 'buttons.submit' | translate }}
+              </button>
+              <a href="" routerLink="/" mat-raised-button>{{ 'buttons.back' | translate }}</a>
+            </div>
+          </form>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
