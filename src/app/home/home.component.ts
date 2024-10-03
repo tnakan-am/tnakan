@@ -4,8 +4,8 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { WallComponent } from './wall/wall.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ProductComponent } from '../product/product.component';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     MatToolbar,
     RouterLink,
     MatMenuTrigger,
-    WallComponent,
+    ProductComponent,
     TranslateModule,
   ],
   templateUrl: './home.component.html',
