@@ -3,22 +3,7 @@
     <nav class="flex justify-center items-center">
       <a href="/terms" class="white-color">Terms & Conditions</a> |
       <a href="mailto:artursahakyan1992@gmail.com" class="white-color">Contact Us |</a>
-      <span>Phone: +37477777777 |</span>
-
-      <button
-        mat-icon-button
-        class="example-icon"
-        style="display: flex"
-        aria-label="Example icon-button with share icon"
-        [matMenuTriggerFor]="lang"
-      >
-        <mat-icon class="white-color">language</mat-icon>
-      </button>
-      <mat-menu #lang="matMenu">
-        <button (click)="changeLanguage('en')" mat-menu-item>{{ 'languages.english' | translate }}</button>
-        <button (click)="changeLanguage('rus')" mat-menu-item>{{ 'languages.russian' | translate }}</button>
-        <button (click)="changeLanguage('hy')" mat-menu-item>{{ 'languages.armenian' | translate }}</button>
-      </mat-menu>
+      <span>Phone: +37477777777</span>
     </nav>
     <p>&copy; 2024 Your Company. All rights reserved.</p>
   </div>

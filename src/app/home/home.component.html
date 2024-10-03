@@ -16,6 +16,19 @@
     <a routerLink="/login" mat-menu-item>Login</a>
     <a routerLink="/registration" mat-menu-item>Register</a>
   </mat-menu>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+    [matMenuTriggerFor]="lang"
+  >
+    <mat-icon>language</mat-icon>
+  </button>
+  <mat-menu #lang="matMenu">
+    <button (click)="changeLanguage('en')" mat-menu-item>{{ 'languages.english' | translate }}</button>
+    <button (click)="changeLanguage('rus')" mat-menu-item>{{ 'languages.russian' | translate }}</button>
+    <button (click)="changeLanguage('hy')" mat-menu-item>{{ 'languages.armenian' | translate }}</button>
+  </mat-menu>
 </mat-toolbar>
 <div class="p-6">
   <app-wall />

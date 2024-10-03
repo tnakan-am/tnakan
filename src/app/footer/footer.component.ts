@@ -24,11 +24,4 @@ import { MatIconButton } from '@angular/material/button';
   styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
-  constructor(private translateService: TranslateService) {
-    translateService.setDefaultLang('hy');
-  }
-
-  changeLanguage(language: string) {
-    this.translateService.use(language);
-  }
 }
