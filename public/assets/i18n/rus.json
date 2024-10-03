@@ -31,5 +31,10 @@
       "minlength": "Rus Minimum length requirements {{number}}",
       "password": "Rus Passwords must be at least 6 characters"
     }
+  },
+  "languages": {
+    "english": "Английский",
+    "russian": "Русский",
+    "armenian": "Армянский"
   }
 }
