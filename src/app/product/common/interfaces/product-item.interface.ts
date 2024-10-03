@@ -1,3 +1,5 @@
+import { UnitTypeEnum } from '../enums/unit.enum';
+
 export interface ProductItemInterface {
   id: number
   productName: string
@@ -7,6 +9,9 @@ export interface ProductItemInterface {
   product_img: string
   status: string
   description: string
-  cooker_name: string
-  cooker_photo: string
+  user: string
+  user_photo: string
+  currency: string
+  unit: string
+  unitType: UnitTypeEnum
 }
