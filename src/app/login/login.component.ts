@@ -1,17 +1,13 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLink } from '@angular/router';
+import { FirebaseAuthService } from '../services/firebase-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +25,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup;
 
   emailErrorMessage = signal('');
@@ -41,7 +37,7 @@ export class LoginComponent {
     return this.form.get('password');
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private firebaseAuth: FirebaseAuthService) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -70,6 +66,19 @@ export class LoginComponent {
       this.passErrorMessage.set('password');
     } else {
       this.passErrorMessage.set('');
+    }
+  }
+
+  login() {
+    if (this.form.invalid) {
+      return;
+    }
+    this.firebaseAuth.login(this.form.getRawValue().email, this.form.getRawValue().password);
+  }
+
+  ngOnInit() {
+    if(localStorage.getItem('user')){
+      console.log(this.firebaseAuth.getFirebaseUser())
     }
   }
 }

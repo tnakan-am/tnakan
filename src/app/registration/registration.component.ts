@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { merge, Subscription } from 'rxjs';
+import { FirebaseAuthService } from '../services/firebase-auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -52,7 +53,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     // apt: [''],
   };
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private fireAuthService: FirebaseAuthService) {
     this.form = this.fb.group({
       ...this.commonFields,
       type: ['CUSTOMER'],
@@ -93,10 +94,31 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   formSubmit() {
-    this.form.getRawValue();
+    if (this.form.invalid) {
+      this.form.updateValueAndValidity();
+      return;
+    }
+    this.fireAuthentication(this.form.getRawValue());
   }
 
   businessFormSubmit() {
-    this.businessForm.getRawValue();
+    if (this.businessForm.invalid) {
+      this.businessForm.updateValueAndValidity();
+      return;
+    }
+    this.fireAuthentication(this.businessForm.getRawValue());
+  }
+
+  private fireAuthentication(formValue: {
+    email: string;
+    password: string;
+    name: string;
+    phone: string;
+  }) {
+    const { email, password, name } = formValue;
+    if (!email || !password) {
+      return;
+    }
+    this.fireAuthService.signUp({ ...formValue, displayName: name });
   }
 }
