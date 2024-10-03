@@ -31,5 +31,10 @@
       "minlength": "Hy Minimum length requirements {{number}}",
       "password": "Hy Passwords must be at least 6 characters"
     }
+  },
+  "languages": {
+    "english": "Անգլերեն",
+    "russian": "Ռուսերեն",
+    "armenian": "Հայերեն"
   }
 }

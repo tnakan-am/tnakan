@@ -5,6 +5,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { TranslateService } from '@ngx-translate/core';
+import { FooterComponent } from './footer/footer.component';
 import { FirebaseAuthService } from './services/firebase-auth.service';
 
 @Component({
@@ -19,6 +20,7 @@ import { FirebaseAuthService } from './services/firebase-auth.service';
     MatMenuItem,
     MatMenuTrigger,
     RouterLink,
+    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -35,6 +37,4 @@ export class AppComponent {
       }
     });
   }
-
-
 }
