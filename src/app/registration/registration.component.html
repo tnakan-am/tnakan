@@ -16,9 +16,9 @@
 
             <mat-form-field class="w-100">
               <mat-label>{{ 'fields.phone' | translate }}</mat-label>
-              <input matInput placeholder="+37410123456" formControlName="phone" />
-              @if (form.get('phone')?.invalid) {
-              <mat-error>{{ errorMessage(form.get('phone')!) | translate }}</mat-error>
+              <input matInput placeholder="+37410123456" formControlName="phoneNumber" />
+              @if (form.get('phoneNumber')?.invalid) {
+              <mat-error>{{ errorMessage(form.get('phoneNumber')!) | translate }}</mat-error>
               }
             </mat-form-field>
 
@@ -95,9 +95,11 @@
 
             <mat-form-field class="w-100">
               <mat-label>{{ 'fields.phone' | translate }}</mat-label>
-              <input matInput placeholder="+37499123456" formControlName="phone" required />
-              @if (businessForm.get('phone')?.invalid) {
-              <mat-error>{{ errorMessage(businessForm.get('phone')!) | translate }}</mat-error>
+              <input matInput placeholder="+37499123456" formControlName="phoneNumber" required />
+              @if (businessForm.get('phoneNumber')?.invalid) {
+              <mat-error>{{
+                errorMessage(businessForm.get('phoneNumber')!) | translate
+              }}</mat-error>
               }
             </mat-form-field>
 

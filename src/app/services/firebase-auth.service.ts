@@ -6,35 +6,19 @@ import {
   signInWithEmailAndPassword,
   sendEmailVerification,
   updateProfile,
-  getAuth,
+  User,
   authState,
-  revokeAccessToken,
-  signInWithCustomToken,
+  user,
 } from '@angular/fire/auth';
 
-import {
-  doc,
-  docData,
-  DocumentReference,
-  Firestore,
-  getDoc,
-  setDoc,
-  updateDoc,
-  collection,
-  addDoc,
-  deleteDoc,
-  collectionData,
-  Timestamp,
-  serverTimestamp,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  DocumentData,
-  FieldValue,
-} from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, collection } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { IUser } from '../interfaces/user.interface';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -43,27 +27,25 @@ export class FirebaseAuthService {
   auth: Auth = inject(Auth);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
+  user$ = user(this.auth);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  private _snackBar = inject(MatSnackBar);
 
   constructor() {}
 
-  getFirebaseUser(): any {
+  getFirebaseUser(): User | null {
     return this.auth.currentUser;
   }
 
-  authState(): Observable<Auth> {
-    return authState(this.auth);
-  }
-
-  login(email: string, password: string) {
-    signInWithEmailAndPassword(this.auth, email, password).then(async (userCred) => {
-      const user = userCred.user;
-      if (user) {
-        await this.saveUserData(user); // Store user data in Firestore
-        console.log('User logged in:', user);
-        localStorage.setItem('firebaseToken', await user.getIdToken());
-        this.router.navigate(['/']); // Navigate to home or dashboard
-      }
-    });
+  async login(email: string, password: string) {
+    const userCred = await signInWithEmailAndPassword(this.auth, email, password);
+    const user = userCred.user;
+    if (user) {
+      await this.saveUserData(user); // Store user data in Firestore
+      localStorage.setItem('firebaseToken', await user.getIdToken());
+      this.router.navigate(['/']); // Navigate to home or dashboard
+    }
   }
 
   logout() {
@@ -76,54 +58,61 @@ export class FirebaseAuthService {
       });
   }
 
-  signUp({
-    email,
-    password,
-    displayName,
-    phone,
-  }: {
-    email: string;
-    password: string;
-    displayName: string;
-    phone: string;
-  }): void {
-    createUserWithEmailAndPassword(this.auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        const idToken = await user.getIdToken();
-
-        // Store the token for later use (localStorage/sessionStorage)
-        localStorage.setItem('firebaseToken', idToken);
-
-        if (user) {
-          await this.saveUserData({ ...user, phone }); // Save user data to Firestore
-          console.log('User signed up:', user);
-          localStorage.setItem('firebaseToken', await user.getIdToken());
-          this.router.navigate(['/']); // Navigate to home or dashboard
-        }
-        updateProfile(user, {
-          displayName,
-        });
-        return user;
-      })
-      .then((user) => {
-        sendEmailVerification(user);
-        return this.router.navigate(['/']);
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
+  async signUp(formData: IUser) {
+    const { email, password, displayName, phoneNumber } = formData;
+    let user;
+    try {
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password!);
+      user = userCredential.user;
+      const idToken = await user.getIdToken();
+      localStorage.setItem('firebaseToken', idToken);
+    } catch (error) {
+      this.openSnackBar((error as any).customData._tokenResponse.error.message);
+      return;
+    }
+    if (user) {
+      try {
+        const data = { ...user, ...formData };
+        await this.saveUserDataOnSignUp(data); // Save user data to Firestore
+        localStorage.setItem('firebaseToken', await user.getIdToken());
+        this.router.navigate(['/']); // Navigate to home or dashboard
+      } catch (error) {
+        this.openSnackBar((error as any).customData._tokenResponse.error.message);
+        return;
+      }
+    }
+    await updateProfile(user, {
+      displayName,
+    });
+    await sendEmailVerification(user);
+    this.router.navigate(['/']);
   }
-
   // Save user data to Firestore
-  private async saveUserData(user: any): Promise<void> {
+  private async saveUserDataOnSignUp(user: IUser): Promise<void> {
     const userRef = doc(collection(this.firestore, 'users'), user.uid);
     const userData = {
       email: user.email,
       displayName: user.displayName,
-      phoneNumber: user.phone,
+      phoneNumber: user.phoneNumber,
+      type: user.type,
     };
     await setDoc(userRef, userData, { merge: true });
+  }
+  // Save user data to Firestore
+  private async saveUserData(user: User): Promise<void> {
+    const userRef = doc(collection(this.firestore, 'users'), user.uid);
+    const userData = {
+      email: user.email,
+      displayName: user.displayName,
+    };
+    await setDoc(userRef, userData, { merge: true });
+  }
+
+  private openSnackBar(error: string) {
+    this._snackBar.open(error, undefined, {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 3000,
+    });
   }
 }

@@ -15,6 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { merge, Subscription } from 'rxjs';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
+import { IUser } from '../interfaces/user.interface';
 
 @Component({
   selector: 'app-registration',
@@ -45,7 +46,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     rePassword: ['', [Validators.required, Validators.minLength(6)]],
-    phone: ['', [Validators.required, Validators.pattern(/^\+374(10|[3-9]\d)\d{6}$/)]],
+    phoneNumber: ['', [Validators.required, Validators.pattern(/^\+374(10|[3-9]\d)\d{6}$/)]],
     // region: [''],
     // city: ['yerevan', [Validators.required]],
     // street: ['', [Validators.required]],
@@ -56,13 +57,13 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, private fireAuthService: FirebaseAuthService) {
     this.form = this.fb.group({
       ...this.commonFields,
-      type: ['CUSTOMER'],
+      type: ['customer'],
       name: ['', [Validators.required]],
       surname: [''],
     });
     this.businessForm = this.fb.group({
       ...this.commonFields,
-      type: ['BUSINESS'],
+      type: ['business'],
       company: ['', [Validators.required]],
       hvhh: [''],
     });
@@ -98,7 +99,11 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.form.updateValueAndValidity();
       return;
     }
-    this.fireAuthentication(this.form.getRawValue());
+    const userData = {
+      ...this.form.getRawValue(),
+      displayName: this.form.getRawValue().name,
+    };
+    this.fireAuthentication(userData);
   }
 
   businessFormSubmit() {
@@ -106,19 +111,19 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.businessForm.updateValueAndValidity();
       return;
     }
-    this.fireAuthentication(this.businessForm.getRawValue());
+
+    const userData = {
+      ...this.businessForm.getRawValue(),
+      displayName: this.businessForm.getRawValue().company,
+    };
+    this.fireAuthentication(userData);
   }
 
-  private fireAuthentication(formValue: {
-    email: string;
-    password: string;
-    name: string;
-    phone: string;
-  }) {
-    const { email, password, name } = formValue;
+  private fireAuthentication(formValue: IUser) {
+    const { email, password } = formValue;
     if (!email || !password) {
       return;
     }
-    this.fireAuthService.signUp({ ...formValue, displayName: name });
+    this.fireAuthService.signUp(formValue);
   }
 }
