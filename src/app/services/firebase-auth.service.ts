@@ -30,21 +30,25 @@ export class FirebaseAuthService {
   user$ = user(this.auth);
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  private _snackBar = inject(MatSnackBar);
 
-  constructor() {}
+  constructor(private _snackBar: MatSnackBar) {}
 
   getFirebaseUser(): User | null {
     return this.auth.currentUser;
   }
 
   async login(email: string, password: string) {
-    const userCred = await signInWithEmailAndPassword(this.auth, email, password);
-    const user = userCred.user;
-    if (user) {
-      await this.saveUserData(user); // Store user data in Firestore
-      localStorage.setItem('firebaseToken', await user.getIdToken());
-      this.router.navigate(['/']); // Navigate to home or dashboard
+    try {
+      const userCred = await signInWithEmailAndPassword(this.auth, email, password);
+      const user = userCred.user;
+      if (user) {
+        await this.saveUserData(user); // Store user data in Firestore
+        localStorage.setItem('firebaseToken', await user.getIdToken());
+        this.router.navigate(['/']); // Navigate to home or dashboard
+      }
+    } catch (error) {
+      this.openSnackBar((error as any).customData._tokenResponse.error.message);
+      return;
     }
   }
 
