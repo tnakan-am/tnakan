@@ -1,7 +1,7 @@
 <div class="w-100 flex justify-center justify-items-center items-center h-full login-container">
   <div class="example-container">
     <h1>{{ 'login.login' | translate }}</h1>
-    <form [formGroup]="form" class="flex-col flex">
+    <form [formGroup]="form" (ngSubmit)="login()" class="flex-col flex">
       <mat-form-field class="w-100">
         <mat-label>{{ 'fields.email' | translate }}</mat-label>
         <input
