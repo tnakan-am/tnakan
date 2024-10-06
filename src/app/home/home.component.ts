@@ -6,6 +6,10 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProductComponent } from '../product/product.component';
+import { FirebaseAuthService } from '../services/firebase-auth.service';
+import { User } from '@angular/fire/auth';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -20,17 +24,24 @@ import { ProductComponent } from '../product/product.component';
     MatMenuTrigger,
     ProductComponent,
     TranslateModule,
+    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   title = 'tnakan';
+  user$: Observable<User | null>;
 
-  constructor(private translateService: TranslateService) {
+  constructor(private translateService: TranslateService, private fAuth: FirebaseAuthService) {
+    this.user$ = fAuth.user$;
   }
 
   changeLanguage(lang: string) {
     this.translateService.setDefaultLang(lang);
+  }
+
+  logout() {
+    this.fAuth.logout();
   }
 }
