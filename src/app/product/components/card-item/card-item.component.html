@@ -1,0 +1,45 @@
+<!--<mat-card class="card">
+  <img mat-card-image src="assets/images/image.jpg" alt="Product">
+  <mat-card-content>
+    <h2 class="card-title">Product Name</h2>
+    <p class="card-description">Short description of the product goes here.</p>
+
+    <div class="rating">
+      <ngx-stars [color]="'#f1c40f'" [readonly]="true" />
+      <span class="rating-text">(4.0)</span>
+    </div>
+
+
+    <div class="card-footer">
+      <span class="price">$49.99</span>
+      <button mat-button color="primary">Add to Cart</button>
+    </div>
+  </mat-card-content>
+</mat-card>-->
+
+<mat-card class="card">
+  <!-- Cooker's Photo and Name -->
+  <div class="cooker-info">
+    <img [src]="product.user_photo" alt="Cooker" class="cooker-photo" />
+    <span class="cooker-name">{{ product.user }}</span>
+  </div>
+
+  <img mat-card-image class="product_img" [src]="product.product_img" alt="Product" />
+
+  <mat-card-content>
+    <h2 class="card-title">{{ product.productName }}</h2>
+    <p class="card-description">{{ product.shortDescription }}</p>
+
+    <!-- Rating Section -->
+    <div class="rating">
+      <ngx-stars [color]="'#28a745'" [initialStars]="product.rating" [readonly]="true" />
+      <span class="rating-text">({{ product.rating | number : '1.1-1' }})</span>
+    </div>
+
+    <div class="card-footer">
+      <span class="price">{{ product.price }} {{ product.currency }}</span>
+      <span class="price">{{ product.unit }} {{ product.unitType }}</span>
+      <button (click)="handleAddToCard(product)" mat-button color="primary">Add to Cart</button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prepare": "husky install && npx husky set .husky/pre-commit \"npx pretty-quick --staged\" && ng g ngx-prettier-git-hooks:after-ng-add"
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +24,7 @@
     "@angular/router": "^18.2.0",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
+    "ngx-stars": "^1.6.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
