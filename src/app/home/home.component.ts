@@ -4,8 +4,8 @@ import { MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
-import { WallComponent } from './wall/wall.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ProductComponent } from '../product/product.component';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ import { AsyncPipe } from '@angular/common';
     MatToolbar,
     RouterLink,
     MatMenuTrigger,
-    WallComponent,
+    ProductComponent,
     TranslateModule,
     AsyncPipe,
   ],

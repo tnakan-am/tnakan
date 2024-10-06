@@ -1,0 +1,7 @@
+@if (productList.length) {
+<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+  @for (item of productList; track item.id) {
+  <app-card-item [product]="item" />
+  }
+</div>
+}
