@@ -11,22 +11,20 @@ import { ProductHttpService } from './common/services/product-http.service';
   styleUrl: './product.component.scss',
 })
 export class ProductComponent implements OnInit {
-  productList: ProductItemInterface[];
+  productList!: ProductItemInterface[];
 
-  constructor(private productHttpService: ProductHttpService) {
+  constructor(private productHttpService: ProductHttpService) {}
+
+  ngOnInit(): void {
+    this.getProductData();
   }
 
-   ngOnInit(): void {
-    this.getProductData();
-   }
-
-   private getProductData(): void {
-    this.productHttpService.getProductList()
-      .subscribe({
-        next: data => {
-          this.productList = data
-        },
-        error: error => {},
-      })
-   }
+  private getProductData(): void {
+    this.productHttpService.getProductList().subscribe({
+      next: (data) => {
+        this.productList = data;
+      },
+      error: (error) => {},
+    });
+  }
 }

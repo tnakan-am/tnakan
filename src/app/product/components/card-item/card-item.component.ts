@@ -6,7 +6,8 @@ import {
   MatCardContent,
   MatCardHeader,
   MatCardImage,
-  MatCardSubtitle, MatCardTitle,
+  MatCardSubtitle,
+  MatCardTitle,
 } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
@@ -16,15 +17,27 @@ import { DecimalPipe } from '@angular/common';
 @Component({
   selector: 'app-card-item',
   standalone: true,
-  imports: [MatButton, MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardImage, MatCardSubtitle, MatCardTitle, MatIcon, NgxStarsModule, DecimalPipe],
+  imports: [
+    MatButton,
+    MatCard,
+    MatCardActions,
+    MatCardContent,
+    MatCardHeader,
+    MatCardImage,
+    MatCardSubtitle,
+    MatCardTitle,
+    MatIcon,
+    NgxStarsModule,
+    DecimalPipe,
+  ],
   templateUrl: './card-item.component.html',
   styleUrl: './card-item.component.scss',
 })
 export class CardItemComponent {
-  @Input() product: ProductItemInterface;
+  @Input() product!: ProductItemInterface;
   @Output() addToCard = new EventEmitter<ProductItemInterface>();
 
   handleAddToCard(event: ProductItemInterface) {
-    this.addToCard.emit(event)
+    this.addToCard.emit(event);
   }
 }
