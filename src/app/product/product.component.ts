@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardItemComponent } from './components/card-item/card-item.component';
-import { ProductItemInterface } from './common/interfaces/product-item.interface';
-import { ProductHttpService } from './common/services/product-http.service';
+import { ProductsService } from '../services/products.service';
+import { Product } from '../interfaces/product.interface';
 
 @Component({
   selector: 'app-product',
@@ -11,16 +11,16 @@ import { ProductHttpService } from './common/services/product-http.service';
   styleUrl: './product.component.scss',
 })
 export class ProductComponent implements OnInit {
-  productList!: ProductItemInterface[];
+  productList!: Product[];
 
-  constructor(private productHttpService: ProductHttpService) {}
+  constructor(private productsService: ProductsService) {}
 
   ngOnInit(): void {
     this.getProductData();
   }
 
   private getProductData(): void {
-    this.productHttpService.getProductList().subscribe({
+    this.productsService.getAllProducts().subscribe({
       next: (data) => {
         this.productList = data;
       },

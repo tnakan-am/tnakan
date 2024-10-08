@@ -1,24 +1,21 @@
 import { inject, Injectable } from '@angular/core';
 import {
   Auth,
+  browserLocalPersistence,
   createUserWithEmailAndPassword,
-  signOut,
-  signInWithEmailAndPassword,
   sendEmailVerification,
+  signInWithEmailAndPassword,
+  signOut,
   updateProfile,
-  User,
-  authState,
   user,
+  User,
 } from '@angular/fire/auth';
 
-import { doc, Firestore, setDoc, collection } from '@angular/fire/firestore';
+import { collection, doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { IUser } from '../interfaces/user.interface';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { openSnackBar } from '../helpers/snackbar';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +24,12 @@ export class FirebaseAuthService {
   auth: Auth = inject(Auth);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
-  user$ = user(this.auth);
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  user$: Observable<User> = user(this.auth);
+  private snackBar = openSnackBar();
 
-  constructor(private _snackBar: MatSnackBar) {}
+  constructor() {
+    this.auth.setPersistence(browserLocalPersistence).then();
+  }
 
   getFirebaseUser(): User | null {
     return this.auth.currentUser;
@@ -42,12 +40,10 @@ export class FirebaseAuthService {
       const userCred = await signInWithEmailAndPassword(this.auth, email, password);
       const user = userCred.user;
       if (user) {
-        await this.saveUserData(user); // Store user data in Firestore
-        localStorage.setItem('firebaseToken', await user.getIdToken());
         this.router.navigate(['/']); // Navigate to home or dashboard
       }
     } catch (error) {
-      this.openSnackBar((error as any).customData._tokenResponse.error.message);
+      this.snackBar((error as any)?.message as string);
       return;
     }
   }
@@ -68,20 +64,17 @@ export class FirebaseAuthService {
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password!);
       user = userCredential.user;
-      const idToken = await user.getIdToken();
-      localStorage.setItem('firebaseToken', idToken);
     } catch (error) {
-      this.openSnackBar((error as any).customData._tokenResponse.error.message);
+      this.snackBar((error as any).customData._tokenResponse.error.message);
       return;
     }
     if (user) {
       try {
         const data = { ...user, ...formData };
         await this.saveUserDataOnSignUp(data); // Save user data to Firestore
-        localStorage.setItem('firebaseToken', await user.getIdToken());
         this.router.navigate(['/']); // Navigate to home or dashboard
       } catch (error) {
-        this.openSnackBar((error as any).customData._tokenResponse.error.message);
+        this.snackBar((error as any).customData._tokenResponse.error.message);
         return;
       }
     }
@@ -110,13 +103,5 @@ export class FirebaseAuthService {
       displayName: user.displayName,
     };
     await setDoc(userRef, userData, { merge: true });
-  }
-
-  private openSnackBar(error: string) {
-    this._snackBar.open(error, undefined, {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-      duration: 3000,
-    });
   }
 }

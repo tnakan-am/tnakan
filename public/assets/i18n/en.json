@@ -1,5 +1,7 @@
 {
   "title": "Home made",
+  "addProduct": "Add Product",
+  "description": "Description",
   "login": {
     "login": "Login",
     "forgot": "Forgot password"
@@ -12,13 +14,24 @@
     "phone": "Phone",
     "surname": "Surname",
     "hvhh": "HVHH",
-    "company": "Company Name"
+    "company": "Company Name",
+    "productName": "Product Name",
+    "productDescription": "Product Description",
+    "unit":  "Unit",
+    "price": "Price",
+    "category": "Category",
+    "subCategory": "Sub Category",
+    "productCategory":  "Product Category",
+    "id": "ID",
+    "uid": "uid"
   },
   "registration": {
     "registration": "Registration"
   },
   "buttons": {
     "submit": "Submit",
+    "save": "Save",
+    "cancel": "Cancel",
     "back": "Back"
   },
   "messages": {

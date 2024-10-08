@@ -76,9 +76,5 @@ export class LoginComponent implements OnInit {
     this.firebaseAuth.login(this.form.getRawValue().email, this.form.getRawValue().password);
   }
 
-  ngOnInit() {
-    if (localStorage.getItem('user')) {
-      console.log(this.firebaseAuth.getFirebaseUser());
-    }
-  }
+  ngOnInit() {}
 }

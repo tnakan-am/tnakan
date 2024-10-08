@@ -1,5 +1,7 @@
 {
   "title": "Hy Home made",
+  "addProduct": "Hy Add Product",
+  "description": "Hy Description",
   "login": {
     "login": "Hy Login",
     "forgot": "Hy Forgot password"
@@ -9,16 +11,27 @@
     "rePassword": "Hy Re Enter your Password",
     "email": "Hy Enter your email",
     "name": "Hy Name",
-    "phone": "Hy Name",
+    "phone": "Hy Phone",
     "surname": "Hy Surname",
     "hvhh": "Hy HVHH",
-    "company": "Hy Company Name"
+    "company": "Hy Company Name",
+    "productName": "Hy Product Name",
+    "productDescription": "Hy Product Description",
+    "unit": "Hy Unit",
+    "price": "Hy Price",
+    "category": "Hy Category",
+    "subCategory": "Hy Sub Category",
+    "productCategory": "Hy Product Category",
+    "id": "Hy ID",
+    "uid": "Hy uid"
   },
   "registration": {
     "registration": "Hy Registration"
   },
   "buttons": {
     "submit": "Hy Submit",
+    "save": "Hy Save",
+    "cancel": "Hy Cancel",
     "back": "Hy Back"
   },
   "messages": {

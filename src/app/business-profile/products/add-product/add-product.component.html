@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>{{ 'addProduct' | translate }}</h2>
+<mat-dialog-content>
+  <p>What's your favorite animal?</p>
+  <form action="" [formGroup]="form">
+    <div class="flex flex-col">
+      <mat-form-field>
+        <mat-label>{{ 'fields.productName' | translate }}</mat-label>
+        <input placeholder="Name" matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'fields.productDescription' | translate }}</mat-label>
+        <textarea placeholder="Description" matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <div class="flex justify-between">
+        <mat-form-field>
+          <mat-label>{{ 'fields.unit' | translate }}</mat-label>
+          <mat-select formControlName="unit">
+            @for (category of units; track category.id) {
+            <mat-option [value]="category.id">{{ category?.value }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'fields.price' | translate }}</mat-label>
+          <input placeholder="1000" matInput formControlName="price" />
+          <span matSuffix>֏</span>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <mat-label>{{ 'fields.category' | translate }}</mat-label>
+        <mat-select formControlName="category" (valueChange)="categoryChanged($event)">
+          @for (category of data!.categories; track category.id) {
+          <mat-option [value]="category.id">{{ category?.data?.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'fields.subCategory' | translate }}</mat-label>
+        <mat-select formControlName="subCategory" (valueChange)="subCategoryChanged($event)">
+          @for (category of subCategories; track category.id) {
+          <mat-option [value]="category.id">{{ category?.data?.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      @if (form.get('subCategory')?.value) {
+      <mat-form-field>
+        <mat-label>{{ 'fields.productCategory' | translate }}</mat-label>
+        <mat-select formControlName="productCategory">
+          @for (category of productCategories; track category.id) {
+          <mat-option [value]="category.id">{{ category?.data?.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      }
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">{{ 'buttons.cancel' | translate }}</button>
+  <button mat-button [disabled]="form.invalid" (click)="submit()">
+    {{ 'buttons.save' | translate }}
+  </button>
+</mat-dialog-actions>

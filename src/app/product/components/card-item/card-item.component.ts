@@ -11,8 +11,9 @@ import {
 } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
-import { ProductItemInterface } from '../../common/interfaces/product-item.interface';
 import { DecimalPipe } from '@angular/common';
+import { Product } from '../../../interfaces/product.interface';
+import { UnitTypeEnum } from '../../common/enums/unit.enum';
 
 @Component({
   selector: 'app-card-item',
@@ -34,10 +35,11 @@ import { DecimalPipe } from '@angular/common';
   styleUrl: './card-item.component.scss',
 })
 export class CardItemComponent {
-  @Input() product!: ProductItemInterface;
-  @Output() addToCard = new EventEmitter<ProductItemInterface>();
+  @Input() product!: Product;
+  @Output() addToCard = new EventEmitter<Product>();
+  units = UnitTypeEnum;
 
-  handleAddToCard(event: ProductItemInterface) {
+  handleAddToCard(event: Product) {
     this.addToCard.emit(event);
   }
 }

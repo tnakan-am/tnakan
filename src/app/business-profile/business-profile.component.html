@@ -1,1 +1,8 @@
-<p>business-profile works!</p>
+<div class="w-100 p-5">
+  @if (user$ | async; as user) {
+
+  <h1>Hello {{ user?.displayName }}</h1>
+
+  <app-products [user]="user"></app-products>
+  }
+</div>
