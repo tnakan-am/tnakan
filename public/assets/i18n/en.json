@@ -23,7 +23,8 @@
     "subCategory": "Sub Category",
     "productCategory":  "Product Category",
     "id": "ID",
-    "uid": "uid"
+    "uid": "uid",
+    "deliveryOption": "Delivery Option"
   },
   "registration": {
     "registration": "Registration"

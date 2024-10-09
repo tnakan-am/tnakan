@@ -23,6 +23,8 @@ import { MatIcon } from '@angular/material/icon';
 import { UnitTypeEnum } from '../../../product/common/enums/unit.enum';
 import { Product } from '../../../interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
+import { SelectItem } from '../../../interfaces/select-item.interface';
+import { DeliveryOption } from '../../../constants/delivery-option.enum';
 
 export interface DialogData {
   name: string;
@@ -54,7 +56,8 @@ export interface DialogData {
 export class AddProductComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<AddProductComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  units!: Array<any>;
+  units!: Array<SelectItem>;
+  options!: Array<SelectItem>;
   form!: FormGroup;
   subCategories!: Array<Sub> | undefined;
   productCategories!: Array<ProductCategory> | undefined;
@@ -68,11 +71,16 @@ export class AddProductComponent implements OnInit {
       productCategory: [],
       avgReview: [0],
       unit: ['quantity'],
+      deliveryOption: ['nearest'],
       price: ['', Validators.required],
     });
     this.units = [];
+    this.options = [];
     Object.keys(UnitTypeEnum).forEach((key) => {
-      this.units.push({ id: key, value: UnitTypeEnum[key as keyof typeof UnitTypeEnum] });
+      this.units.push({ id: key, name: UnitTypeEnum[key as keyof typeof UnitTypeEnum] });
+    });
+    Object.keys(DeliveryOption).forEach((key) => {
+      this.options.push({ id: key, name: DeliveryOption[key as keyof typeof DeliveryOption] });
     });
   }
 

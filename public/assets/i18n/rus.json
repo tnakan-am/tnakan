@@ -23,7 +23,8 @@
     "subCategory": "Rus Sub Category",
     "productCategory": "Rus Product Category",
     "id": "Rus ID",
-    "uid": "Rus uid"
+    "uid": "Rus uid",
+    "deliveryOption": "Rus Delivery Option"
   },
   "registration": {
     "registration": "Rus Registration"
