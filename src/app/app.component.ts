@@ -40,12 +40,17 @@ export class AppComponent {
     private fAuth: FirebaseAuthService,
     private usersService: UsersService
   ) {
-    translateService.setDefaultLang('en');
+    if (localStorage.getItem('lang')) {
+      translateService.setDefaultLang(localStorage.getItem('lang') as string);
+    } else {
+      translateService.setDefaultLang('hy');
+    }
     this.user$ = this.usersService.getUserData();
   }
 
   changeLanguage(lang: string) {
     this.translateService.setDefaultLang(lang);
+    localStorage.setItem('lang', lang);
   }
 
   logout() {
