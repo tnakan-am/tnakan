@@ -4,6 +4,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { permissionsGuard } from './services/permissions.guard';
+import { ProductsComponent } from './business-profile/products/products.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,11 @@ export const routes: Routes = [
         (m) => m.BusinessProfileComponent
       ),
     canActivate: [AuthGuard, permissionsGuard('business')],
+    children: [
+      {
+        path: '',
+        component: ProductsComponent,
+      },
+    ],
   },
 ];

@@ -1,5 +1,7 @@
 {
   "title": "Rus Home made",
+  "addProduct": "Rus Add Product",
+  "description": "Rus Description",
   "login": {
     "login": "Rus Login",
     "forgot": "Rus Forgot password"
@@ -12,13 +14,24 @@
     "phone": "Rus Phone",
     "surname": "Rus Surname",
     "hvhh": "Rus HVHH",
-    "company": "Rus Company Name"
+    "company": "Rus Company Name",
+    "productName": "Rus Product Name",
+    "productDescription": "Rus Product Description",
+    "unit": "Rus Unit",
+    "price": "Rus Price",
+    "category": "Rus Category",
+    "subCategory": "Rus Sub Category",
+    "productCategory": "Rus Product Category",
+    "id": "Rus ID",
+    "uid": "Rus uid"
   },
   "registration": {
     "registration": "Rus Registration"
   },
   "buttons": {
     "submit": "Rus Submit",
+    "save": "Rus Save",
+    "cancel": "Rus Cancel",
     "back": "Rus Back"
   },
   "messages": {
