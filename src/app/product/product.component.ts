@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { CardItemComponent } from './components/card-item/card-item.component';
 import { ProductsService } from '../services/products.service';
 import { Product } from '../interfaces/product.interface';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CardItemComponent],
+  imports: [CardItemComponent, AsyncPipe],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })
 export class ProductComponent implements OnInit {
-  productList!: Product[];
+  products$!: Observable<Product[]>;
 
   constructor(private productsService: ProductsService) {}
 
@@ -20,11 +22,6 @@ export class ProductComponent implements OnInit {
   }
 
   private getProductData(): void {
-    this.productsService.getAllProducts().subscribe({
-      next: (data) => {
-        this.productList = data;
-      },
-      error: (error) => {},
-    });
+    this.products$ = this.productsService.getAllProducts();
   }
 }
