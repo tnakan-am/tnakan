@@ -97,13 +97,13 @@ export class ProductsComponent implements OnInit {
       });
   }
 
-  delete(element: any) {
-    this.productsService.deleteProduct(element.id).subscribe({
+  delete(element: Product) {
+    this.productsService.deleteProduct(element.id!).subscribe({
       next: (value) => (this.products$ = this.productsService.getUserProducts()),
     });
   }
 
-  edite(element: any) {
+  edite(element: Product) {
     this.openDialog(element);
   }
 }
