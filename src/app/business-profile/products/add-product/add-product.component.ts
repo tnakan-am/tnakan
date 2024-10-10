@@ -23,6 +23,7 @@ import { MatIcon } from '@angular/material/icon';
 import { UnitTypeEnum } from '../../../product/common/enums/unit.enum';
 import { Product } from '../../../interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
+import { ProductsService } from '../../../services/products.service';
 
 export interface DialogData {
   name: string;
@@ -54,6 +55,7 @@ export interface DialogData {
 export class AddProductComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<AddProductComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
+  readonly productsService = inject(ProductsService);
   units!: Array<any>;
   form!: FormGroup;
   subCategories!: Array<Sub> | undefined;
@@ -66,6 +68,7 @@ export class AddProductComponent implements OnInit {
       category: ['', Validators.required],
       subCategory: ['', Validators.required],
       productCategory: [],
+      image: ['', Validators.required],
       avgReview: [0],
       unit: ['quantity'],
       price: ['', Validators.required],
@@ -97,6 +100,7 @@ export class AddProductComponent implements OnInit {
       this.form.patchValue(this.data.form, { onlySelf: true, emitEvent: true });
     }
   }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -116,5 +120,15 @@ export class AddProductComponent implements OnInit {
       (value) => value.id === $event
     )?.productCategories;
     this.form.get('productCategory')?.setValue(null);
+  }
+
+  uploadFile(event: any) {
+    const file = event?.target?.files?.[0];
+    if (!file) return;
+    this.productsService.uploadFile(file).subscribe({
+      next: (value) => {
+        this.form.patchValue({ image: value });
+      },
+    });
   }
 }
