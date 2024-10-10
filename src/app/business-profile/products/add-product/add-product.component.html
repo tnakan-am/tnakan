@@ -31,6 +31,13 @@
       </div>
 
       <mat-form-field>
+        <mat-label>{{ 'fields.image' | translate }}</mat-label>
+        <input readonly (click)="fileInput.click()" matInput formControlName="image" />
+        <span matSuffix><mat-icon>folder_open</mat-icon></span>
+      </mat-form-field>
+      <input hidden (change)="uploadFile($event)" #fileInput type="file" id="file" />
+
+      <mat-form-field>
         <mat-label>{{ 'fields.deliveryOption' | translate }}</mat-label>
         <mat-select formControlName="deliveryOption">
           @for (option of options; track option.id) {
@@ -72,7 +79,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">{{ 'buttons.cancel' | translate }}</button>
-  <button mat-button [disabled]="form.invalid || form.dirty" (click)="submit()">
+  <button mat-button [disabled]="form.invalid || !form.dirty" (click)="submit()">
     {{ 'buttons.save' | translate }}
   </button>
 </mat-dialog-actions>

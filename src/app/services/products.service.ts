@@ -15,12 +15,14 @@ import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
+import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
   firestore = inject(Firestore);
+  storage = inject(Storage);
   firebaseAuthService = inject(FirebaseAuthService);
   snackBar = openSnackBar();
 
@@ -76,5 +78,13 @@ export class ProductsService {
         return data;
       })
     );
+  }
+
+  uploadFile(file: any): Observable<string> {
+    const filePath = `uploads/${file.name}`;
+    const fileRef = ref(this.storage, filePath);
+    const task = uploadBytes(fileRef, file);
+
+    return fromPromise(task.then(() => getDownloadURL(fileRef)));
   }
 }

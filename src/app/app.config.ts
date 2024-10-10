@@ -13,6 +13,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { getStorage, provideStorage } from '@angular/fire/storage';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -49,7 +50,7 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
-    // provideStorage(() => getStorage()),
+    provideStorage(() => getStorage()),
     // provideFunctions(() => getFunctions()),
     // provideMessaging(() => getMessaging()),
     // providePerformance(() => getPerformance()),
