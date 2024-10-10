@@ -64,12 +64,13 @@ export class ProductsComponent implements OnInit {
   }
 
   openDialog(form?: Product): void {
+    const userId = this.user.uid;
     (this.categories?.length ? of(this.categories) : this.categoriesService.getCategoriesTree())
       .pipe(
         switchMap((value) => {
           this.categories = value || [];
           const dialogRef = this.dialog.open(AddProductComponent, {
-            data: { name: 'product', categories: value, form },
+            data: { name: 'product', userId, categories: value, form },
             width: '500px',
           });
           return dialogRef.afterClosed() as Observable<Product>;

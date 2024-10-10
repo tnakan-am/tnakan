@@ -80,8 +80,8 @@ export class ProductsService {
     );
   }
 
-  uploadFile(file: any): Observable<string> {
-    const filePath = `uploads/${file.name}`;
+  uploadFile(file: any, userId: string): Observable<string> {
+    const filePath = `uploads/${userId}/${file.name}`;
     const fileRef = ref(this.storage, filePath);
     const task = uploadBytes(fileRef, file);
 
