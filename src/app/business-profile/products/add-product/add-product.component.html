@@ -18,7 +18,7 @@
           <mat-label>{{ 'fields.unit' | translate }}</mat-label>
           <mat-select formControlName="unit">
             @for (category of units; track category.id) {
-            <mat-option [value]="category.id">{{ category?.value }}</mat-option>
+            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -36,6 +36,15 @@
         <span matSuffix><mat-icon>folder_open</mat-icon></span>
       </mat-form-field>
       <input hidden (change)="uploadFile($event)" #fileInput type="file" id="file" />
+
+      <mat-form-field>
+        <mat-label>{{ 'fields.deliveryOption' | translate }}</mat-label>
+        <mat-select formControlName="deliveryOption">
+          @for (option of options; track option.id) {
+          <mat-option [value]="option.id">{{ option?.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label>{{ 'fields.category' | translate }}</mat-label>
@@ -70,7 +79,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">{{ 'buttons.cancel' | translate }}</button>
-  <button mat-button [disabled]="form.invalid" (click)="submit()">
+  <button mat-button [disabled]="form.invalid || !form.dirty" (click)="submit()">
     {{ 'buttons.save' | translate }}
   </button>
 </mat-dialog-actions>

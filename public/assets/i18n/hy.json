@@ -24,7 +24,8 @@
     "subCategory": "Hy Sub Category",
     "productCategory": "Hy Product Category",
     "id": "Hy ID",
-    "uid": "Hy uid"
+    "uid": "Hy uid",
+    "deliveryOption": "Hy Delivery Option"
   },
   "registration": {
     "registration": "Hy Registration"

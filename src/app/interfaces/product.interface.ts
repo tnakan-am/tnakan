@@ -1,3 +1,5 @@
+import { DeliveryOption } from '../constants/delivery-option.enum';
+
 export interface Product {
   userId: string;
   userDisplayName: string;
@@ -12,4 +14,5 @@ export interface Product {
   subCategory?: string;
   id?: string;
   productCategory?: string;
+  deliveryOption?: DeliveryOption;
 }
