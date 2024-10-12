@@ -20,12 +20,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { CategoryTree, ProductCategory, Sub } from '../../../interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
-import { UnitTypeEnum } from '../../../product/common/enums/unit.enum';
+import { UnitTypeEnum } from '../../../home/product/common/enums/unit.enum';
 import { Product } from '../../../interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
-import { ProductsService } from '../../../services/products.service';
 import { SelectItem } from '../../../interfaces/select-item.interface';
 import { DeliveryOption } from '../../../constants/delivery-option.enum';
+import { StorageService } from '../../../services/storage.service';
+import { formErrorMessage } from '../../../helpers/form-error-message';
 
 export interface DialogData {
   name: string;
@@ -58,7 +59,7 @@ export interface DialogData {
 export class AddProductComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<AddProductComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
-  readonly productsService = inject(ProductsService);
+  readonly storageService = inject(StorageService);
   units!: Array<SelectItem>;
   options!: Array<SelectItem>;
   form!: FormGroup;
@@ -74,17 +75,16 @@ export class AddProductComponent implements OnInit {
       productCategory: [],
       image: [],
       avgReview: [0],
+      minQuantity: [1, [Validators.required, Validators.pattern(/^\d+$/)]],
       unit: ['quantity'],
       deliveryOption: ['nearest'],
       price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
-    this.units = [];
-    this.options = [];
-    Object.keys(UnitTypeEnum).forEach((key) => {
-      this.units.push({ id: key, name: UnitTypeEnum[key as keyof typeof UnitTypeEnum] });
+    this.units = Object.keys(UnitTypeEnum).map((key) => {
+      return { id: key, name: UnitTypeEnum[key as keyof typeof UnitTypeEnum] };
     });
-    Object.keys(DeliveryOption).forEach((key) => {
-      this.options.push({ id: key, name: DeliveryOption[key as keyof typeof DeliveryOption] });
+    this.options = Object.keys(DeliveryOption).map((key) => {
+      return { id: key, name: DeliveryOption[key as keyof typeof DeliveryOption] };
     });
   }
 
@@ -122,6 +122,7 @@ export class AddProductComponent implements OnInit {
     this.subCategories = this.data.categories.find((value) => value.id === $event)?.sub;
     this.form.get('subCategory')?.setValue(null);
     this.form.get('productCategory')?.setValue(null);
+    this.productCategories = undefined;
   }
 
   subCategoryChanged($event: string) {
@@ -133,11 +134,14 @@ export class AddProductComponent implements OnInit {
 
   uploadFile(event: any) {
     const file = event?.target?.files?.[0];
-    if (!file) return;
-    this.productsService.uploadFile(file, this.data.userId).subscribe({
+    if (!file || !this.data.userId) return;
+
+    this.storageService.uploadFile(file, this.data.userId).subscribe({
       next: (value) => {
         this.form.patchValue({ image: value });
       },
     });
   }
+
+  protected readonly formErrorMessage = formErrorMessage;
 }

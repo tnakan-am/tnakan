@@ -1,25 +1,37 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ProductsComponent } from './products/products.component';
-import { UsersService } from '../services/users.service';
-import { Observable } from 'rxjs';
-import { IUser } from '../interfaces/user.interface';
-import { AsyncPipe } from '@angular/common';
-import { FirebaseAuthService } from '../services/firebase-auth.service';
-import { User } from '@angular/fire/auth';
+import { Component, OnInit } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatTabLink, MatTabNav, MatTabNavPanel } from '@angular/material/tabs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-business-profile',
   standalone: true,
-  imports: [ProductsComponent, AsyncPipe],
+  imports: [
+    RouterOutlet,
+    MatTabLink,
+    MatTabNavPanel,
+    MatTabNav,
+    RouterLinkActive,
+    RouterLink,
+    TranslateModule,
+  ],
   templateUrl: './business-profile.component.html',
   styleUrl: './business-profile.component.scss',
 })
 export class BusinessProfileComponent implements OnInit {
-  user$!: Observable<User>;
-  private firebaseAuthService = inject(FirebaseAuthService);
-  constructor(private usersService: UsersService) {
-    this.user$ = this.firebaseAuthService.user$;
-  }
+  activeLink!: string;
+  links = [
+    {
+      path: 'products',
+    },
+    {
+      path: 'orders',
+    },
+    {
+      path: 'ad',
+    },
+  ];
+  constructor() {}
 
   ngOnInit() {}
 }

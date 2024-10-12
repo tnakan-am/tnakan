@@ -2,6 +2,9 @@
   "title": "Hy Home made",
   "addProduct": "Hy Add Product",
   "description": "Hy Description",
+  "orders": "Hy Orders",
+  "products": "Hy Products",
+  "ad": "Hy Ads",
   "login": {
     "login": "Hy Login",
     "forgot": "Hy Forgot password"
@@ -52,4 +55,4 @@
     "russian": "Ռուսերեն",
     "armenian": "Հայերեն"
   }
-}
+},

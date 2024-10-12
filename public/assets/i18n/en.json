@@ -2,6 +2,9 @@
   "title": "Home made",
   "addProduct": "Add Product",
   "description": "Description",
+  "orders": "Orders",
+  "products": "Products",
+  "ad": "Ads",
   "login": {
     "login": "Login",
     "forgot": "Forgot password"
@@ -10,6 +13,7 @@
     "password": "Enter your Password",
     "rePassword": "Re Enter your Password",
     "email": "Enter your email",
+    "minQuantity": "Minimum quantity",
     "name": "Name",
     "image": "Image",
     "phone": "Phone",
@@ -20,6 +24,7 @@
     "productDescription": "Product Description",
     "unit":  "Unit",
     "price": "Price",
+    "unitPrice": "Unit Price",
     "category": "Category",
     "subCategory": "Sub Category",
     "productCategory":  "Product Category",

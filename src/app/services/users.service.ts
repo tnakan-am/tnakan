@@ -2,8 +2,8 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
-import { User } from '@angular/fire/auth';
+import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { updateProfile, User } from '@angular/fire/auth';
 import { FirebaseAuthService } from './firebase-auth.service';
 
 @Injectable({
@@ -26,6 +26,24 @@ export class UsersService {
           : of(undefined)
       ),
       shareReplay(1)
+    );
+  }
+
+  update(user: User, data: Partial<IUser>) {
+    let userData: any = {};
+    if (data.image) {
+      userData.photoURL = data.image;
+    }
+    if (data.displayName) {
+      userData.displayName = data.displayName;
+    }
+    return fromPromise(
+      (userData.photoURL || user.displayName
+        ? updateProfile(user, userData)
+        : Promise.resolve()
+      ).then((value) => {
+        return setDoc(doc(collection(this.firestore, 'users'), user.uid), data, { merge: true });
+      })
     );
   }
 }

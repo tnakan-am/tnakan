@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CardItemComponent } from './components/card-item/card-item.component';
-import { ProductsService } from '../services/products.service';
-import { Product } from '../interfaces/product.interface';
+import { ProductsService } from '../../services/products.service';
+import { Product } from '../../interfaces/product.interface';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 

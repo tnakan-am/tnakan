@@ -10,7 +10,7 @@ export const openSnackBar = () => {
   const horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   const verticalPosition: MatSnackBarVerticalPosition = 'top';
   return (message: string) => {
-    _snackBar.open(message, undefined, {
+    return _snackBar.open(message, undefined, {
       horizontalPosition,
       verticalPosition,
       duration: 3000,
