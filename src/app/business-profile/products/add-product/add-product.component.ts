@@ -29,6 +29,7 @@ import { DeliveryOption } from '../../../constants/delivery-option.enum';
 
 export interface DialogData {
   name: string;
+  userId: string;
   categories: Array<CategoryTree>;
   form?: Product;
 }
@@ -71,11 +72,11 @@ export class AddProductComponent implements OnInit {
       category: ['', Validators.required],
       subCategory: ['', Validators.required],
       productCategory: [],
-      image: ['', Validators.required],
+      image: [],
       avgReview: [0],
       unit: ['quantity'],
       deliveryOption: ['nearest'],
-      price: ['', Validators.required],
+      price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
     this.units = [];
     this.options = [];
@@ -133,7 +134,7 @@ export class AddProductComponent implements OnInit {
   uploadFile(event: any) {
     const file = event?.target?.files?.[0];
     if (!file) return;
-    this.productsService.uploadFile(file).subscribe({
+    this.productsService.uploadFile(file, this.data.userId).subscribe({
       next: (value) => {
         this.form.patchValue({ image: value });
       },
