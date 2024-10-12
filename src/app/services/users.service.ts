@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { filter, map, Observable, shareReplay, switchMap } from 'rxjs';
+import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { collection, doc, Firestore, getDoc } from '@angular/fire/firestore';
@@ -18,11 +18,12 @@ export class UsersService {
   getUserData(): Observable<IUser | undefined> {
     const user = this.firebaseAuthService.user$;
     return user.pipe(
-      filter((user) => !!user?.uid),
       switchMap((user) =>
-        fromPromise(getDoc(doc(collection(this.firestore, 'users'), (user as User)?.uid))).pipe(
-          map((value) => (value.exists() ? value.data() : null) as IUser)
-        )
+        !!user?.uid
+          ? fromPromise(getDoc(doc(collection(this.firestore, 'users'), (user as User)?.uid))).pipe(
+              map((value) => (value.exists() ? value.data() : null) as IUser)
+            )
+          : of(undefined)
       ),
       shareReplay(1)
     );
