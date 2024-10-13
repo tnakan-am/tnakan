@@ -6,6 +6,7 @@ export interface Product {
   userPhoto: string | null;
   name: string;
   unit: string;
+  minQuantity: number;
   price: number;
   image: string;
   description: string;

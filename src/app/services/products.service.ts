@@ -8,6 +8,7 @@ import {
   query,
   setDoc,
   where,
+  writeBatch,
 } from '@angular/fire/firestore';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { catchError, filter, Observable, switchMap, tap, throwError } from 'rxjs';
@@ -15,14 +16,12 @@ import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
-import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
   firestore = inject(Firestore);
-  storage = inject(Storage);
   firebaseAuthService = inject(FirebaseAuthService);
   snackBar = openSnackBar();
 
@@ -70,6 +69,24 @@ export class ProductsService {
     return fromPromise(setDoc(productRef, product, { merge: true }));
   }
 
+  batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<any> {
+    const batch = writeBatch(this.firestore);
+    const q = query(collection(this.firestore, 'products'), where('userId', '==', userId));
+    return fromPromise(
+      getDocs(q)
+        .then((values) => {
+          values.forEach((value) => {
+            const ref = doc(this.firestore, 'products', value.id);
+            batch.set(ref, { ...value.data(), ...product });
+          });
+          return batch.commit();
+        })
+        .catch((err) => {
+          this.snackBar(err);
+        })
+    );
+  }
+
   getAllProducts(): Observable<Product[]> {
     return fromPromise(
       getDocs(query(collection(this.firestore, 'products'))).then((values) => {
@@ -78,13 +95,5 @@ export class ProductsService {
         return data;
       })
     );
-  }
-
-  uploadFile(file: any, userId: string): Observable<string> {
-    const filePath = `uploads/${userId}/${file.name}`;
-    const fileRef = ref(this.storage, filePath);
-    const task = uploadBytes(fileRef, file);
-
-    return fromPromise(task.then(() => getDownloadURL(fileRef)));
   }
 }

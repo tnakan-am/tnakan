@@ -1,0 +1,31 @@
+<div class="container mx-auto">
+  @if (user$ | async; as user) {
+  <div class="w-100 xs:flex-col md:flex">
+    <div>
+      @if(user?.photoURL) {
+      <img [src]="user?.photoURL" class="flex-1 h-[220px]" />
+      <input type="file" (change)="uploadFile($event)" />
+      } @else {
+      <mat-icon class="h-[150px] w-100 size-3">person</mat-icon>
+      <input type="file" (change)="uploadFile($event)" />
+      }
+    </div>
+
+    @if (userData$ | async; as userData) {
+    <div class="flex-1 flex flex-col">
+      <span class="text-xl flex items-center"
+        >{{ user.email }}
+        @if(user.emailVerified) {
+        <mat-icon class="text-green-400 text-lg flex items-center justify-center"
+          >verified</mat-icon
+        >
+        } @else {
+        <mat-icon class="text-red-500 flex items-center justify-center">block</mat-icon>
+        }
+      </span>
+      <span class="text-xl">{{ userData.displayName }} {{ userData.surname }}</span>
+    </div>
+    }
+  </div>
+  }
+</div>

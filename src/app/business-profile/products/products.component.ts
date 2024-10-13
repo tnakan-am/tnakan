@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from './add-product/add-product.component';
@@ -23,6 +23,7 @@ import {
 } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { FirebaseAuthService } from '../../services/firebase-auth.service';
 
 @Component({
   selector: 'app-products',
@@ -49,28 +50,29 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ProductsComponent implements OnInit {
   readonly dialog = inject(MatDialog);
-  @Input() user!: User;
-  products$!: Observable<Product[]>;
+  products$: Observable<Product[]>;
   displayedColumns: string[] = ['ID', 'name', 'description', 'unit', 'price', 'star'];
   private categories!: CategoryTree[];
+  private firebaseAuthService = inject(FirebaseAuthService);
+  private user!: User;
 
   constructor(
     private categoriesService: CategoriesService,
     private productsService: ProductsService
-  ) {}
-
-  ngOnInit() {
+  ) {
+    this.firebaseAuthService.user$.pipe().subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getUserProducts();
   }
 
+  ngOnInit() {}
+
   openDialog(form?: Product): void {
-    const userId = this.user.uid;
     (this.categories?.length ? of(this.categories) : this.categoriesService.getCategoriesTree())
       .pipe(
         switchMap((value) => {
           this.categories = value || [];
           const dialogRef = this.dialog.open(AddProductComponent, {
-            data: { name: 'product', userId, categories: value, form },
+            data: { name: 'product', categories: value, form, userId: this.user.uid },
             width: '500px',
           });
           return dialogRef.afterClosed() as Observable<Product>;

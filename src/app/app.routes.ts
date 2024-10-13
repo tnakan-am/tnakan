@@ -5,6 +5,8 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { permissionsGuard } from './services/permissions.guard';
 import { ProductsComponent } from './business-profile/products/products.component';
+import { AdComponent } from './business-profile/ad/ad.component';
+import { OrdersComponent } from './business-profile/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -33,9 +35,26 @@ export const routes: Routes = [
     canActivate: [AuthGuard, permissionsGuard('business')],
     children: [
       {
-        path: '',
+        path: 'products',
         component: ProductsComponent,
       },
+      {
+        path: 'orders',
+        component: OrdersComponent,
+      },
+      {
+        path: 'ad',
+        component: AdComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'products',
+      },
     ],
+  },
+  {
+    path: 'settings',
+    loadComponent: () => import('./settings/settings.component').then((m) => m.SettingsComponent),
+    canActivate: [AuthGuard],
   },
 ];

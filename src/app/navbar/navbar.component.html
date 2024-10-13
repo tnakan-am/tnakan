@@ -17,6 +17,7 @@
   <mat-menu #menu="matMenu">
     @if (user$ | async; as userdata) {
     <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>Profile</a>
+    <a routerLink="/settings" mat-menu-item>Settings</a>
     <a (click)="logout()" mat-menu-item>Logout</a>
     } @else {
     <a routerLink="login" mat-menu-item>Login</a>

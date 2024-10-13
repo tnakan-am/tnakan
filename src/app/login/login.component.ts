@@ -6,7 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
 
 @Component({
@@ -37,7 +37,11 @@ export class LoginComponent implements OnInit {
     return this.form.get('password');
   }
 
-  constructor(private fb: FormBuilder, private firebaseAuth: FirebaseAuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private firebaseAuth: FirebaseAuthService,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -76,5 +80,9 @@ export class LoginComponent implements OnInit {
     this.firebaseAuth.login(this.form.getRawValue().email, this.form.getRawValue().password);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.firebaseAuth.auth.onAuthStateChanged((value) => {
+      value && this.router.navigate(['/']);
+    });
+  }
 }

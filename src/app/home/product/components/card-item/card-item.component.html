@@ -27,8 +27,12 @@
     </div>
 
     <div class="card-footer">
-      <span class="price">{{ product.price }}</span>
-      <span class="price">{{ $any(units)[product.unit] }}</span>
+      <span class="price" matTooltip="price for unit">{{ product.price }}</span>
+      <span
+        class="price"
+        [matTooltip]="'Minimum quantity ' + product.minQuantity + ' ' + $any(units)[product.unit]"
+        >{{ $any(units)[product.unit] }}</span
+      >
       <button (click)="handleAddToCard(product)" mat-button color="primary">Add to Cart</button>
     </div>
   </mat-card-content>

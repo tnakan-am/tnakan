@@ -2,6 +2,9 @@
   "title": "Rus Home made",
   "addProduct": "Rus Add Product",
   "description": "Rus Description",
+  "orders": "Rus Orders",
+  "products": "Rus Products",
+  "ad": "Rus Ads",
   "login": {
     "login": "Rus Login",
     "forgot": "Rus Forgot password"
@@ -52,4 +55,4 @@
     "russian": "Русский",
     "armenian": "Армянский"
   }
-}
+},
