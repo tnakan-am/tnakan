@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
 import { UsersService } from '../services/users.service';
+import { MatBadge } from '@angular/material/badge';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,18 +26,22 @@ import { UsersService } from '../services/users.service';
     RouterLink,
     TranslateModule,
     MatMenuTrigger,
+    MatBadge,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
   user$: Observable<IUser | undefined>;
+  basket;
 
   constructor(
     private translateService: TranslateService,
     private fAuth: FirebaseAuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private basketService: BasketService
   ) {
+    this.basket = basketService.basket;
     if (localStorage.getItem('lang')) {
       translateService.setDefaultLang(localStorage.getItem('lang') as string);
     } else {

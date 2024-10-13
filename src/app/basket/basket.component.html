@@ -1,0 +1,32 @@
+@for (product of orders(); track product.id) {
+<mat-card appearance="outlined" class="m-2">
+  <mat-card-content>
+    <div class="w-100 flex justify-between gap-3 items-center">
+      <img [src]="product.image || 'assets/homemade.webp'" class="h-[60px] w-[60px]" />
+      <div>{{ product.name }}</div>
+      <span>{{ product.price }}/{{ product.unit }}</span>
+      <div>
+        <mat-form-field>
+          <mat-label>{{ product.unit }}</mat-label>
+          <input
+            (ngModelChange)="calculateTotal()"
+            [(ngModel)]="product.quantity"
+            matInput
+            min="{{ product?.minQuantity || 1 }}"
+            type="number"
+            value="{{ product.minQuantity || 1 }}"
+          />
+        </mat-form-field>
+      </div>
+
+      <div>{{ product.price * product.quantity }}</div>
+
+      <button mat-icon-button (click)="removeItem(product)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+}
+
+<div class="flex justify-end mr-2">Total: {{ total }}</div>
