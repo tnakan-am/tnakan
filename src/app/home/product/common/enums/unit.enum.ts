@@ -1,6 +1,6 @@
 export enum UnitTypeEnum {
-  kg = 'kg',
-  gram = 'grams',
-  liter = 'liter',
+  kg = '1 kg',
+  gram = '100 grams',
+  liter = '1 liter',
   quantity = 'qnt',
 }

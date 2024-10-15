@@ -1,0 +1,2810 @@
+[
+  {
+    "city": "Yerevan",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Gyumri",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Vanadzor",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Ejmiatsin",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Hrazdan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Abovyan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Kapan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Armavir",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Charentsavan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Stepanavan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Sevan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Ashtarak",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Masis",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Artashat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Ararat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Gavarr",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Goris",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Ijevan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Artik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Artik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Dilijan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Spitak",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Sisian",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Vedi",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Alaverdi",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Vardenis",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Martuni",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Yeghvard",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Vardenik",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Metsamor",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Berd",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Byureghavan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Nor Hachn",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Tashir",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Nerkin Getashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Ayntap",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Sarukhan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Yeghegnadzor",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Nor Kharberd",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Kajaran",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Jrvezh",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Noratus",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Aparan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Zolakar",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Arrinj",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Chambarak",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Parakar",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Zovuni",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Yeranos",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Lichk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Maralik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Nor Geghi",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Noyemberyan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Sardarapat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Proshyan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Tsovinar",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Aragatsavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Verin Getashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Mrgashat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Talin",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Lchashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Nalbandyan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Azatan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Vosketap",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Dzoragyugh",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Meghri",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Metsavan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Mkhchyan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Karakert",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Malishka",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Akunk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Koghb",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Byurakan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Verin Artashat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Gugark",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Vaghashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Achajur",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Arshaluys",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Astghadzor",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Voskevaz",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Jermuk",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Odzun",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Myasnikyan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Dalarik",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Tsovagyugh",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Geghashen",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Aygavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Avshar",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Gandzak",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Agarak",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Haghartsin",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Karbi",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Gay",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Voskehat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Margahovit",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Balahovit",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Gandzakar",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Aramus",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Arteni",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Pemzashen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Hovtashat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Panik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Mets Masrik",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Taperakan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Bambakashat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Aragats",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Jrashen",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Aygehovit",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Pokr Vedi",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Kanakerravan",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Pokr Mantash",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Norashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Aygezard",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Armavir",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Berdavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Jrarrat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Sarrnaghbyur",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Janfida",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Aragats",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Lerrnanist",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Marmarashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Vardadzor",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Artsvaberd",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Aghavnatun",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Baghramyan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Artsvanist",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Ddmashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Kaghtsrashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Dvin",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Geghanist",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Vostan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Norakert",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Darakert",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Tsovasar",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Lusarrat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Tsakkar",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Shinuhayr",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Musalerr",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Haytagh",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Dalar",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Urtsadzor",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Aknalich",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Geghakert",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Shnogh",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Mets Mantash",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Bjni",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Arevashogh",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Azatamut",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Khoronk",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Arratashen",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Vzhan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Argel",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Sasunik",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Arevshat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Tegh",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Mastara",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Arevik",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Ayrum",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Aygestan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Arzakan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Armash",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Tairov",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Vanashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Goravan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Karchaghbyur",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hatsik",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Zartonk",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Tsovak",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Ohanavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Meghradzor",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Argavand",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Nor Kyank",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Arzni",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Verishen",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Aralez",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Solak",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Lukashin",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Yeghegnut",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Aygeshat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Kaghsi",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Sevsar",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Mayakovski",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Norabats",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Kuchak",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Getashen",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Dsegh",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Sarchapet",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Gladzor",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Dzoraghbyur",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Getahovit",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Hayanist",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Kurtan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Lanjaghbyur",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Akhtala",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Mrgavet",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Kamaris",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Anushavan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Khndzoresk",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Noramarg",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Akori",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Pshatavan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Aygedzor",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Marmashen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Horrom",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Ghukasavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Koti",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Kasakh",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Getap",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Dashtavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Parpi",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Brrnakot",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Argavand",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Shahumyan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Goght",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Tsovazard",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Varser",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Taronik",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Aghavnadzor",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Sayat-Nova",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Getazat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Akunk",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Gyulagarak",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Burastan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Voskehask",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Apaga",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Griboyedov",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Sisavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Mets Parni",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Hnaberd",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Yeraskhahun",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Verin Dvin",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Shirakamut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Arevshat",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Aygeshat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Ptghunk",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Arrapi",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Zorak",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Areni",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Khashtarrak",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Mosesgegh",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Masis",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Norapat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Shatin",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Tandzut",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Nshavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Geghamavan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Artimet",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Nor Kyank",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Lerrnagog",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Zovaber",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Mayisyan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Norashen",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Darpas",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Spandaryan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Gegharkunik",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Araks",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Shahumyan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Shenavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Noyakert",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Verin Karmiraghbyur",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Nor Armavir",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Nor Yerznka",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Merdzavan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Ushi",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Baghramyan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Aghdzk",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Tsaghkahovit",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Jrashen",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Mrgavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Jrarbi",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Tumanyan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Ptghni",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Angeghakot",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Khanjyan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Getapnya",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Alashkert",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Aknashen",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Berkanush",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Arevik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Agarak",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Chochkan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Kotayk",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Buzhakan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Katnajur",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Harrich",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Amasia",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Arevashat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Haykavan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Gargarr",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Lenughi",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Parravakar",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Vahramaberd",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Tavush",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Lusakunk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Shatjrek",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Meghrashen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Aygek",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Shenavan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Yeghegnavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Nerkin Bazmaberd",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Rranchpar",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Lerrnakert",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Abovyan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Rrind",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Basen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Dimitrov",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Lanjazat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Zarritap",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Karahunj",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Araks",
+    "admin_name": "Yerevan"
+  },
+  {
+    "city": "Lerrnavan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Arazap",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Saramej",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Teghut",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Kamo",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Doghs",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Zarr",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Bardzrashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Nizami",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Fioletovo",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Saratak",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Yerazgavors",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Dzithankov",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Lerrnhovit",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Agarakadzor",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Aygepat",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Tsaghkalanj",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Katnaghbyur",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Nor Kesaria",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Margara",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Voskevan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Vardablur",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Akhurik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Zoravan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Aghavnadzor",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Geghanist",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Sarigyugh",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Nor Artagers",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Artashar",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Darbnik",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Sarahart",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Kaputan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Yelpin",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Sis",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Norashen",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Tsaghkadzor",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Shaki",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Tsaghkaber",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Byuravan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Mrgashen",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Saralanj",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Metsamor",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Haghtanak",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Jrarrat",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Agarak",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Shirak",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Arpi",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Tsaghkunk",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Geghamasar",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Vahan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Archis",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Bazum",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Haykashen",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Gosh",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Vernashen",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Madina",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Haykavan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Vanand",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Mrganush",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Nor Kyurin",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Korrnidzor",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Jrahovit",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Vahagni",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Navur",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Gogaran",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Khachaghbyur",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Tsiatsan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Gharibjanyan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Norashen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Hovtamej",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Zangakatun",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Nahapetavan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Hartagyugh",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Hovtashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Ashnak",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Kanachut",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Deghdzut",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Arevabuyr",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Urrut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Aragatsotn",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Norakert",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Aruch",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Lusagyugh",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Narek",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Melikgyugh",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Khnatsakh",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Aragyugh",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Keti",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Arjut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Azatavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Artabuynk",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Lchap",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Kakavadzor",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Shenik",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Voskehat",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Shaghat",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Mrgastan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Dzorakap",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Khot",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Ttujur",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hatsik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Gusanagyugh",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Karaberd",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Hartavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Fantan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Lusaghbyur",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Geghasar",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Shaghap",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Lermontovo",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Drakhtik",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Nerkin Sasunashen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Nerkin Karmiraghbyur",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Zovk",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Tsaghkunk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Choratan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Vardenut",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Verin Ptghni",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Yeghegnut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Baghanis",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Zorakan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Bazmaghbyur",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Chinari",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Tsaghkavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Agarakavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Katnarrat",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Harzhis",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Tatev",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Hayrenyats",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Hushakert",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Lanjik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Karrnut",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Amasia",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Nor Artamet",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Mets Sepasar",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Voghjaberd",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Lejan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Kaps",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Ptghavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Jajurr",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Gndevaz",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Vardanashen",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Isahakyan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Sotk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Tatul",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Arevatsag",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Debet",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Yeghipatrush",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Voskepar",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Garrni",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Getap",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Davit Bek",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Berkarrat",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Syunik",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Mughni",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Dasht",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Berdik",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Jrapi",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Katnaghbyur",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Vazashen",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Nor Ughi",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Jrashen",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Artanish",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Lusakert",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Getargel",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Karaglukh",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Byurakn",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Geghadir",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Hobardzi",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Ditak",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Azatashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Araksavan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Beniamin",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Dzorashen",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Avan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Mikhayelovka",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Irind",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Lusagyugh",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Karmir Gyukh",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Vardakar",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Herher",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Davtashen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Aygabats",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Shamlugh",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Vardenis",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Getamej",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Shirakavan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Chiva",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Yervandashat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Teghut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Hayravank",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Lusadzor",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Debetavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Haghpat",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Karenis",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Tsaghkashen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Karinj",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Yeraskh",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Bayandur",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Karmrashen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Nor Khachakap",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Apnagyugh",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Varagavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Nor Amanos",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Pokr Masrik",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Artsvanik",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Bagaran",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Lorut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Hovuni",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Arayi",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Jil",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Shatvan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hnaberd",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Oshakan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Yernjatap",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Nor Gyugh",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Katnaghbyur",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Hatsavan",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Karashamb",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Akunk",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Vaghatin",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Artashavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Ashotavan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Zarinja",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Mets Ayrum",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Lehvaz",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Ginevet",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Arpunk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hovit",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Tsoghamarg",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Chinchin",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Darbas",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Tsilkar",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Halidzor",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Karashen",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Pambak",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Oghji",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Getk",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Yenokavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Lerrnapar",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Lusaghbyur",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Akhlatyan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Dovegh",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Argina",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Vosketas",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Nurrnus",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Rrya Taza",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Amrakits",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Berkashat",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Sarakap",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Jujevan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Akner",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Aknaghbyur",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Ghazanchi",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Martuni",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Agagchi",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Marts",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Torfavan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hoghmik",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Bavra",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Dprabak",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Aygepar",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Dashtakar",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Noravan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Tufashen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Nor Artik",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Lusashogh",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Norashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Sarrnakunk",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Vardashen",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Shgharshik",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Teghenik",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Tsaghkashen",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Sipanik",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Artavaz",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Vardablur",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Krasar",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Berkaber",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Ghursali",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Akhuryan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Verin Bazmaberd",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Ghazaravan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Tarratumb",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Charchakis",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Kayk",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Alagyaz",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Aghitu",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Hovk",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Lchkadzor",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Tsamakasar",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Mghart",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Karin",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Orgov",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Shamb",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Zuygaghbyur",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Lorri Berd",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Makenis",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hagvi",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Shenavan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Khoznavar",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Uyts",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Kachachkut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Goghovit",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Musayelyan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Aregnadem",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Lerrnamerdz",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Aghin",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Koghes",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Aznvadzor",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Jraber",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Kakhakn",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Spandaryan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Getik",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Tavshut",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Yeghegis",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Vanevan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Lor",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Lusahovit",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Geghard",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Bardzruni",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Tsapatagh",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Armanis",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Antarrut",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Akhpradzor",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Kirants",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Khachardzan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Medovka",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Ditavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Urasar",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Barekamavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Areguni",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Pambak",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Pushkino",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Yeghnik",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Mets Sariar",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Dzoragyugh",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Torosgyugh",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Sizavet",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Tolors",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Aniavan",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Karadzor",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Verin Sasnashen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Khachparr",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "Saralanj",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Meghrashat",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Mutsk",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Karkop",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Partizak",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Ayrk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Pyunik",
+    "admin_name": "Kotayk"
+  },
+  {
+    "city": "Ferik",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Lerrnarot",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Antarramut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Dzoraglukh",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Geghahovit",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Berdkunk",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Hovtashen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Ishkhanasar",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Neghots",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Kaniashir",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Itsakar",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Kutakan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Deghdzavan",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Noravan",
+    "admin_name": "Armavir"
+  },
+  {
+    "city": "Dzoramut",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Nerkin Khndzoresk",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Arpeni",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Yeghvard",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Suser",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Svarants",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Vorotan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Dzoraget",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Antarrashen",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Khnkoyan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Bandivan",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Shamut",
+    "admin_name": "Tavush"
+  },
+  {
+    "city": "Shenkani",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Hatsavan",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Shahumyan",
+    "admin_name": "Ararat"
+  },
+  {
+    "city": "GeGhanush",
+    "admin_name": "Syunik"
+  },
+  {
+    "city": "Avazan",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Dashtadem",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Norabak",
+    "admin_name": "Gegharkunik"
+  },
+  {
+    "city": "Krashen",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Petrovka",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Horbategh",
+    "admin_name": "Vayots Dzor"
+  },
+  {
+    "city": "Pokr Sariar",
+    "admin_name": "Shirak"
+  },
+  {
+    "city": "Artsni",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Chknagh",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "Yaghdan",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Bovadzor",
+    "admin_name": "Lorri"
+  },
+  {
+    "city": "Avshen",
+    "admin_name": "Aragatsotn"
+  },
+  {
+    "city": "ShikahoGh",
+    "admin_name": "Syunik"
+  }
+]

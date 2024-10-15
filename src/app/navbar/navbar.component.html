@@ -6,7 +6,7 @@
     ><a routerLink="">{{ 'title' | translate }}</a></span
   >
   <span class="example-spacer"></span>
-  @if ((user$| async)?.type === 'customer') {
+  <!--  @if ((user$| async)?.type === 'customer') {-->
   <a
     mat-icon-button
     routerLink="/basket"
@@ -15,7 +15,7 @@
   >
     <mat-icon [matBadge]="basket().length">shopping_cart</mat-icon>
   </a>
-  }
+  <!--  }-->
   <button
     mat-icon-button
     class="example-icon favorite-icon"

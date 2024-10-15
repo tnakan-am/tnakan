@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
+import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
@@ -27,6 +27,7 @@ import { BasketService } from '../services/basket.service';
     TranslateModule,
     MatMenuTrigger,
     MatBadge,
+    MatIconAnchor,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
