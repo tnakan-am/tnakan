@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products.service';
 import { Product } from '../../interfaces/product.interface';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { BasketService } from '../../services/basket.service';
 
 @Component({
   selector: 'app-product',
@@ -15,7 +16,7 @@ import { AsyncPipe } from '@angular/common';
 export class ProductComponent implements OnInit {
   products$!: Observable<Product[]>;
 
-  constructor(private productsService: ProductsService) {}
+  constructor(private productsService: ProductsService, private basketService: BasketService) {}
 
   ngOnInit(): void {
     this.getProductData();
@@ -23,5 +24,9 @@ export class ProductComponent implements OnInit {
 
   private getProductData(): void {
     this.products$ = this.productsService.getAllProducts();
+  }
+
+  addToBasket(product: Product) {
+    this.basketService.addToBasket({ ...product, quantity: product.minQuantity });
   }
 }

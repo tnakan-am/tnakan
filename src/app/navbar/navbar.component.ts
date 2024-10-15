@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
+import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
 import { UsersService } from '../services/users.service';
+import { MatBadge } from '@angular/material/badge';
+import { BasketService } from '../services/basket.service';
 
 @Component({
   selector: 'app-navbar',
@@ -24,18 +26,23 @@ import { UsersService } from '../services/users.service';
     RouterLink,
     TranslateModule,
     MatMenuTrigger,
+    MatBadge,
+    MatIconAnchor,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
   user$: Observable<IUser | undefined>;
+  basket;
 
   constructor(
     private translateService: TranslateService,
     private fAuth: FirebaseAuthService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private basketService: BasketService
   ) {
+    this.basket = basketService.basket;
     if (localStorage.getItem('lang')) {
       translateService.setDefaultLang(localStorage.getItem('lang') as string);
     } else {

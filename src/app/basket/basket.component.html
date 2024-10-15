@@ -1,0 +1,78 @@
+<form [formGroup]="orderForm">
+  <mat-stepper linear>
+    <mat-step formGroupName="products" [stepControl]="$any(orderForm.get('products'))">
+      <ng-template matStepLabel>Orders</ng-template>
+
+      @for (product of orders(); track product.id; let idx = $index) {
+      <mat-card appearance="outlined" class="m-2" [formArrayName]="idx">
+        <mat-card-content>
+          <div class="w-100 flex justify-between gap-3 items-center">
+            <img [src]="product.image || 'assets/homemade.webp'" class="h-[60px] w-[60px]" />
+            <div>{{ product.name }}</div>
+            <span>{{ product.price }}/{{ product.unit }}</span>
+            <div>
+              <mat-form-field>
+                <mat-label>{{ product.unit }}</mat-label>
+                <input matInput min="{{ product?.minQuantity || 1 }}" formControlName="quantity" />
+              </mat-form-field>
+            </div>
+
+            <div>{{ product.price * product.quantity }}</div>
+
+            <button mat-icon-button (click)="removeItem(product)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      }
+      <div class="flex justify-end mr-2">Total: {{ total }}</div>
+      <div>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="address" [stepControl]="$any(orderForm.get('address'))">
+      <ng-template matStepLabel>Address</ng-template>
+
+      <div class="w-[400px] flex flex-col">
+        <div class="flex gap-3">
+          <mat-form-field>
+            <mat-label>region</mat-label>
+            <mat-select formControlName="region" (valueChange)="regionChange($event)">
+              @for (region of regions(); track region) {
+              <mat-option [value]="region">{{ region }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          @if (cities()) {
+          <mat-form-field>
+            <mat-label>city</mat-label>
+            <mat-select formControlName="city">
+              @for (city of citiesList;let id = $index; track id) {
+              <mat-option [value]="city.city">{{ city.city }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          }
+        </div>
+        <mat-form-field>
+          <mat-label>Street</mat-label>
+          <input matInput placeholder="Street" formControlName="street" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>House</mat-label>
+          <input matInput placeholder="House" formControlName="house" />
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button matStepperNext type="button">Next</button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Payment</ng-template>
+    </mat-step>
+  </mat-stepper>
+</form>
