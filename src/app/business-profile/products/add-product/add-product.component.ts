@@ -18,15 +18,19 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { CategoryTree, ProductCategory, Sub } from '../../../interfaces/categories.interface';
+import {
+  CategoryTree,
+  ProductCategory,
+  Sub,
+} from '../../../shared/interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
-import { UnitTypeEnum } from '../../../home/product/common/enums/unit.enum';
-import { Product } from '../../../interfaces/product.interface';
+import { Unit } from '../../../home/product/common/enums/unit.enum';
+import { Product } from '../../../shared/interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
-import { SelectItem } from '../../../interfaces/select-item.interface';
-import { DeliveryOption } from '../../../constants/delivery-option.enum';
-import { StorageService } from '../../../services/storage.service';
-import { formErrorMessage } from '../../../helpers/form-error-message';
+import { SelectItem } from '../../../shared/interfaces/select-item.interface';
+import { DeliveryOption } from '../../../shared/constants/delivery-option.enum';
+import { StorageService } from '../../../shared/services/storage.service';
+import { formErrorMessage } from '../../../shared/helpers/form-error-message';
 
 export interface DialogData {
   name: string;
@@ -80,8 +84,8 @@ export class AddProductComponent implements OnInit {
       deliveryOption: ['nearest'],
       price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
-    this.units = Object.keys(UnitTypeEnum).map((key) => {
-      return { id: key, name: UnitTypeEnum[key as keyof typeof UnitTypeEnum] };
+    this.units = Object.keys(Unit).map((key) => {
+      return { id: key, name: Unit[key as keyof typeof Unit] };
     });
     this.options = Object.keys(DeliveryOption).map((key) => {
       return { id: key, name: DeliveryOption[key as keyof typeof DeliveryOption] };

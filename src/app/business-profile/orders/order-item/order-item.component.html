@@ -9,7 +9,9 @@
       </div>
 
       <div>{{ product.price * product.quantity }}</div>
-      <div></div>
     </div>
+    @if (product.comment) {
+    <div>Comment: {{ product.comment }}</div>
+    }
   </mat-card-content>
 </mat-card>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
-import { OrderItem } from '../../../interfaces/order.interface';
+import { OrderItem } from '../../../shared/interfaces/order.interface';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 

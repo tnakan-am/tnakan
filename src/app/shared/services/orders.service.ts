@@ -34,18 +34,21 @@ export class OrdersService {
   async addOrder(order: Order) {
     try {
       const key = push(child(ref(this.database), 'orders')).key;
-      const userId = this.firebaseAuthService.getFirebaseUser()?.uid;
+      const user = this.firebaseAuthService.getFirebaseUser();
+      const userId = user?.uid;
+      const userPhone = user?.phoneNumber;
+      const createdAt = new Date().toISOString();
       const data = {
         ...order,
         userId,
-        userPhone: this.firebaseAuthService.getFirebaseUser()?.phoneNumber,
-        createdAt: new Date().toISOString(),
+        createdAt,
+        userPhone,
       };
       await set(ref(this.database, 'orders/' + key), data);
       data.products.forEach(async (value) => {
         await set(ref(this.database, 'notifications/' + value.userId + '/' + key), {
+          createdAt,
           orderId: key,
-          createdAt: new Date().toISOString(),
           productIds: data.products
             .filter((value1) => value1.userId === userId)
             .map((value1) => value1.id),
@@ -123,11 +126,68 @@ export class OrdersService {
     return prms;
   }
 
-  changeNotificationStatus(orderId: string, status: Status) {
+  changeNotificationStatus(order: Order, status: Status) {
     const dbRef = ref(this.database);
     const userId = this.firebaseAuthService.getFirebaseUser()?.uid;
 
-    const key = `notifications/${userId}/${orderId}/status`;
-    return fromPromise(update(dbRef, { [key]: status }));
+    const key = `notifications/${userId}/${order.orderId}/status`;
+    const orderStatusHistoryKey = `orders/${order.orderId}/statusHistory`;
+    return fromPromise(
+      Promise.all([
+        this.changeProductsStatus(order, status),
+        update(dbRef, { [key]: status }),
+        push(child(ref(this.database), orderStatusHistoryKey), {
+          userId,
+          status,
+          createdAt: new Date().toISOString(),
+        }),
+      ])
+    );
+  }
+
+  changeProductsStatus(order: Order, status: Status) {
+    const dbRef = ref(this.database);
+    const dbOrder = get(child(dbRef, `orders/${order.orderId}`));
+    const userId = this.firebaseAuthService.getFirebaseUser()?.uid;
+
+    const productsIndexes = order.products.reduce(
+      (previousValue: number[], currentValue, currentIndex) => {
+        if (currentValue.userId === userId) {
+          previousValue.push(currentIndex);
+        }
+        return previousValue;
+      },
+      []
+    );
+
+    const key = `notifications/${userId}/${order.orderId}/status`;
+    const promiseArr: Promise<any>[] = [];
+
+    const orderStatusHistoryKey = `orders/${order.orderId}/statusHistory`;
+    if (productsIndexes.length) {
+      promiseArr.push(
+        ...productsIndexes.map((val) =>
+          update(dbRef, { [`orders/${order.orderId}/products/` + val + '/status']: status })
+        )
+      );
+    }
+    return dbOrder
+      .then((values) => {
+        if (productsIndexes.length === values.val()?.products.length) {
+          promiseArr.push(update(dbRef, { [`orders/${order.orderId}/status`]: status }));
+        }
+        return values.val();
+      })
+      .then((orderReal) =>
+        Promise.all([
+          ...promiseArr,
+          update(dbRef, { [key]: status }),
+          push(child(ref(this.database), orderStatusHistoryKey), {
+            userId,
+            status,
+            createdAt: new Date().toISOString(),
+          }),
+        ])
+      );
   }
 }

@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { FirebaseAuthService } from '../services/firebase-auth.service';
+import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 import { Observable, switchMap, tap } from 'rxjs';
 import { User } from '@angular/fire/auth';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { UsersService } from '../services/users.service';
-import { IUser } from '../interfaces/user.interface';
-import { ProductsService } from '../services/products.service';
-import { openSnackBar } from '../helpers/snackbar';
-import { StorageService } from '../services/storage.service';
+import { UsersService } from '../shared/services/users.service';
+import { IUser } from '../shared/interfaces/user.interface';
+import { ProductsService } from '../shared/services/products.service';
+import { openSnackBar } from '../shared/helpers/snackbar';
+import { StorageService } from '../shared/services/storage.service';
 
 @Component({
   selector: 'app-settings',

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
-import { ProductsService } from '../services/products.service';
+import { ProductsService } from '../shared/services/products.service';
 import { FormGroup, Validators } from '@angular/forms';
 import { merge, Subscription } from 'rxjs';
-import { formErrorMessage } from '../helpers/form-error-message';
-import { IUser } from '../interfaces/user.interface';
+import { formErrorMessage } from '../shared/helpers/form-error-message';
+import { IUser } from '../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-bas-form',

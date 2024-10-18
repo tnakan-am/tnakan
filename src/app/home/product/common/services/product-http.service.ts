@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductItemInterface } from '../interfaces/product-item.interface';
 import { Observable, of } from 'rxjs';
-import { UnitTypeEnum } from '../enums/unit.enum';
+import { Unit } from '../enums/unit.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ProductHttpService {
@@ -19,7 +19,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -36,7 +36,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -52,7 +52,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -69,7 +69,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -86,7 +86,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -103,7 +103,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -120,7 +120,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },
@@ -137,7 +137,7 @@ export class ProductHttpService {
       user: 'Marine Petrosyan',
       currency: '֏',
       unit: '1',
-      unitType: UnitTypeEnum.kg,
+      unitType: Unit.kg,
       user_photo:
         'https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg',
     },

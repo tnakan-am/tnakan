@@ -3,7 +3,7 @@
     <mat-step formGroupName="products" [stepControl]="$any(orderForm.get('products'))">
       <ng-template matStepLabel>Orders</ng-template>
 
-      @for (product of orders(); track product.id; let idx = $index) {
+      @for (product of products(); track product.id; let idx = $index) {
       <mat-card appearance="outlined" class="m-2" [formArrayName]="idx">
         <mat-card-content>
           <div class="w-100 flex justify-between gap-3 items-center">
@@ -94,6 +94,7 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Payment</ng-template>
+      <button mat-button matStepperPrevious type="button">Back</button>
       <button mat-button matStepperNext type="submit">Next</button>
     </mat-step>
   </mat-stepper>

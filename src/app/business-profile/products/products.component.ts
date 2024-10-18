@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from './add-product/add-product.component';
-import { CategoryTree } from '../../interfaces/categories.interface';
-import { CategoriesService } from '../../services/categories.service';
-import { ProductsService } from '../../services/products.service';
-import { Product } from '../../interfaces/product.interface';
+import { CategoryTree } from '../../shared/interfaces/categories.interface';
+import { CategoriesService } from '../../shared/services/categories.service';
+import { ProductsService } from '../../shared/services/products.service';
+import { Product } from '../../shared/interfaces/product.interface';
 import { map, Observable, of, switchMap } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, SlicePipe } from '@angular/common';
 import { User } from '@angular/fire/auth';
 import {
   MatCell,
@@ -23,7 +23,7 @@ import {
 } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { FirebaseAuthService } from '../../services/firebase-auth.service';
+import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
 
 @Component({
   selector: 'app-products',
@@ -44,6 +44,7 @@ import { FirebaseAuthService } from '../../services/firebase-auth.service';
     MatIcon,
     MatIconButton,
     TranslateModule,
+    SlicePipe,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
