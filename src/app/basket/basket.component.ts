@@ -16,6 +16,7 @@ import {
 import { MatOption, MatSelect } from '@angular/material/select';
 import { OrderItem, Status } from '../interfaces/order.interface';
 import { OrdersService } from '../services/orders.service';
+import { openSnackBar } from '../helpers/snackbar';
 
 @Component({
   selector: 'app-basket',
@@ -49,6 +50,7 @@ export class BasketComponent implements OnInit {
   regions!: Signal<string[]>;
   cities!: WritableSignal<{ city: string; admin_name: string }[]>;
   citiesList!: { city: string; admin_name: string }[];
+  snackBar = openSnackBar();
 
   constructor(
     private basketService: BasketService,
@@ -101,10 +103,17 @@ export class BasketComponent implements OnInit {
     if (!this.orderForm.valid) {
       return;
     }
-    this.ordersService.addOrder({
-      ...this.orderForm.value,
-      total: this.total,
-      status: Status.pending,
-    });
+    this.ordersService
+      .addOrder({
+        ...this.orderForm.value,
+        total: this.total,
+        status: Status.pending,
+      })
+      .then(() => {
+        this.snackBar('Order successfully placed. PLease wait for updates');
+      })
+      .then(() => {
+        this.orders.set([]);
+      });
   }
 }

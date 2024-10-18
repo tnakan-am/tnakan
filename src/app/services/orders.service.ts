@@ -76,7 +76,7 @@ export class OrdersService {
             : 0
         );
         if (!data) return;
-        this.newOrders.set(data.filter((value) => value.status === Status.pending));
+        !onlyOnce && this.newOrders.set(data.filter((value) => value.status === Status.pending));
         callBack(data);
       },
       { onlyOnce }

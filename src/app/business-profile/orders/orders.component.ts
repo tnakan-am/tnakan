@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, OnInit } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { forkJoin, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -33,11 +33,24 @@ import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
   ordersService: OrdersService = inject(OrdersService);
   orders$!: Observable<Order[]>;
+  newOrders = this.ordersService.newOrders;
 
   constructor() {
+    effect(() => {
+      if (this.newOrders().length) {
+        this.getOrders();
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.getOrders();
+  }
+
+  private getOrders() {
     this.ordersService.onValue((data: Notification[]) => {
       this.orders$ = forkJoin(
         this.ordersService.getOrdersProducts(data.map((value) => value.orderId))
@@ -47,9 +60,9 @@ export class OrdersComponent {
 
   orderSeen(order: Order) {
     if (
-      this.ordersService.newOrders().find((value) => value.orderId === order.orderId)?.status ===
-      Status.pending
-    )
+      this.newOrders().find((value) => value.orderId === order.orderId)?.status === Status.pending
+    ) {
       this.ordersService.changeNotificationStatus(order.orderId, Status.seen).subscribe();
+    }
   }
 }
