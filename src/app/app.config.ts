@@ -14,6 +14,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -25,6 +26,7 @@ export const firebaseConfig = {
   messagingSenderId: '1007308841602',
   appId: '1:1007308841602:web:ec348bfd2e4f10b494ca9b',
   measurementId: 'G-F0TX8P6RQ8',
+  databaseURL: 'https://tnakan-23490-default-rtdb.europe-west1.firebasedatabase.app', // Update this line
 };
 
 export function createTranslateLoader(http: HttpClient) {
@@ -51,6 +53,7 @@ export const appConfig: ApplicationConfig = {
       })
     ),
     provideStorage(() => getStorage()),
+    provideDatabase(() => getDatabase()),
     // provideFunctions(() => getFunctions()),
     // provideMessaging(() => getMessaging()),
     // providePerformance(() => getPerformance()),

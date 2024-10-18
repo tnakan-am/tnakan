@@ -1,28 +1,7 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { Product } from '../interfaces/product.interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Address {
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
-  country: string;
-  apartment: string;
-}
-
-export interface OrderItem extends Product {
-  quantity: number;
-}
-
-export interface Order {
-  orders: OrderItem[];
-  status: string;
-  customerId: string;
-  customerPhone: string;
-  address: Address;
-}
+import { OrderItem } from '../interfaces/order.interface';
 
 @Injectable({
   providedIn: 'root',

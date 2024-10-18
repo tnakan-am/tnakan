@@ -6,16 +6,16 @@
     ><a routerLink="">{{ 'title' | translate }}</a></span
   >
   <span class="example-spacer"></span>
-  <!--  @if ((user$| async)?.type === 'customer') {-->
+  @if ((user$| async)?.type === 'customer') {
   <a
     mat-icon-button
-    routerLink="/basket"
+    [routerLink]="basket().length ? ['/basket'] : []"
     class="example-icon favorite-icon"
     aria-label="Example icon-button with heart icon"
   >
     <mat-icon [matBadge]="basket().length">shopping_cart</mat-icon>
   </a>
-  <!--  }-->
+  }
   <button
     mat-icon-button
     class="example-icon favorite-icon"
@@ -34,6 +34,10 @@
     <a routerLink="/registration" mat-menu-item>Register</a>
     }
   </mat-menu>
+
+  <button mat-icon-button class="example-icon favorite-icon" (click)="redirectToOrders()">
+    <mat-icon [matBadge]="notifications?.()?.length">notifications</mat-icon>
+  </button>
   <button
     mat-icon-button
     class="example-icon"

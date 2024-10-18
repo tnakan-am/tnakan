@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, WritableSignal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
 import { UsersService } from '../services/users.service';
 import { MatBadge } from '@angular/material/badge';
 import { BasketService } from '../services/basket.service';
+import { OrdersService } from '../services/orders.service';
+import { Notification } from '../interfaces/order.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -34,13 +36,17 @@ import { BasketService } from '../services/basket.service';
 })
 export class NavbarComponent {
   user$: Observable<IUser | undefined>;
+  user: IUser | undefined;
   basket;
+  notifications?: WritableSignal<Notification[]>;
 
   constructor(
     private translateService: TranslateService,
     private fAuth: FirebaseAuthService,
     private usersService: UsersService,
-    private basketService: BasketService
+    private basketService: BasketService,
+    private ordersService: OrdersService,
+    private router: Router
   ) {
     this.basket = basketService.basket;
     if (localStorage.getItem('lang')) {
@@ -48,7 +54,14 @@ export class NavbarComponent {
     } else {
       translateService.setDefaultLang('hy');
     }
-    this.user$ = this.usersService.getUserData();
+    this.user$ = this.usersService.getUserData().pipe(
+      tap((value) => {
+        this.user = value;
+        if (this.user?.type === 'business') {
+          this.businessUserNotificationsSubscription();
+        }
+      })
+    );
   }
 
   changeLanguage(lang: string) {
@@ -58,5 +71,15 @@ export class NavbarComponent {
 
   logout() {
     this.fAuth.logout();
+  }
+
+  redirectToOrders() {
+    if (!this.user) return;
+    this.router.navigate(['/profile', this.user.type, 'orders']);
+  }
+
+  businessUserNotificationsSubscription() {
+    this.ordersService.onValue(() => {});
+    this.notifications = this.ordersService.newOrders;
   }
 }

@@ -27,6 +27,9 @@ export class ProductComponent implements OnInit {
   }
 
   addToBasket(product: Product) {
-    this.basketService.addToBasket({ ...product, quantity: product.minQuantity });
+    this.basketService.addToBasket({
+      ...product,
+      quantity: product.minQuantity,
+    });
   }
 }

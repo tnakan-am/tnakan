@@ -1,0 +1,15 @@
+<mat-card appearance="outlined" class="m-2">
+  <mat-card-content>
+    <div class="w-100 flex justify-between gap-3 items-center">
+      <img [src]="product.image || 'assets/homemade.webp'" class="h-[60px] w-[60px]" />
+      <div>{{ product.name }}</div>
+      <span>{{ product.price }}/{{ product.unit }}</span>
+      <div>
+        {{ product.quantity }}
+      </div>
+
+      <div>{{ product.price * product.quantity }}</div>
+      <div></div>
+    </div>
+  </mat-card-content>
+</mat-card>

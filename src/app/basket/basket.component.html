@@ -1,4 +1,4 @@
-<form [formGroup]="orderForm">
+<form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
   <mat-stepper linear>
     <mat-step formGroupName="products" [stepControl]="$any(orderForm.get('products'))">
       <ng-template matStepLabel>Orders</ng-template>
@@ -13,7 +13,23 @@
             <div>
               <mat-form-field>
                 <mat-label>{{ product.unit }}</mat-label>
-                <input matInput min="{{ product?.minQuantity || 1 }}" formControlName="quantity" />
+                <input
+                  matInput
+                  min="{{ product?.minQuantity || 1 }}"
+                  (change)="calculateTotal()"
+                  formControlName="quantity"
+                />
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field>
+                <mat-label>Comment</mat-label>
+                <input
+                  matInput
+                  min="{{ product?.minQuantity || 1 }}"
+                  (change)="calculateTotal()"
+                  formControlName="comment"
+                />
               </mat-form-field>
             </div>
 
@@ -65,6 +81,11 @@
           <mat-label>House</mat-label>
           <input matInput placeholder="House" formControlName="house" />
         </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Zip</mat-label>
+          <input matInput placeholder="zip" formControlName="zip" />
+        </mat-form-field>
       </div>
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
@@ -73,6 +94,7 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Payment</ng-template>
+      <button mat-button matStepperNext type="submit">Next</button>
     </mat-step>
   </mat-stepper>
 </form>

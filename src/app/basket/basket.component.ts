@@ -1,5 +1,5 @@
-import { Component, inject, OnInit, Signal, WritableSignal } from '@angular/core';
-import { BasketService, OrderItem } from '../services/basket.service';
+import { Component, OnInit, Signal, WritableSignal } from '@angular/core';
+import { BasketService } from '../services/basket.service';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -14,6 +14,8 @@ import {
   MatStepperPrevious,
 } from '@angular/material/stepper';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { OrderItem, Status } from '../interfaces/order.interface';
+import { OrdersService } from '../services/orders.service';
 
 @Component({
   selector: 'app-basket',
@@ -48,17 +50,21 @@ export class BasketComponent implements OnInit {
   cities!: WritableSignal<{ city: string; admin_name: string }[]>;
   citiesList!: { city: string; admin_name: string }[];
 
-  constructor(private basketService: BasketService, private fb: FormBuilder) {
+  constructor(
+    private basketService: BasketService,
+    private fb: FormBuilder,
+    private ordersService: OrdersService
+  ) {
     this.orders = this.basketService.basket;
     this.cities = basketService.cities;
     this.regions = basketService.regions;
 
-    this.calculateTotal();
     this.orderForm = this.fb.group({
       products: this.fb.array(
         this.orders().map((value) =>
           fb.group({
             ...value,
+            comment: [],
             quantity: [value.minQuantity, [Validators.required, Validators.min(value.minQuantity)]],
           })
         )
@@ -68,8 +74,11 @@ export class BasketComponent implements OnInit {
         region: ['', Validators.required],
         street: ['', Validators.required],
         house: ['', Validators.required],
+        zip: [''],
       }),
     });
+
+    this.calculateTotal();
   }
 
   ngOnInit() {}
@@ -79,12 +88,23 @@ export class BasketComponent implements OnInit {
   }
 
   calculateTotal() {
-    this.total = this.orders().reduce((total, item) => total + item.price * item.quantity, 0);
+    this.total = this.orderForm
+      ?.getRawValue()
+      .products.reduce((total: number, item: any) => total + item.price * item.quantity, 0);
   }
-
-  protected readonly inject = inject;
 
   regionChange($event: string) {
     this.citiesList = this.cities().filter((value1) => value1.admin_name === $event);
+  }
+
+  placeOrder() {
+    if (!this.orderForm.valid) {
+      return;
+    }
+    this.ordersService.addOrder({
+      ...this.orderForm.value,
+      total: this.total,
+      status: Status.pending,
+    });
   }
 }
