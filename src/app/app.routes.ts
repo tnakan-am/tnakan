@@ -8,6 +8,7 @@ import { ProductsComponent } from './business-profile/products/products.componen
 import { AdComponent } from './business-profile/ad/ad.component';
 import { OrdersComponent } from './business-profile/orders/orders.component';
 import { BasketComponent } from './basket/basket.component';
+import { ProductPageComponent } from './product/components/product-page/product-page.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent,
+  },
+  {
+    path: 'product/:id',
+    component: ProductPageComponent,
   },
   {
     path: 'profile/customer',

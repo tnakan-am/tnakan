@@ -12,9 +12,10 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
 import { DecimalPipe } from '@angular/common';
-import { Product } from '../../../../interfaces/product.interface';
-import { UnitTypeEnum } from '../../common/enums/unit.enum';
+import { Product } from '../../../interfaces/product.interface';
 import { MatTooltip } from '@angular/material/tooltip';
+import { UnitTypeEnum } from '../../common/enums/unit.enum';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-item',
@@ -37,11 +38,17 @@ import { MatTooltip } from '@angular/material/tooltip';
   styleUrl: './card-item.component.scss',
 })
 export class CardItemComponent {
+  units = UnitTypeEnum;
   @Input() product!: Product;
   @Output() addToCard = new EventEmitter<Product>();
-  units = UnitTypeEnum;
+
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) {}
 
   handleAddToCard(event: Product) {
     this.addToCard.emit(event);
+  }
+
+  navigateToProduct(product: Product) {
+    this.router.navigate(['product', product.id], { relativeTo: this.activatedRouter });
   }
 }

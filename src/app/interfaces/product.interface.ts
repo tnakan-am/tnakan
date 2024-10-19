@@ -13,7 +13,7 @@ export interface Product {
   avgReview: number;
   category: string;
   subCategory?: string;
-  id?: string;
+  id: string;
   productCategory?: string;
   deliveryOption?: DeliveryOption;
 }

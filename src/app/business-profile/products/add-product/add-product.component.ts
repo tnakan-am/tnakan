@@ -20,13 +20,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { CategoryTree, ProductCategory, Sub } from '../../../interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
-import { UnitTypeEnum } from '../../../home/product/common/enums/unit.enum';
 import { Product } from '../../../interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectItem } from '../../../interfaces/select-item.interface';
 import { DeliveryOption } from '../../../constants/delivery-option.enum';
 import { StorageService } from '../../../services/storage.service';
 import { formErrorMessage } from '../../../helpers/form-error-message';
+import { UnitTypeEnum } from '../../../product/common/enums/unit.enum';
 
 export interface DialogData {
   name: string;
