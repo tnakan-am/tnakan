@@ -14,7 +14,7 @@ import { NgxStarsModule } from 'ngx-stars';
 import { DecimalPipe } from '@angular/common';
 import { Product } from '../../../interfaces/product.interface';
 import { MatTooltip } from '@angular/material/tooltip';
-import { UnitTypeEnum } from '../../common/enums/unit.enum';
+import { UnitTypeEnum } from '../../../shared/enums/unit.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ProductItemInterface } from '../interfaces/product-item.interface';
 import { Observable, of } from 'rxjs';
-import { UnitTypeEnum } from '../enums/unit.enum';
+import { UnitTypeEnum } from '../../../shared/enums/unit.enum';
 
 @Injectable({ providedIn: 'root' })
 export class ProductHttpService {

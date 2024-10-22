@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { Product } from '../../../interfaces/product.interface';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ReviewsComponent } from '../reviews/reviews.component';
-import { Review } from '../../common/interfaces/reviews.interface';
+import { Review } from '../../../shared/interfaces/reviews.interface';
 import { BasketService } from '../../../services/basket.service';
 
 @Component({
@@ -53,7 +53,7 @@ export class ProductPageComponent implements OnInit {
   }
 
   getProductItem(productId: string): void {
-    this.productsService.getProductsById(productId).subscribe((product) => {
+    this.productsService.getProductById(productId).subscribe((product) => {
       this.product = product;
     });
   }
@@ -61,7 +61,6 @@ export class ProductPageComponent implements OnInit {
   handleTabChange(event: MatTabChangeEvent) {
     if (event.index === 1) {
       this.productsService.getProductReviews(this.productId).subscribe((reviews) => {
-        console.log(reviews);
         this.reviewsList = reviews.reviews_list;
       });
     }

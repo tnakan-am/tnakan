@@ -17,7 +17,7 @@ import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
-import { Reviews } from '../product/common/interfaces/reviews.interface';
+import { Reviews } from '../shared/interfaces/reviews.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -99,18 +99,7 @@ export class ProductsService {
     );
   }
 
-  /*getProductsById(id: string): Observable<Product> {
-    console.log(this.firestore);
-    return fromPromise(
-      getDocs(query(collection(this.firestore, `products/${id}`))).then((values) => {
-        let data: any;
-        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-        return data;
-      })
-    );
-  }*/
-
-  getProductsById(id: string): Observable<Product> {
+  getProductById(id: string): Observable<Product> {
     const productRef = doc(this.firestore, `products/${id}`);
     return fromPromise(
       getDoc(productRef).then((docSnap) => {

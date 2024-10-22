@@ -1,4 +1,4 @@
-import { UnitTypeEnum } from '../enums/unit.enum';
+import { UnitTypeEnum } from '../../../shared/enums/unit.enum';
 
 export interface ProductItemInterface {
   id: number;

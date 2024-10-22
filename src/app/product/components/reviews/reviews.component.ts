@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
-import { Review } from '../../common/interfaces/reviews.interface';
+import { Review } from '../../../shared/interfaces/reviews.interface';
 
 @Component({
   selector: 'app-reviews',
