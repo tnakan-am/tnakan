@@ -7,7 +7,7 @@ export interface Review {
   id: string;
   description: string;
   rating: number;
-  reviewer_Id: string;
-  reviewer_info: string;
-  reviewer_logo: string;
+  reviewerId: string;
+  reviewerInfo: string;
+  reviewerLogo: string;
 }
