@@ -1,11 +1,12 @@
 import { DeliveryOption } from '../constants/delivery-option.enum';
+import { Unit } from '../../home/product/common/enums/unit.enum';
 
 export interface Product {
   userId: string;
   userDisplayName: string;
   userPhoto: string | null;
   name: string;
-  unit: string;
+  unit: Unit;
   minQuantity: number;
   price: number;
   image: string;

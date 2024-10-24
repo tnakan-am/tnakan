@@ -1,5 +1,5 @@
 import { Component, OnInit, Signal, WritableSignal } from '@angular/core';
-import { BasketService } from '../services/basket.service';
+import { BasketService } from '../shared/services/basket.service';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
@@ -14,9 +14,9 @@ import {
   MatStepperPrevious,
 } from '@angular/material/stepper';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { OrderItem, Status } from '../interfaces/order.interface';
-import { OrdersService } from '../services/orders.service';
-import { openSnackBar } from '../helpers/snackbar';
+import { OrderItem, Status } from '../shared/interfaces/order.interface';
+import { OrdersService } from '../shared/services/orders.service';
+import { openSnackBar } from '../shared/helpers/snackbar';
 
 @Component({
   selector: 'app-basket',
@@ -44,11 +44,11 @@ import { openSnackBar } from '../helpers/snackbar';
   styleUrl: './basket.component.scss',
 })
 export class BasketComponent implements OnInit {
-  orders!: WritableSignal<OrderItem[]>;
-  total!: number;
-  orderForm!: FormGroup;
+  products!: WritableSignal<OrderItem[]>;
   regions!: Signal<string[]>;
   cities!: WritableSignal<{ city: string; admin_name: string }[]>;
+  total!: number;
+  orderForm!: FormGroup;
   citiesList!: { city: string; admin_name: string }[];
   snackBar = openSnackBar();
 
@@ -57,19 +57,21 @@ export class BasketComponent implements OnInit {
     private fb: FormBuilder,
     private ordersService: OrdersService
   ) {
-    this.orders = this.basketService.basket;
+    this.products = this.basketService.basket;
     this.cities = basketService.cities;
     this.regions = basketService.regions;
 
     this.orderForm = this.fb.group({
       products: this.fb.array(
-        this.orders().map((value) =>
+        this.products().map((value) =>
           fb.group({
             ...value,
             comment: [],
             quantity: [value.minQuantity, [Validators.required, Validators.min(value.minQuantity)]],
+            status: Status.pending,
           })
-        )
+        ),
+        Validators.required
       ),
       address: this.fb.group({
         city: ['', Validators.required],
@@ -86,7 +88,7 @@ export class BasketComponent implements OnInit {
   ngOnInit() {}
 
   removeItem(product: OrderItem) {
-    this.orders.update((value) => value.filter((value1) => value1.id !== product.id));
+    this.products.update((value) => value.filter((value1) => value1.id !== product.id));
   }
 
   calculateTotal() {
@@ -113,7 +115,7 @@ export class BasketComponent implements OnInit {
         this.snackBar('Order successfully placed. PLease wait for updates');
       })
       .then(() => {
-        this.orders.set([]);
+        this.products.set([]);
       });
   }
 }

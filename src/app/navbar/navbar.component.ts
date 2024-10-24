@@ -7,13 +7,13 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, tap } from 'rxjs';
-import { IUser } from '../interfaces/user.interface';
-import { FirebaseAuthService } from '../services/firebase-auth.service';
-import { UsersService } from '../services/users.service';
+import { IUser } from '../shared/interfaces/user.interface';
+import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
+import { UsersService } from '../shared/services/users.service';
 import { MatBadge } from '@angular/material/badge';
-import { BasketService } from '../services/basket.service';
-import { OrdersService } from '../services/orders.service';
-import { Notification } from '../interfaces/order.interface';
+import { BasketService } from '../shared/services/basket.service';
+import { OrdersService } from '../shared/services/orders.service';
+import { Notification } from '../shared/interfaces/order.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -48,7 +48,7 @@ export class NavbarComponent {
     private ordersService: OrdersService,
     private router: Router
   ) {
-    this.basket = basketService.basket;
+    this.basket = this.basketService.basket;
     if (localStorage.getItem('lang')) {
       translateService.setDefaultLang(localStorage.getItem('lang') as string);
     } else {

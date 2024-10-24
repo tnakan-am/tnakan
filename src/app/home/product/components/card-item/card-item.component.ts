@@ -12,8 +12,8 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
 import { DecimalPipe } from '@angular/common';
-import { Product } from '../../../../interfaces/product.interface';
-import { UnitTypeEnum } from '../../common/enums/unit.enum';
+import { Product } from '../../../../shared/interfaces/product.interface';
+import { Unit } from '../../common/enums/unit.enum';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
@@ -39,7 +39,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 export class CardItemComponent {
   @Input() product!: Product;
   @Output() addToCard = new EventEmitter<Product>();
-  units = UnitTypeEnum;
+  units = Unit;
 
   handleAddToCard(event: Product) {
     this.addToCard.emit(event);
