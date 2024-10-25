@@ -19,6 +19,12 @@
                   (change)="calculateTotal()"
                   formControlName="quantity"
                 />
+                @if(orderForm.get('products.'+idx+'.quantity')?.errors) {
+                <mat-error>{{
+                  formErrorMessage(orderForm.get('products.' + idx + '.quantity')!)
+                    | translate : { min: product.minQuantity, max: product.availability }
+                }}</mat-error>
+                }
               </mat-form-field>
             </div>
             <div>

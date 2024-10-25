@@ -1,8 +1,8 @@
 <mat-card class="card">
   <!-- Cooker's Photo and Name -->
-  <div class="cooker-info">
+  <div class="cooker-info mt-2">
     @if (product.userPhoto) {
-    <img [src]="product.userPhoto" alt="Cooker" class="cooker-photo" />
+    <img [src]="product.userPhoto" alt="Cooker" class="cooker-photo ml-2" />
     } @else {
     <mat-icon class="text-4xl cooker-photo">person</mat-icon>
     }
@@ -33,7 +33,14 @@
         [matTooltip]="'Minimum quantity ' + product.minQuantity + ' ' + $any(units)[product.unit]"
         >{{ $any(units)[product.unit] }}</span
       >
-      <button (click)="handleAddToCard(product)" mat-button color="primary">Add to Cart</button>
+      <button
+        [disabled]="product.availability === 0"
+        (click)="handleAddToCard(product)"
+        mat-button
+        color="primary"
+      >
+        Add to Cart
+      </button>
     </div>
   </mat-card-content>
 </mat-card>

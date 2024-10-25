@@ -36,6 +36,14 @@
         </mat-form-field>
 
         <mat-form-field>
+          <mat-label>{{ 'fields.availability' | translate }}</mat-label>
+          <input matInput formControlName="availability" />
+          @if(form.get('availability')?.errors) {
+          <mat-error>{{ formErrorMessage(form.get('availability')!) | translate }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
           <mat-label>{{ 'fields.unitPrice' | translate }}</mat-label>
           <input placeholder="1000" matInput formControlName="price" />
           <span matSuffix>֏</span>

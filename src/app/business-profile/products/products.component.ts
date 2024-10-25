@@ -52,7 +52,15 @@ import { FirebaseAuthService } from '../../shared/services/firebase-auth.service
 export class ProductsComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   products$: Observable<Product[]>;
-  displayedColumns: string[] = ['ID', 'name', 'description', 'unit', 'price', 'star'];
+  displayedColumns: string[] = [
+    'ID',
+    'name',
+    'description',
+    'unit',
+    'price',
+    'availability',
+    'star',
+  ];
   private categories!: CategoryTree[];
   private firebaseAuthService = inject(FirebaseAuthService);
   private user!: User;

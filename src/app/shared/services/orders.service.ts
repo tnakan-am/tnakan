@@ -15,9 +15,10 @@ import { Notification, Order, OrderItem, Status } from '../interfaces/order.inte
 import { Firestore } from '@angular/fire/firestore';
 import 'firebase/firestore';
 import { FirebaseAuthService } from './firebase-auth.service';
-import { Observable, of } from 'rxjs';
+import { catchError, forkJoin, Observable, of, switchMap, throwError } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { openSnackBar } from '../helpers/snackbar';
+import { ProductsService } from './products.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,38 +27,50 @@ export class OrdersService {
   database = inject(Database);
   firestore: Firestore = inject(Firestore);
   firebaseAuthService = inject(FirebaseAuthService);
+  productsService = inject(ProductsService);
   snackBar = openSnackBar();
   newOrders: WritableSignal<Notification[]> = signal([]);
 
   constructor() {}
 
-  async addOrder(order: Order) {
-    try {
-      const key = push(child(ref(this.database), 'orders')).key;
-      const user = this.firebaseAuthService.getFirebaseUser();
-      const userId = user?.uid;
-      const userPhone = user?.phoneNumber;
-      const createdAt = new Date().toISOString();
-      const data = {
-        ...order,
-        userId,
-        createdAt,
-        userPhone,
-      };
-      await set(ref(this.database, 'orders/' + key), data);
-      data.products.forEach(async (value) => {
-        await set(ref(this.database, 'notifications/' + value.userId + '/' + key), {
-          createdAt,
-          orderId: key,
-          productIds: data.products
-            .filter((value1) => value1.userId === userId)
-            .map((value1) => value1.id),
-          status: Status.pending,
-        });
-      });
-    } catch (error) {
-      this.snackBar((error as any).customData._tokenResponse.error.message);
-    }
+  addOrder(order: Order) {
+    return forkJoin(
+      order.products.map((product) =>
+        this.productsService.updateProductAvailability(product.quantity, product.id)
+      )
+    ).pipe(
+      catchError((error: Error) => throwError(() => error)),
+      switchMap(async (value) => {
+        try {
+          const key = push(child(ref(this.database), 'orders')).key;
+          const user = this.firebaseAuthService.getFirebaseUser();
+          const userId = user?.uid;
+          const userPhone = user?.phoneNumber;
+          const createdAt = new Date().toISOString();
+          const data = {
+            ...order,
+            userId,
+            createdAt,
+            userPhone,
+          };
+          await set(ref(this.database, 'orders/' + key), data);
+          data.products.forEach(async (value) => {
+            await set(ref(this.database, 'notifications/' + value.userId + '/' + key), {
+              createdAt,
+              orderId: key,
+              productIds: data.products
+                .filter((value1) => value1.userId === userId)
+                .map((value1) => value1.id),
+              status: Status.pending,
+            });
+          });
+        } catch (error) {
+          this.snackBar(
+            (error as any)?.customData?._tokenResponse?.error?.message || (error as any)?.message
+          );
+        }
+      })
+    );
   }
 
   onValue(callBack: (sortedData: any) => void, onlyOnce = false) {
