@@ -17,7 +17,7 @@ import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
-import { Reviews } from '../shared/interfaces/reviews.interface';
+import { Reviews } from '../interfaces/reviews.interface';
 
 @Injectable({
   providedIn: 'root',

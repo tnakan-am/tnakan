@@ -1,5 +1,5 @@
-import { CategoryTree } from '../../interfaces/categories.interface';
-import { Product } from '../../interfaces/product.interface';
+import { Product } from './product.interface';
+import { CategoryTree } from './categories.interface';
 
 export interface DialogData {
   name: string;

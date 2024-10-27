@@ -4,13 +4,13 @@ import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsService } from '../../../services/products.service';
-import { Observable } from 'rxjs';
-import { Product } from '../../../interfaces/product.interface';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ReviewsComponent } from '../reviews/reviews.component';
 import { Review } from '../../../shared/interfaces/reviews.interface';
-import { BasketService } from '../../../services/basket.service';
+import { Product } from '../../../shared/interfaces/product.interface';
+import { BasketService } from '../../../shared/services/basket.service';
+import { ProductsService } from '../../../shared/services/products.service';
+import { Status } from '../../../shared/interfaces/order.interface';
 
 @Component({
   selector: 'app-product-page',
@@ -70,6 +70,7 @@ export class ProductPageComponent implements OnInit {
     this.basketService.addToBasket({
       ...product,
       quantity: product.minQuantity,
+      status: Status.pending,
     });
   }
 }

@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CardItemComponent } from './components/card-item/card-item.component';
-import { ProductsService } from '../services/products.service';
-import { Product } from '../interfaces/product.interface';
-import { ProductsService } from '../../shared/services/products.service';
-import { Product } from '../../shared/interfaces/product.interface';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { BasketService } from '../services/basket.service';
-import { BasketService } from '../../shared/services/basket.service';
-import { Status } from '../../shared/interfaces/order.interface';
+import { Product } from '../shared/interfaces/product.interface';
+import { ProductsService } from '../shared/services/products.service';
+import { BasketService } from '../shared/services/basket.service';
+import { Status } from '../shared/interfaces/order.interface';
 
 @Component({
   selector: 'app-product',
