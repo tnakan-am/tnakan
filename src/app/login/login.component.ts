@@ -7,7 +7,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
-import { FirebaseAuthService } from '../services/firebase-auth.service';
+import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 
 @Component({
   selector: 'app-login',

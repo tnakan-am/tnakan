@@ -1,7 +1,7 @@
 import { Component, OnInit, Signal, WritableSignal } from '@angular/core';
-import { BasketService } from '../services/basket.service';
+import { BasketService } from '../shared/services/basket.service';
 import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -14,9 +14,12 @@ import {
   MatStepperPrevious,
 } from '@angular/material/stepper';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { OrderItem, Status } from '../interfaces/order.interface';
-import { OrdersService } from '../services/orders.service';
-import { openSnackBar } from '../helpers/snackbar';
+import { OrderItem, Status } from '../shared/interfaces/order.interface';
+import { OrdersService } from '../shared/services/orders.service';
+import { openSnackBar } from '../shared/helpers/snackbar';
+import { Availability } from '../shared/interfaces/product.interface';
+import { formErrorMessage } from '../shared/helpers/form-error-message';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-basket',
@@ -39,37 +42,51 @@ import { openSnackBar } from '../helpers/snackbar';
     MatSelect,
     MatOption,
     MatStepLabel,
+    MatError,
+    TranslateModule,
   ],
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.scss',
 })
 export class BasketComponent implements OnInit {
-  orders!: WritableSignal<OrderItem[]>;
-  total!: number;
-  orderForm!: FormGroup;
+  protected readonly formErrorMessage = formErrorMessage;
+  protected readonly snackBar = openSnackBar();
+  products!: WritableSignal<OrderItem[]>;
   regions!: Signal<string[]>;
   cities!: WritableSignal<{ city: string; admin_name: string }[]>;
+  total!: number;
+  orderForm!: FormGroup;
   citiesList!: { city: string; admin_name: string }[];
-  snackBar = openSnackBar();
 
   constructor(
     private basketService: BasketService,
     private fb: FormBuilder,
     private ordersService: OrdersService
   ) {
-    this.orders = this.basketService.basket;
+    this.products = this.basketService.basket;
     this.cities = basketService.cities;
     this.regions = basketService.regions;
 
     this.orderForm = this.fb.group({
       products: this.fb.array(
-        this.orders().map((value) =>
+        this.products().map((value) =>
           fb.group({
             ...value,
             comment: [],
-            quantity: [value.minQuantity, [Validators.required, Validators.min(value.minQuantity)]],
+            quantity: [
+              value.minQuantity,
+              [
+                Validators.required,
+                Validators.min(value.minQuantity),
+                Validators.max(
+                  value.availability === Availability.unlimited ? 1000000000 : value.availability
+                ),
+              ],
+            ],
+            status: Status.pending,
           })
-        )
+        ),
+        Validators.required
       ),
       address: this.fb.group({
         city: ['', Validators.required],
@@ -86,7 +103,7 @@ export class BasketComponent implements OnInit {
   ngOnInit() {}
 
   removeItem(product: OrderItem) {
-    this.orders.update((value) => value.filter((value1) => value1.id !== product.id));
+    this.products.update((value) => value.filter((value1) => value1.id !== product.id));
   }
 
   calculateTotal() {
@@ -109,11 +126,17 @@ export class BasketComponent implements OnInit {
         total: this.total,
         status: Status.pending,
       })
-      .then(() => {
-        this.snackBar('Order successfully placed. PLease wait for updates');
-      })
-      .then(() => {
-        this.orders.set([]);
+      .subscribe({
+        next: () => {
+          this.snackBar('Order successfully placed.');
+          this.products.set([]);
+        },
+        error: (err) => {
+          this.snackBar(err.message);
+        },
+        complete: () => {
+          this.products.set([]);
+        },
       });
   }
 }

@@ -22,6 +22,7 @@
     "productName": "Rus Product Name",
     "productDescription": "Rus Product Description",
     "unit": "Rus Unit",
+    "availability":  "Rus Availability",
     "price": "Rus Price",
     "category": "Rus Category",
     "subCategory": "Rus Sub Category",
@@ -47,6 +48,8 @@
       "number": "Rus Must be numbers",
       "pattern": "Rus Field doesn't meet pattern",
       "minlength": "Rus Minimum length requirements {{number}}",
+      "min": "Rus Minimum number {{min}}",
+      "max": "Rus Maximum number {{max}}",
       "password": "Rus Passwords must be at least 6 characters"
     }
   },
@@ -55,4 +58,4 @@
     "russian": "Русский",
     "armenian": "Армянский"
   }
-},
+}

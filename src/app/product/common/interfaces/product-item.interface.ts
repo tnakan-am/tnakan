@@ -1,4 +1,5 @@
 import { UnitTypeEnum } from '../../../shared/enums/unit.enum';
+import { Unit } from '../enums/unit.enum';
 
 export interface ProductItemInterface {
   id: number;
@@ -13,5 +14,5 @@ export interface ProductItemInterface {
   user_photo: string;
   currency: string;
   unit: string;
-  unitType: UnitTypeEnum;
+  unitType: Unit;
 }

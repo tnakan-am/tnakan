@@ -13,6 +13,8 @@ import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
 import { DecimalPipe } from '@angular/common';
 import { Product } from '../../../interfaces/product.interface';
+import { Product } from '../../../../shared/interfaces/product.interface';
+import { Unit } from '../../common/enums/unit.enum';
 import { MatTooltip } from '@angular/material/tooltip';
 import { UnitTypeEnum } from '../../../shared/enums/unit.enum';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,6 +43,7 @@ export class CardItemComponent {
   units = UnitTypeEnum;
   @Input() product!: Product;
   @Output() addToCard = new EventEmitter<Product>();
+  units = Unit;
 
   constructor(private router: Router, private activatedRouter: ActivatedRoute) {}
 

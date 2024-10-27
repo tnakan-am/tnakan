@@ -23,6 +23,7 @@
     "productName": "Product Name",
     "productDescription": "Product Description",
     "unit":  "Unit",
+    "availability":  "Availability",
     "price": "Price",
     "unitPrice": "Unit Price",
     "category": "Category",
@@ -49,6 +50,8 @@
       "number": "Must be numbers",
       "pattern": "Field doesn't meet pattern",
       "minlength": "Minimum length requirements {{number}}",
+      "min": "Minimum number {{min}}",
+      "max": "Maximum number {{max}}",
       "password": "Passwords must be at least 6 characters"
     }
   },

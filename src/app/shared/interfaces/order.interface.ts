@@ -6,12 +6,13 @@ export interface Address {
   region: string;
   zip: string;
   country: string;
-  apartment: string;
+  house: string;
 }
 
 export interface OrderItem extends Product {
   quantity: number;
   comment?: string;
+  status: Status;
 }
 
 export enum Status {

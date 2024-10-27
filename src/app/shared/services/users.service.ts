@@ -3,7 +3,7 @@ import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { updateProfile, User } from '@angular/fire/auth';
+import { Auth, updateProfile, user, User } from '@angular/fire/auth';
 import { FirebaseAuthService } from './firebase-auth.service';
 
 @Injectable({
@@ -12,12 +12,13 @@ import { FirebaseAuthService } from './firebase-auth.service';
 export class UsersService {
   firebaseAuthService = inject(FirebaseAuthService);
   firestore = inject(Firestore);
+  auth: Auth = inject(Auth);
+  user$: Observable<User> = user(this.auth).pipe(shareReplay(1));
 
   constructor() {}
 
   getUserData(): Observable<IUser | undefined> {
-    const user = this.firebaseAuthService.user$;
-    return user.pipe(
+    return this.user$.pipe(
       switchMap((user) =>
         !!user?.uid
           ? fromPromise(getDoc(doc(collection(this.firestore, 'users'), (user as User)?.uid))).pipe(

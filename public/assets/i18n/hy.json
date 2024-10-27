@@ -22,6 +22,7 @@
     "productName": "Hy Product Name",
     "productDescription": "Hy Product Description",
     "unit": "Hy Unit",
+    "availability":  "Hy Availability",
     "price": "Hy Price",
     "category": "Hy Category",
     "subCategory": "Hy Sub Category",
@@ -47,6 +48,8 @@
       "number": "Hy Must be numbers",
       "pattern": "Hy Field doesn't meet pattern",
       "minlength": "Hy Minimum length requirements {{number}}",
+      "min": "Hy Minimum number {{min}}",
+      "max": "Hy Maximum number {{max}}",
       "password": "Hy Passwords must be at least 6 characters"
     }
   },
@@ -55,4 +58,4 @@
     "russian": "Ռուսերեն",
     "armenian": "Հայերեն"
   }
-},
+}

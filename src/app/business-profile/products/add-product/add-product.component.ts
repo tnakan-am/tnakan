@@ -18,9 +18,26 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { ProductCategory, Sub } from '../../../interfaces/categories.interface';
+import {
+  CategoryTree,
+  ProductCategory,
+  Sub,
+} from '../../../shared/interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
+import { Unit } from '../../../home/product/common/enums/unit.enum';
+import { Availability, Product } from '../../../shared/interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
+import { SelectItem } from '../../../shared/interfaces/select-item.interface';
+import { DeliveryOption } from '../../../shared/constants/delivery-option.enum';
+import { StorageService } from '../../../shared/services/storage.service';
+import { formErrorMessage } from '../../../shared/helpers/form-error-message';
+
+export interface DialogData {
+  name: string;
+  userId: string;
+  categories: Array<CategoryTree>;
+  form?: Product;
+}
 import { SelectItem } from '../../../interfaces/select-item.interface';
 import { DeliveryOption } from '../../../constants/delivery-option.enum';
 import { StorageService } from '../../../services/storage.service';
@@ -50,11 +67,14 @@ import { DialogData } from '../../../shared/interfaces/dialog-data.interface';
   styleUrl: './add-product.component.scss',
 })
 export class AddProductComponent implements OnInit {
+  protected readonly formErrorMessage = formErrorMessage;
   readonly dialogRef = inject(MatDialogRef<AddProductComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   readonly storageService = inject(StorageService);
+
   units!: Array<SelectItem>;
   options!: Array<SelectItem>;
+  availability!: Array<SelectItem>;
   form!: FormGroup;
   subCategories!: Array<Sub> | undefined;
   productCategories!: Array<ProductCategory> | undefined;
@@ -71,10 +91,11 @@ export class AddProductComponent implements OnInit {
       minQuantity: [1, [Validators.required, Validators.pattern(/^\d+$/)]],
       unit: ['quantity'],
       deliveryOption: ['nearest'],
+      availability: [Availability.unlimited, [Validators.nullValidator]],
       price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
-    this.units = Object.keys(UnitTypeEnum).map((key) => {
-      return { id: key, name: UnitTypeEnum[key as keyof typeof UnitTypeEnum] };
+    this.units = Object.keys(Unit).map((key) => {
+      return { id: key, name: Unit[key as keyof typeof Unit] };
     });
     this.options = Object.keys(DeliveryOption).map((key) => {
       return { id: key, name: DeliveryOption[key as keyof typeof DeliveryOption] };
@@ -135,6 +156,4 @@ export class AddProductComponent implements OnInit {
       },
     });
   }
-
-  protected readonly formErrorMessage = formErrorMessage;
 }

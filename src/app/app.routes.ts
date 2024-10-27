@@ -3,7 +3,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '@angular/fire/auth-guard';
-import { permissionsGuard } from './services/permissions.guard';
+import { permissionsGuard } from './shared/services/permissions.guard';
 import { ProductsComponent } from './business-profile/products/products.component';
 import { AdComponent } from './business-profile/ad/ad.component';
 import { OrdersComponent } from './business-profile/orders/orders.component';
