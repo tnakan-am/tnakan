@@ -6,6 +6,7 @@
   min-height: 100vh;
 }
 
+// @todo need to find another solution for remove vertical scroll
 :host::ng-deep {
   .mat-mdc-tab-body-content {
     overflow: unset !important;
