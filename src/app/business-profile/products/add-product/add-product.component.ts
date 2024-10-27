@@ -25,7 +25,7 @@ import {
 } from '../../../shared/interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
 import { Unit } from '../../../home/product/common/enums/unit.enum';
-import { Product } from '../../../shared/interfaces/product.interface';
+import { Availability, Product } from '../../../shared/interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectItem } from '../../../shared/interfaces/select-item.interface';
 import { DeliveryOption } from '../../../shared/constants/delivery-option.enum';
@@ -61,11 +61,14 @@ export interface DialogData {
   styleUrl: './add-product.component.scss',
 })
 export class AddProductComponent implements OnInit {
+  protected readonly formErrorMessage = formErrorMessage;
   readonly dialogRef = inject(MatDialogRef<AddProductComponent>);
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   readonly storageService = inject(StorageService);
+
   units!: Array<SelectItem>;
   options!: Array<SelectItem>;
+  availability!: Array<SelectItem>;
   form!: FormGroup;
   subCategories!: Array<Sub> | undefined;
   productCategories!: Array<ProductCategory> | undefined;
@@ -82,6 +85,7 @@ export class AddProductComponent implements OnInit {
       minQuantity: [1, [Validators.required, Validators.pattern(/^\d+$/)]],
       unit: ['quantity'],
       deliveryOption: ['nearest'],
+      availability: [Availability.unlimited, [Validators.nullValidator]],
       price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
     this.units = Object.keys(Unit).map((key) => {
@@ -146,6 +150,4 @@ export class AddProductComponent implements OnInit {
       },
     });
   }
-
-  protected readonly formErrorMessage = formErrorMessage;
 }

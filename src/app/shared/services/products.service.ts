@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   Firestore,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -69,6 +70,27 @@ export class ProductsService {
     return fromPromise(setDoc(productRef, product, { merge: true }));
   }
 
+  updateProductAvailability(qnt: number, id: string): Observable<void> {
+    const productRef = doc(this.firestore, 'products', id);
+
+    return fromPromise(
+      getDoc(productRef).then((product) => {
+        if (product.exists()) {
+          if (product.data()['availability'] === 'unlimited') {
+            return Promise.resolve();
+          } else if (product.data()['availability'] >= qnt)
+            return setDoc(
+              productRef,
+              { availability: product.data()?.['availability'] - qnt },
+              { merge: true }
+            );
+          throw new Error('Quantity unavailable');
+        }
+        throw new Error("doesn't exist");
+      })
+    );
+  }
+
   batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<any> {
     const batch = writeBatch(this.firestore);
     const q = query(collection(this.firestore, 'products'), where('userId', '==', userId));
@@ -88,6 +110,16 @@ export class ProductsService {
   }
 
   getAllProducts(): Observable<Product[]> {
+    return fromPromise(
+      getDocs(query(collection(this.firestore, 'products'))).then((values) => {
+        const data: any[] = [];
+        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
+        return data;
+      })
+    );
+  }
+
+  getProduct(): Observable<Product[]> {
     return fromPromise(
       getDocs(query(collection(this.firestore, 'products'))).then((values) => {
         const data: any[] = [];
