@@ -17,6 +17,7 @@ import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
+import { Reviews } from '../interfaces/reviews.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -125,6 +126,32 @@ export class ProductsService {
         const data: any[] = [];
         values.forEach((value) => data.push({ id: value.id, ...value.data() }));
         return data;
+      })
+    );
+  }
+
+  getProductById(id: string): Observable<Product> {
+    const productRef = doc(this.firestore, `products/${id}`);
+    return fromPromise(
+      getDoc(productRef).then((docSnap) => {
+        if (docSnap.exists()) {
+          return { id: docSnap.id, ...docSnap.data() } as Product;
+        } else {
+          throw new Error('No such document!');
+        }
+      })
+    );
+  }
+
+  getProductReviews(id: string): Observable<Reviews> {
+    const reviewsRef = doc(this.firestore, `reviews/${id}`);
+    return fromPromise(
+      getDoc(reviewsRef).then((docSnap) => {
+        if (docSnap.exists()) {
+          return { id: docSnap.id, ...docSnap.data() } as Reviews;
+        } else {
+          throw new Error('No such document!');
+        }
       })
     );
   }

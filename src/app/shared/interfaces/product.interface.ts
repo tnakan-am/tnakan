@@ -1,5 +1,5 @@
 import { DeliveryOption } from '../constants/delivery-option.enum';
-import { Unit } from '../../home/product/common/enums/unit.enum';
+import { Unit } from '../enums/unit.enum';
 
 export enum Availability {
   unlimited = 'unlimited',
