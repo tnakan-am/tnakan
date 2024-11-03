@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarHttpService } from '../shared/services/sidebar-http.service';
-import { CategoriesService } from '../shared/services/categories.service';
 import { forkJoin } from 'rxjs';
 
 export interface SideBarMenu {
