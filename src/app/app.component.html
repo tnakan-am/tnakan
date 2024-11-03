@@ -1,4 +1,11 @@
-<app-navbar></app-navbar>
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+    <app-sidebar />
+  </mat-sidenav>
 
-<router-outlet />
-<app-footer />
+  <mat-sidenav-content>
+    <app-navbar (sidenavStatus)="opened = $event" />
+    <router-outlet />
+    <app-footer />
+  </mat-sidenav-content>
+</mat-sidenav-container>
