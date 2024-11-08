@@ -1,0 +1,36 @@
+<div class="container mx-auto">
+  <mat-accordion>
+    @for (order of orders$ | async; track order.orderId) {
+    <mat-expansion-panel (expandedChange)="$event && orderSeen(order)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{
+            order.address.region === order.address.city
+              ? order.address.region
+              : order.address.region + ', ' + order.address.city
+          }}, {{ order.address.street }},
+          {{ order.address.house }}
+          {{ order.address.zip }}
+        </mat-panel-title>
+        <mat-panel-description class="flex justify-between items-center">
+          <span>
+            {{ order.products.length }}
+          </span>
+          <span>
+            {{ order.createdAt | date : 'dd/MM/yyyy' }}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <ng-template matExpansionPanelContent>
+        @for (product of order.products; track product.id) {
+        <app-order-item
+          [product]="product"
+          (onRate)="rateProduct(product, $event)"
+        ></app-order-item>
+        }
+      </ng-template>
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+</div>

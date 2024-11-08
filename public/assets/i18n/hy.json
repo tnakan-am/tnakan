@@ -29,7 +29,8 @@
     "productCategory": "Hy Product Category",
     "id": "Hy ID",
     "uid": "Hy uid",
-    "deliveryOption": "Hy Delivery Option"
+    "deliveryOption": "Hy Delivery Option",
+    "comment": "Hy Comment"
   },
   "registration": {
     "registration": "Hy Registration"

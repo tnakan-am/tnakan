@@ -1,0 +1,75 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { OrderItem } from '../../../shared/interfaces/order.interface';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { StarInputComponent } from '../../../shared/star-input/star-input.component';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatButton } from '@angular/material/button';
+import { ReviewService } from '../../../shared/services/review.service';
+import { filter } from 'rxjs';
+
+@Component({
+  selector: 'app-order-item',
+  standalone: true,
+  imports: [
+    MatCard,
+    MatCardContent,
+    MatIcon,
+    MatTooltip,
+    ReactiveFormsModule,
+    StarInputComponent,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    TranslateModule,
+    MatButton,
+  ],
+  templateUrl: './order-item.component.html',
+  styleUrl: './order-item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class OrderItemComponent implements OnInit {
+  form = new FormGroup({
+    comment: new FormControl(''),
+    stars: new FormControl('', Validators.required),
+  });
+  reviewService = inject(ReviewService);
+
+  @Input() set product(val: OrderItem) {
+    this._product = val;
+  }
+  @Output() onRate = new EventEmitter();
+
+  ngOnInit() {
+    this.reviewService
+      .getOrderReview(this._product)
+      .pipe(filter((review) => !!review))
+      .subscribe({
+        next: (value) => {
+          this.form.patchValue(value);
+          this.form.disable({ onlySelf: true, emitEvent: false });
+        },
+      });
+  }
+
+  get product(): OrderItem {
+    return this._product;
+  }
+  private _product!: OrderItem;
+
+  rateProduct() {
+    this.onRate.emit(this.form.value);
+  }
+}

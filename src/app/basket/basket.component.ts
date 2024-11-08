@@ -15,11 +15,12 @@ import {
 } from '@angular/material/stepper';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { OrderItem, Status } from '../shared/interfaces/order.interface';
-import { OrdersService } from '../shared/services/orders.service';
+import { NotificationsService } from '../shared/services/notifications.service';
 import { openSnackBar } from '../shared/helpers/snackbar';
 import { Availability } from '../shared/interfaces/product.interface';
 import { formErrorMessage } from '../shared/helpers/form-error-message';
 import { TranslateModule } from '@ngx-translate/core';
+import { OrderService } from '../shared/services/order.service';
 
 @Component({
   selector: 'app-basket',
@@ -61,7 +62,8 @@ export class BasketComponent implements OnInit {
   constructor(
     private basketService: BasketService,
     private fb: FormBuilder,
-    private ordersService: OrdersService
+    private ordersService: NotificationsService,
+    private orderService: OrderService
   ) {
     this.products = this.basketService.basket;
     this.cities = basketService.cities;
@@ -120,7 +122,7 @@ export class BasketComponent implements OnInit {
     if (!this.orderForm.valid) {
       return;
     }
-    this.ordersService
+    this.orderService
       .addOrder({
         ...this.orderForm.value,
         total: this.total,

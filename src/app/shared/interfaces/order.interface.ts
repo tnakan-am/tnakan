@@ -9,10 +9,20 @@ export interface Address {
   house: string;
 }
 
+export interface Review {
+  id: string;
+  orderRef: string;
+  productRef: string;
+  comment: string | null;
+  stars: number;
+}
+
 export interface OrderItem extends Product {
   quantity: number;
-  comment?: string;
   status: Status;
+  comment?: string;
+  reviewRef?: string;
+  orderId?: string;
 }
 
 export enum Status {

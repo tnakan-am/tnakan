@@ -29,7 +29,8 @@
     "productCategory": "Rus Product Category",
     "id": "Rus ID",
     "uid": "Rus uid",
-    "deliveryOption": "Rus Delivery Option"
+    "deliveryOption": "Rus Delivery Option",
+    "comment": "Rus Comment"
   },
   "registration": {
     "registration": "Rus Registration"

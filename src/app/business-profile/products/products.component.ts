@@ -90,7 +90,16 @@ export class ProductsComponent implements OnInit {
           if (value !== undefined) {
             return (
               form
-                ? this.productsService.updateProduct(value, form.id!)
+                ? this.productsService.updateProduct(
+                    {
+                      ...value,
+                      availability:
+                        value.availability === 'unlimited'
+                          ? value.availability
+                          : Number(value.availability),
+                    },
+                    form.id!
+                  )
                 : this.productsService.createProduct({
                     ...value,
                     userId: this.user.uid,

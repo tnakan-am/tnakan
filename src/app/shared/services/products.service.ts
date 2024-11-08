@@ -91,6 +91,25 @@ export class ProductsService {
     );
   }
 
+  updateProductReview(qnt: number, id: string): Observable<void> {
+    const productRef = doc(this.firestore, 'products', id);
+
+    return fromPromise(
+      getDoc(productRef).then((product) => {
+        if (product.exists()) {
+          if (product.data()['avgReview'] >= qnt)
+            return setDoc(
+              productRef,
+              { availability: product.data()?.['availability'] - qnt },
+              { merge: true }
+            );
+          throw new Error('Quantity unavailable');
+        }
+        throw new Error("doesn't exist");
+      })
+    );
+  }
+
   batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<any> {
     const batch = writeBatch(this.firestore);
     const q = query(collection(this.firestore, 'products'), where('userId', '==', userId));
