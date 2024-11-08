@@ -24,20 +24,14 @@ import {
   Sub,
 } from '../../../shared/interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
-import { Unit } from '../../../home/product/common/enums/unit.enum';
 import { Availability, Product } from '../../../shared/interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectItem } from '../../../shared/interfaces/select-item.interface';
 import { DeliveryOption } from '../../../shared/constants/delivery-option.enum';
 import { StorageService } from '../../../shared/services/storage.service';
 import { formErrorMessage } from '../../../shared/helpers/form-error-message';
-
-export interface DialogData {
-  name: string;
-  userId: string;
-  categories: Array<CategoryTree>;
-  form?: Product;
-}
+import { DialogData } from '../../../shared/interfaces/dialog-data.interface';
+import { Unit } from '../../../shared/enums/unit.enum';
 
 @Component({
   selector: 'app-add-product',

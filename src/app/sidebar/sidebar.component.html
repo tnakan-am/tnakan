@@ -1,0 +1,96 @@
+<aside
+  id="default-sidebar"
+  class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+  aria-label="Sidenav"
+  style="z-index: 9999"
+>
+  <div
+    class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-green-200 dark:bg-white-800 dark:border-green-700"
+  >
+    <ul class="space-y-2">
+      @for (menuItem of menuList; track menuItem) {
+      <li>
+        @if (menuItem.categories.length) {
+        <button
+          type="button"
+          class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
+          aria-controls="dropdown-pages"
+          data-collapse-toggle="dropdown-pages"
+          (click)="openSub($event, menuItem)"
+        >
+          <span class="flex-1 ml-3 text-left whitespace-nowrap">{{ menuItem.categoryName }}</span>
+          <span class="material-icons">{{
+            menuItem.selected ? 'expand_more' : 'chevron_right'
+          }}</span>
+        </button>
+        } @else {
+        <a
+          href="#"
+          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+        >
+          <span class="ml-3">{{ menuItem.categoryName }}</span>
+        </a>
+        }
+        <ul [class.hidden]="!menuItem.selected" class="py-2 space-y-2">
+          @for (categories of menuItem.categories; track categories) {
+          <li>
+            @if (categories?.categories?.length) {
+            <button
+              type="button"
+              class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
+              aria-controls="dropdown-pages"
+              data-collapse-toggle="dropdown-pages"
+              (click)="openSub($event, categories)"
+            >
+              <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
+                categories.categoryName
+              }}</span>
+              <span class="material-icons">{{
+                categories.selected ? 'expand_more' : 'chevron_right'
+              }}</span>
+            </button>
+            } @else {
+            <a
+              href="#"
+              class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+            >
+              <span class="ml-3">{{ categories.categoryName }}</span>
+            </a>
+            }
+            <ul [class.hidden]="!categories.selected" class="py-2 space-y-2">
+              @for (category of categories?.categories; track category) {
+              <li>
+                @if (category?.categories?.length) {
+                <button
+                  type="button"
+                  class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
+                  aria-controls="dropdown-pages"
+                  data-collapse-toggle="dropdown-pages"
+                  (click)="openSub($event, category)"
+                >
+                  <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
+                    category.categoryName
+                  }}</span>
+                  <span class="material-icons">{{
+                    category.selected ? 'expand_more' : 'chevron_right'
+                  }}</span>
+                </button>
+                } @else {
+                <a
+                  href="#"
+                  class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+                >
+                  <span class="ml-3">{{ category.categoryName }}</span>
+                </a>
+                }
+              </li>
+              }
+            </ul>
+          </li>
+          }
+        </ul>
+      </li>
+      }
+    </ul>
+  </div>
+</aside>

@@ -5,11 +5,11 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ProductComponent } from './product/product.component';
-import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
+import { ProductComponent } from '../product/product.component';
 import { User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 
 @Component({
   selector: 'app-home',

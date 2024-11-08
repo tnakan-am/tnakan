@@ -1,4 +1,4 @@
-import { Component, WritableSignal } from '@angular/core';
+import { Component, EventEmitter, Output, signal, WritableSignal } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
@@ -38,7 +38,10 @@ export class NavbarComponent {
   user$: Observable<IUser | undefined>;
   user: IUser | undefined;
   basket;
+  isOpenedSidenav = true;
   notifications?: WritableSignal<Notification[]>;
+
+  @Output() sidenavStatus = new EventEmitter<boolean>();
 
   constructor(
     private translateService: TranslateService,
@@ -81,5 +84,10 @@ export class NavbarComponent {
   businessUserNotificationsSubscription() {
     this.ordersService.onValue(() => {});
     this.notifications = this.ordersService.newOrders;
+  }
+
+  toggleSidebar(): void {
+    this.isOpenedSidenav = !this.isOpenedSidenav;
+    this.sidenavStatus.emit(this.isOpenedSidenav);
   }
 }

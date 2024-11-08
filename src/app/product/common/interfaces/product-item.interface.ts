@@ -1,3 +1,4 @@
+import { UnitTypeEnum } from '../../../shared/enums/unit.enum';
 import { Unit } from '../enums/unit.enum';
 
 export interface ProductItemInterface {
