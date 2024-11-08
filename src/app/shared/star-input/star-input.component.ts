@@ -3,9 +3,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { NgClass } from '@angular/common';
 
-/**
- * @description StarInputComponent is created for setting 5 star review returns number from 1 to 5
- */
 @Component({
   selector: 'app-star-input',
   standalone: true,

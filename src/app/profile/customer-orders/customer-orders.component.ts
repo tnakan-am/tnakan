@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Order } from '../../shared/interfaces/order.interface';
+import { Component, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Order, OrderItem } from '../../shared/interfaces/order.interface';
 import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import {
   MatAccordion,
@@ -11,6 +12,7 @@ import {
 } from '@angular/material/expansion';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrderService } from '../../shared/services/order.service';
+import { ReviewService } from '../../shared/services/review.service';
 
 @Component({
   selector: 'app-customer-orders',
@@ -31,21 +33,18 @@ import { OrderService } from '../../shared/services/order.service';
   styleUrl: './customer-orders.component.scss',
 })
 export class CustomerOrdersComponent {
-  orders?: Order[];
+  orders$?: Observable<Order[]>;
+  reviewService = inject(ReviewService);
 
   constructor(private orderService: OrderService) {
-    this.getOrders();
+    this.orders$ = this.orderService.getCustomerOrders();
   }
 
   orderSeen(order: Order) {
     return false;
   }
 
-  getOrders() {
-    this.orderService.getCustomerOrders().subscribe({
-      next: (value) => {
-        this.orders = value;
-      },
-    });
+  rateProduct(product: OrderItem, $event: { comment: string; stars: number }) {
+    this.reviewService.writeReview(product, $event).subscribe();
   }
 }

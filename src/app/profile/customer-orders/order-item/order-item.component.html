@@ -8,33 +8,23 @@
         {{ product.quantity }}
       </div>
 
-      <div>{{ bill }}</div>
+      <div>{{ product.price * product.quantity }}</div>
     </div>
     @if (product.comment) {
     <div>Comment: {{ product.comment }}</div>
     } @if (product.status === 'delivered') {
 
-    <form
-      [formGroup]="form"
-      (ngSubmit)="rateProduct()"
-      class="border border-gray-300 flex flex-col"
-    >
-      <div>
-        <app-star-input formControlName="stars"></app-star-input>
-      </div>
+    <form [formGroup]="form" (ngSubmit)="rateProduct()" class="border border-gray-300">
+      <app-star-input formControlName="stars"></app-star-input>
 
-      <div>
-        <mat-form-field>
-          <mat-label>{{ 'fields.comment' | translate }}</mat-label>
-          <textarea placeholder="Comment" rows="2" matInput formControlName="comment"></textarea>
-        </mat-form-field>
-      </div>
+      <mat-form-field>
+        <mat-label>{{ 'fields.comment' | translate }}</mat-label>
+        <textarea placeholder="Comment" rows="2" matInput formControlName="comment"></textarea>
+      </mat-form-field>
 
-      <div>
-        <button mat-button [disabled]="form.invalid || form.disabled">
-          {{ 'buttons.submit' | translate }}
-        </button>
-      </div>
+      <button mat-button [disabled]="form.invalid || form.disabled">
+        {{ 'buttons.submit' | translate }}
+      </button>
     </form>
     }
   </mat-card-content>

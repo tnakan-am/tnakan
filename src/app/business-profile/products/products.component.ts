@@ -75,26 +75,6 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {}
 
-  private updateProduct(value: Product, id: string) {
-    return this.productsService.updateProduct(
-      {
-        ...value,
-        availability:
-          value.availability === 'unlimited' ? value.availability : Number(value.availability),
-      },
-      id
-    );
-  }
-
-  private createProduct(value: Product) {
-    return this.productsService.createProduct({
-      ...value,
-      userId: this.user.uid,
-      userDisplayName: this.user.displayName!,
-      userPhoto: this.user.photoURL,
-    });
-  }
-
   openDialog(form?: Product): void {
     (this.categories?.length ? of(this.categories) : this.categoriesService.getCategoriesTree())
       .pipe(
@@ -107,10 +87,26 @@ export class ProductsComponent implements OnInit {
           return dialogRef.afterClosed() as Observable<Product>;
         }),
         switchMap((value: Product) => {
-          if (value) {
-            return (form ? this.updateProduct(value, form.id!) : this.createProduct(value)).pipe(
-              map(() => true)
-            );
+          if (value !== undefined) {
+            return (
+              form
+                ? this.productsService.updateProduct(
+                    {
+                      ...value,
+                      availability:
+                        value.availability === 'unlimited'
+                          ? value.availability
+                          : Number(value.availability),
+                    },
+                    form.id!
+                  )
+                : this.productsService.createProduct({
+                    ...value,
+                    userId: this.user.uid,
+                    userDisplayName: this.user.displayName!,
+                    userPhoto: this.user.photoURL,
+                  })
+            ).pipe(map(() => true));
           }
           return of(false);
         })
@@ -126,5 +122,9 @@ export class ProductsComponent implements OnInit {
     this.productsService.deleteProduct(element.id!).subscribe({
       next: (value) => (this.products$ = this.productsService.getUserProducts()),
     });
+  }
+
+  edite(element: Product) {
+    this.openDialog(element);
   }
 }
