@@ -44,14 +44,14 @@ export class CategoriesService {
             sub: [],
           };
           const querySnapshot = await getDocs(
-            query(collection(this.firestore, 'sub_category'), where('category_id', '==', doc.ref))
+            query(collection(this.firestore, 'sub_category'), where('category_ref', '==', doc.ref))
           );
           querySnapshot.forEach(async (doc1) => {
             const productCategories: ProductCategory[] = [];
             const querySnapshot1 = await getDocs(
               query(
                 collection(this.firestore, 'product_categories'),
-                where('sub_category_id', '==', doc1.ref)
+                where('sub_category_ref', '==', doc1.ref)
               )
             );
 
