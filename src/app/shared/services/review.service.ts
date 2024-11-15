@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { FirebaseAuthService } from './firebase-auth.service';
-import { ProductsService } from './products.service';
 import { OrderItem } from '../interfaces/order.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { catchError, filter, Observable, switchMap, throwError } from 'rxjs';
@@ -14,7 +13,6 @@ export class ReviewService {
   firestore: Firestore = inject(Firestore);
   firebaseAuthService = inject(FirebaseAuthService);
   userService = inject(UsersService);
-  productsService = inject(ProductsService);
 
   constructor() {}
 
