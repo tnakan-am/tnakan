@@ -4,11 +4,10 @@ import { RegistrationComponent } from './registration/registration.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { permissionsGuard } from './shared/services/permissions.guard';
-import { ProductsComponent } from './business-profile/products/products.component';
 import { AdComponent } from './business-profile/ad/ad.component';
-import { OrdersComponent } from './business-profile/orders/orders.component';
 import { BasketComponent } from './basket/basket.component';
 import { ProductPageComponent } from './product/components/product-page/product-page.component';
+import { CustomerOrdersComponent } from './profile/customer-orders/customer-orders.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +34,16 @@ export const routes: Routes = [
     path: 'profile/customer',
     loadComponent: () => import('./profile/profile.component').then((m) => m.ProfileComponent),
     canActivate: [AuthGuard, permissionsGuard('customer')],
+    children: [
+      {
+        path: '**',
+        redirectTo: 'orders',
+      },
+      {
+        path: 'orders',
+        component: CustomerOrdersComponent,
+      },
+    ],
   },
   {
     path: 'profile/business',
@@ -46,11 +55,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'products',
-        component: ProductsComponent,
+        loadComponent: () =>
+          import('./business-profile/products/products.component').then((m) => m.ProductsComponent),
       },
       {
         path: 'orders',
-        component: OrdersComponent,
+        loadComponent: () =>
+          import('./business-profile/orders/orders.component').then((m) => m.OrdersComponent),
       },
       {
         path: 'ad',

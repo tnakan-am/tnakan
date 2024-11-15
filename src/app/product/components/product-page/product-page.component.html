@@ -29,7 +29,7 @@
       <div class="flex space-x-4 mt-6">
         <button
           class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600"
-          (click)="handleAddToCard(product)"
+          (click)="handleAddToCard(product!)"
         >
           Add to Cart
         </button>
@@ -48,7 +48,9 @@
               <div
                 class="max-h-[600px] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-white-100 [&::-webkit-scrollbar-thumb]:bg-green-500 dark:[&::-webkit-scrollbar-track]:bg-white-700 dark:[&::-webkit-scrollbar-thumb]:bg-green-500"
               >
-                <app-reviews [reviews]="reviewsList" />
+                @for (review of reviewsList; track i;let i= $index) {
+                <app-review [review]="review" />
+                }
               </div>
             </ng-template>
           </mat-tab>

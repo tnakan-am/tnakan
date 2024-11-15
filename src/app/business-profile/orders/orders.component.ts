@@ -1,8 +1,7 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
-import { OrdersService } from '../../shared/services/orders.service';
-import { forkJoin } from 'rxjs';
+import { NotificationsService } from '../../shared/services/notifications.service';
 import { AsyncPipe } from '@angular/common';
-import { Notification, Order, Status } from '../../shared/interfaces/order.interface';
+import { Order, Status } from '../../shared/interfaces/order.interface';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -17,6 +16,7 @@ import { MatTooltip } from '@angular/material/tooltip';
 import { MatIconButton } from '@angular/material/button';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { OrderStatusPipe } from '../../shared/order-status.pipe';
+import { OrderService } from '../../shared/services/order.service';
 
 @Component({
   selector: 'app-orders',
@@ -39,7 +39,8 @@ import { OrderStatusPipe } from '../../shared/order-status.pipe';
   styleUrl: './orders.component.scss',
 })
 export class OrdersComponent implements OnInit {
-  ordersService: OrdersService = inject(OrdersService);
+  ordersService: NotificationsService = inject(NotificationsService);
+  orderService: OrderService = inject(OrderService);
   orders!: Order[];
   newOrders = this.ordersService.newOrders;
   status!: Status;
@@ -63,13 +64,11 @@ export class OrdersComponent implements OnInit {
   }
 
   private getOrders() {
-    this.ordersService.onValue((data: Notification[]) => {
-      forkJoin(this.ordersService.getOrdersProducts(data.map((value) => value.orderId))).subscribe({
-        next: (orders) => {
-          this.orders = orders;
-        },
-      });
-    }, true);
+    this.orderService.getBusinessOrders().subscribe({
+      next: (orders) => {
+        this.orders = orders;
+      },
+    });
   }
 
   orderSeen(order: Order) {
@@ -101,7 +100,7 @@ export class OrdersComponent implements OnInit {
     ).subscribe({
       next: () => {
         this.status = this.orderStatus.get(this.status)!;
-        this.orders = this.orders.map((orderItem) =>
+        this.orders.forEach((orderItem) =>
           orderItem.orderId === order.orderId
             ? {
                 ...order,

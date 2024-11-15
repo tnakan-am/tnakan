@@ -31,7 +31,8 @@
     "productCategory":  "Product Category",
     "id": "ID",
     "uid": "uid",
-    "deliveryOption": "Delivery Option"
+    "deliveryOption": "Delivery Option",
+    "comment": "Comment"
   },
   "registration": {
     "registration": "Registration"

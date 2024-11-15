@@ -11,11 +11,12 @@ import {
   User,
 } from '@angular/fire/auth';
 
-import { collection, doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { IUser } from '../interfaces/user.interface';
 import { Observable } from 'rxjs';
 import { openSnackBar } from '../helpers/snackbar';
+import { UsersService } from './users.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,7 @@ export class FirebaseAuthService {
   auth: Auth = inject(Auth);
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
+  usersService: UsersService = inject(UsersService);
   user$: Observable<User> = user(this.auth);
   private snackBar = openSnackBar();
 
@@ -75,7 +77,7 @@ export class FirebaseAuthService {
     if (user) {
       try {
         const data = { ...user, ...formData };
-        await this.saveUserDataOnSignUp(data); // Save user data to Firestore
+        await this.usersService.saveUserDataOnSignUp(data); // Save user data to Firestore
       } catch (error) {
         this.snackBar((error as any).customData._tokenResponse.error.message);
         return;
@@ -96,16 +98,5 @@ export class FirebaseAuthService {
     await signOut(this.auth);
 
     return this.router.navigate(['/']);
-  }
-  // Save user data to Firestore
-  private async saveUserDataOnSignUp(user: IUser): Promise<void> {
-    const userRef = doc(collection(this.firestore, 'users'), user.uid);
-    const userData = {
-      email: user.email,
-      displayName: user.displayName,
-      phoneNumber: user.phoneNumber,
-      type: user.type,
-    };
-    await setDoc(userRef, userData, { merge: true });
   }
 }

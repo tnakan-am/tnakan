@@ -1,14 +1,13 @@
-@for (review of reviews; track review.id) {
 <div
   class="flex float-left flex-col justify-between rounded-md border border-neutral-800 p-8 shadow-sm mx-auto mt-4"
 >
   <!-- stars -->
   <div class="text-violet-500 flex gap-2">
-    <ngx-stars [color]="'#28a745'" [initialStars]="review.rating" [readonly]="true" />
+    <ngx-stars [color]="'#28a745'" [initialStars]="review.stars" [readonly]="true" />
   </div>
 
   <p class="my-4 mb-0 text-base font-normal leading-relaxed tracking-wide text-gray-400">
-    {{ review.description }}
+    {{ review.comment }}
   </p>
 
   <div class="mt-6 flex items-center gap-6">
@@ -16,7 +15,7 @@
       <div class="relative inline-block overflow-hidden rounded-lg border-neutral-800">
         <img
           alt=""
-          [src]="review.reviewerLogo"
+          [src]="review.userPhoto"
           width="50"
           height="50"
           decoding="async"
@@ -28,8 +27,7 @@
       </div>
     </div>
     <div>
-      <p class="leading-relaxed tracking-wide text-green-500">{{ review.reviewerInfo }}</p>
+      <p class="leading-relaxed tracking-wide text-green-500">{{ review.userName }}</p>
     </div>
   </div>
 </div>
-}

@@ -12,7 +12,7 @@ import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 import { UsersService } from '../shared/services/users.service';
 import { MatBadge } from '@angular/material/badge';
 import { BasketService } from '../shared/services/basket.service';
-import { OrdersService } from '../shared/services/orders.service';
+import { NotificationsService } from '../shared/services/notifications.service';
 import { Notification } from '../shared/interfaces/order.interface';
 
 @Component({
@@ -48,7 +48,7 @@ export class NavbarComponent {
     private fAuth: FirebaseAuthService,
     private usersService: UsersService,
     private basketService: BasketService,
-    private ordersService: OrdersService,
+    private ordersService: NotificationsService,
     private router: Router
   ) {
     this.basket = this.basketService.basket;

@@ -1,0 +1,41 @@
+<mat-card appearance="outlined" class="m-2">
+  <mat-card-content>
+    <div class="w-100 flex justify-between gap-3 items-center">
+      <img [src]="product.image || 'assets/homemade.webp'" class="h-[60px] w-[60px]" />
+      <div>{{ product.name }}</div>
+      <span>{{ product.price }}/{{ product.unit }}</span>
+      <div>
+        {{ product.quantity }}
+      </div>
+
+      <div>{{ bill }}</div>
+    </div>
+    @if (product.comment) {
+    <div>Comment: {{ product.comment }}</div>
+    } @if (product.status === 'delivered') {
+
+    <form
+      [formGroup]="form"
+      (ngSubmit)="rateProduct()"
+      class="border border-gray-300 flex flex-col"
+    >
+      <div>
+        <app-star-input formControlName="stars"></app-star-input>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>{{ 'fields.comment' | translate }}</mat-label>
+          <textarea placeholder="Comment" rows="2" matInput formControlName="comment"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-button [disabled]="form.invalid || form.disabled">
+          {{ 'buttons.submit' | translate }}
+        </button>
+      </div>
+    </form>
+    }
+  </mat-card-content>
+</mat-card>

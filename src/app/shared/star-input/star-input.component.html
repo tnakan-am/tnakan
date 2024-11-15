@@ -1,0 +1,14 @@
+<div class="star-rating">
+  @for (star of [].constructor(starCount); track i;let i = $index) {
+
+  <mat-icon
+    [class]="isDisabled ? 'cursor-not-allowed star' : 'cursor-pointer star'"
+    (click)="setRating(i)"
+    (mouseenter)="setHover(i)"
+    (mouseleave)="clearHover()"
+    [ngClass]="{ active: i < (hoverIndex || rating) }"
+  >
+    star
+  </mat-icon>
+  }
+</div>

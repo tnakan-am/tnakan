@@ -4,18 +4,28 @@ import { IUser } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { Auth, updateProfile, user, User } from '@angular/fire/auth';
-import { FirebaseAuthService } from './firebase-auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  firebaseAuthService = inject(FirebaseAuthService);
   firestore = inject(Firestore);
   auth: Auth = inject(Auth);
   user$: Observable<User> = user(this.auth).pipe(shareReplay(1));
 
   constructor() {}
+
+  // Save user data to Firestore
+  async saveUserDataOnSignUp(user: IUser): Promise<void> {
+    const userRef = doc(collection(this.firestore, 'users'), user.uid);
+    const userData = {
+      email: user.email,
+      displayName: user.displayName,
+      phoneNumber: user.phoneNumber,
+      type: user.type,
+    };
+    await setDoc(userRef, userData, { merge: true });
+  }
 
   getUserData(): Observable<IUser | undefined> {
     return this.user$.pipe(

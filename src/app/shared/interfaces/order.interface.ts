@@ -11,8 +11,10 @@ export interface Address {
 
 export interface OrderItem extends Product {
   quantity: number;
-  comment?: string;
   status: Status;
+  comment?: string;
+  reviewRef?: string;
+  orderId?: string;
 }
 
 export enum Status {
