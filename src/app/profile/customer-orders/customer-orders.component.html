@@ -1,6 +1,6 @@
 <div class="container mx-auto">
   <mat-accordion>
-    @for (order of orders$ | async; track order.orderId) {
+    @for (order of orders; track order.orderId) {
     <mat-expansion-panel (expandedChange)="$event && orderSeen(order)">
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -24,10 +24,7 @@
 
       <ng-template matExpansionPanelContent>
         @for (product of order.products; track product.id) {
-        <app-order-item
-          [product]="product"
-          (onRate)="rateProduct(product, $event)"
-        ></app-order-item>
+        <app-order-item [product]="product"></app-order-item>
         }
       </ng-template>
     </mat-expansion-panel>

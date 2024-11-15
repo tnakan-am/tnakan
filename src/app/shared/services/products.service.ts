@@ -6,6 +6,7 @@ import {
   Firestore,
   getDoc,
   getDocs,
+  limit,
   query,
   setDoc,
   where,
@@ -17,7 +18,6 @@ import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
-import { Reviews } from '../interfaces/reviews.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -131,17 +131,7 @@ export class ProductsService {
 
   getAllProducts(): Observable<Product[]> {
     return fromPromise(
-      getDocs(query(collection(this.firestore, 'products'))).then((values) => {
-        const data: any[] = [];
-        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-        return data;
-      })
-    );
-  }
-
-  getProduct(): Observable<Product[]> {
-    return fromPromise(
-      getDocs(query(collection(this.firestore, 'products'))).then((values) => {
+      getDocs(query(collection(this.firestore, 'products'), limit(100))).then((values) => {
         const data: any[] = [];
         values.forEach((value) => data.push({ id: value.id, ...value.data() }));
         return data;
@@ -155,19 +145,6 @@ export class ProductsService {
       getDoc(productRef).then((docSnap) => {
         if (docSnap.exists()) {
           return { id: docSnap.id, ...docSnap.data() } as Product;
-        } else {
-          throw new Error('No such document!');
-        }
-      })
-    );
-  }
-
-  getProductReviews(id: string): Observable<Reviews> {
-    const reviewsRef = doc(this.firestore, `reviews/${id}`);
-    return fromPromise(
-      getDoc(reviewsRef).then((docSnap) => {
-        if (docSnap.exists()) {
-          return { id: docSnap.id, ...docSnap.data() } as Reviews;
         } else {
           throw new Error('No such document!');
         }

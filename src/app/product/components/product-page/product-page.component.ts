@@ -5,12 +5,13 @@ import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
-import { ReviewsComponent } from '../reviews/reviews.component';
+import { ReviewComponent } from '../reviews/review.component';
 import { Review } from '../../../shared/interfaces/reviews.interface';
 import { Product } from '../../../shared/interfaces/product.interface';
 import { BasketService } from '../../../shared/services/basket.service';
 import { ProductsService } from '../../../shared/services/products.service';
 import { Status } from '../../../shared/interfaces/order.interface';
+import { ReviewService } from '../../../shared/services/review.service';
 
 @Component({
   selector: 'app-product-page',
@@ -25,17 +26,18 @@ import { Status } from '../../../shared/interfaces/order.interface';
     MatIcon,
     MatTabGroup,
     MatTab,
-    ReviewsComponent,
+    ReviewComponent,
     MatTabContent,
   ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })
 export class ProductPageComponent implements OnInit {
-  product!: Product;
-  reviewsList: Review[] = [];
+  product?: Product;
+  reviewsList!: Review[];
   private productId: string = '';
   private basketService = inject(BasketService);
+  private reviewService = inject(ReviewService);
 
   constructor(
     private router: Router,
@@ -60,9 +62,11 @@ export class ProductPageComponent implements OnInit {
 
   handleTabChange(event: MatTabChangeEvent) {
     if (event.index === 1) {
-      this.productsService.getProductReviews(this.productId).subscribe((reviews) => {
-        this.reviewsList = reviews.reviews_list;
-      });
+      if (this.product) {
+        this.reviewService.getProductReview(this.product).subscribe((review) => {
+          this.reviewsList = review;
+        });
+      }
     }
   }
 

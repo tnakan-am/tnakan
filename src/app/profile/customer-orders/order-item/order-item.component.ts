@@ -46,15 +46,17 @@ export class OrderItemComponent implements OnInit {
     stars: new FormControl('', Validators.required),
   });
   reviewService = inject(ReviewService);
+  bill!: number;
 
   @Input() set product(val: OrderItem) {
     this._product = val;
+    this.bill = this._product.price * this._product.quantity;
   }
   @Output() onRate = new EventEmitter();
 
   ngOnInit() {
     this.reviewService
-      .getOrderReview(this._product)
+      .getProductReview(this._product)
       .pipe(filter((review) => !!review))
       .subscribe({
         next: (value) => {
@@ -70,6 +72,12 @@ export class OrderItemComponent implements OnInit {
   private _product!: OrderItem;
 
   rateProduct() {
-    this.onRate.emit(this.form.value);
+    this.reviewService
+      .writeReview(this.product, this.form.value as unknown as { stars: number; comment: string })
+      .subscribe({
+        next: (value) => {
+          this.form.disable({ onlySelf: true, emitEvent: false });
+        },
+      });
   }
 }

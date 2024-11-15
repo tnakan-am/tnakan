@@ -9,14 +9,6 @@ export interface Address {
   house: string;
 }
 
-export interface Review {
-  id: string;
-  orderRef: string;
-  productRef: string;
-  comment: string | null;
-  stars: number;
-}
-
 export interface OrderItem extends Product {
   quantity: number;
   status: Status;
