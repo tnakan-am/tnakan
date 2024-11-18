@@ -139,6 +139,29 @@ export class ProductsService {
     );
   }
 
+  getAllProductsByQuery(params: {
+    subCategory?: string;
+    productCategory?: string;
+  }): Observable<Product[]> {
+    return fromPromise(
+      getDocs(
+        query(
+          collection(this.firestore, 'products'),
+          where(
+            params.productCategory ? 'productCategory' : 'subCategory',
+            '==',
+            params.productCategory || params.subCategory
+          ),
+          limit(100)
+        )
+      ).then((values) => {
+        const data: any[] = [];
+        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
+        return data;
+      })
+    );
+  }
+
   getProductById(id: string): Observable<Product> {
     const productRef = doc(this.firestore, `products/${id}`);
     return fromPromise(

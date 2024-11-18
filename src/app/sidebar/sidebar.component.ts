@@ -9,6 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarHttpService } from '../shared/services/sidebar-http.service';
 import { forkJoin } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 export interface SideBarMenu {
   categoryName: string;
@@ -32,6 +33,7 @@ export interface SideBarMenu {
     FormsModule,
     MatIcon,
     NavbarComponent,
+    RouterLink,
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
