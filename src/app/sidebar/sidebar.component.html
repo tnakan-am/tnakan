@@ -51,7 +51,8 @@
             </button>
             } @else {
             <a
-              href="#"
+              [routerLink]="[]"
+              [queryParams]="{ subCategory: categories.categoryId }"
               class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
             >
               <span class="ml-3">{{ categories.categoryName }}</span>
@@ -77,7 +78,8 @@
                 </button>
                 } @else {
                 <a
-                  href="#"
+                  [routerLink]="[]"
+                  [queryParams]="{ productCategory: category.categoryId }"
                   class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
                 >
                   <span class="ml-3">{{ category.categoryName }}</span>

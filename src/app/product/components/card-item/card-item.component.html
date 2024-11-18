@@ -35,7 +35,7 @@
       >
       <button
         [disabled]="product.availability === 0"
-        (click)="handleAddToCard(product)"
+        (click)="handleAddToCard(product); $event.stopPropagation()"
         mat-button
         color="primary"
       >
