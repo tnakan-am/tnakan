@@ -63,10 +63,12 @@ export class ProductsService {
 
   createProduct(product: Product): Observable<void> {
     const productRef = doc(collection(this.firestore, 'products'));
-    return fromPromise(setDoc(productRef, product, { merge: true }));
+    return fromPromise(
+      setDoc(productRef, { ...product, avgReview: 0, numberReview: 0 }, { merge: true })
+    );
   }
 
-  updateProduct(product: Product, id: string): Observable<void> {
+  updateProduct(product: Partial<Product>, id: string): Observable<void> {
     const productRef = doc(this.firestore, 'products', id);
     return fromPromise(setDoc(productRef, product, { merge: true }));
   }

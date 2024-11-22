@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { OrderItem } from '../../../shared/interfaces/order.interface';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StarInputComponent } from '../../../shared/star-input/star-input.component';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -18,7 +16,7 @@ import { MatInput } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButton } from '@angular/material/button';
 import { ReviewService } from '../../../shared/services/review.service';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-order-item',
@@ -26,8 +24,6 @@ import { filter } from 'rxjs';
   imports: [
     MatCard,
     MatCardContent,
-    MatIcon,
-    MatTooltip,
     ReactiveFormsModule,
     StarInputComponent,
     MatFormField,
@@ -56,8 +52,11 @@ export class OrderItemComponent implements OnInit {
 
   ngOnInit() {
     this.reviewService
-      .getProductReview(this._product)
-      .pipe(filter((review) => !!review))
+      .getProductReview(this._product, this._product.orderId)
+      .pipe(
+        filter((review) => !!review.length),
+        map((value) => value[0])
+      )
       .subscribe({
         next: (value) => {
           this.form.patchValue(value);
