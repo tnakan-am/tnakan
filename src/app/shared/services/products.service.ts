@@ -63,10 +63,12 @@ export class ProductsService {
 
   createProduct(product: Product): Observable<void> {
     const productRef = doc(collection(this.firestore, 'products'));
-    return fromPromise(setDoc(productRef, product, { merge: true }));
+    return fromPromise(
+      setDoc(productRef, { ...product, avgReview: 0, numberReview: 0 }, { merge: true })
+    );
   }
 
-  updateProduct(product: Product, id: string): Observable<void> {
+  updateProduct(product: Partial<Product>, id: string): Observable<void> {
     const productRef = doc(this.firestore, 'products', id);
     return fromPromise(setDoc(productRef, product, { merge: true }));
   }
@@ -132,6 +134,29 @@ export class ProductsService {
   getAllProducts(): Observable<Product[]> {
     return fromPromise(
       getDocs(query(collection(this.firestore, 'products'), limit(100))).then((values) => {
+        const data: any[] = [];
+        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
+        return data;
+      })
+    );
+  }
+
+  getAllProductsByQuery(params: {
+    subCategory?: string;
+    productCategory?: string;
+  }): Observable<Product[]> {
+    return fromPromise(
+      getDocs(
+        query(
+          collection(this.firestore, 'products'),
+          where(
+            params.productCategory ? 'productCategory' : 'subCategory',
+            '==',
+            params.productCategory || params.subCategory
+          ),
+          limit(100)
+        )
+      ).then((values) => {
         const data: any[] = [];
         values.forEach((value) => data.push({ id: value.id, ...value.data() }));
         return data;

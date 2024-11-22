@@ -17,6 +17,7 @@ export interface Product {
   image: string;
   description: string;
   avgReview: number;
+  numberReview: number;
   category: string;
   subCategory: string;
   availability: number | Availability;
