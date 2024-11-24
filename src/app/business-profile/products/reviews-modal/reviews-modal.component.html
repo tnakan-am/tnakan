@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>
+  {{ 'product_reviews' | translate }} ({{ data.avgReview | number : '1.1-1' }})
+</h2>
+<mat-dialog-content>
+  @for (comment of data.reviews; track comment.id) {
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ comment.userName }}</mat-card-title>
+      <mat-card-subtitle>{{ comment.stars }}<mat-icon>star</mat-icon></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ comment.comment }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+  }
+</mat-dialog-content>

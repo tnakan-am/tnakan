@@ -24,6 +24,8 @@ import {
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
+import { ReviewService } from '../../shared/services/review.service';
+import { ReviewsModalComponent } from './reviews-modal/reviews-modal.component';
 
 @Component({
   selector: 'app-products',
@@ -51,7 +53,7 @@ import { FirebaseAuthService } from '../../shared/services/firebase-auth.service
 })
 export class ProductsComponent implements OnInit {
   readonly dialog = inject(MatDialog);
-  products$: Observable<Product[]>;
+  products$!: Observable<Product[]>;
   displayedColumns: string[] = [
     'ID',
     'name',
@@ -67,13 +69,14 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
-    private productsService: ProductsService
-  ) {
+    private productsService: ProductsService,
+    private reviewService: ReviewService
+  ) {}
+
+  ngOnInit() {
     this.firebaseAuthService.user$.pipe().subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getUserProducts();
   }
-
-  ngOnInit() {}
 
   private updateProduct(value: Product, id: string) {
     return this.productsService.updateProduct(
@@ -125,6 +128,17 @@ export class ProductsComponent implements OnInit {
   delete(element: Product) {
     this.productsService.deleteProduct(element.id!).subscribe({
       next: (value) => (this.products$ = this.productsService.getUserProducts()),
+    });
+  }
+
+  openReviews(element: Product) {
+    this.reviewService.getProductReview(element).subscribe({
+      next: (data) => {
+        const dialogRef = this.dialog.open(ReviewsModalComponent, {
+          data: { reviews: data, avgReview: element.avgReview, numberReview: element.numberReview },
+          width: '500px',
+        });
+      },
     });
   }
 }
