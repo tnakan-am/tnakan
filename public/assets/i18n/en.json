@@ -5,6 +5,7 @@
   "orders": "Orders",
   "products": "Products",
   "ad": "Ads",
+  "product_reviews": "Product Reviews",
   "login": {
     "login": "Login",
     "forgot": "Forgot password"

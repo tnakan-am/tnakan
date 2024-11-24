@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
-  MatDialogClose,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle,
@@ -18,13 +17,9 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOption, MatSelect } from '@angular/material/select';
-import {
-  CategoryTree,
-  ProductCategory,
-  Sub,
-} from '../../../shared/interfaces/categories.interface';
+import { ProductCategory, Sub } from '../../../shared/interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
-import { Availability, Product } from '../../../shared/interfaces/product.interface';
+import { Availability } from '../../../shared/interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
 import { SelectItem } from '../../../shared/interfaces/select-item.interface';
 import { DeliveryOption } from '../../../shared/constants/delivery-option.enum';
@@ -44,7 +39,6 @@ import { Unit } from '../../../shared/enums/unit.enum';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose,
     ReactiveFormsModule,
     MatSelect,
     MatOption,
