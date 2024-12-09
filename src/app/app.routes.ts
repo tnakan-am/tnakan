@@ -19,6 +19,11 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
+    path: 'confirm-email',
+    loadComponent: () =>
+      import('./confirm-email/confirm-email.component').then((m) => m.ConfirmEmailComponent),
+  },
+  {
     path: 'registration',
     component: RegistrationComponent,
   },

@@ -1,7 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { MatList, MatListItem } from '@angular/material/list';
-import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
-import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
@@ -16,19 +13,7 @@ import { ReviewService } from '../../../shared/services/review.service';
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatList,
-    MatListItem,
-    MatCard,
-    MatCardHeader,
-    MatCardContent,
-    MatIcon,
-    MatTabGroup,
-    MatTab,
-    ReviewComponent,
-    MatTabContent,
-  ],
+  imports: [CommonModule, MatTabGroup, MatTab, ReviewComponent, MatTabContent],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })
@@ -57,6 +42,7 @@ export class ProductPageComponent implements OnInit {
   getProductItem(productId: string): void {
     this.productsService.getProductById(productId).subscribe((product) => {
       this.product = product;
+      console.log(this.product);
     });
   }
 

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BaseFormComponent } from '../base-form.component';
 import { RouterLink } from '@angular/router';
 import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-business-form',
@@ -17,12 +18,12 @@ import { MatAnchor, MatButton } from '@angular/material/button';
     MatInput,
     MatFormField,
     ReactiveFormsModule,
-    MatIcon,
     RouterLink,
     MatAnchor,
     MatButton,
     MatLabel,
-    MatSuffix,
+    MatOption,
+    MatSelect,
   ],
   templateUrl: './business-form.component.html',
   styleUrl: './business-form.component.scss',
@@ -30,7 +31,7 @@ import { MatAnchor, MatButton } from '@angular/material/button';
 export class BusinessFormComponent extends BaseFormComponent {
   declare form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     super();
 
     this.form = this.fb.group({

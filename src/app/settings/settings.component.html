@@ -13,17 +13,53 @@
 
     @if (userData$ | async; as userData) {
     <div class="flex-1 flex flex-col">
-      <span class="text-xl flex items-center"
-        >{{ user.email }}
-        @if(user.emailVerified) {
-        <mat-icon class="text-green-400 text-lg flex items-center justify-center"
-          >verified</mat-icon
+      <div class="flex flex-col border-2 border-grey-600 px-3 mb-3">
+        <div class="flex flex-row justify-between">
+          <span class="text-xl flex items-center">
+            <span class="w-[100px] text-gray-500">Email:</span>
+            {{ user.email }}
+            @if(user.emailVerified) {
+            <mat-icon class="text-green-400 text-lg flex items-center justify-center"
+              >verified</mat-icon
+            >
+            } @else {
+            <mat-icon class="text-red-500 flex items-center justify-center">block</mat-icon>
+            }
+          </span>
+          <button mat-icon-button (click)="editeProfile(userData)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+        <span class="text-xl flex items-center"
+          ><span class="w-[100px] text-gray-500">Name:</span>{{ userData.displayName }}
+          {{ userData.surname }}</span
         >
-        } @else {
-        <mat-icon class="text-red-500 flex items-center justify-center">block</mat-icon>
-        }
-      </span>
-      <span class="text-xl">{{ userData.displayName }} {{ userData.surname }}</span>
+      </div>
+
+      <div class="flex flex-col border-2 border-grey-600 px-3">
+        <div class="flex flex-row justify-between">
+          <span class="text-xl flex items-center"
+            ><span class="w-[100px] text-gray-500">Region:</span>
+            {{ userData.address?.region }}</span
+          >
+          <button mat-icon-button (click)="editeAddress(userData)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <span class="text-xl flex items-center"
+          ><span class="w-[100px] text-gray-500">City:</span> {{ userData.address?.city }}</span
+        >
+        <span class="text-xl flex items-center"
+          ><span class="w-[100px] text-gray-500">Street:</span> {{ userData.address?.street }}</span
+        >
+        <span class="text-xl flex items-center"
+          ><span class="w-[100px] text-gray-500">House:</span> {{ userData.address?.house }}</span
+        >
+        <span class="text-xl flex items-center"
+          ><span class="w-[100px] text-gray-500">Zip:</span> {{ userData.address?.zip }}</span
+        >
+      </div>
     </div>
     }
   </div>

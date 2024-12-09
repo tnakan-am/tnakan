@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
-import { IUser } from '../interfaces/user.interface';
+import { IUser, Type } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { Auth, updateProfile, user, User } from '@angular/fire/auth';
+import { Auth, updateEmail, updateProfile, user, User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +18,19 @@ export class UsersService {
   // Save user data to Firestore
   async saveUserDataOnSignUp(user: IUser): Promise<void> {
     const userRef = doc(collection(this.firestore, 'users'), user.uid);
-    const userData = {
+    const userData: any = {
       email: user.email,
       displayName: user.displayName,
       phoneNumber: user.phoneNumber,
       type: user.type,
     };
+    if (user.type === Type.CUSTOMER) {
+      userData.name = user.name;
+      userData.surname = user.surname;
+    } else {
+      userData.company = user.company;
+      userData.hvhh = user.hvhh;
+    }
     await setDoc(userRef, userData, { merge: true });
   }
 
@@ -52,7 +59,10 @@ export class UsersService {
       (userData.photoURL || user.displayName
         ? updateProfile(user, userData)
         : Promise.resolve()
-      ).then((value) => {
+      ).then(async (value) => {
+        if (data.email !== userData.email) {
+          await updateEmail(user, data.email!);
+        }
         return setDoc(doc(collection(this.firestore, 'users'), user.uid), data, { merge: true });
       })
     );

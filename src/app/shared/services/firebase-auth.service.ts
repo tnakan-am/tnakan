@@ -97,6 +97,6 @@ export class FirebaseAuthService {
 
     await signOut(this.auth);
 
-    return this.router.navigate(['/']);
+    return this.router.navigate(['/confirm-email']);
   }
 }

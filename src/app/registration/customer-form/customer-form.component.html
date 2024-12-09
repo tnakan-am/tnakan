@@ -55,10 +55,49 @@
     }
   </mat-form-field>
 
+  // Address form
+  <div class="w-[400px] flex flex-col" formGroupName="address">
+    <div class="flex gap-3">
+      <mat-form-field>
+        <mat-label>region</mat-label>
+        <mat-select formControlName="region" (valueChange)="regionChange($event)">
+          @for (region of regions(); track region) {
+          <mat-option [value]="region">{{ region }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      @if (cities()) {
+      <mat-form-field>
+        <mat-label>city</mat-label>
+        <mat-select formControlName="city">
+          @for (city of citiesList;let id = $index; track id) {
+          <mat-option [value]="city.city">{{ city.city }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      }
+    </div>
+    <mat-form-field>
+      <mat-label>Street</mat-label>
+      <input matInput placeholder="Street" formControlName="street" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>House</mat-label>
+      <input matInput placeholder="House" formControlName="house" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Zip</mat-label>
+      <input matInput placeholder="zip" formControlName="zip" />
+    </mat-form-field>
+  </div>
+
   <div class="w-100 flex justify-between">
+    <a href="" routerLink="/" mat-raised-button>{{ 'buttons.back' | translate }}</a>
     <button [disabled]="form.invalid" mat-flat-button>
       {{ 'buttons.submit' | translate }}
     </button>
-    <a href="" routerLink="/" mat-raised-button>{{ 'buttons.back' | translate }}</a>
   </div>
 </form>

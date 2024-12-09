@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  {{ 'edit' | translate }}
+</h2>
+<mat-dialog-content>
+  <div class="w-100 flex flex-col" [formGroup]="form">
+    <div class="flex gap-8">
+      <mat-form-field>
+        <mat-label>region</mat-label>
+        <mat-select formControlName="region" (valueChange)="regionChange($event)">
+          @for (region of regions(); track region) {
+          <mat-option [value]="region">{{ region }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      @if (cities()) {
+      <mat-form-field>
+        <mat-label>city</mat-label>
+        <mat-select formControlName="city">
+          @for (city of citiesList;let id = $index; track id) {
+          <mat-option [value]="city.city">{{ city.city }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      }
+    </div>
+    <mat-form-field>
+      <mat-label>Street</mat-label>
+      <input matInput placeholder="Street" formControlName="street" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>House</mat-label>
+      <input matInput placeholder="House" formControlName="house" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Zip</mat-label>
+      <input matInput placeholder="zip" formControlName="zip" />
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">{{ 'buttons.cancel' | translate }}</button>
+  <button mat-button [mat-dialog-close]="save()" cdkFocusInitial>
+    {{ 'buttons.save' | translate }}
+  </button>
+</mat-dialog-actions>

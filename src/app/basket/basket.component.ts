@@ -1,6 +1,6 @@
-import { Component, OnInit, Signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, Signal, WritableSignal } from '@angular/core';
 import { BasketService } from '../shared/services/basket.service';
-import { MatCard, MatCardContent, MatCardHeader } from '@angular/material/card';
+import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -19,15 +19,16 @@ import { NotificationsService } from '../shared/services/notifications.service';
 import { openSnackBar } from '../shared/helpers/snackbar';
 import { Availability } from '../shared/interfaces/product.interface';
 import { formErrorMessage } from '../shared/helpers/form-error-message';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OrderService } from '../shared/services/order.service';
+import { UsersService } from '../shared/services/users.service';
+import { filter, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-basket',
   standalone: true,
   imports: [
     MatCard,
-    MatCardHeader,
     MatCardContent,
     MatFormField,
     MatInput,
@@ -58,12 +59,14 @@ export class BasketComponent implements OnInit {
   total!: number;
   orderForm!: FormGroup;
   citiesList!: { city: string; admin_name: string }[];
+  translate = inject(TranslateService);
 
   constructor(
     private basketService: BasketService,
     private fb: FormBuilder,
     private ordersService: NotificationsService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    private usersService: UsersService
   ) {
     this.products = this.basketService.basket;
     this.cities = basketService.cities;
@@ -102,7 +105,21 @@ export class BasketComponent implements OnInit {
     this.calculateTotal();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.usersService
+      .getUserData()
+      .pipe(
+        take(1),
+        filter((value) => !!value?.address?.street),
+        map((value) => value?.address)
+      )
+      .subscribe({
+        next: (value) => {
+          this.orderForm.patchValue({ address: value });
+          this.regionChange(value!.region);
+        },
+      });
+  }
 
   removeItem(product: OrderItem) {
     this.products.update((value) => value.filter((value1) => value1.id !== product.id));
@@ -130,7 +147,11 @@ export class BasketComponent implements OnInit {
       })
       .subscribe({
         next: () => {
-          this.snackBar('Order successfully placed.');
+          this.translate.get('messages.orderPlaced').subscribe({
+            next: (value) => {
+              this.snackBar(value);
+            },
+          });
           this.products.set([]);
         },
         error: (err) => {

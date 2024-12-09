@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatError, MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
 import { BaseFormComponent } from '../base-form.component';
 import { RouterLink } from '@angular/router';
 import { MatAnchor, MatButton } from '@angular/material/button';
+import { MatOption } from '@angular/material/core';
+import { MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-customer-form',
@@ -17,12 +18,12 @@ import { MatAnchor, MatButton } from '@angular/material/button';
     MatInput,
     MatFormField,
     ReactiveFormsModule,
-    MatIcon,
     MatLabel,
     RouterLink,
     MatButton,
     MatAnchor,
-    MatSuffix,
+    MatOption,
+    MatSelect,
   ],
   templateUrl: './customer-form.component.html',
   styleUrl: './customer-form.component.scss',
@@ -30,7 +31,7 @@ import { MatAnchor, MatButton } from '@angular/material/button';
 export class CustomerFormComponent extends BaseFormComponent {
   declare form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     super();
     this.form = this.fb.group({
       ...this.commonFields,

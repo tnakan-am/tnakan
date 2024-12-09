@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
-import { Observable, switchMap, tap } from 'rxjs';
+import { filter, Observable, switchMap, tap } from 'rxjs';
 import { User } from '@angular/fire/auth';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
@@ -9,11 +9,15 @@ import { IUser } from '../shared/interfaces/user.interface';
 import { ProductsService } from '../shared/services/products.service';
 import { openSnackBar } from '../shared/helpers/snackbar';
 import { StorageService } from '../shared/services/storage.service';
+import { MatIconButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { EditeAddressComponent } from './edite-address/edite-address.component';
+import { EditeProfileComponent } from './edite-profile/edite-profile.component';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [AsyncPipe, MatIcon],
+  imports: [AsyncPipe, MatIcon, MatIconButton],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
@@ -22,6 +26,7 @@ export class SettingsComponent {
   private usersService = inject(UsersService);
   readonly productsService = inject(ProductsService);
   readonly storageService = inject(StorageService);
+  readonly dialog = inject(MatDialog);
 
   user$!: Observable<User>;
   userData$!: Observable<IUser | undefined>;
@@ -57,5 +62,40 @@ export class SettingsComponent {
           });
       },
     });
+  }
+
+  editeAddress(user: IUser) {
+    const dialogRef = this.dialog.open(EditeAddressComponent, {
+      data: { ...user },
+      width: '500px',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((value) => !!value))
+      .subscribe((result) => {
+        this.usersService.update(this.user, { address: result }).subscribe({
+          next: () => {
+            this.userData$ = this.usersService.getUserData();
+          },
+        });
+      });
+  }
+  editeProfile(user: IUser) {
+    const dialogRef = this.dialog.open(EditeProfileComponent, {
+      data: { ...user },
+      width: '500px',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((value) => !!value))
+      .subscribe((result) => {
+        this.usersService.update(this.user, result).subscribe({
+          next: () => {
+            this.userData$ = this.usersService.getUserData();
+          },
+        });
+      });
   }
 }

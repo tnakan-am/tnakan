@@ -1,12 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatDrawerContainer, MatSidenavModule } from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { SidebarHttpService } from '../shared/services/sidebar-http.service';
 import { forkJoin } from 'rxjs';
 import { RouterLink } from '@angular/router';
@@ -21,20 +17,7 @@ export interface SideBarMenu {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatMenu,
-    MatMenuTrigger,
-    MatMenuItem,
-    MatDrawerContainer,
-    MatSidenavModule,
-    MatButtonModule,
-    MatCheckbox,
-    FormsModule,
-    MatIcon,
-    NavbarComponent,
-    RouterLink,
-  ],
+  imports: [CommonModule, MatSidenavModule, MatButtonModule, FormsModule, RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
@@ -87,7 +70,7 @@ export class SidebarComponent implements OnInit {
   }
 
   openSub(event: MouseEvent, menuItem: any) {
-    this.isOpen = !this.isOpen;
+    // this.isOpen = !this.isOpen;
     menuItem.selected = !menuItem.selected;
   }
 }

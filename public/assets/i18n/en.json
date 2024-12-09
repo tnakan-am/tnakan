@@ -5,6 +5,9 @@
   "orders": "Orders",
   "products": "Products",
   "ad": "Ads",
+  "product_reviews": "Product Reviews",
+  "confirm-email": "Please check your email",
+  "edit": "Edit",
   "login": {
     "login": "Login",
     "forgot": "Forgot password"
@@ -44,6 +47,7 @@
     "back": "Back"
   },
   "messages": {
+    "orderPlaced": "Order successfully placed.",
     "errors": {
       "required": "This field is required",
       "email": "Not valid email",
