@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
-import { MatAnchor } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 import { IUser } from '../shared/interfaces/user.interface';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { BusinessFormComponent } from './business-form/business-form.component';
 
@@ -13,13 +10,10 @@ import { BusinessFormComponent } from './business-form/business-form.component';
   selector: 'app-registration',
   standalone: true,
   imports: [
-    RouterLink,
     TranslateModule,
     MatTab,
     MatTabContent,
     MatTabGroup,
-    MatAnchor,
-    MatProgressSpinner,
     CustomerFormComponent,
     BusinessFormComponent,
   ],

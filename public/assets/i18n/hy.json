@@ -6,6 +6,8 @@
   "products": "Hy Products",
   "ad": "Hy Ads",
   "product_reviews": "Hy Product Reviews",
+  "confirm-email": "Hy Please check your email",
+  "edit": "Hy Edit",
   "login": {
     "login": "Hy Login",
     "forgot": "Hy Forgot password"
@@ -43,6 +45,7 @@
     "back": "Hy Back"
   },
   "messages": {
+    "orderPlaced": "Hy Order successfully placed.",
     "errors": {
       "required": "Hy This field is required",
       "email": "Hy Not valid email",

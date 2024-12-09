@@ -6,6 +6,8 @@
   "products": "Rus Products",
   "ad": "Rus Ads",
   "product_reviews": "Rus Product Reviews",
+  "confirm-email": "Rus Please check your email",
+  "edit": "Rus Edit",
   "login": {
     "login": "Rus Login",
     "forgot": "Rus Forgot password"
@@ -43,6 +45,7 @@
     "back": "Rus Back"
   },
   "messages": {
+    "orderPlaced": "Rus Order successfully placed.",
     "errors": {
       "required": "Rus This field is required",
       "email": "Rus Not valid email",

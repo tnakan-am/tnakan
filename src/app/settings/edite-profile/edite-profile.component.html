@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>
+  {{ 'edit' | translate }}
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="flex flex-col">
+    <div class="flex flex-row gap-3">
+      <mat-form-field class="w-1/2">
+        <mat-label>{{ type === Type.CUSTOMER ? 'Name' : 'Company' }}</mat-label>
+        <input
+          matInput
+          placeholder="Jack"
+          [formControlName]="type === Type.CUSTOMER ? 'name' : 'company'"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="w-1/2">
+        <mat-label>{{ type === Type.CUSTOMER ? 'Surname' : 'HVHH' }}</mat-label>
+        <input
+          matInput
+          placeholder="Black"
+          [formControlName]="type === Type.CUSTOMER ? 'surname' : 'hvhh'"
+        />
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="w-100">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="abcdef@gmail.com" formControlName="email" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">{{ 'buttons.cancel' | translate }}</button>
+  <button mat-button [mat-dialog-close]="save()" cdkFocusInitial>
+    {{ 'buttons.save' | translate }}
+  </button>
+</mat-dialog-actions>
