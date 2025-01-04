@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ReviewComponent } from '../reviews/review.component';
 import { Review } from '../../../shared/interfaces/reviews.interface';
@@ -13,7 +13,7 @@ import { ReviewService } from '../../../shared/services/review.service';
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [CommonModule, MatTabGroup, MatTab, ReviewComponent, MatTabContent],
+  imports: [CommonModule, MatTabGroup, MatTab, ReviewComponent, MatTabContent, RouterLink],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })
