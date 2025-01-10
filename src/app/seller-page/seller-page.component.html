@@ -1,0 +1,34 @@
+<!-- Main container -->
+<div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <!-- Product Box -->
+  @if (user | async; as userData) {
+  <div class="flex gap-6">
+    <!-- Left Column (Image and Thumbnail Slider) -->
+    <div class="max-w-[250px] min-w-[150px]">
+      <img
+        [src]="userData?.image || 'assets/homemade.webp'"
+        alt="Snack Box Image"
+        class="w-full rounded-lg"
+      />
+    </div>
+
+    <!-- Right Column (Product Info) -->
+    <div>
+      <!-- Title and Pricing -->
+      <h1 class="text-3xl font-bold mb-2">{{ userData?.displayName }}</h1>
+
+      @if (userData.address) {
+      <span>
+        {{
+          userData.address.region === userData.address.city
+            ? userData.address.region
+            : userData.address.region + ', ' + userData.address.city
+        }}, {{ userData.address.street }},
+        {{ userData.address.house }}
+        {{ userData.address.zip }}
+      </span>
+      }
+    </div>
+  </div>
+  }
+</div>

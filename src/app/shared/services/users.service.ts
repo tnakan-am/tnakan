@@ -47,6 +47,12 @@ export class UsersService {
     );
   }
 
+  getUserById(id: string): Observable<IUser> {
+    return fromPromise(getDoc(doc(collection(this.firestore, 'users'), id))).pipe(
+      map((value) => (value.exists() ? value.data() : null) as IUser)
+    );
+  }
+
   update(user: User, data: Partial<IUser>) {
     let userData: any = {};
     if (data.image) {
