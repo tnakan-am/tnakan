@@ -1,7 +1,7 @@
 <!-- Main container -->
 <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
   <!-- Product Box -->
-  @if (user | async; as userData) {
+  @if (user$ | async; as userData) {
   <div class="flex gap-6">
     <!-- Left Column (Image and Thumbnail Slider) -->
     <div class="max-w-[250px] min-w-[150px]">
@@ -15,7 +15,7 @@
     <!-- Right Column (Product Info) -->
     <div>
       <!-- Title and Pricing -->
-      <h1 class="text-3xl font-bold mb-2">{{ userData?.displayName }}</h1>
+      <h1 class="text-3xl mb-2">{{ userData?.displayName }}</h1>
 
       @if (userData.address) {
       <span>
@@ -29,6 +29,20 @@
       </span>
       }
     </div>
+  </div>
+
+  <div class="my-4">
+    <h1 class="text-3xl font-bold green-600">{{ 'products' | translate }}</h1>
+  </div>
+
+  <div>
+    @if (products$ | async; as productList) {
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
+      @for (item of productList; track item.id) {
+      <app-card-item (addToCard)="addToBasket($event)" [product]="item" />
+      }
+    </div>
+    }
   </div>
   }
 </div>

@@ -141,6 +141,18 @@ export class ProductsService {
     );
   }
 
+  getAllProductsBySeller(id: string): Observable<Product[]> {
+    return fromPromise(
+      getDocs(query(collection(this.firestore, 'products'), where('userId', '==', id))).then(
+        (values) => {
+          const data: any[] = [];
+          values.forEach((value) => data.push({ id: value.id, ...value.data() }));
+          return data;
+        }
+      )
+    );
+  }
+
   getAllProductsByQuery(params: {
     subCategory?: string;
     productCategory?: string;
