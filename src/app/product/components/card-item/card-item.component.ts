@@ -1,14 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardHeader,
-  MatCardImage,
-  MatCardSubtitle,
-  MatCardTitle,
-} from '@angular/material/card';
+import { MatCard, MatCardContent, MatCardImage } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
 import { DecimalPipe } from '@angular/common';
@@ -23,12 +15,8 @@ import { Product } from '../../../shared/interfaces/product.interface';
   imports: [
     MatButton,
     MatCard,
-    MatCardActions,
     MatCardContent,
-    MatCardHeader,
     MatCardImage,
-    MatCardSubtitle,
-    MatCardTitle,
     MatIcon,
     NgxStarsModule,
     DecimalPipe,
@@ -49,6 +37,6 @@ export class CardItemComponent {
   }
 
   navigateToProduct(product: Product) {
-    this.router.navigate(['product', product.id], { relativeTo: this.activatedRouter });
+    this.router.navigate(['product', product.id]);
   }
 }

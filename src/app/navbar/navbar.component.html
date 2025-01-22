@@ -1,10 +1,10 @@
 <mat-toolbar class="sticky top-0 z-10">
-  <button mat-icon-button class="example-icon" (click)="toggleSidebar()">
-    <mat-icon>menu</mat-icon>
+  <button mat-icon-button class="example-icon text-green-500" (click)="toggleSidebar()">
+    <mat-icon class="text-green-500">menu</mat-icon>
   </button>
-  <span
-    ><a routerLink="">{{ 'title' | translate }}</a></span
-  >
+  <h3>
+    <a routerLink="">{{ 'title' | translate }}</a>
+  </h3>
   <span class="example-spacer"></span>
   @if ((user$| async)?.type === 'customer') {
   <a
