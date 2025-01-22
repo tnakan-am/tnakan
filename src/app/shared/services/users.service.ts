@@ -3,7 +3,7 @@ import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser, Type } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
-import { Auth, updateEmail, updateProfile, user, User } from '@angular/fire/auth';
+import { Auth, updateEmail, updatePassword, updateProfile, User, user } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -72,5 +72,9 @@ export class UsersService {
         return setDoc(doc(collection(this.firestore, 'users'), user.uid), data, { merge: true });
       })
     );
+  }
+
+  updatePassword(user: User, password: string) {
+    return fromPromise(updatePassword(user, password)).pipe();
   }
 }

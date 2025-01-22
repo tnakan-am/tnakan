@@ -9,15 +9,17 @@ import { IUser } from '../shared/interfaces/user.interface';
 import { ProductsService } from '../shared/services/products.service';
 import { openSnackBar } from '../shared/helpers/snackbar';
 import { StorageService } from '../shared/services/storage.service';
-import { MatIconButton } from '@angular/material/button';
+import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { EditeAddressComponent } from './edite-address/edite-address.component';
 import { EditeProfileComponent } from './edite-profile/edite-profile.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 @Component({
   selector: 'app-settings',
   standalone: true,
-  imports: [AsyncPipe, MatIcon, MatIconButton],
+  imports: [AsyncPipe, MatIcon, MatIconButton, MatButton, TranslateModule],
   templateUrl: './settings.component.html',
   styleUrl: './settings.component.scss',
 })
@@ -81,6 +83,7 @@ export class SettingsComponent {
         });
       });
   }
+
   editeProfile(user: IUser) {
     const dialogRef = this.dialog.open(EditeProfileComponent, {
       data: { ...user },
@@ -96,6 +99,20 @@ export class SettingsComponent {
             this.userData$ = this.usersService.getUserData();
           },
         });
+      });
+  }
+
+  openUpdatePassword(user: IUser) {
+    const dialogRef = this.dialog.open(UpdatePasswordComponent, {
+      data: { ...user },
+      width: '500px',
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(filter((value) => value.password && value.password === value.rePassword))
+      .subscribe((result) => {
+        this.usersService.updatePassword(this.user, result.password);
       });
   }
 }
