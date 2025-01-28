@@ -66,6 +66,7 @@ export class SidebarComponent implements OnInit {
             }) as SideBarMenu[],
         };
       });
+      console.log(this.menuList);
     });
   }
 
