@@ -44,7 +44,8 @@
     "submit": "Submit",
     "save": "Save",
     "cancel": "Cancel",
-    "back": "Back"
+    "back": "Back",
+    "update-password": "Update password"
   },
   "messages": {
     "orderPlaced": "Order successfully placed.",

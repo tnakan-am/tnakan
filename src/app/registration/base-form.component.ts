@@ -9,11 +9,12 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { merge, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { formErrorMessage } from '../shared/helpers/form-error-message';
 import { IUser } from '../shared/interfaces/user.interface';
 import { BasketService } from '../shared/services/basket.service';
 import { Address } from '../shared/helpers/address-form-builder.const';
+import { passwordsMatching } from '../shared/helpers/passwords-matching.const';
 
 @Component({
   selector: 'app-bas-form',
@@ -44,7 +45,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.passwordsMatching();
+    passwordsMatching(this.form);
   }
 
   ngOnDestroy() {
@@ -53,17 +54,5 @@ export class BaseFormComponent implements OnInit, OnDestroy {
 
   regionChange($event: string) {
     this.citiesList = this.cities().filter((value1) => value1.admin_name === $event);
-  }
-
-  private passwordsMatching() {
-    const passControl = this.form.get('password')!;
-    const repassControl = this.form.get('rePassword')!;
-    this.subscription = merge(passControl.valueChanges, repassControl.valueChanges).subscribe({
-      next: () => {
-        if (this.form.get('password')!.value !== this.form.get('rePassword')!.value) {
-          repassControl.setErrors({ match: true });
-        }
-      },
-    });
   }
 }
