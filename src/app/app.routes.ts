@@ -1,14 +1,12 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegistrationComponent } from './registration/registration.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { permissionsGuard } from './shared/services/permissions.guard';
 import { AdComponent } from './business-profile/ad/ad.component';
 import { BasketComponent } from './basket/basket.component';
 import { ProductPageComponent } from './product/components/product-page/product-page.component';
-import { CustomerOrdersComponent } from './profile/customer-orders/customer-orders.component';
 import { SellerPageComponent } from './seller-page/seller-page.component';
+import { Type } from './shared/interfaces/user.interface';
 
 export const routes: Routes = [
   {
@@ -17,7 +15,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () => import('./login/login.component').then((m) => m.LoginComponent),
   },
   {
     path: 'confirm-email',
@@ -25,8 +23,42 @@ export const routes: Routes = [
       import('./confirm-email/confirm-email.component').then((m) => m.ConfirmEmailComponent),
   },
   {
+    path: 'admin',
+    loadComponent: () => import('./admin/admin.component').then((m) => m.AdminComponent),
+    canActivate: [AuthGuard, permissionsGuard(Type.ADMIN)],
+    children: [
+      {
+        path: '**',
+        redirectTo: 'products',
+      },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./admin/products-approve/products-approve.component').then(
+            (m) => m.ProductsApproveComponent
+          ),
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./admin/admin-orders/admin-orders.component').then((m) => m.AdminOrdersComponent),
+      },
+      {
+        path: 'ads',
+        loadComponent: () =>
+          import('./admin/ads-approve/ads-approve.component').then((m) => m.AdsApproveComponent),
+      },
+    ],
+  },
+  {
     path: 'registration',
-    component: RegistrationComponent,
+    loadComponent: () =>
+      import('./registration/registration.component').then((m) => m.RegistrationComponent),
+  },
+  {
+    path: 'registration/:token',
+    loadComponent: () =>
+      import('./registration/registration.component').then((m) => m.RegistrationComponent),
   },
   {
     path: 'basket',
@@ -43,7 +75,7 @@ export const routes: Routes = [
   {
     path: 'profile/customer',
     loadComponent: () => import('./profile/profile.component').then((m) => m.ProfileComponent),
-    canActivate: [AuthGuard, permissionsGuard('customer')],
+    canActivate: [AuthGuard, permissionsGuard(Type.CUSTOMER)],
     children: [
       {
         path: '**',
@@ -51,7 +83,10 @@ export const routes: Routes = [
       },
       {
         path: 'orders',
-        component: CustomerOrdersComponent,
+        loadComponent: () =>
+          import('./profile/customer-orders/customer-orders.component').then(
+            (m) => m.CustomerOrdersComponent
+          ),
       },
     ],
   },
@@ -61,7 +96,7 @@ export const routes: Routes = [
       import('./business-profile/business-profile.component').then(
         (m) => m.BusinessProfileComponent
       ),
-    canActivate: [AuthGuard, permissionsGuard('business')],
+    canActivate: [AuthGuard, permissionsGuard(Type.BUSINESS)],
     children: [
       {
         path: 'products',
