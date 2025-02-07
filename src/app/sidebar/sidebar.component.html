@@ -24,11 +24,11 @@
           }}</span>
         </button>
         } @else {
-        <a
+        <button
           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
         >
           <span class="ml-3">{{ menuItem.categoryName }}</span>
-        </a>
+        </button>
         }
         <ul [class.hidden]="!menuItem.selected" class="py-2 space-y-2">
           @for (categories of menuItem.categories; track categories) {
@@ -49,13 +49,13 @@
               }}</span>
             </button>
             } @else {
-            <a
+            <button
               [routerLink]="[]"
               [queryParams]="{ subCategory: categories.categoryId }"
-              class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+              class="flex tems-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
             >
               <span class="ml-3">{{ categories.categoryName }}</span>
-            </a>
+            </button>
             }
             <ul [class.hidden]="!categories.selected" class="py-2 space-y-2">
               @for (category of categories?.categories; track category) {
