@@ -1,6 +1,5 @@
 import { Component, effect, inject, OnInit } from '@angular/core';
 import { NotificationsService } from '../../shared/services/notifications.service';
-import { AsyncPipe } from '@angular/common';
 import { Order, Status } from '../../shared/interfaces/order.interface';
 import {
   MatAccordion,
@@ -22,7 +21,6 @@ import { OrderService } from '../../shared/services/order.service';
   selector: 'app-orders',
   standalone: true,
   imports: [
-    AsyncPipe,
     MatExpansionPanel,
     MatExpansionPanelTitle,
     MatExpansionPanelDescription,

@@ -3,6 +3,7 @@ import { Address } from './order.interface';
 export enum Type {
   CUSTOMER = 'customer',
   BUSINESS = 'business',
+  ADMIN = 'admin',
 }
 
 export interface IUser {

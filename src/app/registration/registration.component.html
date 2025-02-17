@@ -9,11 +9,13 @@
         </ng-template>
       </mat-tab>
 
+      @if (!token) {
       <mat-tab label="Business">
         <ng-template matTabContent>
           <app-business-form (onFormSubmit)="fireAuthentication($any($event))"></app-business-form>
         </ng-template>
       </mat-tab>
+      }
     </mat-tab-group>
   </div>
 </div>
