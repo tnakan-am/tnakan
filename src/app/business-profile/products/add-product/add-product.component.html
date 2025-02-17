@@ -62,13 +62,16 @@
         </mat-form-field>
       </div>
 
+      @if (data.admin) {
+      <img class="w-40" [src]="form.getRawValue().image" />
+      } @else {
       <mat-form-field>
         <mat-label>{{ 'fields.image' | translate }}</mat-label>
         <input readonly (click)="fileInput.click()" matInput formControlName="image" />
         <span matSuffix><mat-icon>folder_open</mat-icon></span>
       </mat-form-field>
       <input hidden (change)="uploadFile($event)" #fileInput type="file" id="file" />
-
+      }
       <div class="flex justify-between flex-wrap gap-2">
         <mat-form-field>
           <mat-label>{{ 'fields.category' | translate }}</mat-label>
@@ -110,7 +113,14 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onNoClick()">{{ 'buttons.cancel' | translate }}</button>
-  <button mat-button [disabled]="form.invalid || !form.dirty" (click)="submit()">
-    {{ 'buttons.save' | translate }}
+  <button mat-button [disabled]="form.invalid" (click)="submit()">
+    {{
+      (data.admin
+        ? form.getRawValue()?.approved
+          ? 'buttons.disable'
+          : 'buttons.approve'
+        : 'buttons.save'
+      ) | translate
+    }}
   </button>
 </mat-dialog-actions>

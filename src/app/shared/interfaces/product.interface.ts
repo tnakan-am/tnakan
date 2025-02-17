@@ -22,5 +22,6 @@ export interface Product {
   subCategory: string;
   availability: number | Availability;
   deliveryOption: DeliveryOption;
+  approved: boolean;
   productCategory?: string;
 }

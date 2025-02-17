@@ -6,4 +6,5 @@ export interface DialogData {
   userId: string;
   categories: Array<CategoryTree>;
   form?: Product;
+  admin?: boolean;
 }

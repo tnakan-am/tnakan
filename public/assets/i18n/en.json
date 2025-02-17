@@ -42,6 +42,8 @@
   },
   "buttons": {
     "submit": "Submit",
+    "disable": "Disable",
+    "approve": "Approve",
     "save": "Save",
     "cancel": "Cancel",
     "back": "Back",
