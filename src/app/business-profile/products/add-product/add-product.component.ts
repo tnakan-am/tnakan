@@ -73,6 +73,7 @@ export class AddProductComponent implements OnInit {
       minQuantity: [1, [Validators.required, Validators.pattern(/^\d+$/)]],
       unit: ['quantity'],
       deliveryOption: ['nearest'],
+      approved: [false],
       availability: [Availability.unlimited, [Validators.nullValidator]],
       price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
@@ -103,6 +104,12 @@ export class AddProductComponent implements OnInit {
         )?.productCategories;
       }
       this.form.patchValue(this.data.form, { onlySelf: true, emitEvent: true });
+    }
+
+    if (this.data.admin) {
+      for (const key in this.form.controls) {
+        this.form.get(key)?.disable({ emitEvent: false, onlySelf: true });
+      }
     }
   }
 

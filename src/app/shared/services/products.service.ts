@@ -39,6 +39,18 @@ export class ProductsService {
     );
   }
 
+  getAllUnapprovedProducts(): Observable<Product[]> {
+    return fromPromise(
+      getDocs(query(collection(this.firestore, 'products'), where('approved', '==', false))).then(
+        (values) => {
+          const data: any[] = [];
+          values.forEach((value) => data.push({ id: value.id, ...value.data() }));
+          return data;
+        }
+      )
+    );
+  }
+
   getUserProducts(): Observable<Product[]> {
     const user = this.firebaseAuthService.user$;
 
@@ -71,6 +83,11 @@ export class ProductsService {
   updateProduct(product: Partial<Product>, id: string): Observable<void> {
     const productRef = doc(this.firestore, 'products', id);
     return fromPromise(setDoc(productRef, product, { merge: true }));
+  }
+
+  approveOrBlockProduct(product: Partial<Product>, id: string): Observable<void> {
+    const productRef = doc(this.firestore, 'products', id);
+    return fromPromise(setDoc(productRef, { approved: product.approved }, { merge: true }));
   }
 
   updateProductAvailability(qnt: number, id: string): Observable<void> {
