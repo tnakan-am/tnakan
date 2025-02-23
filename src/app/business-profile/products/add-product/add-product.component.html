@@ -4,12 +4,13 @@
     <div class="flex flex-col">
       <mat-form-field>
         <mat-label>{{ 'fields.productName' | translate }}</mat-label>
-        <input placeholder="Name" matInput formControlName="name" />
+        <input [readonly]="data.admin" placeholder="Name" matInput formControlName="name" />
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>{{ 'fields.productDescription' | translate }}</mat-label>
         <textarea
+          [readonly]="data.admin"
           placeholder="Description"
           rows="2"
           matInput
@@ -29,7 +30,7 @@
 
         <mat-form-field>
           <mat-label>{{ 'fields.minQuantity' | translate }}</mat-label>
-          <input matInput formControlName="minQuantity" />
+          <input [readonly]="data.admin" matInput formControlName="minQuantity" />
           @if(form.get('minQuantity')?.errors) {
           <mat-error>{{ formErrorMessage(form.get('minQuantity')!) | translate }}</mat-error>
           }
@@ -37,7 +38,7 @@
 
         <mat-form-field>
           <mat-label>{{ 'fields.availability' | translate }}</mat-label>
-          <input matInput formControlName="availability" />
+          <input [readonly]="data.admin" matInput formControlName="availability" />
           @if(form.get('availability')?.errors) {
           <mat-error>{{ formErrorMessage(form.get('availability')!) | translate }}</mat-error>
           }
@@ -45,7 +46,7 @@
 
         <mat-form-field>
           <mat-label>{{ 'fields.unitPrice' | translate }}</mat-label>
-          <input placeholder="1000" matInput formControlName="price" />
+          <input [readonly]="data.admin" placeholder="1000" matInput formControlName="price" />
           <span matSuffix>֏</span>
           @if(form.get('price')?.errors) {
           <mat-error>{{ formErrorMessage(form.get('price')!) | translate }}</mat-error>

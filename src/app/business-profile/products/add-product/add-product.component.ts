@@ -105,12 +105,6 @@ export class AddProductComponent implements OnInit {
       }
       this.form.patchValue(this.data.form, { onlySelf: true, emitEvent: true });
     }
-
-    if (this.data.admin) {
-      for (const key in this.form.controls) {
-        this.form.get(key)?.disable({ emitEvent: false, onlySelf: true });
-      }
-    }
   }
 
   onNoClick(): void {

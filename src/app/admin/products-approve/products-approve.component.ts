@@ -22,7 +22,6 @@ import { FirebaseAuthService } from '../../shared/services/firebase-auth.service
 import { User } from '@angular/fire/auth';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { ProductsService } from '../../shared/services/products.service';
-import { ReviewService } from '../../shared/services/review.service';
 import { AddProductComponent } from '../../business-profile/products/add-product/add-product.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -68,8 +67,7 @@ export class ProductsApproveComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
-    private productsService: ProductsService,
-    private reviewService: ReviewService
+    private productsService: ProductsService
   ) {}
 
   ngOnInit() {
