@@ -25,12 +25,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     loadComponent: () => import('./admin/admin.component').then((m) => m.AdminComponent),
-    canActivate: [AuthGuard, permissionsGuard(Type.ADMIN)],
+    // canActivate: [AuthGuard, permissionsGuard(Type.ADMIN)],
     children: [
-      {
-        path: '**',
-        redirectTo: 'products',
-      },
       {
         path: 'products',
         loadComponent: () =>
@@ -47,6 +43,10 @@ export const routes: Routes = [
         path: 'ads',
         loadComponent: () =>
           import('./admin/ads-approve/ads-approve.component').then((m) => m.AdsApproveComponent),
+      },
+      {
+        path: '**',
+        redirectTo: 'products',
       },
     ],
   },

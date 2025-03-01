@@ -27,6 +27,7 @@
     "unit": "Hy Unit",
     "availability":  "Hy Availability",
     "price": "Hy Price",
+    "paidAt": "Hy Paid At",
     "category": "Hy Category",
     "subCategory": "Hy Sub Category",
     "productCategory": "Hy Product Category",

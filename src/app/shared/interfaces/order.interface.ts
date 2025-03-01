@@ -33,6 +33,7 @@ export interface Order {
   address: Address;
   orderId: string;
   createdAt: string;
+  paidAt: string;
 }
 
 export interface Notification {
