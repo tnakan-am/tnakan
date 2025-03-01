@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe, SlicePipe } from '@angular/common';
 import { MatIconButton } from '@angular/material/button';
 import {
@@ -15,7 +15,7 @@ import {
 } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Product } from '../../shared/interfaces/product.interface';
 import { CategoryTree } from '../../shared/interfaces/categories.interface';
 import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
@@ -48,7 +48,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './products-approve.component.html',
   styleUrl: './products-approve.component.scss',
 })
-export class ProductsApproveComponent implements OnInit {
+export class ProductsApproveComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
 
   products$!: Observable<Product[]>;
@@ -64,6 +64,7 @@ export class ProductsApproveComponent implements OnInit {
   private categories!: CategoryTree[];
   private firebaseAuthService = inject(FirebaseAuthService);
   private user!: User;
+  private unsubscribe = new Subject<void>();
 
   constructor(
     private categoriesService: CategoriesService,
@@ -71,8 +72,15 @@ export class ProductsApproveComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.firebaseAuthService.user$.pipe().subscribe((value) => (this.user = value));
+    this.firebaseAuthService.user$
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getAllUnapprovedProducts();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   private updateProductStatus(value: Product, id: string) {
@@ -101,7 +109,8 @@ export class ProductsApproveComponent implements OnInit {
             return this.updateProductStatus(value, form!.id).pipe(map(() => true));
           }
           return of(false);
-        })
+        }),
+        takeUntil(this.unsubscribe)
       )
       .subscribe({
         next: (value) => {
