@@ -17,8 +17,6 @@ import { MatIconButton } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { Product } from '../../shared/interfaces/product.interface';
-import { CategoryTree } from '../../shared/interfaces/categories.interface';
-import { CategoriesService } from '../../shared/services/categories.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AdminOrderService } from '../../shared/services/admin-order.service';
 import { Order } from '../../shared/interfaces/order.interface';
@@ -62,13 +60,9 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   orders$!: Observable<Order[]>;
   displayedColumns: string[] = ['ID', 'name', 'description', 'unit', 'price', 'paidAt', 'star'];
-  private categories!: CategoryTree[];
   private unsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(
-    private categoriesService: CategoriesService,
-    private orderService: AdminOrderService
-  ) {}
+  constructor(private orderService: AdminOrderService) {}
 
   ngOnInit() {
     this.orders$ = fromPromise(
