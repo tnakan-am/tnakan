@@ -39,6 +39,7 @@ export class NavbarComponent {
   user: IUser | undefined;
   basket;
   isOpenedSidenav = true;
+  isRotated = false;
   notifications?: WritableSignal<Notification[]>;
 
   @Output() sidenavStatus = new EventEmitter<boolean>();
@@ -89,5 +90,6 @@ export class NavbarComponent {
   toggleSidebar(): void {
     this.isOpenedSidenav = !this.isOpenedSidenav;
     this.sidenavStatus.emit(this.isOpenedSidenav);
+    this.isRotated = !this.isRotated;
   }
 }
