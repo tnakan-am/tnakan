@@ -49,7 +49,7 @@ export class UsersService {
 
   getUserById(id: string): Observable<IUser> {
     return fromPromise(getDoc(doc(collection(this.firestore, 'users'), id))).pipe(
-      map((value) => (value.exists() ? value.data() : null) as IUser)
+      map((value) => (value.exists() ? { uid: value.id, ...value.data() } : null) as IUser)
     );
   }
 

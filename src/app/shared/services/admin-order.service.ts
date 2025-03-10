@@ -9,11 +9,10 @@ import {
   where,
 } from '@angular/fire/firestore';
 
-import { FirebaseAuthService } from './firebase-auth.service';
-import { ProductsService } from './products.service';
 import { openSnackBar } from '../helpers/snackbar';
 import { Order, OrderItem } from '../interfaces/order.interface';
 import { Database } from '@angular/fire/database';
+import groupBy from 'lodash-es/groupBy';
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +20,11 @@ import { Database } from '@angular/fire/database';
 export class AdminOrderService {
   firestore: Firestore = inject(Firestore);
   database = inject(Database);
-  firebaseAuthService = inject(FirebaseAuthService);
-  productsService = inject(ProductsService);
   snackBar = openSnackBar();
 
   constructor() {}
 
-  async getBusinessOrders(startDate: Date, endDate: Date): Promise<Order[]> {
+  async getBusinessOrders(startDate: Date, endDate: Date): Promise<{ [key: string]: OrderItem[] }> {
     // Build your query
     const q = query(
       collection(this.firestore, 'orders'),
@@ -40,7 +37,7 @@ export class AdminOrderService {
     const querySnapshot = await getDocs(q);
 
     // Prepare an array for the final output
-    const data: Order[] = [];
+    const data: { [key: string]: OrderItem[] } = {};
 
     // Use a for-of loop so we can await inside
     for (const orderSnapshot of querySnapshot.docs) {
@@ -54,14 +51,18 @@ export class AdminOrderService {
       // Build an array of products
       const products: OrderItem[] = productsSnapshot.docs.map((doc) => ({
         id: doc.id,
+        orderId: orderSnapshot.id,
         ...doc.data(),
       })) as OrderItem[];
 
       // Push this order + products into our final array
-      data.push({
-        ...docData,
-        orderId: orderSnapshot.id,
-        products: products,
+      const productsByUser = groupBy(products, 'userId');
+      Object.keys(productsByUser).forEach((key) => {
+        if (data[key]) {
+          data[key].push(...productsByUser[key]);
+        } else {
+          data[key] = productsByUser[key];
+        }
       });
     }
 
