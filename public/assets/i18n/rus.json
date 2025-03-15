@@ -27,6 +27,7 @@
     "unit": "Rus Unit",
     "availability":  "Rus Availability",
     "price": "Rus Price",
+    "paidAt": "Rus Paid At",
     "category": "Rus Category",
     "subCategory": "Rus Sub Category",
     "productCategory": "Rus Product Category",

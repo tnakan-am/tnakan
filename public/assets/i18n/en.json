@@ -28,6 +28,7 @@
     "unit":  "Unit",
     "availability":  "Availability",
     "price": "Price",
+    "paidAt": "Paid At",
     "unitPrice": "Unit Price",
     "category": "Category",
     "subCategory": "Sub Category",
