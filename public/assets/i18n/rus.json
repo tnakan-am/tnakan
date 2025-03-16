@@ -34,7 +34,8 @@
     "id": "Rus ID",
     "uid": "Rus uid",
     "deliveryOption": "Rus Delivery Option",
-    "comment": "Rus Comment"
+    "comment": "Rus Comment",
+    "month": "Rus Month"
   },
   "registration": {
     "registration": "Rus Registration"

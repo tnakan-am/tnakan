@@ -36,7 +36,8 @@
     "id": "ID",
     "uid": "uid",
     "deliveryOption": "Delivery Option",
-    "comment": "Comment"
+    "comment": "Comment",
+    "month": "Month"
   },
   "registration": {
     "registration": "Registration"

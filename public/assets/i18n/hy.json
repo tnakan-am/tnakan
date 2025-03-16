@@ -34,7 +34,8 @@
     "id": "Hy ID",
     "uid": "Hy uid",
     "deliveryOption": "Hy Delivery Option",
-    "comment": "Hy Comment"
+    "comment": "Hy Comment",
+    "month": "Hy Month"
   },
   "registration": {
     "registration": "Hy Registration"
