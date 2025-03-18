@@ -1,17 +1,20 @@
 import {
   Component,
+  computed,
   inject,
-  Injector,
   OnDestroy,
   OnInit,
-  runInInjectionContext,
   signal,
-  Signal,
+  WritableSignal,
 } from '@angular/core';
 import {
   MatCell,
   MatCellDef,
   MatColumnDef,
+  MatFooterCell,
+  MatFooterCellDef,
+  MatFooterRow,
+  MatFooterRowDef,
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
@@ -35,17 +38,17 @@ import { MatOption, MatSelect } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../shared/services/users.service';
 import { IUser } from '../../shared/interfaces/user.interface';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { getMonthYearArray } from '../../shared/helpers/get-month-year';
 
-const currentMonth = () => {
+const currentMonth = (date?: string) => {
   // Create a new Date instance for today's date
-  const today = new Date();
+  const today = date ? new Date(+date.split('-')[1], +date.split('-')[0]) : new Date();
 
   // Get the first day of the current month
-  const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+  const monthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
 
   // Get the last day of the current month
-  const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+  const monthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
   return { monthStart, monthEnd };
 };
 
@@ -71,39 +74,32 @@ const currentMonth = () => {
     MatOption,
     FormsModule,
     MatLabel,
+    MatFooterCell,
+    MatFooterRow,
+    MatFooterRowDef,
+    MatFooterCellDef,
   ],
   templateUrl: './admin-orders.component.html',
   styleUrl: './admin-orders.component.scss',
 })
 export class AdminOrdersComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
-  orders: Signal<OrderItem[] | undefined> = signal([]);
+  orders: WritableSignal<OrderItem[] | undefined> = signal([]);
   ordersData!: { [key: string]: OrderItem[] };
   displayedColumns: string[] = ['ID', 'name', 'description', 'unit', 'price', 'paidAt', 'star'];
-  users: Signal<IUser[] | undefined> = signal([]);
+  users: WritableSignal<IUser[]> = signal([]);
+  months: string[] = getMonthYearArray();
   public userIds: string[] = [];
   private unsubscribe: Subject<void> = new Subject<void>();
   selectedUser!: string;
+  selectedMonth: string;
+  totalCost = computed(() =>
+    this.orders()?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
+  );
 
-  constructor(
-    private orderService: AdminOrderService,
-    private usersService: UsersService,
-    private injector: Injector
-  ) {
-    this.orders = toSignal(
-      fromPromise(
-        this.orderService.getBusinessOrders(currentMonth().monthStart, currentMonth().monthEnd)
-      ).pipe(
-        tap((value) => {
-          this.ordersData = value;
-          this.userIds = Object.keys(value);
-          this.users = runInInjectionContext(injector, () =>
-            toSignal(forkJoin(this.userIds.map((id) => this.usersService.getUserById(id))))
-          );
-        }),
-        map((value) => flatten([...Object.values(value)]) as OrderItem[])
-      )
-    );
+  constructor(private orderService: AdminOrderService, private usersService: UsersService) {
+    this.selectedMonth = this.months[0];
+    this.getOrders(this.months[0]);
   }
 
   ngOnInit() {}
@@ -116,6 +112,30 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   openDialog(form?: Product): void {}
 
   userChanged($event: any) {
-    this.orders = signal(this.ordersData[$event.value]);
+    this.orders.update((orders) => this.ordersData[$event.value]);
+  }
+
+  getOrders(date?: string) {
+    const { monthStart, monthEnd } = currentMonth(date);
+    fromPromise(this.orderService.getBusinessOrders(monthStart, monthEnd))
+      .pipe(
+        tap((value) => {
+          this.ordersData = value;
+          this.userIds = Object.keys(value);
+          forkJoin(this.userIds.map((id) => this.usersService.getUserById(id))).subscribe({
+            next: (value) => {
+              this.users.update((users) => (users ? value : value));
+            },
+          });
+        }),
+        map((value) => flatten([...Object.values(value)]) as OrderItem[])
+      )
+      .subscribe({
+        next: (value) => {
+          this.orders.update((orders) => {
+            return value;
+          });
+        },
+      });
   }
 }
