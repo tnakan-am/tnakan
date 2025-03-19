@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { NotificationsService } from '../../shared/services/notifications.service';
 import { Order, Status } from '../../shared/interfaces/order.interface';
 import {
@@ -39,8 +39,8 @@ import { OrderService } from '../../shared/services/order.service';
 export class OrdersComponent implements OnInit {
   ordersService: NotificationsService = inject(NotificationsService);
   orderService: OrderService = inject(OrderService);
-  orders!: Order[];
-  newOrders = this.ordersService.newOrders;
+  orders: WritableSignal<Order[]> = signal([]);
+  newOrders = computed(() => this.ordersService.newOrders());
   status!: Status;
 
   orderStatus: Map<Status, Status> = new Map<Status, Status>([
@@ -64,7 +64,7 @@ export class OrdersComponent implements OnInit {
   private getOrders() {
     this.orderService.getBusinessOrders().subscribe({
       next: (orders) => {
-        this.orders = orders;
+        this.orders.update(() => orders);
       },
     });
   }
@@ -79,13 +79,15 @@ export class OrdersComponent implements OnInit {
       this.ordersService.changeNotificationStatus(order, Status.seen).subscribe({
         next: () => {
           this.status = Status.seen;
-          this.orders = this.orders.map((value) =>
-            value.orderId === order.orderId
-              ? {
-                  ...value,
-                  products: value.products.map((value1) => ({ ...value1, status: Status.seen })),
-                }
-              : value
+          this.orders.update((orders) =>
+            orders.map((value) =>
+              value.orderId === order.orderId
+                ? {
+                    ...value,
+                    products: value.products.map((value1) => ({ ...value1, status: Status.seen })),
+                  }
+                : value
+            )
           );
         },
       });
@@ -98,16 +100,18 @@ export class OrdersComponent implements OnInit {
     ).subscribe({
       next: () => {
         this.status = this.orderStatus.get(this.status)!;
-        this.orders.forEach((orderItem) =>
-          orderItem.orderId === order.orderId
-            ? {
-                ...order,
-                products: order.products.map((order) => ({
+        this.orders.update((orders) =>
+          orders.map((orderItem) =>
+            orderItem.orderId === order.orderId
+              ? {
                   ...order,
-                  status: this.orderStatus.get(this.status)!,
-                })),
-              }
-            : orderItem
+                  products: order.products.map((order) => ({
+                    ...order,
+                    status: this.orderStatus.get(this.status)!,
+                  })),
+                }
+              : orderItem
+          )
         );
       },
     });
