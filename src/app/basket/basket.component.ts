@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, Signal, WritableSignal } from '@angular/core';
 import { BasketService } from '../shared/services/basket.service';
-import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -30,6 +30,7 @@ import { filter, map, take } from 'rxjs';
   imports: [
     MatCard,
     MatCardContent,
+    MatCardTitle,
     MatFormField,
     MatInput,
     MatLabel,
@@ -46,6 +47,7 @@ import { filter, map, take } from 'rxjs';
     MatStepLabel,
     MatError,
     TranslateModule,
+    MatCardHeader,
   ],
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.scss',

@@ -5,10 +5,20 @@
 
       @for (product of products(); track product.id; let idx = $index) {
       <mat-card appearance="outlined" class="m-2" [formArrayName]="idx">
+        <mat-card-header class="flex justify-between">
+          <mat-card-title>{{ product.name }}</mat-card-title>
+
+          <button mat-icon-button (click)="removeItem(product)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-card-header>
         <mat-card-content>
-          <div class="w-100 flex justify-between gap-3 items-center">
-            <img [src]="product.image || 'assets/homemade.webp'" class="h-[60px] w-[60px]" />
-            <div>{{ product.name }}</div>
+          <div class="w-100 relative flex flex-col md:flex-row justify-between gap-3 items-center">
+            <img
+              [src]="product.image || 'assets/homemade.webp'"
+              alt="product image"
+              class="h-[60px] w-[60px]"
+            />
             <span>{{ product.price }}/{{ product.unit }}</span>
             <div>
               <mat-form-field>
@@ -39,11 +49,9 @@
               </mat-form-field>
             </div>
 
-            <div>{{ product.price * product.quantity }}</div>
-
-            <button mat-icon-button (click)="removeItem(product)">
-              <mat-icon>close</mat-icon>
-            </button>
+            <div>
+              {{ product.price * (orderForm.get('products.' + idx + '.quantity')?.value || 1) }}
+            </div>
           </div>
         </mat-card-content>
       </mat-card>
