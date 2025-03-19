@@ -23,6 +23,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { OrderService } from '../shared/services/order.service';
 import { UsersService } from '../shared/services/users.service';
 import { filter, map, take } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-basket',
@@ -48,6 +49,7 @@ import { filter, map, take } from 'rxjs';
     MatError,
     TranslateModule,
     MatCardHeader,
+    CurrencyPipe,
   ],
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.scss',
@@ -62,6 +64,7 @@ export class BasketComponent implements OnInit {
   orderForm!: FormGroup;
   citiesList!: { city: string; admin_name: string }[];
   translate = inject(TranslateService);
+  amd = 'AMD';
 
   constructor(
     private basketService: BasketService,

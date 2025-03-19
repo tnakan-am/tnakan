@@ -50,13 +50,16 @@
             </div>
 
             <div>
-              {{ product.price * (orderForm.get('products.' + idx + '.quantity')?.value || 1) }}
+              {{
+                product.price * (orderForm.get('products.' + idx + '.quantity')?.value || 1)
+                  | currency : amd
+              }}
             </div>
           </div>
         </mat-card-content>
       </mat-card>
       }
-      <div class="flex justify-end mr-2">Total: {{ total }}</div>
+      <div class="flex justify-end mr-2">Total: {{ total | currency : amd }}</div>
       <div>
         <button mat-button matStepperNext type="button">Next</button>
       </div>
