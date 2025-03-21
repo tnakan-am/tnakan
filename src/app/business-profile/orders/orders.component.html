@@ -1,4 +1,9 @@
 <div class="container mx-auto">
+  @if (loading) {
+  <div class="flex justify-center items-center h-screen min-h-screen">
+    <mat-spinner></mat-spinner>
+  </div>
+  } @else {
   <mat-accordion>
     @for (order of orders(); track order.orderId) {
     <mat-expansion-panel (expandedChange)="$event && orderSeen(order)">
@@ -47,4 +52,5 @@
     </mat-expansion-panel>
     }
   </mat-accordion>
+  }
 </div>

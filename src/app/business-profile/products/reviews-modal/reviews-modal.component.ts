@@ -42,4 +42,8 @@ export class ReviewsModalComponent {
   );
 
   constructor() {}
+
+  getStarsArray(count: number): number[] {
+    return Array(count).fill(0);
+  }
 }
