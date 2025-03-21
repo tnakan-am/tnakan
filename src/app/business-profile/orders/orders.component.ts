@@ -16,6 +16,7 @@ import { MatIconButton } from '@angular/material/button';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { OrderStatusPipe } from '../../shared/order-status.pipe';
 import { OrderService } from '../../shared/services/order.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-orders',
@@ -32,6 +33,7 @@ import { OrderService } from '../../shared/services/order.service';
     MatIconButton,
     MatAccordion,
     OrderStatusPipe,
+    MatProgressSpinner,
   ],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
@@ -42,6 +44,7 @@ export class OrdersComponent implements OnInit {
   orders: WritableSignal<Order[]> = signal([]);
   newOrders = computed(() => this.ordersService.newOrders());
   status!: Status;
+  loading: boolean = true;
 
   orderStatus: Map<Status, Status> = new Map<Status, Status>([
     [Status.pending, Status.seen],
@@ -62,9 +65,17 @@ export class OrdersComponent implements OnInit {
   }
 
   private getOrders() {
+    this.loading = true;
     this.orderService.getBusinessOrders().subscribe({
       next: (orders) => {
         this.orders.update(() => orders);
+        this.loading = false;
+      },
+      error: () => {
+        this.loading = false;
+      },
+      complete: () => {
+        this.loading = false;
       },
     });
   }
@@ -105,8 +116,8 @@ export class OrdersComponent implements OnInit {
             orderItem.orderId === order.orderId
               ? {
                   ...order,
-                  products: order.products.map((order) => ({
-                    ...order,
+                  products: order.products.map((product) => ({
+                    ...product,
                     status: this.orderStatus.get(this.status)!,
                   })),
                 }
