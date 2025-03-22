@@ -14,7 +14,7 @@ import {
 import { Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { IUser } from '../interfaces/user.interface';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay, filter } from 'rxjs';
 import { openSnackBar } from '../helpers/snackbar';
 import { UsersService } from './users.service';
 
@@ -26,7 +26,10 @@ export class FirebaseAuthService {
   router: Router = inject(Router);
   firestore: Firestore = inject(Firestore);
   usersService: UsersService = inject(UsersService);
-  user$: Observable<User> = user(this.auth);
+  user$: Observable<User> = user(this.auth).pipe(
+    filter((user: User | null): user is User => user !== null),
+    shareReplay(1)
+  );
   private snackBar = openSnackBar();
 
   constructor() {
