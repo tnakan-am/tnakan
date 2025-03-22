@@ -6,6 +6,7 @@
   "products": "Hy Products",
   "ad": "Hy Ads",
   "product_reviews": "Hy Product Reviews",
+  "payment": "Hy Payment",
   "confirm-email": "Hy Please check your email",
   "edit": "Hy Edit",
   "login": {
@@ -35,7 +36,13 @@
     "uid": "Hy uid",
     "deliveryOption": "Hy Delivery Option",
     "comment": "Hy Comment",
-    "month": "Hy Month"
+    "month": "Hy Month",
+    "total": "Hy Total",
+    "region": "Hy Region",
+    "address": "Hy Address",
+    "street": "Hy Street",
+    "house": "Hy House",
+    "zip": "Hy ZIP"
   },
   "registration": {
     "registration": "Hy Registration"
@@ -44,7 +51,8 @@
     "submit": "Hy Submit",
     "save": "Hy Save",
     "cancel": "Hy Cancel",
-    "back": "Hy Back"
+    "back": "Hy Back",
+    "next": "Hy Next"
   },
   "messages": {
     "orderPlaced": "Hy Order successfully placed.",
