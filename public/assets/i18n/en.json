@@ -6,6 +6,7 @@
   "products": "Products",
   "ad": "Ads",
   "product_reviews": "Product Reviews",
+  "payment": "Payment",
   "confirm-email": "Please check your email",
   "edit": "Edit",
   "login": {
@@ -37,7 +38,13 @@
     "uid": "uid",
     "deliveryOption": "Delivery Option",
     "comment": "Comment",
-    "month": "Month"
+    "month": "Month",
+    "total": "Total",
+    "region": "Region",
+    "address": "Address",
+    "street": "Street",
+    "house": "House",
+    "zip": "ZIP"
   },
   "registration": {
     "registration": "Registration"
@@ -49,7 +56,8 @@
     "save": "Save",
     "cancel": "Cancel",
     "back": "Back",
-    "update-password": "Update password"
+    "update-password": "Update password",
+    "next": "Next"
   },
   "messages": {
     "orderPlaced": "Order successfully placed.",

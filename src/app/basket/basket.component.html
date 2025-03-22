@@ -1,7 +1,7 @@
 <form [formGroup]="orderForm" (ngSubmit)="placeOrder()">
   <mat-stepper linear>
     <mat-step formGroupName="products" [stepControl]="$any(orderForm.get('products'))">
-      <ng-template matStepLabel>Orders</ng-template>
+      <ng-template matStepLabel>{{ 'orders' | translate }}</ng-template>
 
       @for (product of products(); track product.id; let idx = $index) {
       <mat-card appearance="outlined" class="m-2" [formArrayName]="idx">
@@ -39,7 +39,7 @@
             </div>
             <div>
               <mat-form-field>
-                <mat-label>Comment</mat-label>
+                <mat-label>{{ 'fields.comment' | translate }}</mat-label>
                 <input
                   matInput
                   min="{{ product?.minQuantity || 1 }}"
@@ -59,18 +59,20 @@
         </mat-card-content>
       </mat-card>
       }
-      <div class="flex justify-end mr-2">Total: {{ total | currency : amd }}</div>
+      <div class="flex justify-end mr-2">
+        {{ 'fields.total' | translate }}: {{ total | currency : amd }}
+      </div>
       <div>
-        <button mat-button matStepperNext type="button">Next</button>
+        <button mat-button matStepperNext type="button">{{ 'buttons.next' | translate }}</button>
       </div>
     </mat-step>
     <mat-step formGroupName="address" [stepControl]="$any(orderForm.get('address'))">
-      <ng-template matStepLabel>Address</ng-template>
+      <ng-template matStepLabel>{{ 'fields.address' | translate }}</ng-template>
 
       <div class="w-[400px] flex flex-col">
         <div class="flex gap-3">
           <mat-form-field>
-            <mat-label>region</mat-label>
+            <mat-label>{{ 'fields.region' | translate }}</mat-label>
             <mat-select formControlName="region" (valueChange)="regionChange($event)">
               @for (region of regions(); track region) {
               <mat-option [value]="region">{{ region }}</mat-option>
@@ -90,29 +92,31 @@
           }
         </div>
         <mat-form-field>
-          <mat-label>Street</mat-label>
-          <input matInput placeholder="Street" formControlName="street" />
+          <mat-label>{{ 'fields.street' | translate }}</mat-label>
+          <input matInput [placeholder]="'fields.street' | translate" formControlName="street" />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>House</mat-label>
-          <input matInput placeholder="House" formControlName="house" />
+          <mat-label>{{ 'fields.house' | translate }}</mat-label>
+          <input matInput [placeholder]="'fields.house' | translate" formControlName="house" />
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>Zip</mat-label>
-          <input matInput placeholder="zip" formControlName="zip" />
+          <mat-label>{{ 'fields.zip' | translate }}</mat-label>
+          <input matInput [placeholder]="'fields.zip' | translate" formControlName="zip" />
         </mat-form-field>
       </div>
       <div>
-        <button mat-button matStepperPrevious type="button">Back</button>
-        <button mat-button matStepperNext type="button">Next</button>
+        <button mat-button matStepperPrevious type="button">
+          {{ 'buttons.back' | translate }}
+        </button>
+        <button mat-button matStepperNext type="button">{{ 'buttons.next' | translate }}</button>
       </div>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Payment</ng-template>
-      <button mat-button matStepperPrevious type="button">Back</button>
-      <button mat-button matStepperNext type="submit">Next</button>
+      <ng-template matStepLabel>{{ 'payment' | translate }}</ng-template>
+      <button mat-button matStepperPrevious type="button">{{ 'buttons.back' | translate }}</button>
+      <button mat-button matStepperNext type="submit">{{ 'buttons.next' | translate }}</button>
     </mat-step>
   </mat-stepper>
 </form>

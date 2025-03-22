@@ -6,6 +6,7 @@
   "products": "Rus Products",
   "ad": "Rus Ads",
   "product_reviews": "Rus Product Reviews",
+  "payment": "Rus Payment",
   "confirm-email": "Rus Please check your email",
   "edit": "Rus Edit",
   "login": {
@@ -35,7 +36,13 @@
     "uid": "Rus uid",
     "deliveryOption": "Rus Delivery Option",
     "comment": "Rus Comment",
-    "month": "Rus Month"
+    "month": "Rus Month",
+    "total": "Rus Total",
+    "region": "Rus Region",
+    "address": "Rus Address",
+    "street": "Rus Street",
+    "house": "Rus House",
+    "zip": "Rus ZIP"
   },
   "registration": {
     "registration": "Rus Registration"
@@ -44,7 +51,8 @@
     "submit": "Rus Submit",
     "save": "Rus Save",
     "cancel": "Rus Cancel",
-    "back": "Rus Back"
+    "back": "Rus Back",
+    "next": "Rus Next"
   },
   "messages": {
     "orderPlaced": "Rus Order successfully placed.",
