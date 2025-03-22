@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, of, shareReplay, switchMap } from 'rxjs';
+import { filter, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser, Type } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
@@ -11,7 +11,10 @@ import { Auth, updateEmail, updatePassword, updateProfile, User, user } from '@a
 export class UsersService {
   firestore = inject(Firestore);
   auth: Auth = inject(Auth);
-  user$: Observable<User> = user(this.auth).pipe(shareReplay(1));
+  user$: Observable<User> = user(this.auth).pipe(
+    filter((user): user is User => user !== null),
+    shareReplay(1)
+  );
 
   constructor() {}
 
