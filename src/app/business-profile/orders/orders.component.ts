@@ -20,7 +20,6 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-orders',
-  standalone: true,
   imports: [
     MatExpansionPanel,
     MatExpansionPanelTitle,
@@ -35,6 +34,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     OrderStatusPipe,
     MatProgressSpinner,
   ],
+  standalone: true,
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
 })

@@ -20,5 +20,6 @@ export class OrderItemComponent {
   get product(): OrderItem {
     return this._product;
   }
+
   private _product!: OrderItem;
 }

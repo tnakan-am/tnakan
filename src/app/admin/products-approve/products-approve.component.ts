@@ -27,7 +27,6 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products-approve',
-  standalone: true,
   imports: [
     AsyncPipe,
     MatCell,
@@ -45,6 +44,7 @@ import { MatDialog } from '@angular/material/dialog';
     TranslateModule,
     MatHeaderCellDef,
   ],
+  standalone: true,
   templateUrl: './products-approve.component.html',
   styleUrl: './products-approve.component.scss',
 })

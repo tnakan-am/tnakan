@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
+import { UsersService } from '../shared/services/users.service';
+import { Type } from '../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-carousel',
@@ -10,7 +12,7 @@ import { NgxStarsModule } from 'ngx-stars';
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
 })
-export class CarouselComponent {
+export class CarouselComponent implements OnInit {
   customOptions: OwlOptions = {
     loop: true,
     skip_validateItems: true,
@@ -44,36 +46,32 @@ export class CarouselComponent {
     autoHeight: true,
   };
 
-  carouselData = [
-    {
-      text: 'Vahe',
-      avgReview: 5,
-      sellerUrl: 'seller/grJLCXq6Bfb5FzZnETRshPARsmL2',
-      src: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-    },
-    {
-      text: 'Gexam Tnakan Arax',
-      avgReview: 5,
-      sellerUrl: 'seller/grJLCXq6Bfb5FzZnETRshPARsmL2',
-      src: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-    },
-    {
-      text: 'Anna',
-      avgReview: 5,
-      sellerUrl: 'seller/grJLCXq6Bfb5FzZnETRshPARsmL2',
-      src: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-    },
-    {
-      text: 'Laura Tota',
-      avgReview: 5,
-      sellerUrl: 'seller/grJLCXq6Bfb5FzZnETRshPARsmL2',
-      src: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-    },
-    {
-      text: 'Hamov Torter',
-      avgReview: 5,
-      sellerUrl: 'seller/grJLCXq6Bfb5FzZnETRshPARsmL2',
-      src: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-    },
-  ];
+  carouselData: {
+    text: string;
+    avgReview: number;
+    sellerUrl: string;
+    src: string;
+  }[] = [];
+
+  constructor(private usersService: UsersService) {}
+
+  ngOnInit(): void {
+    this.getUsersList();
+  }
+
+  private getUsersList(): void {
+    this.usersService.getUsersList().subscribe((users) => {
+      console.log(users);
+      this.carouselData = users
+        .filter((user) => user.isTopSeller && user.type === Type.BUSINESS)
+        .map((user) => {
+          return {
+            text: user.name || '',
+            avgReview: 5,
+            sellerUrl: `seller/${user.uid}`,
+            src: user.image || 'https://random-image-pepebigotes.vercel.app/api/random-image',
+          };
+        });
+    });
+  }
 }

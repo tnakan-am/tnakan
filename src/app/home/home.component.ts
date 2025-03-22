@@ -14,7 +14,6 @@ import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   imports: [
     MatIcon,
     MatIconButton,
@@ -28,6 +27,7 @@ import { CarouselComponent } from '../carousel/carousel.component';
     AsyncPipe,
     CarouselComponent,
   ],
+  standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
