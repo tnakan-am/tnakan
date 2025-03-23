@@ -27,7 +27,6 @@ import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-basket',
-  standalone: true,
   imports: [
     MatCard,
     MatCardContent,
@@ -51,6 +50,7 @@ import { CurrencyPipe } from '@angular/common';
     MatCardHeader,
     CurrencyPipe,
   ],
+  standalone: true,
   templateUrl: './basket.component.html',
   styleUrl: './basket.component.scss',
 })

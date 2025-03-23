@@ -11,7 +11,6 @@ import { Product } from '../../../shared/interfaces/product.interface';
 
 @Component({
   selector: 'app-card-item',
-  standalone: true,
   imports: [
     MatButton,
     MatCard,
@@ -22,6 +21,7 @@ import { Product } from '../../../shared/interfaces/product.interface';
     DecimalPipe,
     MatTooltip,
   ],
+  standalone: true,
   templateUrl: './card-item.component.html',
   styleUrl: './card-item.component.scss',
 })
