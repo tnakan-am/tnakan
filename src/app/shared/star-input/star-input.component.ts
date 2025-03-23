@@ -62,12 +62,10 @@ export class StarInputComponent implements ControlValueAccessor {
   writeValue(value: any) {
     this.value = value;
   }
-
   // upon UI element value changes, this method gets triggered
   registerOnChange(fn: any) {
     this.onChange = fn;
   }
-
   // upon touching the element, this method gets triggered
   registerOnTouched(fn: any) {
     this.onTouch = fn;

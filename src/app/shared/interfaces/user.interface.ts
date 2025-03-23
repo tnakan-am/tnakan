@@ -19,5 +19,4 @@ export interface IUser {
   hvhh?: string;
   image?: string;
   address?: Address;
-  isTopSeller?: boolean;
 }

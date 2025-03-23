@@ -54,6 +54,7 @@ const currentMonth = (date?: string) => {
 
 @Component({
   selector: 'app-admin-orders',
+  standalone: true,
   imports: [
     MatCell,
     MatCellDef,
@@ -78,7 +79,6 @@ const currentMonth = (date?: string) => {
     MatFooterRowDef,
     MatFooterCellDef,
   ],
-  standalone: true,
   templateUrl: './admin-orders.component.html',
   styleUrl: './admin-orders.component.scss',
 })

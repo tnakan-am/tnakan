@@ -23,4 +23,5 @@ import { MatIconButton } from '@angular/material/button';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent {}
+export class FooterComponent {
+}

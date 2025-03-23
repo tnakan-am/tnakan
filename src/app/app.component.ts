@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   imports: [
     RouterOutlet,
     FooterComponent,
@@ -25,7 +26,6 @@ import { Subscription } from 'rxjs';
     MatSidenavContent,
     MatIconButton,
   ],
-  standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

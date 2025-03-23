@@ -10,10 +10,10 @@ import { User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
-import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [
     MatIcon,
     MatIconButton,
@@ -25,9 +25,7 @@ import { CarouselComponent } from '../carousel/carousel.component';
     ProductComponent,
     TranslateModule,
     AsyncPipe,
-    CarouselComponent,
   ],
-  standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

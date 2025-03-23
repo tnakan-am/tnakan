@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-ads-approve',
-  imports: [],
   standalone: true,
+  imports: [],
   templateUrl: './ads-approve.component.html',
   styleUrl: './ads-approve.component.scss',
 })

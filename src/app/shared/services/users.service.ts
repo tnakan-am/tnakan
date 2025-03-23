@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { filter, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser, Type } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { collection, doc, Firestore, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { collection, doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { Auth, updateEmail, updatePassword, updateProfile, User, user } from '@angular/fire/auth';
 
 @Injectable({
@@ -79,16 +79,5 @@ export class UsersService {
 
   updatePassword(user: User, password: string) {
     return fromPromise(updatePassword(user, password)).pipe();
-  }
-
-  getUsersList(): Observable<IUser[]> {
-    const usersRef = collection(this.firestore, 'users');
-    return fromPromise(
-      getDocs(usersRef).then((querySnapshot) => {
-        return querySnapshot.docs.map((docSnam) => {
-          return { uid: docSnam.id, ...docSnam.data() } as IUser;
-        });
-      })
-    );
   }
 }
