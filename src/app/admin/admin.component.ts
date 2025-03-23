@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
   imports: [
     RouterOutlet,
     MatTabLink,
@@ -14,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
     RouterLink,
   ],
-  standalone: true,
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })

@@ -30,11 +30,9 @@ export class LoginComponent implements OnInit {
 
   emailErrorMessage = signal('');
   passErrorMessage = signal('');
-
   get email() {
     return this.form.get('email');
   }
-
   get password() {
     return this.form.get('password');
   }

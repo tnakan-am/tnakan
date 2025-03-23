@@ -20,6 +20,7 @@ import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-order-item',
+  standalone: true,
   imports: [
     MatCard,
     MatCardContent,
@@ -31,7 +32,6 @@ import { filter, map } from 'rxjs';
     TranslateModule,
     MatButton,
   ],
-  standalone: true,
   templateUrl: './order-item.component.html',
   styleUrl: './order-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,7 +48,6 @@ export class OrderItemComponent implements OnInit {
     this._product = val;
     this.bill = this._product.price * this._product.quantity;
   }
-
   @Output() onRate = new EventEmitter();
 
   ngOnInit() {
@@ -69,7 +68,6 @@ export class OrderItemComponent implements OnInit {
   get product(): OrderItem {
     return this._product;
   }
-
   private _product!: OrderItem;
 
   rateProduct() {
