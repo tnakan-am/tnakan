@@ -31,6 +31,7 @@ export class BusinessProfileComponent implements OnInit {
       path: 'ad',
     },
   ];
+
   constructor() {}
 
   ngOnInit() {}
