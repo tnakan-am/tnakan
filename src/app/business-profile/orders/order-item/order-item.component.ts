@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { OrderItem } from '../../../shared/interfaces/order.interface';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-order-item',
   standalone: true,
-  imports: [MatCard, MatCardContent, MatIcon, MatTooltip],
+  imports: [MatCard, MatCardContent],
   templateUrl: './order-item.component.html',
   styleUrl: './order-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
