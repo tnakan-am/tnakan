@@ -13,7 +13,7 @@
           </button>
         </mat-card-header>
         <mat-card-content>
-          <div class="w-100 relative flex flex-col md:flex-row justify-between gap-3 items-center">
+          <div class="w-full relative flex flex-col md:flex-row justify-between gap-3 items-center">
             <img
               [src]="product.image || 'assets/homemade.webp'"
               alt="product image"
@@ -52,7 +52,7 @@
             <div>
               {{
                 product.price * (orderForm.get('products.' + idx + '.quantity')?.value || 1)
-                  | currency : amd
+                  | currency : amd : 'symbol-narrow'
               }}
             </div>
           </div>
@@ -60,7 +60,7 @@
       </mat-card>
       }
       <div class="flex justify-end mr-2">
-        {{ 'fields.total' | translate }}: {{ total | currency : amd }}
+        {{ 'fields.total' | translate }}: {{ total | currency : amd : 'symbol-narrow' }}
       </div>
       <div>
         <button mat-button matStepperNext type="button">{{ 'buttons.next' | translate }}</button>

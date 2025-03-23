@@ -1,3 +1,9 @@
+@if (loading) {
+<div class="flex justify-center items-center h-screen min-h-screen">
+  <mat-spinner></mat-spinner>
+</div>
+} @else {
+
 <div class="container mx-auto">
   <div class="flex justify-end">
     @if (users().length) {
@@ -59,7 +65,9 @@
       <!-- price Column -->
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef>{{ 'fields.price' | translate }}</th>
-        <td mat-cell *matCellDef="let element">{{ +element.price * +element.quantity }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ +element.price * +element.quantity | currency : 'AMD' : 'symbol-narrow' }}
+        </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
@@ -80,7 +88,9 @@
             <mat-icon>{{ 'check' }}</mat-icon>
           </button>
         </td>
-        <td mat-footer-cell *matFooterCellDef>{{ totalCost() }}</td>
+        <td mat-footer-cell *matFooterCellDef>
+          {{ totalCost() | currency : 'AMD' : 'symbol-narrow' }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -90,3 +100,4 @@
   </div>
   }
 </div>
+}

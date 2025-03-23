@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="formSubmit()" class="flex-col flex">
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <mat-label>{{ 'fields.email' | translate }}</mat-label>
     <input matInput placeholder="pat@example.com" formControlName="email" required />
     @if (form.get('email')?.invalid) {
@@ -7,7 +7,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <mat-label>{{ 'fields.phone' | translate }}</mat-label>
     <input matInput placeholder="+37499123456" formControlName="phoneNumber" required />
     @if (form.get('phoneNumber')?.invalid) {
@@ -15,7 +15,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <mat-label>{{ 'fields.company' | translate }}</mat-label>
     <input matInput placeholder="Poxos Poxosyan" formControlName="company" />
     @if (form.get('company')?.invalid) {
@@ -23,7 +23,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <mat-label>{{ 'fields.hvhh' | translate }}</mat-label>
     <input matInput placeholder="01234567" formControlName="hvhh" />
     @if (form.get('hvhh')?.invalid) {
@@ -31,7 +31,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <mat-label>{{ 'fields.password' | translate }}</mat-label>
     <input type="password" matInput placeholder="password" formControlName="password" required />
     @if (form.get('password')?.invalid) {
@@ -39,7 +39,7 @@
     }
   </mat-form-field>
 
-  <mat-form-field class="w-100">
+  <mat-form-field class="w-full">
     <mat-label>{{ 'fields.rePassword' | translate }}</mat-label>
     <input
       type="password"
@@ -93,7 +93,7 @@
     </mat-form-field>
   </div>
 
-  <div class="w-100 flex justify-between">
+  <div class="w-full flex justify-between">
     <a href="" routerLink="/" mat-raised-button>{{ 'buttons.back' | translate }}</a>
     <button [disabled]="form.invalid" mat-flat-button>
       {{ 'buttons.submit' | translate }}

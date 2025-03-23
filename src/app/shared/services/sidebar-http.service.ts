@@ -1,18 +1,12 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, doc, Firestore, getDoc, getDocs } from '@angular/fire/firestore';
+import { collection, Firestore, getDocs } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import {
-  Category,
-  ProductCategory,
-  ProductCategoryData,
-  SubCategory,
-  SubCategoryData,
-} from '../interfaces/categories.interface';
+import { Category, ProductCategory, SubCategory } from '../interfaces/categories.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarHttpService {
-  firestore = inject(Firestore);
+  private firestore: Firestore = inject(Firestore);
 
   getCategoriesList(): Observable<Category[]> {
     const categoriesRef = collection(this.firestore, 'categories');

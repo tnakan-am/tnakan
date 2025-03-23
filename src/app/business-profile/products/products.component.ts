@@ -26,7 +26,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
 import { ReviewService } from '../../shared/services/review.service';
 import { ReviewsModalComponent } from './reviews-modal/reviews-modal.component';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -75,9 +74,7 @@ export class ProductsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.firebaseAuthService.user$
-      .pipe(filter((user): user is User => user !== null))
-      .subscribe((value) => (this.user = value));
+    this.firebaseAuthService.user$.pipe().subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getUserProducts();
   }
 

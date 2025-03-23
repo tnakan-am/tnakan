@@ -39,7 +39,8 @@ import { FormsModule } from '@angular/forms';
 import { UsersService } from '../../shared/services/users.service';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { getMonthYearArray } from '../../shared/helpers/get-month-year';
-
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { CurrencyPipe } from '@angular/common';
 const currentMonth = (date?: string) => {
   // Create a new Date instance for today's date
   const today = date ? new Date(+date.split('-')[1], +date.split('-')[0]) : new Date();
@@ -77,6 +78,8 @@ const currentMonth = (date?: string) => {
     MatFooterRow,
     MatFooterRowDef,
     MatFooterCellDef,
+    MatProgressSpinner,
+    CurrencyPipe,
   ],
   standalone: true,
   templateUrl: './admin-orders.component.html',
@@ -96,6 +99,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   totalCost = computed(() =>
     this.orders()?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
   );
+  loading = true;
 
   constructor(private orderService: AdminOrderService, private usersService: UsersService) {
     this.selectedMonth = this.months[0];
@@ -116,6 +120,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   }
 
   getOrders(date?: string) {
+    this.loading = true;
     const { monthStart, monthEnd } = currentMonth(date);
     fromPromise(this.orderService.getBusinessOrders(monthStart, monthEnd))
       .pipe(
@@ -133,8 +138,16 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (value) => {
           this.orders.update((orders) => {
+            this.loading = false;
             return value;
           });
+        },
+        error: (error) => {
+          this.loading = false;
+          console.error(error);
+        },
+        complete: () => {
+          this.loading = false;
         },
       });
   }

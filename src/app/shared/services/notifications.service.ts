@@ -2,7 +2,6 @@ import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Database, onValue, orderByChild, query, ref, update } from '@angular/fire/database';
 import { Notification, Order, Status } from '../interfaces/order.interface';
 import { addDoc, collection, doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
-import 'firebase/firestore';
 import { FirebaseAuthService } from './firebase-auth.service';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 

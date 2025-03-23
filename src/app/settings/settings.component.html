@@ -1,12 +1,12 @@
 <div class="container mx-auto">
   @if (user$ | async; as user) {
-  <div class="w-100 xs:flex-col md:flex">
+  <div class="w-full xs:flex-col md:flex">
     <div>
       @if(user?.photoURL) {
       <img [src]="user?.photoURL" class="flex-1 h-[220px]" />
       <input type="file" (change)="uploadFile($event)" />
       } @else {
-      <mat-icon class="h-[150px] w-100 size-3">person</mat-icon>
+      <mat-icon class="h-[150px] w-full size-3">person</mat-icon>
       <input type="file" (change)="uploadFile($event)" />
       }
     </div>

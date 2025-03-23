@@ -15,7 +15,7 @@ import {
 } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { map, Observable, of, Subject, switchMap, takeUntil, filter } from 'rxjs';
+import { map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Product } from '../../shared/interfaces/product.interface';
 import { CategoryTree } from '../../shared/interfaces/categories.interface';
 import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
@@ -27,6 +27,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-products-approve',
+  standalone: true,
   imports: [
     AsyncPipe,
     MatCell,
@@ -44,7 +45,6 @@ import { MatDialog } from '@angular/material/dialog';
     TranslateModule,
     MatHeaderCellDef,
   ],
-  standalone: true,
   templateUrl: './products-approve.component.html',
   styleUrl: './products-approve.component.scss',
 })
@@ -73,10 +73,7 @@ export class ProductsApproveComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.firebaseAuthService.user$
-      .pipe(
-        filter((user): user is User => user !== null),
-        takeUntil(this.unsubscribe)
-      )
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getAllUnapprovedProducts();
   }

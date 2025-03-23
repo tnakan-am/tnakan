@@ -39,23 +39,25 @@ export class AdminOrderService {
     // Prepare an array for the final output
     const data: { [key: string]: OrderItem[] } = {};
 
-    // Use a for-of loop so we can await inside
-    for (const orderSnapshot of querySnapshot.docs) {
+    const orderPromises = querySnapshot.docs.map(async (orderSnapshot) => {
       const docData = orderSnapshot.data() as Order;
-
-      // Get the sub-collection and fetch all products
       const orderDocRef = doc(this.firestore, 'orders', orderSnapshot.id);
       const productsCollectionRef = collection(orderDocRef, 'products');
       const productsSnapshot = await getDocs(productsCollectionRef);
 
-      // Build an array of products
-      const products: OrderItem[] = productsSnapshot.docs.map((doc) => ({
-        id: doc.id,
+      return {
         orderId: orderSnapshot.id,
-        ...doc.data(),
-      })) as OrderItem[];
+        products: productsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          orderId: orderSnapshot.id,
+          ...doc.data(),
+        })) as OrderItem[],
+      };
+    });
 
-      // Push this order + products into our final array
+    const results = await Promise.all(orderPromises);
+
+    results.forEach(({ products }) => {
       const productsByUser = groupBy(products, 'userId');
       Object.keys(productsByUser).forEach((key) => {
         if (data[key]) {
@@ -64,7 +66,7 @@ export class AdminOrderService {
           data[key] = productsByUser[key];
         }
       });
-    }
+    });
 
     return data;
   }
