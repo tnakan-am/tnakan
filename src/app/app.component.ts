@@ -4,8 +4,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
 import { MatSidenav, MatSidenavContainer, MatSidenavContent } from '@angular/material/sidenav';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
@@ -18,12 +16,9 @@ import { Subscription } from 'rxjs';
     TranslateModule,
     NavbarComponent,
     SidebarComponent,
-    MatButton,
-    MatIcon,
     MatSidenav,
     MatSidenavContainer,
     MatSidenavContent,
-    MatIconButton,
   ],
   standalone: true,
   templateUrl: './app.component.html',

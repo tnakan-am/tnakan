@@ -1,32 +1,14 @@
 import { Component } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatIconButton } from '@angular/material/button';
-import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { MatToolbar } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProductComponent } from '../product/product.component';
 import { User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
-  imports: [
-    MatIcon,
-    MatIconButton,
-    MatMenu,
-    MatMenuItem,
-    MatToolbar,
-    RouterLink,
-    MatMenuTrigger,
-    ProductComponent,
-    TranslateModule,
-    AsyncPipe,
-    CarouselComponent,
-  ],
+  imports: [ProductComponent, TranslateModule, CarouselComponent],
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

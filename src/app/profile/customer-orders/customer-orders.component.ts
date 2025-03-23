@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Order } from '../../shared/interfaces/order.interface';
-import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import {
   MatAccordion,
   MatExpansionPanel,
@@ -16,8 +16,6 @@ import { OrderService } from '../../shared/services/order.service';
   selector: 'app-customer-orders',
   standalone: true,
   imports: [
-    AsyncPipe,
-    JsonPipe,
     MatAccordion,
     MatExpansionPanel,
     MatExpansionPanelContent,
