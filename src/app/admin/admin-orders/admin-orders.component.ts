@@ -88,6 +88,7 @@ const currentMonth = (date?: string) => {
 export class AdminOrdersComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   orders: WritableSignal<OrderItem[] | undefined> = signal([]);
+  isLoading: WritableSignal<boolean> = signal(true);
   ordersData!: { [key: string]: OrderItem[] };
   displayedColumns: string[] = ['ID', 'name', 'description', 'unit', 'price', 'paidAt', 'star'];
   users: WritableSignal<IUser[]> = signal([]);

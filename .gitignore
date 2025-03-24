@@ -45,3 +45,8 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Environment and config files
+src/app/app.config.ts
+src/environments/environment.ts
+src/environments/environment.development.ts
