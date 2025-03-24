@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
-import { UsersService } from '../shared/services/users.service';
-import { Type } from '../shared/interfaces/user.interface';
+import { UsersService } from '../../shared/services/users.service';
+import { Type } from '../../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-carousel',

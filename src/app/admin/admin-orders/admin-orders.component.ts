@@ -88,6 +88,7 @@ const currentMonth = (date?: string) => {
 export class AdminOrdersComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   orders: WritableSignal<OrderItem[] | undefined> = signal([]);
+  isLoading: WritableSignal<boolean> = signal(true);
   ordersData!: { [key: string]: OrderItem[] };
   displayedColumns: string[] = ['ID', 'name', 'description', 'unit', 'price', 'paidAt', 'star'];
   users: WritableSignal<IUser[]> = signal([]);
@@ -99,14 +100,14 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   totalCost = computed(() =>
     this.orders()?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
   );
-  loading = true;
 
   constructor(private orderService: AdminOrderService, private usersService: UsersService) {
     this.selectedMonth = this.months[0];
-    this.getOrders(this.months[0]);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getOrders(this.months[0]);
+  }
 
   ngOnDestroy() {
     this.unsubscribe.next();
@@ -120,7 +121,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   }
 
   getOrders(date?: string) {
-    this.loading = true;
+    this.isLoading.set(true);
     const { monthStart, monthEnd } = currentMonth(date);
     fromPromise(this.orderService.getBusinessOrders(monthStart, monthEnd))
       .pipe(
@@ -138,16 +139,16 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (value) => {
           this.orders.update((orders) => {
-            this.loading = false;
+            this.isLoading.set(false);
             return value;
           });
         },
         error: (error) => {
-          this.loading = false;
+          this.isLoading.set(false);
           console.error(error);
         },
         complete: () => {
-          this.loading = false;
+          this.isLoading.set(false);
         },
       });
   }

@@ -4,7 +4,7 @@ import { ProductComponent } from '../product/product.component';
 import { User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
-import { CarouselComponent } from '../carousel/carousel.component';
+import { CarouselComponent } from './carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
