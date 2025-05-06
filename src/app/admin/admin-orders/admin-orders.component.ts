@@ -41,6 +41,7 @@ import { IUser } from '../../shared/interfaces/user.interface';
 import { getMonthYearArray } from '../../shared/helpers/get-month-year';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { CurrencyPipe } from '@angular/common';
+
 const currentMonth = (date?: string) => {
   // Create a new Date instance for today's date
   const today = date ? new Date(+date.split('-')[1], +date.split('-')[0]) : new Date();
@@ -95,7 +96,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   months: string[] = getMonthYearArray();
   public userIds: string[] = [];
   private unsubscribe: Subject<void> = new Subject<void>();
-  selectedUser!: string;
+  selectedUser: string = '';
   selectedMonth: string;
   totalCost = computed(() =>
     this.orders()?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
@@ -117,7 +118,7 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
   openDialog(form?: Product): void {}
 
   userChanged($event: any) {
-    this.orders.update((orders) => this.ordersData[$event.value]);
+    this.orders.update((orders) => ($event.value ? this.ordersData[$event.value] : orders));
   }
 
   getOrders(date?: string) {

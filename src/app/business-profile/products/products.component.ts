@@ -7,7 +7,7 @@ import { CategoriesService } from '../../shared/services/categories.service';
 import { ProductsService } from '../../shared/services/products.service';
 import { Product } from '../../shared/interfaces/product.interface';
 import { map, Observable, of, switchMap } from 'rxjs';
-import { AsyncPipe, SlicePipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { User } from '@angular/fire/auth';
 import {
   MatCell,
@@ -46,7 +46,6 @@ import { ReviewsModalComponent } from './reviews-modal/reviews-modal.component';
     MatIcon,
     MatIconButton,
     TranslateModule,
-    SlicePipe,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
@@ -54,15 +53,7 @@ import { ReviewsModalComponent } from './reviews-modal/reviews-modal.component';
 export class ProductsComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   products$!: Observable<Product[]>;
-  displayedColumns: string[] = [
-    'ID',
-    'name',
-    'description',
-    'unit',
-    'price',
-    'availability',
-    'star',
-  ];
+  displayedColumns: string[] = ['name', 'description', 'unit', 'price', 'availability', 'star'];
   private categories!: CategoryTree[];
   private firebaseAuthService = inject(FirebaseAuthService);
   private user!: User;

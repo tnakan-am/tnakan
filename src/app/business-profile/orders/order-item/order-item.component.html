@@ -1,14 +1,21 @@
 <mat-card appearance="outlined" class="m-2">
   <mat-card-content>
-    <div class="w-full flex justify-between gap-3 items-center">
-      <img [src]="product.image || 'assets/homemade.webp'" class="h-[60px] w-[60px]" />
-      <div>{{ product.name }}</div>
-      <span>{{ product.price }}/{{ product.unit }}</span>
-      <div>
-        {{ product.quantity }}
-      </div>
+    <div class="flex gap-3">
+      <img
+        [src]="product.image || 'assets/homemade.webp'"
+        class="h-[60px] w-[60px] max-sm:w-1/2 max-sm:h-full max-sm:max-h-[80px] max-sm:max-w-[80px]"
+      />
+      <div
+        class="w-full flex max-sm:flex-col justify-between gap-3 max-sm:items-start items-center"
+      >
+        <div>{{ product.name }}</div>
+        <span>{{ product.price }}/{{ product.unit }}</span>
+        <div>
+          {{ product.quantity }}
+        </div>
 
-      <div>{{ product.price * product.quantity }}</div>
+        <div>{{ product.price * product.quantity }}</div>
+      </div>
     </div>
     @if (product.comment) {
     <div>Comment: {{ product.comment }}</div>
