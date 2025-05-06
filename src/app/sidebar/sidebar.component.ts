@@ -71,6 +71,8 @@ export class SidebarComponent implements OnInit {
 
   openSub(event: MouseEvent, menuItem: any) {
     // this.isOpen = !this.isOpen;
+    event.stopPropagation();
+    event.stopImmediatePropagation();
     menuItem.selected = !menuItem.selected;
   }
 }

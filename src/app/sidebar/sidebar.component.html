@@ -16,10 +16,11 @@
           class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
           aria-controls="dropdown-pages"
           data-collapse-toggle="dropdown-pages"
-          (click)="openSub($event, menuItem)"
+          [routerLink]="[]"
+          [queryParams]="{ category: menuItem.categoryId }"
         >
           <span class="flex-1 ml-3 text-left whitespace-nowrap">{{ menuItem.categoryName }}</span>
-          <span class="material-icons">{{
+          <span class="material-icons" (click)="openSub($event, menuItem)">{{
             menuItem.selected ? 'expand_more' : 'chevron_right'
           }}</span>
         </button>
@@ -39,12 +40,13 @@
               class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
               aria-controls="dropdown-pages"
               data-collapse-toggle="dropdown-pages"
-              (click)="openSub($event, categories)"
+              [routerLink]="[]"
+              [queryParams]="{ subCategory: categories.categoryId }"
             >
               <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
                 categories.categoryName
               }}</span>
-              <span class="material-icons">{{
+              <span class="material-icons" (click)="openSub($event, categories)">{{
                 categories.selected ? 'expand_more' : 'chevron_right'
               }}</span>
             </button>
