@@ -9,6 +9,7 @@
     <mat-form-field>
       <mat-label>{{ 'fields.name' | translate }}</mat-label>
       <mat-select [(ngModel)]="selectedUser" (selectionChange)="userChanged($event)">
+        <mat-option [value]="''"> All </mat-option>
         @for (user of users() ; track user.uid) {
         <mat-option [value]="user.uid">{{ user.displayName }} {{ user.surname }}</mat-option>
         }

@@ -8,7 +8,7 @@
     @for (order of orders(); track order.orderId) {
     <mat-expansion-panel (expandedChange)="$event && orderSeen(order)">
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title class="text-ellipsis text-nowrap">
           {{
             order.address.region === order.address.city
               ? order.address.region
@@ -17,7 +17,7 @@
           {{ order.address.house }}
           {{ order.address.zip }}
         </mat-panel-title>
-        <mat-panel-description class="flex justify-between items-center">
+        <mat-panel-description class="flex justify-between items-center text-nowrap text-ellipsis">
           {{ order.products.length }} products @if (order | orderStatus:newOrders()) {
           <mat-icon class="text-red-500">notifications</mat-icon>
           }
