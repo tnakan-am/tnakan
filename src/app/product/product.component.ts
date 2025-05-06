@@ -28,7 +28,7 @@ export class ProductComponent implements OnInit {
     this.getProductData();
 
     this.route?.queryParams?.subscribe((params) => {
-      if (params['subCategory'] || params['productCategory']) {
+      if (params['subCategory'] || params['productCategory'] || params['category']) {
         this.products$ = this.productsService.getAllProductsByQuery(params);
       } else {
         this.getProductData();

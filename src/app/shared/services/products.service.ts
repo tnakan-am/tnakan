@@ -31,7 +31,7 @@ export class ProductsService {
 
   deleteProduct(id: string) {
     return fromPromise(deleteDoc(doc(this.firestore, 'products', id))).pipe(
-      tap((value) => this.snackBar('Successfully Deleted')),
+      tap(() => this.snackBar('Successfully Deleted')),
       catchError((err) => {
         this.snackBar(err);
         return throwError(err);
@@ -172,6 +172,7 @@ export class ProductsService {
 
   getAllProductsByQuery(params: {
     subCategory?: string;
+    category?: string;
     productCategory?: string;
   }): Observable<Product[]> {
     return fromPromise(
@@ -179,9 +180,13 @@ export class ProductsService {
         query(
           collection(this.firestore, 'products'),
           where(
-            params.productCategory ? 'productCategory' : 'subCategory',
+            params.category
+              ? 'category'
+              : params.productCategory
+              ? 'productCategory'
+              : 'subCategory',
             '==',
-            params.productCategory || params.subCategory
+            params.category || params.productCategory || params.subCategory
           ),
           limit(100)
         )
