@@ -1,23 +1,24 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  Firestore,
-  getDoc,
-  getDocs,
-  limit,
-  query,
-  setDoc,
-  where,
-  writeBatch,
-} from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { catchError, filter, Observable, switchMap, tap, throwError } from 'rxjs';
 import { FirebaseAuthService } from './firebase-auth.service';
 import { User } from '@angular/fire/auth';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  setDoc,
+  where,
+  writeBatch,
+} from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +32,7 @@ export class ProductsService {
 
   deleteProduct(id: string) {
     return fromPromise(deleteDoc(doc(this.firestore, 'products', id))).pipe(
-      tap((value) => this.snackBar('Successfully Deleted')),
+      tap(() => this.snackBar('Successfully Deleted')),
       catchError((err) => {
         this.snackBar(err);
         return throwError(err);
@@ -150,7 +151,9 @@ export class ProductsService {
 
   getAllProducts(): Observable<Product[]> {
     return fromPromise(
-      getDocs(query(collection(this.firestore, 'products'), limit(100))).then((values) => {
+      getDocs(
+        query(collection(this.firestore, 'products'), orderBy('avgReview', 'asc'), limit(100))
+      ).then((values) => {
         const data: any[] = [];
         values.forEach((value) => data.push({ id: value.id, ...value.data() }));
         return data;
@@ -172,6 +175,7 @@ export class ProductsService {
 
   getAllProductsByQuery(params: {
     subCategory?: string;
+    category?: string;
     productCategory?: string;
   }): Observable<Product[]> {
     return fromPromise(
@@ -179,9 +183,13 @@ export class ProductsService {
         query(
           collection(this.firestore, 'products'),
           where(
-            params.productCategory ? 'productCategory' : 'subCategory',
+            params.category
+              ? 'category'
+              : params.productCategory
+              ? 'productCategory'
+              : 'subCategory',
             '==',
-            params.productCategory || params.subCategory
+            params.category || params.productCategory || params.subCategory
           ),
           limit(100)
         )
