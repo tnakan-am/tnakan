@@ -10,7 +10,7 @@
           <img [alt]="slide.src" [src]="slide.src" style="height: 250px" />
           <div class="flex">
             <div class="flex items-center justify-center gap-2">
-              <span>{{ slide.text }}</span>
+              <span class="pl-2">{{ slide.text }}</span>
               <ngx-stars [color]="'#28a745'" [initialStars]="slide.avgReview" [readonly]="true" />
               <span class="rating-text">({{ slide.avgReview | number : '1.1-1' }})</span>
             </div>

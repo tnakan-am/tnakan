@@ -152,7 +152,7 @@ export class ProductsService {
   getAllProducts(): Observable<Product[]> {
     return fromPromise(
       getDocs(
-        query(collection(this.firestore, 'products'), orderBy('avgReview', 'asc'), limit(100))
+        query(collection(this.firestore, 'products'), orderBy('avgReview', 'desc'), limit(10))
       ).then((values) => {
         const data: any[] = [];
         values.forEach((value) => data.push({ id: value.id, ...value.data() }));
