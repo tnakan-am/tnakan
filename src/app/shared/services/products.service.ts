@@ -1,9 +1,15 @@
 import { inject, Injectable } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { catchError, filter, Observable, switchMap, tap, throwError } from 'rxjs';
+import { FirebaseAuthService } from './firebase-auth.service';
+import { User } from '@angular/fire/auth';
+import { Product } from '../interfaces/product.interface';
+import { openSnackBar } from '../helpers/snackbar';
 import {
   collection,
   deleteDoc,
   doc,
-  Firestore,
   getDoc,
   getDocs,
   limit,
@@ -11,13 +17,7 @@ import {
   setDoc,
   where,
   writeBatch,
-} from '@angular/fire/firestore';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { catchError, filter, Observable, switchMap, tap, throwError } from 'rxjs';
-import { FirebaseAuthService } from './firebase-auth.service';
-import { User } from '@angular/fire/auth';
-import { Product } from '../interfaces/product.interface';
-import { openSnackBar } from '../helpers/snackbar';
+} from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',

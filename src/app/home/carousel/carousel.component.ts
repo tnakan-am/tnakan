@@ -61,7 +61,6 @@ export class CarouselComponent implements OnInit {
 
   private getUsersList(): void {
     this.usersService.getUsersList().subscribe((users) => {
-      console.log(users);
       this.carouselData = users
         .filter((user) => user.isTopSeller && user.type === Type.BUSINESS)
         .map((user) => {

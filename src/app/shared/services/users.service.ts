@@ -2,8 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { filter, map, Observable, of, shareReplay, switchMap } from 'rxjs';
 import { IUser, Type } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { collection, doc, Firestore, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { Auth, updateEmail, updatePassword, updateProfile, User, user } from '@angular/fire/auth';
+//  👉  use the Firebase JS SDK functions instead of the AngularFire wrappers
+import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -68,7 +70,7 @@ export class UsersService {
       (userData.photoURL || user.displayName
         ? updateProfile(user, userData)
         : Promise.resolve()
-      ).then(async (value) => {
+      ).then(async () => {
         if (data.email !== userData.email) {
           await updateEmail(user, data.email!);
         }
