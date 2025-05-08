@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { collection, Firestore, getDocs } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Category, ProductCategory, SubCategory } from '../interfaces/categories.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { collection, getDocs } from 'firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarHttpService {

@@ -1,15 +1,16 @@
 import { inject, Injectable } from '@angular/core';
+import { Firestore } from '@angular/fire/firestore';
+// 👇  switch to the Web-SDK helpers ↓↓↓
 import {
   addDoc,
   collection,
   doc,
-  Firestore,
   getDocs,
   orderBy,
   query,
   setDoc,
   where,
-} from '@angular/fire/firestore';
+} from 'firebase/firestore';
 
 import { FirebaseAuthService } from './firebase-auth.service';
 import { ProductsService } from './products.service';

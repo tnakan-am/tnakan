@@ -1,9 +1,10 @@
 import { inject, Injectable, signal, WritableSignal } from '@angular/core';
 import { Database, onValue, orderByChild, query, ref, update } from '@angular/fire/database';
 import { Notification, Order, Status } from '../interfaces/order.interface';
-import { addDoc, collection, doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { FirebaseAuthService } from './firebase-auth.service';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -98,7 +99,7 @@ export class NotificationsService {
         }
         return values.data();
       })
-      .then((orderReal) =>
+      .then(() =>
         Promise.all([
           ...promiseArr,
           update(dbRef, { [key]: status }),

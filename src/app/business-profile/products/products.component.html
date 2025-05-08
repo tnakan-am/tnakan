@@ -4,12 +4,6 @@
   </div>
 
   <table mat-table [dataSource]="(products$ | async)!" class="mat-elevation-z8 demo-table">
-    <!-- Position Column -->
-    <ng-container matColumnDef="ID">
-      <th mat-header-cell *matHeaderCellDef>{{ 'fields.id' | translate }}</th>
-      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-    </ng-container>
-
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>{{ 'fields.name' | translate }}</th>
@@ -19,9 +13,8 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>{{ 'description' | translate }}</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.description | slice : 0 : 30 }}
-        {{ element.description.length > 30 ? '...' : null }}
+      <td mat-cell *matCellDef="let element" class="text-ellipsis text-nowrap">
+        {{ element.description }}
       </td>
     </ng-container>
 
