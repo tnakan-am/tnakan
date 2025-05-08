@@ -1,0 +1,30 @@
+<div
+  class="carousel"
+  tabindex="0"
+  (keydown)="onKey($event)"
+  (mouseenter)="pause()"
+  (mouseleave)="play()"
+>
+  <div class="slides" [style.transform]="'translateX(-' + active * 100 + '%)'">
+    @for (item of items; track i;let i= $index) {
+    <section class="slide" [style.background-image]="'url(' + item.image + ')'">
+      <div class="content">
+        <h2>{{ item.headline }}</h2>
+        @if (item.subheadline || item.cta || item.link) {
+        <p>{{ item.subheadline }}</p>
+        <a mat-flat-button [href]="item.link">{{ item.cta }}</a>
+        }
+      </div>
+    </section>
+    }
+  </div>
+
+  <button class="nav prev" aria-label="Previous slide" (click)="prev()">‹</button>
+  <button class="nav next" aria-label="Next slide" (click)="next()">›</button>
+
+  <div class="dots">
+    @for (item of items; track i;let i= $index) {
+    <button (click)="goTo(i)" [class.active]="i === active"></button>
+    }
+  </div>
+</div>

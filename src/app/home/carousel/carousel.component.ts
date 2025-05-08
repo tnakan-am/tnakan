@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
-import { UsersService } from '../../shared/services/users.service';
-import { Type } from '../../shared/interfaces/user.interface';
+import { ProductsService } from '../../shared/services/products.service';
 
 @Component({
   selector: 'app-carousel',
@@ -13,6 +12,7 @@ import { Type } from '../../shared/interfaces/user.interface';
   styleUrl: './carousel.component.scss',
 })
 export class CarouselComponent implements OnInit {
+  private _productsService = inject(ProductsService);
   customOptions: OwlOptions = {
     loop: true,
     skip_validateItems: true,
@@ -53,24 +53,22 @@ export class CarouselComponent implements OnInit {
     src: string;
   }[] = [];
 
-  constructor(private usersService: UsersService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.getUsersList();
   }
 
   private getUsersList(): void {
-    this.usersService.getUsersList().subscribe((users) => {
-      this.carouselData = users
-        .filter((user) => user.isTopSeller && user.type === Type.BUSINESS)
-        .map((user) => {
-          return {
-            text: user.name || '',
-            avgReview: 5,
-            sellerUrl: `seller/${user.uid}`,
-            src: user.image || 'https://random-image-pepebigotes.vercel.app/api/random-image',
-          };
-        });
+    this._productsService.getAllProducts().subscribe((users) => {
+      this.carouselData = users.map((product) => {
+        return {
+          text: product.name || '',
+          avgReview: product.avgReview,
+          sellerUrl: `product/${product.id}`,
+          src: product.image || 'assets/homemade.webp',
+        };
+      });
     });
   }
 }
