@@ -1,8 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
 import { ProductsService } from '../../shared/services/products.service';
+import { ProductCarouselItem } from '../../shared/interfaces/product-carousel-item.interface';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-carousel',
@@ -11,7 +14,7 @@ import { ProductsService } from '../../shared/services/products.service';
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent {
   private _productsService = inject(ProductsService);
   customOptions: OwlOptions = {
     loop: true,
@@ -46,29 +49,17 @@ export class CarouselComponent implements OnInit {
     autoHeight: true,
   };
 
-  carouselData: {
-    text: string;
-    avgReview: number;
-    sellerUrl: string;
-    src: string;
-  }[] = [];
-
-  constructor() {}
-
-  ngOnInit(): void {
-    this.getUsersList();
-  }
-
-  private getUsersList(): void {
-    this._productsService.getAllProducts().subscribe((users) => {
-      this.carouselData = users.map((product) => {
-        return {
+  carouselData: Signal<ProductCarouselItem[]> = toSignal(
+    this._productsService.getAllProducts().pipe(
+      map((users) =>
+        users.map((product) => ({
           text: product.name || '',
           avgReview: product.avgReview,
-          sellerUrl: `product/${product.id}`,
+          url: `product/${product.id}`,
           src: product.image || 'assets/homemade.webp',
-        };
-      });
-    });
-  }
+        }))
+      )
+    ),
+    { initialValue: [] }
+  );
 }

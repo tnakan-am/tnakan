@@ -4,8 +4,7 @@ import { IUser, Type } from '../interfaces/user.interface';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { Firestore } from '@angular/fire/firestore';
 import { Auth, updateEmail, updatePassword, updateProfile, User, user } from '@angular/fire/auth';
-//  👉  use the Firebase JS SDK functions instead of the AngularFire wrappers
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -87,6 +86,18 @@ export class UsersService {
     const usersRef = collection(this.firestore, 'users');
     return fromPromise(
       getDocs(usersRef).then((querySnapshot) => {
+        return querySnapshot.docs.map((docSnam) => {
+          return { uid: docSnam.id, ...docSnam.data() } as IUser;
+        });
+      })
+    );
+  }
+
+  getBusinesses(): Observable<IUser[]> {
+    const usersRef = collection(this.firestore, 'users');
+    const q = query(usersRef, where('type', '==', Type.BUSINESS));
+    return fromPromise(
+      getDocs(q).then((querySnapshot) => {
         return querySnapshot.docs.map((docSnam) => {
           return { uid: docSnam.id, ...docSnam.data() } as IUser;
         });
