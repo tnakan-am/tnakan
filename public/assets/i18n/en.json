@@ -57,7 +57,8 @@
     "cancel": "Cancel",
     "back": "Back",
     "update-password": "Update password",
-    "next": "Next"
+    "next": "Next",
+    "addToCart": "Add"
   },
   "messages": {
     "orderPlaced": "Order successfully placed.",

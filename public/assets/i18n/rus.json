@@ -57,7 +57,8 @@
     "cancel": "Отмена",
     "back": "Назад",
     "update-password": "Обновить пароль",
-    "next": "Далее"
+    "next": "Далее",
+    "addToCart": "Добавить"
   },
   "messages": {
     "orderPlaced": "Заказ успешно размещен.",
