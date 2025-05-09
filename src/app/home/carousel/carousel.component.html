@@ -3,9 +3,9 @@
     <p class="mat-h3" style="font-size: 24px">Top Products</p>
   </div>
   <owl-carousel-o [options]="customOptions">
-    @for (slide of carouselData; track slide) {
+    @for (slide of carouselData(); track slide) {
     <ng-template carouselSlide>
-      <a class="outer-link seller-info m-2" [href]="slide.sellerUrl">
+      <a class="outer-link seller-info m-2" [href]="slide.url">
         <div class="slide">
           <img [alt]="slide.src" [src]="slide.src" style="height: 250px" />
           <div class="flex">

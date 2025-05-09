@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Component, inject, Signal } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ProductComponent } from '../product/product.component';
-import { User } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
-import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
+import { map } from 'rxjs';
 import { CarouselComponent } from './carousel/carousel.component';
 import { AdvertisementCarouselComponent } from './advertisement-carousel/advertisement-carousel.component';
 import { CarouselItem } from '../shared/interfaces/carusel-item.interface';
+import { UsersService } from '../shared/services/users.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -16,36 +16,25 @@ import { CarouselItem } from '../shared/interfaces/carusel-item.interface';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
+  private readonly usersService = inject(UsersService);
   title = 'tnakan';
-  user$: Observable<User | null>;
-  // parent.component.ts
-  ads: CarouselItem[] = [
-    {
-      image: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-      headline: '$599.99 or pay over time',
-      subheadline: 'eero Max 7 • Wi‑Fi 7 whole‑home mesh',
-      cta: 'Shop now',
-      link: '/eero-max-7',
-    },
-    {
-      image: 'https://random-image-pepebigotes.vercel.app/api/random-image',
-      headline: 'Fire HD 10 – 20 % faster',
-      subheadline: 'Power through the day on a single charge.',
-      cta: 'Learn more',
-      link: '/fire-hd-10',
-    },
-    // …
-  ];
+  ads: Signal<CarouselItem[]>;
 
-  constructor(private translateService: TranslateService, private fAuth: FirebaseAuthService) {
-    this.user$ = fAuth.user$;
-  }
-
-  changeLanguage(lang: string) {
-    this.translateService.setDefaultLang(lang);
-  }
-
-  logout() {
-    this.fAuth.logout();
+  constructor() {
+    this.ads = toSignal(
+      this.usersService.getBusinesses().pipe(
+        map(
+          (value) =>
+            value.map((value1) => ({
+              image: value1.image,
+              headline: value1.displayName,
+              subheadline: value1.name,
+              cta: 'Shop now',
+              link: `/seller/${value1.uid}`,
+            })) as CarouselItem[]
+        )
+      ),
+      { initialValue: [] }
+    );
   }
 }
