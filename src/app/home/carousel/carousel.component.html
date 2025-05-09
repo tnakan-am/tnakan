@@ -2,6 +2,7 @@
   <div class="flex justify-center">
     <p class="mat-h3" style="font-size: 24px">Top Products</p>
   </div>
+  @if (carouselData().length) {
   <owl-carousel-o [options]="customOptions">
     @for (slide of carouselData(); track slide) {
     <ng-template carouselSlide>
@@ -20,4 +21,5 @@
     </ng-template>
     }
   </owl-carousel-o>
+  }
 </div>
