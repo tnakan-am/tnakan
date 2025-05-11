@@ -1,11 +1,12 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, inject, OnInit, Signal } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
 import { ProductsService } from '../../shared/services/products.service';
 import { ProductCarouselItem } from '../../shared/interfaces/product-carousel-item.interface';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
+import { map, switchMap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-carousel',
@@ -14,7 +15,7 @@ import { map } from 'rxjs';
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
 })
-export class CarouselComponent {
+export class CarouselComponent implements OnInit {
   private _productsService = inject(ProductsService);
   customOptions: OwlOptions = {
     loop: true,
@@ -49,8 +50,23 @@ export class CarouselComponent {
     autoHeight: true,
   };
 
-  carouselData: Signal<ProductCarouselItem[]> = toSignal(
-    this._productsService.getAllProducts().pipe(
+  carouselData: Signal<ProductCarouselItem[]>;
+
+  constructor(private route: ActivatedRoute) {
+    this.carouselData = toSignal(
+      this.route?.queryParams?.pipe(switchMap((params) => this.getProducts(params))),
+      { initialValue: [] }
+    );
+  }
+
+  ngOnInit() {}
+
+  private getProducts(params?: any) {
+    return (
+      params && Object.keys(params).length > 0
+        ? this._productsService.getAllProductsByQuery(params)
+        : this._productsService.getTopProducts()
+    ).pipe(
       map((users) =>
         users.map((product) => ({
           text: product.name || '',
@@ -59,7 +75,6 @@ export class CarouselComponent {
           src: product.image || 'assets/homemade.webp',
         }))
       )
-    ),
-    { initialValue: [] }
-  );
+    );
+  }
 }
