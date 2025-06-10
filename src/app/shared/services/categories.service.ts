@@ -32,39 +32,43 @@ export class CategoriesService {
   }
 
   getCategoriesTree(): Observable<CategoryTree[]> {
-    return fromPromise(getDocs(query(collection(this.firestore, 'categories')))).pipe(
-      map((value) => {
-        const data: any[] = [];
-        value.forEach(async (doc) => {
-          const item: Category & {
-            sub: { id: string; data: SubCategoryData; productCategories: ProductCategory[] }[];
-          } = {
+    return fromPromise(
+      getDocs(query(collection(this.firestore, 'categories'))).then(async (values) => {
+        const data: CategoryTree[] = [];
+
+        for (const doc of values.docs) {
+          const item: CategoryTree = {
             id: doc.id,
             data: doc.data() as Data,
             sub: [],
           };
-          const querySnapshot = await getDocs(
+
+          const subSnapshot = await getDocs(
             query(collection(this.firestore, 'sub_category'), where('category_ref', '==', doc.ref))
           );
-          querySnapshot.forEach(async (doc1) => {
-            const productCategories: ProductCategory[] = [];
-            const querySnapshot1 = await getDocs(
-              query(
-                collection(this.firestore, 'product_categories'),
-                where('sub_category_ref', '==', doc1.ref)
-              )
+
+          for (const subDoc of subSnapshot.docs) {
+            const productSnapshot = await getDocs(
+              query(collection(this.firestore, 'product_categories'), where('sub_category_ref', '==', subDoc.ref))
             );
 
-            querySnapshot1.forEach((doc2) => {
-              productCategories.push({ id: doc2.id, data: doc2.data() as ProductCategoryData });
+            const productCategories: ProductCategory[] = productSnapshot.docs.map((doc2) => ({
+              id: doc2.id,
+              data: doc2.data() as ProductCategoryData,
+            }));
+
+            item.sub.push({
+              id: subDoc.id,
+              data: subDoc.data() as SubCategoryData,
+              productCategories,
             });
-            item.sub.push({ id: doc1.id, data: doc1.data() as SubCategoryData, productCategories });
-          });
+          }
+
           data.push(item);
-        });
+        }
+
         return data;
-      }),
-      shareReplay(1)
-    );
+      })
+    ).pipe(shareReplay(1));
   }
 }
