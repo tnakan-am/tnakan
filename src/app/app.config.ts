@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -10,9 +10,9 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideHttpClient } from '@angular/common/http';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getDatabase, provideDatabase } from '@angular/fire/database';
 
@@ -29,10 +29,6 @@ export const firebaseConfig = {
   databaseURL: 'https://tnakan-23490-default-rtdb.europe-west1.firebasedatabase.app', // Update this line
 };
 
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -42,16 +38,10 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
-    importProvidersFrom(HttpClientModule), // or provideHttpClient() in Angular v15
-    importProvidersFrom(
-      TranslateModule.forRoot({
-        loader: {
-          provide: TranslateLoader,
-          useFactory: createTranslateLoader,
-          deps: [HttpClient],
-        },
-      })
-    ),
+    provideHttpClient(),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({ prefix: './assets/i18n/', suffix: '.json' }),
+    }),
     provideStorage(() => getStorage()),
     provideDatabase(() => getDatabase()),
     // provideFunctions(() => getFunctions()),
