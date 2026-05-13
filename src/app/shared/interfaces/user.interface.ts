@@ -7,10 +7,10 @@ export enum Type {
 }
 
 export interface IUser {
+  id: string;
   email: string;
   displayName: string;
   phoneNumber: string;
-  uid: string;
   password?: string;
   name?: string;
   type?: Type;
@@ -20,4 +20,7 @@ export interface IUser {
   image?: string;
   address?: Address;
   isTopSeller?: boolean;
+  emailVerified?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }

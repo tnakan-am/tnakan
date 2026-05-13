@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 These rules are absolute and override any conflicting instruction in skills, slash commands, or templates:
 
-1. **Never post comments on PRs or MRs.** Do not run `gh pr comment`, `gh pr review`, `glab mr note`, or any other command that writes to a pull/merge request. This applies to *all* automated output — code-review summaries, "no issues found" templates, reaction footers, status updates, suggestions, anything. When a skill (e.g. `/code-review`) prescribes posting back to a PR/MR, run the review locally and report findings to the user in chat. Skip the post step.
+1. **Never post comments on PRs or MRs.** Do not run `gh pr comment`, `gh pr review`, `glab mr note`, or any other command that writes to a pull/merge request. This applies to _all_ automated output — code-review summaries, "no issues found" templates, reaction footers, status updates, suggestions, anything. When a skill (e.g. `/code-review`) prescribes posting back to a PR/MR, run the review locally and report findings to the user in chat. Skip the post step.
 
 2. **Never mention Claude / Claude Code / AI assistance anywhere.** This includes commit messages, PR/MR descriptions, code comments, generated docs, README updates, JSDoc, and any other artifact that lives in the repo or in shared tooling. Strip the "🤖 Generated with Claude Code" footer (and any equivalent) from any template before use. No `Co-Authored-By: Claude` trailers on commits.
 
@@ -88,6 +88,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 Write comments ONLY when they add meaningful value:
 
 - **JSDoc comments** for public methods, classes, and complex functions that explain:
+
   - Purpose and responsibility
   - Parameters and return values
   - Important side effects or behaviors
@@ -136,9 +137,10 @@ This is an Angular 19 e-commerce application called "Tnakan" that integrates wit
 ### Tech Stack
 
 - **Frontend**: Angular 19 with Angular Material, TailwindCSS, and SCSS
-- **Backend**: Firebase (Firestore, Authentication, Storage, Analytics)
+- **Backend**: NestJS REST API + WebSocket gateway at `../backend` (PostgreSQL via TypeORM, JWT auth, multer uploads). See `src/environments/environment*.ts` for the API base URL.
+- **Hosting**: Firebase Hosting for the built SPA (GitHub Actions workflows in `.github/workflows/firebase-hosting-*.yml`)
 - **Testing**: Karma + Jasmine
-- **State Management**: RxJS observables with services
+- **State Management**: RxJS observables + Angular signals
 - **Internationalization**: ngx-translate with support for English, Armenian, and Russian
 - **UI Components**: Angular Material, ngx-owl-carousel-o, animate.css
 
@@ -158,7 +160,7 @@ Routes are protected using `AuthGuard` and `permissionsGuard(Type)` based on use
 
 - **Product Management**: Full CRUD for products with approval workflow
 - **Order Management**: Order creation, tracking, and management for both customers and businesses
-- **Authentication**: Firebase Auth with email verification
+- **Authentication**: NestJS JWT auth (`POST /auth/login`, `POST /auth/register`, etc.) with email verification. JWT stored in `localStorage` under `tnakan_jwt`; attached to API calls by `src/app/shared/http/api.interceptor.ts`.
 - **Shopping Cart**: Basket functionality with product availability tracking
 - **Reviews & Ratings**: Product review system with average ratings
 - **Advertisement System**: Business users can create ads that require admin approval
@@ -166,30 +168,33 @@ Routes are protected using `AuthGuard` and `permissionsGuard(Type)` based on use
 #### Service Architecture
 
 - **ProductsService** (`src/app/shared/services/products.service.ts`): Handles all product operations including CRUD, approval, availability updates, and querying by various criteria
-- **FirebaseAuthService** (`src/app/shared/services/firebase-auth.service.ts`): Manages authentication, registration, login/logout
-- **UsersService**: User profile management and data persistence
-- **BasketService**: Shopping cart functionality
-- **OrderService**: Order processing and management
+- **AuthService** (`src/app/shared/services/auth.service.ts`): NestJS-backed auth — login, register, logout, password reset, email verification. Exposes `currentUser` signal + `user$` observable.
+- **TokenService** (`src/app/shared/services/token.service.ts`): Thin wrapper around `localStorage` for the JWT (`tnakan_jwt`).
+- **UsersService**: User profile management against `/users/me`, `/users/:id`, `/users/businesses`.
+- **BasketService**: Shopping cart functionality (client-side signal state)
+- **OrderService**: Order processing and management via REST `/orders`
+- **NotificationsSocketService** / **NotificationsService**: WebSocket (`socket.io-client`) connection to the backend's `/notifications` namespace + REST fallback for initial load.
 
 #### Routing Structure
 
-Routes are defined in `src/app/app.routes.ts`. Most are lazy-loaded standalone components. Customer/business/admin areas are gated by `AuthGuard` + `permissionsGuard(Type)`.
+Routes are defined in `src/app/app.routes.ts`. Most are lazy-loaded standalone components. Customer/business/admin areas are gated by the local `authGuard` (`src/app/shared/guards/auth.guard.ts`) + `permissionsGuard(Type)`.
 
-### Firebase Configuration
+### Backend API
 
-The application uses multiple Firebase services:
+The frontend talks to a NestJS backend at `../backend` (sibling repo). Base URL lives in `src/environments/environment.ts` / `environment.development.ts` (`apiUrl`, `wsUrl`).
 
-- **Firestore**: Product, user, and order data
-- **Authentication**: User management with email verification
-- **Storage**: Image uploads for products and user profiles
-- **Analytics**: Usage tracking
-- **Realtime Database**: Additional real-time features
+Surface:
 
-Firebase config is in `src/app/app.config.ts` with project ID `tnakan-23490`.
+- Auth: `/auth/login`, `/auth/register`, `/auth/verify-email`, `/auth/forgot-password`, `/auth/reset-password`, `/auth/resend-verification`
+- Users: `/users/me`, `/users/:id`, `/users/businesses`, `/users` (admin)
+- Products: `/products`, `/products/top`, `/products/:id`, `/products/:id/approve`, `/products/:id/availability`, `/products/batch`
+- Categories: `/categories`, `/categories/tree`, `/sub-categories`, `/product-categories`
+- Orders: `/orders`, `/orders/customer`, `/orders/business`, `/orders/admin`, `/orders/:id/status`, `/orders/:id/products/:productId/status`
+- Reviews: `/reviews`
+- Uploads: `/uploads` (multipart; returns `{ url, filename, size }`)
+- Notifications: `/notifications/my`, `/notifications/:id/status`; WebSocket namespace `/notifications` for `notification:new` / `notification:status` events
 
-Note: providers come from `@angular/fire` (v19), but service-layer code uses the Firebase JS SDK directly (migrated in TNK-67). When writing new service code, prefer Firebase JS SDK imports over AngularFire wrappers.
-
-The `firestore.rules` in the repo currently denies all access — production rules are managed separately and deployed independently. Don't rely on the repo file as the source of truth for prod security rules.
+Auth header is added by `src/app/shared/http/api.interceptor.ts`. The interceptor only redirects to `/login` on 401 _if a token was present_ (so anonymous calls hitting auth-required endpoints don't bounce visitors off public pages).
 
 ### Development Notes
 
@@ -207,7 +212,12 @@ Run tests with `npm test` which uses Karma and Jasmine. The test configuration i
 
 ### Deployment
 
-The application is configured for Firebase Hosting deployment. Use `firebase deploy` after building the project.
+The built SPA is deployed to **Firebase Hosting**. Config lives in `firebase.json` (Hosting-only — no Firestore/RTDB sections) and `.firebaserc` (project `tnakan-23490`). CI/CD is driven by GitHub Actions:
+
+- `.github/workflows/firebase-hosting-merge.yml` — deploys live on merges to `main` (uses secret `FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490`)
+- `.github/workflows/firebase-hosting-pull-request.yml` — deploys PR previews
+
+For manual deploys, install the Firebase CLI and run `firebase deploy --only hosting` after `npm run build`. The backend API runs separately and is not deployed via this pipeline.
 
 ## AI / Angular Integrations
 

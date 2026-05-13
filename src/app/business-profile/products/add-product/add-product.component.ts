@@ -17,7 +17,10 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { ProductCategory, Sub } from '../../../shared/interfaces/categories.interface';
+import {
+  ProductCategory,
+  SubCategoryWithChildren,
+} from '../../../shared/interfaces/categories.interface';
 import { MatIcon } from '@angular/material/icon';
 import { Availability } from '../../../shared/interfaces/product.interface';
 import { TranslateModule } from '@ngx-translate/core';
@@ -58,7 +61,7 @@ export class AddProductComponent implements OnInit {
   options!: Array<SelectItem>;
   availability!: Array<SelectItem>;
   form!: FormGroup;
-  subCategories!: Array<Sub> | undefined;
+  subCategories!: Array<SubCategoryWithChildren> | undefined;
   productCategories!: Array<ProductCategory> | undefined;
 
   constructor(private _fb: FormBuilder) {
@@ -96,7 +99,7 @@ export class AddProductComponent implements OnInit {
       if (this.data.form.category) {
         this.subCategories = this.data.categories.find(
           (value) => value.id === this.data.form?.category
-        )?.sub;
+        )?.subCategories;
       }
       if (this.data.form.subCategory) {
         this.productCategories = this.subCategories?.find(
@@ -116,7 +119,7 @@ export class AddProductComponent implements OnInit {
   }
 
   categoryChanged($event: any) {
-    this.subCategories = this.data.categories.find((value) => value.id === $event)?.sub;
+    this.subCategories = this.data.categories.find((value) => value.id === $event)?.subCategories;
     this.form.get('subCategory')?.setValue(null);
     this.form.get('productCategory')?.setValue(null);
     this.productCategories = undefined;

@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
 import { filter, Observable, switchMap, tap } from 'rxjs';
-import { User } from '@angular/fire/auth';
 import { AsyncPipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { AuthService } from '../shared/services/auth.service';
 import { UsersService } from '../shared/services/users.service';
 import { IUser } from '../shared/interfaces/user.interface';
 import { ProductsService } from '../shared/services/products.service';
@@ -24,28 +23,28 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent {
-  private firebaseAuthService = inject(FirebaseAuthService);
+  private authService = inject(AuthService);
   private usersService = inject(UsersService);
   readonly productsService = inject(ProductsService);
   readonly storageService = inject(StorageService);
   readonly dialog = inject(MatDialog);
 
-  user$!: Observable<User>;
+  user$!: Observable<IUser>;
   userData$!: Observable<IUser | undefined>;
-  private user!: User;
+  private user!: IUser;
   openSnackBar = openSnackBar();
 
   constructor() {
-    this.user$ = this.firebaseAuthService.user$.pipe(tap((value) => (this.user = value)));
+    this.user$ = this.authService.user$.pipe(tap((value) => (this.user = value)));
     this.userData$ = this.usersService.getUserData();
   }
 
   uploadFile(event: any) {
     const file = event?.target?.files?.[0];
 
-    if (!file || !this.user.uid) return;
+    if (!file || !this.user.id) return;
 
-    this.storageService.uploadFile(file, this.user.uid).subscribe({
+    this.storageService.uploadFile(file, this.user.id).subscribe({
       next: async (value) => {
         this.usersService
           .update(this.user, { image: value })
@@ -53,12 +52,12 @@ export class SettingsComponent {
             switchMap(() => {
               return this.productsService.batchUpdateProductsByUserId(
                 { userPhoto: value },
-                this.user.uid
+                this.user.id
               );
             })
           )
           .subscribe({
-            next: (value) => {
+            next: () => {
               this.openSnackBar('Successfully uploaded!');
             },
           });
@@ -110,9 +109,14 @@ export class SettingsComponent {
 
     dialogRef
       .afterClosed()
-      .pipe(filter((value) => value.password && value.password === value.rePassword))
+      .pipe(
+        filter(
+          (value) =>
+            value?.currentPassword && value?.password && value.password === value.rePassword
+        )
+      )
       .subscribe((result) => {
-        this.usersService.updatePassword(this.user, result.password);
+        this.usersService.updatePassword(result.currentPassword, result.password).subscribe();
       });
   }
 }

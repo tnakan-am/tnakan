@@ -60,7 +60,7 @@ export class OrderItemComponent implements OnInit {
       )
       .subscribe({
         next: (value) => {
-          this.form.patchValue(value);
+          this.form.patchValue({ comment: value.comment, stars: String(value.stars) });
           this.form.disable({ onlySelf: true, emitEvent: false });
         },
       });

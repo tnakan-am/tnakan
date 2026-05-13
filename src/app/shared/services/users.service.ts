@@ -1,107 +1,52 @@
 import { inject, Injectable } from '@angular/core';
-import { filter, map, Observable, of, shareReplay, switchMap } from 'rxjs';
-import { IUser, Type } from '../interfaces/user.interface';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { Firestore } from '@angular/fire/firestore';
-import { Auth, updateEmail, updatePassword, updateProfile, User, user } from '@angular/fire/auth';
-import { collection, doc, getDoc, getDocs, query, setDoc, where } from 'firebase/firestore';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, switchMap, tap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+import { environment } from '../../../environments/environment';
+import { IUser } from '../interfaces/user.interface';
+import { AuthService } from './auth.service';
+
+@Injectable({ providedIn: 'root' })
 export class UsersService {
-  firestore = inject(Firestore);
-  auth: Auth = inject(Auth);
-  user$: Observable<User> = user(this.auth).pipe(
-    filter((user): user is User => user !== null),
-    shareReplay(1)
-  );
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
 
-  constructor() {}
-
-  // Save user data to Firestore
-  async saveUserDataOnSignUp(user: IUser): Promise<void> {
-    const userRef = doc(collection(this.firestore, 'users'), user.uid);
-    const userData: any = {
-      email: user.email,
-      displayName: user.displayName,
-      phoneNumber: user.phoneNumber,
-      type: user.type,
-    };
-    if (user.type === Type.CUSTOMER) {
-      userData.name = user.name;
-      userData.surname = user.surname;
-    } else {
-      userData.company = user.company;
-      userData.hvhh = user.hvhh;
-    }
-    await setDoc(userRef, userData, { merge: true });
-  }
+  private readonly base = `${environment.apiUrl}/users`;
 
   getUserData(): Observable<IUser | undefined> {
-    return this.user$.pipe(
-      switchMap((user) =>
-        !!user?.uid
-          ? fromPromise(getDoc(doc(collection(this.firestore, 'users'), (user as User)?.uid))).pipe(
-              map((value) => (value.exists() ? value.data() : null) as IUser)
-            )
-          : of(undefined)
-      ),
-      shareReplay(1)
-    );
+    const cached = this.auth.currentUser();
+    if (cached) return of(cached);
+    return this.auth.refreshCurrentUser().pipe(switchMap((user) => of(user ?? undefined)));
   }
 
   getUserById(id: string): Observable<IUser> {
-    return fromPromise(getDoc(doc(collection(this.firestore, 'users'), id))).pipe(
-      map((value) => (value.exists() ? { uid: value.id, ...value.data() } : null) as IUser)
-    );
+    return this.http.get<IUser>(`${this.base}/${id}`);
   }
 
-  update(user: User, data: Partial<IUser>) {
-    let userData: any = {};
-    if (data.image) {
-      userData.photoURL = data.image;
-    }
-    if (data.displayName) {
-      userData.displayName = data.displayName;
-    }
-    return fromPromise(
-      (userData.photoURL || user.displayName
-        ? updateProfile(user, userData)
-        : Promise.resolve()
-      ).then(async () => {
-        if (data.email !== userData.email) {
-          await updateEmail(user, data.email!);
-        }
-        return setDoc(doc(collection(this.firestore, 'users'), user.uid), data, { merge: true });
-      })
-    );
+  update(_user: IUser | null, data: Partial<IUser>): Observable<IUser> {
+    return this.http
+      .patch<IUser>(`${this.base}/me`, data)
+      .pipe(tap((updated) => this.auth.currentUser.set(updated)));
   }
 
-  updatePassword(user: User, password: string) {
-    return fromPromise(updatePassword(user, password)).pipe();
+  updatePassword(currentPassword: string, newPassword: string): Observable<{ success: boolean }> {
+    return this.http.post<{ success: boolean }>(`${this.base}/me/password`, {
+      currentPassword,
+      newPassword,
+    });
+  }
+
+  changeEmail(currentPassword: string, newEmail: string): Observable<IUser> {
+    return this.http
+      .post<IUser>(`${this.base}/me/email`, { currentPassword, newEmail })
+      .pipe(tap((updated) => this.auth.currentUser.set(updated)));
   }
 
   getUsersList(): Observable<IUser[]> {
-    const usersRef = collection(this.firestore, 'users');
-    return fromPromise(
-      getDocs(usersRef).then((querySnapshot) => {
-        return querySnapshot.docs.map((docSnam) => {
-          return { uid: docSnam.id, ...docSnam.data() } as IUser;
-        });
-      })
-    );
+    return this.http.get<IUser[]>(this.base);
   }
 
   getBusinesses(): Observable<IUser[]> {
-    const usersRef = collection(this.firestore, 'users');
-    const q = query(usersRef, where('type', '==', Type.BUSINESS));
-    return fromPromise(
-      getDocs(q).then((querySnapshot) => {
-        return querySnapshot.docs.map((docSnam) => {
-          return { uid: docSnam.id, ...docSnam.data() } as IUser;
-        });
-      })
-    );
+    return this.http.get<IUser[]>(`${this.base}/businesses`);
   }
 }

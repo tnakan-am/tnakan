@@ -25,18 +25,24 @@ export enum Status {
 }
 
 export interface Order {
+  id: string;
   products: OrderItem[];
   status: Status;
   total: number;
   userId: string;
   userPhone: string;
   address: Address;
-  orderId: string;
+  vendorIds?: string[];
+  productIds?: string[];
   createdAt: string;
   paidAt: string;
+  // Deprecated alias kept until callers migrate; populated when needed.
+  orderId?: string;
 }
 
 export interface Notification {
+  id: string;
+  userId: string;
   createdAt: string;
   orderId: string;
   productIds: string[];

@@ -8,7 +8,7 @@ import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, tap } from 'rxjs';
 import { IUser } from '../shared/interfaces/user.interface';
-import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
+import { AuthService } from '../shared/services/auth.service';
 import { UsersService } from '../shared/services/users.service';
 import { MatBadge } from '@angular/material/badge';
 import { BasketService } from '../shared/services/basket.service';
@@ -46,7 +46,7 @@ export class NavbarComponent {
 
   constructor(
     private translateService: TranslateService,
-    private fAuth: FirebaseAuthService,
+    private fAuth: AuthService,
     private usersService: UsersService,
     private basketService: BasketService,
     private ordersService: NotificationsService,

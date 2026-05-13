@@ -7,7 +7,7 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
-import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -39,11 +39,7 @@ export class LoginComponent implements OnInit {
     return this.form.get('password');
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private firebaseAuth: FirebaseAuthService,
-    private router: Router
-  ) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -79,12 +75,14 @@ export class LoginComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.firebaseAuth.login(this.form.getRawValue().email, this.form.getRawValue().password);
+    this.authService
+      .login(this.form.getRawValue().email, this.form.getRawValue().password)
+      .subscribe();
   }
 
   ngOnInit() {
-    this.firebaseAuth.auth.onAuthStateChanged((value) => {
-      value && this.router.navigate(['/']);
-    });
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/']);
+    }
   }
 }

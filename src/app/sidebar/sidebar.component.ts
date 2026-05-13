@@ -45,7 +45,7 @@ export class SidebarComponent implements OnInit {
           categoryId: category.id,
           selected: false,
           categories: subCategories
-            .filter((subCategory: any) => subCategory.category_id === category.id)
+            .filter((subCategory: any) => subCategory.categoryId === category.id)
             .map((subCategory1: any) => {
               return {
                 categoryName: subCategory1.name,
@@ -53,7 +53,7 @@ export class SidebarComponent implements OnInit {
                 selected: false,
                 categories: productCategories
                   .filter(
-                    (productCategory: any) => productCategory.sub_category_id === subCategory1.id
+                    (productCategory: any) => productCategory.subCategoryId === subCategory1.id
                   )
                   .map((productCategoryItem: any) => {
                     return {

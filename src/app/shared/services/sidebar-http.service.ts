@@ -1,44 +1,24 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { Category, ProductCategory, SubCategory } from '../interfaces/categories.interface';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { collection, getDocs } from 'firebase/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class SidebarHttpService {
-  private firestore: Firestore = inject(Firestore);
+  private http = inject(HttpClient);
+  private readonly apiUrl = environment.apiUrl;
 
   getCategoriesList(): Observable<Category[]> {
-    const categoriesRef = collection(this.firestore, 'categories');
-    return fromPromise(
-      getDocs(categoriesRef).then((querySnapshot) => {
-        return querySnapshot.docs.map((docSnap) => {
-          return { id: docSnap.id, ...docSnap.data() } as Category;
-        });
-      })
-    );
+    return this.http.get<Category[]>(`${this.apiUrl}/categories`);
   }
 
   getProductCategoriesList(): Observable<ProductCategory[]> {
-    const productCategoriesRef = collection(this.firestore, `product_categories`);
-    return fromPromise(
-      getDocs(productCategoriesRef).then((querySnapshot) => {
-        return querySnapshot.docs.map((docSnap) => {
-          return { id: docSnap.id, ...docSnap.data() } as ProductCategory;
-        });
-      })
-    );
+    return this.http.get<ProductCategory[]>(`${this.apiUrl}/product-categories`);
   }
 
   getSubCategoriesList(): Observable<SubCategory[]> {
-    const subCategoriesRef = collection(this.firestore, `sub_category`);
-    return fromPromise(
-      getDocs(subCategoriesRef).then((querySnapshot) => {
-        return querySnapshot.docs.map((docSnap) => {
-          return { id: docSnap.id, ...docSnap.data() } as SubCategory;
-        });
-      })
-    );
+    return this.http.get<SubCategory[]>(`${this.apiUrl}/sub-categories`);
   }
 }

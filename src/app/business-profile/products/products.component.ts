@@ -8,7 +8,7 @@ import { ProductsService } from '../../shared/services/products.service';
 import { Product } from '../../shared/interfaces/product.interface';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { User } from '@angular/fire/auth';
+import { IUser } from '../../shared/interfaces/user.interface';
 import {
   MatCell,
   MatCellDef,
@@ -23,7 +23,7 @@ import {
 } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
-import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { ReviewService } from '../../shared/services/review.service';
 import { ReviewsModalComponent } from './reviews-modal/reviews-modal.component';
 
@@ -55,8 +55,8 @@ export class ProductsComponent implements OnInit {
   products$!: Observable<Product[]>;
   displayedColumns: string[] = ['name', 'description', 'unit', 'price', 'availability', 'star'];
   private categories!: CategoryTree[];
-  private firebaseAuthService = inject(FirebaseAuthService);
-  private user!: User;
+  private authService = inject(AuthService);
+  private user!: IUser;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -65,7 +65,7 @@ export class ProductsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.firebaseAuthService.user$.pipe().subscribe((value) => (this.user = value));
+    this.authService.user$.subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getUserProducts();
   }
 
@@ -83,9 +83,9 @@ export class ProductsComponent implements OnInit {
   private createProduct(value: Product) {
     return this.productsService.createProduct({
       ...value,
-      userId: this.user.uid,
+      userId: this.user.id,
       userDisplayName: this.user.displayName!,
-      userPhoto: this.user.photoURL,
+      userPhoto: this.user.image ?? null,
     });
   }
 
@@ -95,7 +95,7 @@ export class ProductsComponent implements OnInit {
         switchMap((value) => {
           this.categories = value || [];
           const dialogRef = this.dialog.open(AddProductComponent, {
-            data: { name: 'product', categories: value, form, userId: this.user.uid },
+            data: { name: 'product', categories: value, form, userId: this.user.id },
             width: '500px',
           });
           return dialogRef.afterClosed() as Observable<Product>;
@@ -118,14 +118,14 @@ export class ProductsComponent implements OnInit {
 
   delete(element: Product) {
     this.productsService.deleteProduct(element.id!).subscribe({
-      next: (value) => (this.products$ = this.productsService.getUserProducts()),
+      next: () => (this.products$ = this.productsService.getUserProducts()),
     });
   }
 
   openReviews(element: Product) {
     this.reviewService.getProductReview(element).subscribe({
       next: (data) => {
-        const dialogRef = this.dialog.open(ReviewsModalComponent, {
+        this.dialog.open(ReviewsModalComponent, {
           data: { reviews: data, avgReview: element.avgReview, numberReview: element.numberReview },
           width: '500px',
         });

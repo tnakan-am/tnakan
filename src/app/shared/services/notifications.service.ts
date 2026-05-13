@@ -1,114 +1,69 @@
-import { inject, Injectable, signal, WritableSignal } from '@angular/core';
-import { Database, onValue, orderByChild, query, ref, update } from '@angular/fire/database';
+import { effect, inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { firstValueFrom, forkJoin, Observable, of, switchMap } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { Notification, Order, Status } from '../interfaces/order.interface';
-import { Firestore } from '@angular/fire/firestore';
-import { FirebaseAuthService } from './firebase-auth.service';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { NotificationsSocketService } from './notifications-socket.service';
+import { AuthService } from './auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class NotificationsService {
-  database = inject(Database);
-  firestore: Firestore = inject(Firestore);
-  firebaseAuthService = inject(FirebaseAuthService);
-  newOrders: WritableSignal<Notification[]> = signal([]);
+  private socketService = inject(NotificationsSocketService);
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
+  private injector = inject(Injector);
 
-  constructor() {}
-
-  onValue(callBack: (sortedData: any) => void, onlyOnce = false) {
-    const starCountRef = ref(
-      this.database,
-      'notifications/' + this.firebaseAuthService.getFirebaseUser()?.uid
-    );
-
-    return onValue(
-      query(starCountRef, orderByChild('createdAt')),
-      (snapshot) => {
-        if (!snapshot.val()) return;
-
-        const data = (Object.values(snapshot.val()) as Notification[]).sort((a: any, b: any) =>
-          new Date(a.createdAt) > new Date(b.createdAt)
-            ? -1
-            : new Date(a.createdAt) < new Date(b.createdAt)
-            ? 1
-            : 0
-        );
-        if (!data) return;
-        !onlyOnce && this.newOrders.set(data.filter((value) => value.status === Status.pending));
-        callBack(data);
-      },
-      { onlyOnce }
-    );
+  get newOrders() {
+    return this.socketService.newOrders;
   }
 
-  changeNotificationStatus(order: Order, status: Status) {
-    const dbRef = ref(this.database);
-    const userId = this.firebaseAuthService.getFirebaseUser()?.uid;
-
-    const key = `notifications/${userId}/${order.orderId}/status`;
-    const orderStatusHistoryRef = collection(
-      this.firestore,
-      `orders`,
-      order.orderId,
-      `statusHistory`
-    );
-    return fromPromise(
-      Promise.all([
-        this.changeProductsStatus(order, status),
-        update(dbRef, { [key]: status }),
-        addDoc(orderStatusHistoryRef, {
-          userId,
-          status,
-          createdAt: new Date().toISOString(),
-        }),
-      ])
-    );
-  }
-
-  changeProductsStatus(order: Order, status: Status) {
-    const dbRef = ref(this.database);
-
-    const orderDocRef = doc(this.firestore, 'orders', order.orderId);
-    // Retrieve the document data
-    const dbOrder = getDoc(orderDocRef);
-    const userId = this.firebaseAuthService.getFirebaseUser()?.uid;
-
-    const productsIds = order.products.reduce((previousValue: string[], currentValue) => {
-      if (currentValue.userId === userId) {
-        previousValue.push(currentValue.id);
-      }
-      return previousValue;
-    }, []);
-
-    const key = `notifications/${userId}/${order.orderId}/status`;
-    const promiseArr: Promise<any>[] = [];
-
-    if (productsIds.length) {
-      promiseArr.push(
-        ...productsIds.map((val) =>
-          updateDoc(doc(this.firestore, 'orders', order.orderId, 'products', val), { status })
-        )
-      );
+  onValue(callBack: (sortedData: Notification[]) => void, onlyOnce = false): void {
+    if (onlyOnce) {
+      this.http.get<Notification[]>(`${environment.apiUrl}/notifications/my`).subscribe({
+        next: (list) => callBack(list),
+      });
+      return;
     }
-    return dbOrder
-      .then((values) => {
-        if (productsIds.length === values.data()?.['productsIds']?.length) {
-          promiseArr.push(updateDoc(orderDocRef, { [`status`]: status }));
-        }
-        return values.data();
-      })
-      .then(() =>
-        Promise.all([
-          ...promiseArr,
-          update(dbRef, { [key]: status }),
-          addDoc(collection(this.firestore, 'orders', order.orderId, 'statusHistory'), {
-            userId,
-            status,
-            createdAt: new Date().toISOString(),
-          }),
-        ])
-      );
+    this.socketService.connect();
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        callBack(this.socketService.notifications());
+      });
+    });
+  }
+
+  changeNotificationStatus(order: Order, status: Status): Observable<unknown> {
+    const orderId = order.id ?? order.orderId;
+    if (!orderId) return of(null);
+    const userId = this.auth.currentUser()?.id;
+    const notification = this.socketService
+      .notifications()
+      .find((n) => n.orderId === orderId && n.userId === userId);
+    if (!notification) {
+      return this.changeProductsStatus$(order, status);
+    }
+    return this.http
+      .patch(`${environment.apiUrl}/notifications/${notification.id}/status`, { status })
+      .pipe(switchMap(() => this.changeProductsStatus$(order, status)));
+  }
+
+  changeProductsStatus(order: Order, status: Status): Promise<unknown> {
+    return firstValueFrom(this.changeProductsStatus$(order, status));
+  }
+
+  private changeProductsStatus$(order: Order, status: Status): Observable<unknown> {
+    const orderId = order.id ?? order.orderId;
+    if (!orderId) return of(null);
+    const userId = this.auth.currentUser()?.id;
+    const products = order.products.filter((p) => p.userId === userId);
+    if (!products.length) return of(null);
+    return forkJoin(
+      products.map((p) =>
+        this.http.patch(`${environment.apiUrl}/orders/${orderId}/products/${p.id}/status`, {
+          status,
+        })
+      )
+    );
   }
 }
