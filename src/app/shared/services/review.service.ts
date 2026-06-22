@@ -5,23 +5,19 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { OrderItem } from '../interfaces/order.interface';
 import { Review } from '../interfaces/reviews.interface';
-import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class ReviewService {
   private http = inject(HttpClient);
-  private auth = inject(AuthService);
 
   private readonly base = `${environment.apiUrl}/reviews`;
 
   writeReview(product: OrderItem, review: { stars: number; comment: string }): Observable<Review> {
-    const user = this.auth.currentUser();
     return this.http.post<Review>(this.base, {
-      productId: product.id,
+      productId: product.productId,
       orderId: product.orderId,
       stars: review.stars,
       comment: review.comment,
-      userPhoto: user?.image || null,
     });
   }
 
