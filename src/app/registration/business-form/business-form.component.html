@@ -35,7 +35,7 @@
     <mat-label>{{ 'fields.password' | translate }}</mat-label>
     <input type="password" matInput placeholder="password" formControlName="password" required />
     @if (form.get('password')?.invalid) {
-    <mat-error>{{ formErrorMessage(form.get('password')!) | translate : { number: 6 } }}</mat-error>
+    <mat-error>{{ formErrorMessage(form.get('password')!) | translate : { number: 8 } }}</mat-error>
     }
   </mat-form-field>
 
