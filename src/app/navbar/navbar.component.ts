@@ -75,7 +75,6 @@ export class NavbarComponent {
   }
 
   businessUserNotificationsSubscription() {
-    this.ordersService.onValue(() => {});
     this.notifications = this.ordersService.newOrders;
   }
 

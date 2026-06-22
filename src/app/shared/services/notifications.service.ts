@@ -1,9 +1,9 @@
-import { effect, inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom, forkJoin, Observable, of, switchMap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { Notification, Order, Status } from '../interfaces/order.interface';
+import { Order, Status } from '../interfaces/order.interface';
 import { NotificationsSocketService } from './notifications-socket.service';
 import { AuthService } from './auth.service';
 
@@ -12,25 +12,9 @@ export class NotificationsService {
   private socketService = inject(NotificationsSocketService);
   private http = inject(HttpClient);
   private auth = inject(AuthService);
-  private injector = inject(Injector);
 
   get newOrders() {
     return this.socketService.newOrders;
-  }
-
-  onValue(callBack: (sortedData: Notification[]) => void, onlyOnce = false): void {
-    if (onlyOnce) {
-      this.http.get<Notification[]>(`${environment.apiUrl}/notifications/my`).subscribe({
-        next: (list) => callBack(list),
-      });
-      return;
-    }
-    this.socketService.connect();
-    runInInjectionContext(this.injector, () => {
-      effect(() => {
-        callBack(this.socketService.notifications());
-      });
-    });
   }
 
   changeNotificationStatus(order: Order, status: Status): Observable<unknown> {
