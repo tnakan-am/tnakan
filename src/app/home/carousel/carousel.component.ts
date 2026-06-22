@@ -24,22 +24,6 @@ export class CarouselComponent implements OnInit {
     touchDrag: true,
     pullDrag: true,
     navSpeed: 400,
-    dots: true,
-    items: 4,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      740: {
-        items: 3,
-      },
-      940: {
-        items: 4,
-      },
-    },
     autoplay: true,
     autoplaySpeed: 1000,
     responsiveRefreshRate: 2,
@@ -51,11 +35,29 @@ export class CarouselComponent implements OnInit {
   carouselData: Signal<ProductCarouselItem[]>;
 
   customOptions = computed<OwlOptions>(() => {
-    // Max responsive `items` is 4, so the library clones up to 4 slides per side.
-    // Looping needs at least that many distinct slides; otherwise the clones share
-    // ids and trigger NG0955. Fall back to rewind (no clones) for sparse data.
-    const canLoop = this.carouselData().length >= 4;
-    return { ...this.baseOptions, loop: canLoop, rewind: !canLoop };
+    const count = this.carouselData().length;
+    // The desktop layout shows up to 4 items, and the library clones up to that
+    // many slides per side. Adapt the options to the number of products so the
+    // carousel behaves cleanly when data is sparse:
+    //  - clamp `items` to the slide count, else the library warns `items > slides`;
+    //  - drop `dots`/`nav` unless there are more products than fit, else it warns
+    //    `items === slides` and there is nothing to navigate anyway;
+    //  - loop only with >= 4 distinct slides, else clones share ids and hit NG0955.
+    const clamp = (n: number) => Math.min(n, count || 1);
+    return {
+      ...this.baseOptions,
+      items: clamp(4),
+      responsive: {
+        0: { items: clamp(1) },
+        400: { items: clamp(2) },
+        740: { items: clamp(3) },
+        940: { items: clamp(4) },
+      },
+      loop: count >= 4,
+      rewind: count < 4,
+      dots: count > 4,
+      nav: false,
+    };
   });
 
   constructor(private route: ActivatedRoute) {
