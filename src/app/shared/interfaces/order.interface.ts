@@ -15,6 +15,8 @@ export interface OrderItem extends Product {
   comment?: string;
   reviewRef?: string;
   orderId?: string;
+  vendorId?: string;
+  productId?: string;
 }
 
 export enum Status {
