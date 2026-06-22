@@ -19,7 +19,7 @@ export class OrderService {
       userPhone: order.userPhone,
       items: order.products.map((p) => ({
         productId: p.id,
-        quantity: p.quantity,
+        quantity: Number(p.quantity),
         comment: p.comment,
       })),
     };

@@ -159,8 +159,12 @@ export class BasketComponent implements OnInit {
           });
           this.products.set([]);
         },
-        error: (err) => {
-          this.snackBar(err.message);
+        error: () => {
+          this.translate.get('messages.orderFailed').subscribe({
+            next: (value) => {
+              this.snackBar(value);
+            },
+          });
         },
         complete: () => {
           this.products.set([]);
