@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
@@ -17,11 +17,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CarouselComponent implements OnInit {
   private _productsService = inject(ProductsService);
-  customOptions: OwlOptions = {
-    loop: true,
+  private readonly baseOptions: OwlOptions = {
     skip_validateItems: true,
     center: true,
-    rewind: true,
     mouseDrag: true,
     touchDrag: true,
     pullDrag: true,
@@ -51,6 +49,14 @@ export class CarouselComponent implements OnInit {
   };
 
   carouselData: Signal<ProductCarouselItem[]>;
+
+  customOptions = computed<OwlOptions>(() => {
+    // Max responsive `items` is 4, so the library clones up to 4 slides per side.
+    // Looping needs at least that many distinct slides; otherwise the clones share
+    // ids and trigger NG0955. Fall back to rewind (no clones) for sparse data.
+    const canLoop = this.carouselData().length >= 4;
+    return { ...this.baseOptions, loop: canLoop, rewind: !canLoop };
+  });
 
   constructor(private route: ActivatedRoute) {
     this.carouselData = toSignal(

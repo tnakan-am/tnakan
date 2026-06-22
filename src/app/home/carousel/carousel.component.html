@@ -3,7 +3,7 @@
     <p class="mat-h3" style="font-size: 24px">Top Products</p>
   </div>
   @if (carouselData().length) {
-  <owl-carousel-o [options]="customOptions">
+  <owl-carousel-o [options]="customOptions()">
     @for (slide of carouselData(); track slide) {
     <ng-template carouselSlide>
       <a class="outer-link seller-info m-2" [href]="slide.url">
