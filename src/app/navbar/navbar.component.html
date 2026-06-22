@@ -6,7 +6,7 @@
     <a routerLink="">{{ 'title' | translate }}</a>
   </h3>
   <span class="example-spacer"></span>
-  @if ((user$| async)?.type === 'customer') {
+  @if (user()?.type === 'customer') {
   <a
     mat-icon-button
     [routerLink]="basket().length ? ['/basket'] : []"
@@ -25,7 +25,7 @@
     <mat-icon>person</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    @if (user$ | async; as userdata) {
+    @if (user(); as userdata) {
     <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>Profile</a>
     <a routerLink="/settings" mat-menu-item>Settings</a>
     <a (click)="logout()" mat-menu-item>Logout</a>
