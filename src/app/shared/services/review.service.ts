@@ -21,8 +21,8 @@ export class ReviewService {
     });
   }
 
-  getProductReview(product: Partial<OrderItem>, orderId?: string): Observable<Review[]> {
-    const params = new HttpParams().set('productId', product.id ?? '');
+  getProductReview(product: Partial<OrderItem>): Observable<Review[]> {
+    const params = new HttpParams().set('productId', product.productId ?? product.id ?? '');
     return this.http.get<Review[]>(this.base, { params });
   }
 }
