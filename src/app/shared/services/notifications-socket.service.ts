@@ -51,6 +51,15 @@ export class NotificationsSocketService {
       transports: ['websocket'],
     });
 
+    this.socket.on('connect_error', () => {
+      this.socket = null;
+      this.connecting = null;
+    });
+
+    this.socket.on('reconnect', () => {
+      this.loadInitial();
+    });
+
     this.socket.on('notification:new', (notification: Notification) => {
       this.notifications.update((list) => sortByCreatedAt([notification, ...list]));
       if (notification.status === Status.pending) {

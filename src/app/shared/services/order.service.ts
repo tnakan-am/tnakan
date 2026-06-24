@@ -40,9 +40,9 @@ export class OrderService {
 }
 
 function withOrderIdAlias(order: Order): Order {
-  if (!order.orderId) order.orderId = order.id;
-  if (order.products) {
-    order.products = order.products.map((p) => ({ ...p, orderId: order.id }));
-  }
-  return order;
+  return {
+    ...order,
+    orderId: order.orderId ?? order.id,
+    products: order.products?.map((p) => ({ ...p, orderId: order.id })),
+  };
 }

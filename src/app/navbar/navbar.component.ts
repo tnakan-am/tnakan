@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, signal, WritableSignal, effect } from '@angular/core';
+import { Component, EventEmitter, Output, Signal, WritableSignal, effect } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
@@ -10,6 +10,7 @@ import { MatBadge } from '@angular/material/badge';
 import { BasketService } from '../shared/services/basket.service';
 import { NotificationsService } from '../shared/services/notifications.service';
 import { Notification } from '../shared/interfaces/order.interface';
+import { IUser } from '../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-navbar',
@@ -30,7 +31,7 @@ import { Notification } from '../shared/interfaces/order.interface';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  user;
+  user: Signal<IUser | null>;
   basket;
   isOpenedSidenav = true;
   isRotated = false;

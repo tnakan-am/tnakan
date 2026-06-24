@@ -7,9 +7,25 @@ export const authGuard: CanActivateFn = () => {
   const tokenService = inject(TokenService);
   const router = inject(Router);
 
-  if (tokenService.get()) {
+  const token = tokenService.get();
+  const exp = token ? getTokenExp(token) : null;
+
+  if (exp !== null && exp * 1000 > Date.now()) {
     return true;
   }
-  router.navigate(['/login']);
-  return false;
+
+  tokenService.clear();
+  return router.createUrlTree(['/login']);
 };
+
+function getTokenExp(token: string): number | null {
+  const segment = token.split('.')[1];
+  if (!segment) return null;
+  try {
+    const json = atob(segment.replace(/-/g, '+').replace(/_/g, '/'));
+    const payload = JSON.parse(json);
+    return typeof payload.exp === 'number' ? payload.exp : null;
+  } catch {
+    return null;
+  }
+}

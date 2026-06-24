@@ -37,9 +37,9 @@ export class UpdatePasswordComponent implements OnInit {
   readonly dialogRef = inject(MatDialogRef<UpdatePasswordComponent>);
   fb = inject(FormBuilder);
   form: FormGroup = this.fb.group({
-    currentPassword: ['', [Validators.required, Validators.minLength(6)]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    rePassword: ['', [Validators.required, Validators.minLength(6)]],
+    currentPassword: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    rePassword: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   ngOnInit() {

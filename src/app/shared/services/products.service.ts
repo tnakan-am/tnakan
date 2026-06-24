@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { Product } from '../interfaces/product.interface';
@@ -39,7 +39,7 @@ export class ProductsService {
 
   getUserProducts(): Observable<Product[]> {
     const userId = this.auth.currentUser()?.id;
-    if (!userId) return this.listProducts({ limit: 0 });
+    if (!userId) return of([]);
     return this.listProducts({ userId, limit: 100 });
   }
 
@@ -53,16 +53,6 @@ export class ProductsService {
 
   approveOrBlockProduct(product: Partial<Product>, id: string): Observable<Product> {
     return this.http.patch<Product>(`${this.base}/${id}/approve`, { approved: product.approved });
-  }
-
-  updateProductAvailability(qnt: number, id: string): Observable<Product> {
-    return this.http.patch<Product>(`${this.base}/${id}/availability`, {
-      availability: String(qnt),
-    });
-  }
-
-  updateProductReview(qnt: number, id: string): Observable<Product> {
-    return this.http.patch<Product>(`${this.base}/${id}`, { avgReview: qnt });
   }
 
   batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<Product[]> {
