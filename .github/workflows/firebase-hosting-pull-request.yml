@@ -15,8 +15,24 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci
       - run: npm run build -- --configuration production
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
-          projectId: tnakan-23490
+      - name: Deploy preview to Firebase Hosting
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+        run: |
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "${RUNNER_TEMP}/firebase-sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="${RUNNER_TEMP}/firebase-sa.json"
+          set +e
+          out="$(npx --yes firebase-tools@latest hosting:channel:deploy "pr-${{ github.event.number }}" --project tnakan-23490 --expires 7d 2>&1)"
+          code=$?
+          printf '%s\n' "$out"
+          rm -f "${RUNNER_TEMP}/firebase-sa.json"
+          if [ "$code" -eq 0 ]; then
+            exit 0
+          fi
+          # Same premature-close retry guard as the live deploy: a rejected
+          # retry whose version is already active means the deploy applied.
+          if printf '%s' "$out" | grep -q "is the current active version"; then
+            echo "::notice::Preview version already active; treating as success."
+            exit 0
+          fi
+          exit "$code"
