@@ -1,188 +1,85 @@
 import { inject, Injectable } from '@angular/core';
-import { Firestore } from '@angular/fire/firestore';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { catchError, filter, Observable, switchMap, tap, throwError } from 'rxjs';
-import { FirebaseAuthService } from './firebase-auth.service';
-import { User } from '@angular/fire/auth';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, Observable, tap } from 'rxjs';
+
+import { environment } from '../../../environments/environment';
 import { Product } from '../interfaces/product.interface';
 import { openSnackBar } from '../helpers/snackbar';
-import {
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  setDoc,
-  where,
-  writeBatch,
-} from 'firebase/firestore';
+import { AuthService } from './auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+interface PaginatedResponse<T> {
+  data: T[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
+}
+
+@Injectable({ providedIn: 'root' })
 export class ProductsService {
-  firestore = inject(Firestore);
-  firebaseAuthService = inject(FirebaseAuthService);
-  snackBar = openSnackBar();
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
+  private snackBar = openSnackBar();
 
-  constructor() {}
+  private readonly base = `${environment.apiUrl}/products`;
 
-  deleteProduct(id: string) {
-    return fromPromise(deleteDoc(doc(this.firestore, 'products', id))).pipe(
-      tap(() => this.snackBar('Successfully Deleted')),
-      catchError((err) => {
-        this.snackBar(err);
-        return throwError(err);
-      })
-    );
+  deleteProduct(id: string): Observable<{ success: boolean }> {
+    return this.http
+      .delete<{ success: boolean }>(`${this.base}/${id}`)
+      .pipe(tap(() => this.snackBar('Successfully Deleted')));
   }
 
   getAllUnapprovedProducts(): Observable<Product[]> {
-    return fromPromise(
-      getDocs(query(collection(this.firestore, 'products'), where('approved', '==', false))).then(
-        (values) => {
-          const data: any[] = [];
-          values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-          return data;
-        }
-      )
-    );
+    return this.listProducts({ approved: 'false', limit: 100 });
   }
 
   getUserProducts(): Observable<Product[]> {
-    const user = this.firebaseAuthService.user$;
-
-    return user.pipe(
-      filter((user) => !!user?.uid),
-      switchMap((user) =>
-        fromPromise(
-          getDocs(
-            query(
-              collection(this.firestore, 'products'),
-              where('userId', '==', (user as User)?.uid)
-            )
-          ).then((values) => {
-            const data: any[] = [];
-            values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-            return data;
-          })
-        )
-      )
-    );
+    const userId = this.auth.currentUser()?.id;
+    if (!userId) return this.listProducts({ limit: 0 });
+    return this.listProducts({ userId, limit: 100 });
   }
 
-  createProduct(product: Product): Observable<void> {
-    const productRef = doc(collection(this.firestore, 'products'));
-    return fromPromise(
-      setDoc(productRef, { ...product, avgReview: 0, numberReview: 0 }, { merge: true })
-    );
+  createProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.base, product);
   }
 
-  updateProduct(product: Partial<Product>, id: string): Observable<void> {
-    const productRef = doc(this.firestore, 'products', id);
-    return fromPromise(setDoc(productRef, product, { merge: true }));
+  updateProduct(product: Partial<Product>, id: string): Observable<Product> {
+    return this.http.patch<Product>(`${this.base}/${id}`, product);
   }
 
-  approveOrBlockProduct(product: Partial<Product>, id: string): Observable<void> {
-    const productRef = doc(this.firestore, 'products', id);
-    return fromPromise(setDoc(productRef, { approved: product.approved }, { merge: true }));
+  approveOrBlockProduct(product: Partial<Product>, id: string): Observable<Product> {
+    return this.http.patch<Product>(`${this.base}/${id}/approve`, { approved: product.approved });
   }
 
-  updateProductAvailability(qnt: number, id: string): Observable<void> {
-    const productRef = doc(this.firestore, 'products', id);
-
-    return fromPromise(
-      getDoc(productRef).then((product) => {
-        if (product.exists()) {
-          if (product.data()['availability'] === 'unlimited') {
-            return Promise.resolve();
-          } else if (product.data()['availability'] >= qnt)
-            return setDoc(
-              productRef,
-              { availability: product.data()?.['availability'] - qnt },
-              { merge: true }
-            );
-          throw new Error('Quantity unavailable');
-        }
-        throw new Error("doesn't exist");
-      })
-    );
+  updateProductAvailability(qnt: number, id: string): Observable<Product> {
+    return this.http.patch<Product>(`${this.base}/${id}/availability`, {
+      availability: String(qnt),
+    });
   }
 
-  updateProductReview(qnt: number, id: string): Observable<void> {
-    const productRef = doc(this.firestore, 'products', id);
-
-    return fromPromise(
-      getDoc(productRef).then((product) => {
-        if (product.exists()) {
-          if (product.data()['avgReview'] >= qnt)
-            return setDoc(
-              productRef,
-              { availability: product.data()?.['availability'] - qnt },
-              { merge: true }
-            );
-          throw new Error('Quantity unavailable');
-        }
-        throw new Error("doesn't exist");
-      })
-    );
+  updateProductReview(qnt: number, id: string): Observable<Product> {
+    return this.http.patch<Product>(`${this.base}/${id}`, { avgReview: qnt });
   }
 
-  batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<any> {
-    const batch = writeBatch(this.firestore);
-    const q = query(collection(this.firestore, 'products'), where('userId', '==', userId));
-    return fromPromise(
-      getDocs(q)
-        .then((values) => {
-          values.forEach((value) => {
-            const ref = doc(this.firestore, 'products', value.id);
-            batch.set(ref, { ...value.data(), ...product });
-          });
-          return batch.commit();
-        })
-        .catch((err) => {
-          this.snackBar(err);
-        })
-    );
+  batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<Product[]> {
+    let params = new HttpParams().set('userId', userId);
+    return this.http.patch<Product[]>(`${this.base}/batch`, product, { params });
   }
 
   getAllProducts(): Observable<Product[]> {
-    return fromPromise(
-      getDocs(
-        query(collection(this.firestore, 'products'), orderBy('avgReview', 'desc'), limit(100))
-      ).then((values) => {
-        const data: any[] = [];
-        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-        return data;
-      })
-    );
+    return this.listProducts({ sortBy: 'avgReview', sortOrder: 'DESC', limit: 100 });
   }
 
   getTopProducts(): Observable<Product[]> {
-    return fromPromise(
-      getDocs(
-        query(collection(this.firestore, 'products'), orderBy('avgReview', 'desc'), limit(10))
-      ).then((values) => {
-        const data: any[] = [];
-        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-        return data;
-      })
-    );
+    return this.http.get<Product[]>(`${this.base}/top`);
   }
 
   getAllProductsBySeller(id: string): Observable<Product[]> {
-    return fromPromise(
-      getDocs(query(collection(this.firestore, 'products'), where('userId', '==', id))).then(
-        (values) => {
-          const data: any[] = [];
-          values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-          return data;
-        }
-      )
-    );
+    return this.listProducts({ userId: id, limit: 100 });
   }
 
   getAllProductsByQuery(params: {
@@ -190,40 +87,29 @@ export class ProductsService {
     category?: string;
     productCategory?: string;
   }): Observable<Product[]> {
-    return fromPromise(
-      getDocs(
-        query(
-          collection(this.firestore, 'products'),
-          where(
-            params.category
-              ? 'category'
-              : params.productCategory
-              ? 'productCategory'
-              : 'subCategory',
-            '==',
-            params.category || params.productCategory || params.subCategory
-          ),
-          orderBy('avgReview', 'desc'),
-          limit(100)
-        )
-      ).then((values) => {
-        const data: any[] = [];
-        values.forEach((value) => data.push({ id: value.id, ...value.data() }));
-        return data;
-      })
-    );
+    return this.listProducts({
+      ...params,
+      sortBy: 'avgReview',
+      sortOrder: 'DESC',
+      limit: 100,
+    });
   }
 
   getProductById(id: string): Observable<Product> {
-    const productRef = doc(this.firestore, `products/${id}`);
-    return fromPromise(
-      getDoc(productRef).then((docSnap) => {
-        if (docSnap.exists()) {
-          return { id: docSnap.id, ...docSnap.data() } as Product;
-        } else {
-          throw new Error('No such document!');
-        }
-      })
-    );
+    return this.http.get<Product>(`${this.base}/${id}`);
+  }
+
+  private listProducts(
+    query: Record<string, string | number | boolean | undefined>
+  ): Observable<Product[]> {
+    let params = new HttpParams();
+    Object.entries(query).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') {
+        params = params.set(key, String(value));
+      }
+    });
+    return this.http
+      .get<PaginatedResponse<Product>>(this.base, { params })
+      .pipe(map((res) => res.data));
   }
 }

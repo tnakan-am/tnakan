@@ -1,21 +1,24 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage';
-import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+import { environment } from '../../../environments/environment';
+
+interface UploadResponse {
+  url: string;
+  filename: string;
+  size: number;
+}
+
+@Injectable({ providedIn: 'root' })
 export class StorageService {
-  storage = inject(Storage);
+  private http = inject(HttpClient);
 
-  constructor() {}
-
-  uploadFile(file: any, userId: string): Observable<string> {
-    const filePath = `uploads/${userId}/${file.name}`;
-    const fileRef = ref(this.storage, filePath);
-    const task = uploadBytes(fileRef, file);
-
-    return fromPromise(task.then(() => getDownloadURL(fileRef)));
+  uploadFile(file: File, _userId?: string): Observable<string> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http
+      .post<UploadResponse>(`${environment.apiUrl}/uploads`, formData)
+      .pipe(map((res) => res.url));
   }
 }

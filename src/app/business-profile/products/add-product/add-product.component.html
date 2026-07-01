@@ -78,7 +78,7 @@
           <mat-label>{{ 'fields.category' | translate }}</mat-label>
           <mat-select formControlName="category" (valueChange)="categoryChanged($event)">
             @for (category of data!.categories; track category.id) {
-            <mat-option [value]="category.id">{{ category?.data?.name }}</mat-option>
+            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
           @if(form.get('category')?.errors) {
@@ -90,7 +90,7 @@
           <mat-label>{{ 'fields.subCategory' | translate }}</mat-label>
           <mat-select formControlName="subCategory" (valueChange)="subCategoryChanged($event)">
             @for (category of subCategories; track category.id) {
-            <mat-option [value]="category.id">{{ category?.data?.name }}</mat-option>
+            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
           @if(form.get('subCategory')?.errors) {
@@ -103,7 +103,7 @@
           <mat-label>{{ 'fields.productCategory' | translate }}</mat-label>
           <mat-select formControlName="productCategory">
             @for (category of productCategories; track category.id) {
-            <mat-option [value]="category.id">{{ category?.data?.name }}</mat-option>
+            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>

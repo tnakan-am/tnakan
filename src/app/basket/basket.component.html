@@ -25,6 +25,7 @@
                 <mat-label>{{ product.unit }}</mat-label>
                 <input
                   matInput
+                  type="number"
                   min="{{ product?.minQuantity || 1 }}"
                   (change)="calculateTotal()"
                   formControlName="quantity"

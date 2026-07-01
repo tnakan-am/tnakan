@@ -18,8 +18,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { map, Observable, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Product } from '../../shared/interfaces/product.interface';
 import { CategoryTree } from '../../shared/interfaces/categories.interface';
-import { FirebaseAuthService } from '../../shared/services/firebase-auth.service';
-import { User } from '@angular/fire/auth';
+import { AuthService } from '../../shared/services/auth.service';
+import { IUser } from '../../shared/interfaces/user.interface';
 import { CategoriesService } from '../../shared/services/categories.service';
 import { ProductsService } from '../../shared/services/products.service';
 import { AddProductComponent } from '../../business-profile/products/add-product/add-product.component';
@@ -62,8 +62,8 @@ export class ProductsApproveComponent implements OnInit, OnDestroy {
     'star',
   ];
   private categories!: CategoryTree[];
-  private firebaseAuthService = inject(FirebaseAuthService);
-  private user!: User;
+  private authService = inject(AuthService);
+  private user!: IUser;
   private unsubscribe = new Subject<void>();
 
   constructor(
@@ -72,7 +72,7 @@ export class ProductsApproveComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.firebaseAuthService.user$
+    this.authService.user$
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((value) => (this.user = value));
     this.products$ = this.productsService.getAllUnapprovedProducts();
@@ -99,7 +99,7 @@ export class ProductsApproveComponent implements OnInit, OnDestroy {
         switchMap((value) => {
           this.categories = value || [];
           const dialogRef = this.dialog.open(AddProductComponent, {
-            data: { name: 'product', categories: value, form, userId: this.user.uid, admin: true },
+            data: { name: 'product', categories: value, form, userId: this.user.id, admin: true },
             width: '500px',
           });
           return dialogRef.afterClosed() as Observable<Product>;
@@ -121,7 +121,7 @@ export class ProductsApproveComponent implements OnInit, OnDestroy {
 
   delete(element: Product) {
     this.productsService.deleteProduct(element.id!).subscribe({
-      next: (value) => (this.products$ = this.productsService.getUserProducts()),
+      next: () => (this.products$ = this.productsService.getUserProducts()),
     });
   }
 }

@@ -1,15 +1,11 @@
-import { Component, EventEmitter, Output, signal, WritableSignal } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { Component, EventEmitter, Output, signal, WritableSignal, effect } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router, RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, tap } from 'rxjs';
-import { IUser } from '../shared/interfaces/user.interface';
-import { FirebaseAuthService } from '../shared/services/firebase-auth.service';
-import { UsersService } from '../shared/services/users.service';
+import { AuthService } from '../shared/services/auth.service';
 import { MatBadge } from '@angular/material/badge';
 import { BasketService } from '../shared/services/basket.service';
 import { NotificationsService } from '../shared/services/notifications.service';
@@ -19,7 +15,6 @@ import { Notification } from '../shared/interfaces/order.interface';
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    AsyncPipe,
     MatIcon,
     MatIconButton,
     MatMenu,
@@ -35,8 +30,7 @@ import { Notification } from '../shared/interfaces/order.interface';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  user$: Observable<IUser | undefined>;
-  user: IUser | undefined;
+  user;
   basket;
   isOpenedSidenav = true;
   isRotated = false;
@@ -46,26 +40,23 @@ export class NavbarComponent {
 
   constructor(
     private translateService: TranslateService,
-    private fAuth: FirebaseAuthService,
-    private usersService: UsersService,
+    private fAuth: AuthService,
     private basketService: BasketService,
     private ordersService: NotificationsService,
     private router: Router
   ) {
+    this.user = this.fAuth.currentUser;
     this.basket = this.basketService.basket;
     if (localStorage.getItem('lang')) {
       translateService.setDefaultLang(localStorage.getItem('lang') as string);
     } else {
       translateService.setDefaultLang('hy');
     }
-    this.user$ = this.usersService.getUserData().pipe(
-      tap((value) => {
-        this.user = value;
-        if (this.user?.type === 'business') {
-          this.businessUserNotificationsSubscription();
-        }
-      })
-    );
+    effect(() => {
+      if (this.user()?.type === 'business' && !this.notifications) {
+        this.businessUserNotificationsSubscription();
+      }
+    });
   }
 
   changeLanguage(lang: string) {
@@ -78,12 +69,12 @@ export class NavbarComponent {
   }
 
   redirectToOrders() {
-    if (!this.user) return;
-    this.router.navigate(['/profile', this.user.type, 'orders']);
+    const user = this.user();
+    if (!user) return;
+    this.router.navigate(['/profile', user.type, 'orders']);
   }
 
   businessUserNotificationsSubscription() {
-    this.ordersService.onValue(() => {});
     this.notifications = this.ordersService.newOrders;
   }
 

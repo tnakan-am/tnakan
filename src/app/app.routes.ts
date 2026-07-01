@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { AuthGuard } from '@angular/fire/auth-guard';
+import { authGuard } from './shared/guards/auth.guard';
 import { permissionsGuard } from './shared/services/permissions.guard';
 import { AdComponent } from './business-profile/ad/ad.component';
 import { BasketComponent } from './basket/basket.component';
@@ -25,7 +25,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     loadComponent: () => import('./admin/admin.component').then((m) => m.AdminComponent),
-    // canActivate: [AuthGuard, permissionsGuard(Type.ADMIN)],
+    // canActivate: [authGuard, permissionsGuard(Type.ADMIN)],
     children: [
       {
         path: 'products',
@@ -75,7 +75,7 @@ export const routes: Routes = [
   {
     path: 'profile/customer',
     loadComponent: () => import('./profile/profile.component').then((m) => m.ProfileComponent),
-    canActivate: [AuthGuard, permissionsGuard(Type.CUSTOMER)],
+    canActivate: [authGuard, permissionsGuard(Type.CUSTOMER)],
     children: [
       {
         path: '**',
@@ -96,7 +96,7 @@ export const routes: Routes = [
       import('./business-profile/business-profile.component').then(
         (m) => m.BusinessProfileComponent
       ),
-    canActivate: [AuthGuard, permissionsGuard(Type.BUSINESS)],
+    canActivate: [authGuard, permissionsGuard(Type.BUSINESS)],
     children: [
       {
         path: 'products',
@@ -121,6 +121,6 @@ export const routes: Routes = [
   {
     path: 'settings',
     loadComponent: () => import('./settings/settings.component').then((m) => m.SettingsComponent),
-    canActivate: [AuthGuard],
+    canActivate: [authGuard],
   },
 ];

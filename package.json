@@ -16,7 +16,6 @@
     "@angular/common": "^20.3.20",
     "@angular/compiler": "^20.3.20",
     "@angular/core": "^20.3.20",
-    "@angular/fire": "^20.0.1",
     "@angular/forms": "^20.3.20",
     "@angular/material": "^20.2.14",
     "@angular/platform-browser": "^20.3.20",
@@ -29,6 +28,7 @@
     "ngx-owl-carousel-o": "^20.1.0",
     "ngx-stars": "^1.6.5",
     "rxjs": "~7.8.2",
+    "socket.io-client": "^4.8.3",
     "tslib": "^2.8.1",
     "zone.js": "~0.15.0"
   },

@@ -1,38 +1,36 @@
-import { DocumentReference } from '@angular/fire/compat/firestore';
-
-export interface Sub extends SubCategory {
-  productCategories: ProductCategory[];
-}
-export interface CategoryTree extends Category {
-  sub: Sub[];
-}
-
 export interface Category {
   id: string;
-  data: Data;
-}
-
-export interface Data {
   name: string;
-  description: string;
+  description?: string;
+  icon?: string;
+  image?: string;
+  isActive?: boolean;
+  sortOrder?: number;
 }
 
 export interface SubCategory {
   id: string;
-  data: SubCategoryData;
-}
-
-export interface SubCategoryData {
+  categoryId: string;
   name: string;
-  category_id: DocumentReference;
+  description?: string;
+  icon?: string;
+  isActive?: boolean;
+  sortOrder?: number;
 }
 
 export interface ProductCategory {
   id: string;
-  data: ProductCategoryData;
+  subCategoryId: string;
+  name: string;
+  description?: string;
+  isActive?: boolean;
+  sortOrder?: number;
 }
 
-export interface ProductCategoryData {
-  name: string;
-  sub_category_id: DocumentReference;
+export interface SubCategoryWithChildren extends SubCategory {
+  productCategories: ProductCategory[];
+}
+
+export interface CategoryTree extends Category {
+  subCategories: SubCategoryWithChildren[];
 }

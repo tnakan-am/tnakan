@@ -106,11 +106,11 @@ export class OrdersComponent implements OnInit {
   }
 
   orderStatusChange(order: Order) {
-    fromPromise(
-      this.ordersService.changeProductsStatus(order, this.orderStatus.get(this.status)!)
-    ).subscribe({
+    const nextStatus = this.orderStatus.get(this.status);
+    if (!nextStatus) return;
+    fromPromise(this.ordersService.changeProductsStatus(order, nextStatus)).subscribe({
       next: () => {
-        this.status = this.orderStatus.get(this.status)!;
+        this.status = nextStatus;
         this.orders.update((orders) =>
           orders.map((orderItem) =>
             orderItem.orderId === order.orderId
@@ -118,7 +118,7 @@ export class OrdersComponent implements OnInit {
                   ...order,
                   products: order.products.map((product) => ({
                     ...product,
-                    status: this.orderStatus.get(this.status)!,
+                    status: nextStatus,
                   })),
                 }
               : orderItem

@@ -33,8 +33,8 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   commonFields = {
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    rePassword: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    rePassword: ['', [Validators.required, Validators.minLength(8)]],
     phoneNumber: ['', [Validators.required, Validators.pattern(/^\+374(10|[3-9]\d)\d{6}$/)]],
     address: this.fb.group(Address),
   };
@@ -49,7 +49,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   regionChange($event: string) {

@@ -16,7 +16,7 @@ import { MatInput } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButton } from '@angular/material/button';
 import { ReviewService } from '../../../shared/services/review.service';
-import { filter, map } from 'rxjs';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-order-item',
@@ -52,16 +52,19 @@ export class OrderItemComponent implements OnInit {
   @Output() onRate = new EventEmitter();
 
   ngOnInit() {
+    if (!this._product.reviewRef) return;
+    this.form.disable({ onlySelf: true, emitEvent: false });
     this.reviewService
-      .getProductReview(this._product, this._product.orderId)
-      .pipe(
-        filter((review) => !!review.length),
-        map((value) => value[0])
-      )
+      .getProductReview(this._product)
+      .pipe(map((reviews) => reviews.find((r) => r.id === this._product.reviewRef)))
       .subscribe({
-        next: (value) => {
-          this.form.patchValue(value);
-          this.form.disable({ onlySelf: true, emitEvent: false });
+        next: (review) => {
+          if (review) {
+            this.form.patchValue(
+              { comment: review.comment, stars: String(review.stars) },
+              { emitEvent: false }
+            );
+          }
         },
       });
   }

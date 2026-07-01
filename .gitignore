@@ -48,3 +48,5 @@ Thumbs.db
 
 # Environment and config files
 src/app/app.config.ts
+
+.playwright-mcp/
