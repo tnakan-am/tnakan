@@ -132,11 +132,11 @@ Commits and branches use the `TNK-XX` Jira ticket prefix (e.g. `TNK-67 …`). Th
 
 ## Project Architecture
 
-This is an Angular 19 e-commerce application called "Tnakan" that integrates with Firebase for backend services.
+This is an Angular 20 e-commerce application called "Tnakan" that integrates with Firebase for backend services.
 
 ### Tech Stack
 
-- **Frontend**: Angular 19 with Angular Material, TailwindCSS, and SCSS
+- **Frontend**: Angular 20 with Angular Material, TailwindCSS, and SCSS
 - **Backend**: NestJS REST API + WebSocket gateway at `../backend` (PostgreSQL via TypeORM, JWT auth, multer uploads). See `src/environments/environment*.ts` for the API base URL.
 - **Hosting**: Firebase Hosting for the built SPA (GitHub Actions workflows in `.github/workflows/firebase-hosting-*.yml`)
 - **Testing**: Karma + Jasmine
@@ -227,16 +227,14 @@ This repo follows Angular's recommendations for AI-assisted development (see [an
 
 When writing Angular/TypeScript code in this repo, follow [.github/copilot-instructions.md](.github/copilot-instructions.md) — verbatim from angular.dev's `best-practices.md`. Key points: signals over RxJS for local state, `input()`/`output()` functions over decorators, `inject()` over constructor injection, native control flow (`@if`/`@for`/`@switch`) over `*ngIf`/`*ngFor`, `OnPush` change detection, `NgOptimizedImage` for static images, no `ngClass`/`ngStyle` (use `class`/`style` bindings).
 
-Note: this project is on Angular 19, so the "do NOT set `standalone: true`" rule (which targets v20+ where it's default) applies here too — standalone is already the default in v19.
-
 ### Angular CLI MCP server
 
-The Angular CLI MCP server is configured in two places:
+[.mcp.json](.mcp.json) registers two MCP servers for Claude Code (project-level config):
 
-- [.mcp.json](.mcp.json) — picked up by Claude Code (project-level MCP config)
-- [.vscode/mcp.json](.vscode/mcp.json) — picked up by VS Code's native MCP support
+- **`angular-cli`** (`npx -y @angular/cli mcp`) — Angular CLI tools for codegen, workspace analysis, best-practices lookup, and docs search.
+- **`playwright`** (`npx -y @playwright/mcp@latest`) — browser automation for AI-driven E2E / UI checks.
 
-It exposes tools like `find_examples`, `get_best_practices`, `search_documentation`, `list_projects`, and `onpush_zoneless_migration`. Run `npx -y @angular/cli mcp --help` for the full list. Experimental tools (`build`, `test`, `e2e`, `devserver.*`, `modernize`) need the `-E <tool>` flag and Angular CLI v20+ for full functionality — this project is on v19 so some experimental tools may not be available until the CLI is upgraded.
+Run `npx -y @angular/cli mcp --help` for the authoritative tool list and flags (`--read-only`, `--local-only`). The exact tool set depends on the installed Angular CLI (currently 20.3.x).
 
 ### Angular Agent Skills (not installed)
 
