@@ -27,9 +27,9 @@ Before implementing:
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
 
-#### 2. Simplicity First
+#### 2. Simplicity First (YAGNI)
 
-**Minimum code that solves the problem. Nothing speculative.**
+**Minimum code that solves the problem. Nothing speculative — You Aren't Gonna Need It (YAGNI).**
 
 - No features beyond what was asked.
 - No abstractions for single-use code.

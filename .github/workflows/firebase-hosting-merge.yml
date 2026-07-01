@@ -13,9 +13,27 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci
       - run: npm run build -- --configuration production
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
-          channelId: live
-          projectId: tnakan-23490
+      - name: Deploy to Firebase Hosting (live)
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+        run: |
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "${RUNNER_TEMP}/firebase-sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="${RUNNER_TEMP}/firebase-sa.json"
+          set +e
+          out="$(npx --yes firebase-tools@latest deploy --only hosting --project tnakan-23490 --non-interactive 2>&1)"
+          code=$?
+          printf '%s\n' "$out"
+          rm -f "${RUNNER_TEMP}/firebase-sa.json"
+          if [ "$code" -eq 0 ]; then
+            exit 0
+          fi
+          # firebase-tools can retry the release request after a "premature
+          # close" network blip. The first request already succeeded, so the
+          # retry is rejected with FAILED_PRECONDITION ("...is the current
+          # active version") — which means the deploy DID apply. Treat that
+          # specific case as success instead of a false failure.
+          if printf '%s' "$out" | grep -q "is the current active version"; then
+            echo "::notice::Deployed version is already the active live version; treating as success."
+            exit 0
+          fi
+          exit "$code"
