@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   handleChange(event: boolean): void {
-    this.opened = !this.opened;
+    this.opened = event;
   }
 
   ngOnDestroy(): void {
