@@ -8,6 +8,24 @@
   "product_reviews": "Product Reviews",
   "payment": "Payment",
   "confirm-email": "Please check your email",
+  "verify-email": {
+    "title": "Email verification",
+    "verifying": "Verifying your email...",
+    "success": "Your email has been verified. You can now log in.",
+    "error": "This verification link is invalid or has expired.",
+    "resend": "Resend verification email",
+    "resent": "If an account exists for this email, a new verification link has been sent."
+  },
+  "forgot-password": {
+    "title": "Forgot password",
+    "sent": "If an account exists for this email, a password reset link has been sent. Please check your email."
+  },
+  "reset-password": {
+    "title": "Reset password",
+    "success": "Your password has been changed. You can now log in.",
+    "error": "This reset link is invalid or has expired.",
+    "request-new": "Request a new link"
+  },
   "edit": "Edit",
   "login": {
     "login": "Login",
