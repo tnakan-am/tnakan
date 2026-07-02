@@ -55,10 +55,13 @@ export class ProductPageComponent implements OnInit {
     }
   }
 
-  handleAddToCard(product: Product) {
+  handleAddToCard(product: Product, quantity?: string | number) {
+    const parsed = Number(quantity);
+    const qty =
+      Number.isFinite(parsed) && parsed >= product.minQuantity ? parsed : product.minQuantity;
     this.basketService.addToBasket({
       ...product,
-      quantity: product.minQuantity,
+      quantity: qty,
       status: Status.pending,
     });
   }

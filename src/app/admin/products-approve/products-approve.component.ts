@@ -121,7 +121,7 @@ export class ProductsApproveComponent implements OnInit, OnDestroy {
 
   delete(element: Product) {
     this.productsService.deleteProduct(element.id!).subscribe({
-      next: () => (this.products$ = this.productsService.getUserProducts()),
+      next: () => (this.products$ = this.productsService.getAllUnapprovedProducts()),
     });
   }
 }

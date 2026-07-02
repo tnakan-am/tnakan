@@ -1,13 +1,17 @@
-import { merge } from 'rxjs';
+import { merge, Subscription } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
-export const passwordsMatching = (form: FormGroup) => {
+export const passwordsMatching = (form: FormGroup): Subscription => {
   const passControl = form.get('password')!;
   const repassControl = form.get('rePassword')!;
-  merge(passControl.valueChanges, repassControl.valueChanges).subscribe({
+  return merge(passControl.valueChanges, repassControl.valueChanges).subscribe({
     next: () => {
-      if (form.get('password')!.value !== form.get('rePassword')!.value) {
-        repassControl.setErrors({ match: true });
+      const errors = { ...repassControl.errors };
+      if (passControl.value !== repassControl.value) {
+        repassControl.setErrors({ ...errors, match: true });
+      } else if (errors['match']) {
+        delete errors['match'];
+        repassControl.setErrors(Object.keys(errors).length ? errors : null);
       }
     },
   });

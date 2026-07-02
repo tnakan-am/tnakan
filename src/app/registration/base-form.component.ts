@@ -45,7 +45,7 @@ export class BaseFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    passwordsMatching(this.form);
+    this.subscription = passwordsMatching(this.form);
   }
 
   ngOnDestroy() {

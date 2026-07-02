@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import {
   MatDialogActions,
   MatDialogClose,
@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { formErrorMessage } from '../../shared/helpers/form-error-message';
 import { passwordsMatching } from '../../shared/helpers/passwords-matching.const';
 
@@ -33,7 +34,7 @@ import { passwordsMatching } from '../../shared/helpers/passwords-matching.const
   templateUrl: './update-password.component.html',
   styleUrl: './update-password.component.scss',
 })
-export class UpdatePasswordComponent implements OnInit {
+export class UpdatePasswordComponent implements OnInit, OnDestroy {
   readonly dialogRef = inject(MatDialogRef<UpdatePasswordComponent>);
   fb = inject(FormBuilder);
   form: FormGroup = this.fb.group({
@@ -41,9 +42,14 @@ export class UpdatePasswordComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(6)]],
     rePassword: ['', [Validators.required, Validators.minLength(6)]],
   });
+  private subscription?: Subscription;
 
   ngOnInit() {
-    passwordsMatching(this.form);
+    this.subscription = passwordsMatching(this.form);
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 
   onNoClick() {
