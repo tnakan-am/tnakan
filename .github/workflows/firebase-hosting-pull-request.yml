@@ -7,32 +7,42 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Pin Node: the runner image's system Node (24.x) breaks firebase-tools'
+      # HTTP stack with "Premature close" errors on googleapis requests. The
+      # deploy action shells out to npx from PATH, so this pin covers it too.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
       - run: npm ci
       - run: npm run build -- --configuration production
-      - name: Deploy preview to Firebase Hosting
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
-        run: |
-          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "${RUNNER_TEMP}/firebase-sa.json"
-          export GOOGLE_APPLICATION_CREDENTIALS="${RUNNER_TEMP}/firebase-sa.json"
-          set +e
-          out="$(npx --yes firebase-tools@latest hosting:channel:deploy "pr-${{ github.event.number }}" --project tnakan-23490 --expires 7d 2>&1)"
-          code=$?
-          printf '%s\n' "$out"
-          rm -f "${RUNNER_TEMP}/firebase-sa.json"
-          if [ "$code" -eq 0 ]; then
-            exit 0
-          fi
-          # Same premature-close retry guard as the live deploy: a rejected
-          # retry whose version is already active means the deploy applied.
-          if printf '%s' "$out" | grep -q "is the current active version"; then
-            echo "::notice::Preview version already active; treating as success."
-            exit 0
-          fi
-          exit "$code"
+      # firebase-tools 15.x can retry a release after a "premature close"
+      # network blip; the retry is rejected with "is the current active
+      # version" even though the deploy applied, which fails the step and
+      # skips the PR comment. Pin the CLI to the stable 14.x line.
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        id: preview
+        continue-on-error: true
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+          projectId: tnakan-23490
+          firebaseToolsVersion: '14'
+      # A transient failure still leaves the channel healthy; run the action
+      # once more so a clean deploy posts/updates the preview-URL comment.
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: steps.preview.outcome == 'failure'
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+          projectId: tnakan-23490
+          firebaseToolsVersion: '14'

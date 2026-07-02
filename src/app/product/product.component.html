@@ -1,7 +1,13 @@
 @if (products$ | async; as productList) {
-<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
-  @for (item of productList; track item.id) {
-  <app-card-item (addToCard)="addToBasket($event)" [product]="item" />
-  }
-</div>
+<section>
+  <div class="mb-6 flex items-center gap-4">
+    <h2 class="m-0 font-display text-3xl font-semibold text-forest md:text-4xl">The marketplace</h2>
+    <span class="h-px flex-1 bg-line"></span>
+  </div>
+  <div class="grid gap-5 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    @for (item of productList; track item.id) {
+    <app-card-item (addToCard)="addToBasket($event)" [product]="item" />
+    }
+  </div>
+</section>
 }

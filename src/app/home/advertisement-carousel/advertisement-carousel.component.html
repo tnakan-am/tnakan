@@ -6,13 +6,14 @@
   (mouseleave)="play()"
 >
   <div class="slides" [style.transform]="'translateX(-' + active * 100 + '%)'">
-    @for (item of items; track i;let i= $index) {
+    @for (item of items; track i; let i = $index) {
     <section class="slide" [style.background-image]="'url(' + item.image + ')'">
       <div class="content">
+        <span class="eyebrow">Featured kitchen</span>
         <h2>{{ item.headline }}</h2>
         @if (item.subheadline || item.cta || item.link) {
         <p>{{ item.subheadline }}</p>
-        <a mat-flat-button [href]="item.link">{{ item.cta }}</a>
+        <a class="cta" mat-flat-button [href]="item.link">{{ item.cta }}</a>
         }
       </div>
     </section>
@@ -23,8 +24,12 @@
   <button class="nav next" aria-label="Next slide" (click)="next()">›</button>
 
   <div class="dots">
-    @for (item of items; track i;let i= $index) {
-    <button (click)="goTo(i)" [class.active]="i === active"></button>
+    @for (item of items; track i; let i = $index) {
+    <button
+      [attr.aria-label]="'Go to slide ' + (i + 1)"
+      (click)="goTo(i)"
+      [class.active]="i === active"
+    ></button>
     }
   </div>
 </div>

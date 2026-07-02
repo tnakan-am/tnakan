@@ -1,31 +1,70 @@
-.footerStyle {
-  background-color: #a6db93;
-  padding: 20px;
-  color: white;
-  text-align: center;
+.site-footer {
   width: 100%;
+  padding: 44px 44px 24px;
+  background: #1b3a2a;
+  color: #cbd8cd;
+  border-top: 1px solid rgba(233, 200, 139, 0.28);
 }
 
-footer a {
-  color: white;
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  max-width: 320px;
+}
+
+.footer-logo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #e9c88b;
+}
+
+.footer-blurb {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #9db3a1;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-head {
+  margin-bottom: 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e9c88b;
+}
+
+.footer-link,
+.footer-meta {
+  font-size: 13.5px;
+  line-height: 2;
+  color: #cbd8cd;
   text-decoration: none;
-  padding: 0 10px;
 }
 
-footer a:hover {
-  text-decoration: underline;
+.footer-link:hover {
+  color: #e9c88b;
+  text-decoration: none;
 }
 
-select {
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid white;
-}
-
-.example-spacer {
-  flex: 1 1 auto;
-}
-
-.white-color {
-  color: white;
+.footer-bottom {
+  max-width: 1200px;
+  margin: 28px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid rgba(233, 200, 139, 0.14);
+  font-size: 12px;
+  color: #9db3a1;
 }

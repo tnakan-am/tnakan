@@ -7,6 +7,7 @@ import { ProductCarouselItem } from '../../shared/interfaces/product-carousel-it
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, switchMap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { STAR_COLOR } from '../../shared/constants/theme';
 
 @Component({
   selector: 'app-carousel',
@@ -16,6 +17,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './carousel.component.scss',
 })
 export class CarouselComponent implements OnInit {
+  readonly starColor = STAR_COLOR;
   private _productsService = inject(ProductsService);
   private readonly baseOptions: OwlOptions = {
     skip_validateItems: true,

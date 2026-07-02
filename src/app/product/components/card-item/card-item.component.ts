@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButton } from '@angular/material/button';
+import { MatIconButton } from '@angular/material/button';
 import { MatCard, MatCardContent, MatCardImage } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { NgxStarsModule } from 'ngx-stars';
@@ -9,11 +9,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Unit } from '../../../shared/enums/unit.enum';
 import { Product } from '../../../shared/interfaces/product.interface';
 import { TranslatePipe } from '@ngx-translate/core';
+import { STAR_COLOR } from '../../../shared/constants/theme';
 
 @Component({
   selector: 'app-card-item',
   imports: [
-    MatButton,
+    MatIconButton,
     MatCard,
     MatCardContent,
     MatCardImage,
@@ -28,6 +29,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './card-item.component.scss',
 })
 export class CardItemComponent {
+  readonly starColor = STAR_COLOR;
   units = Unit;
   @Input() product!: Product;
   @Output() addToCard = new EventEmitter<Product>();

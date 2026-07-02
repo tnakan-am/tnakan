@@ -2,6 +2,18 @@ mat-sidenav {
   width: 255px;
 }
 
+// Angular Material recomputes the drawer content's left margin off animation events, which
+// don't fire reliably in this app — so closing the side drawer could leave the content stuck
+// with a 255px offset. Drive the margin from the drawer's own open/close class so the content
+// always reclaims the full width when the sidebar is collapsed.
+.mat-drawer-content {
+  transition: margin-left 0.3s ease;
+}
+
+.mat-drawer-side:not(.mat-drawer-opened) ~ .mat-drawer-content {
+  margin-left: 0 !important;
+}
+
 .example-container {
   position: absolute;
   top: 0;
