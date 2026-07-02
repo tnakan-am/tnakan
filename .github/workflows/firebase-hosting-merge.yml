@@ -16,11 +16,12 @@ jobs:
       - name: Deploy to Firebase Hosting (live)
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+          FIREBASE_TOOLS_VERSION: '14'
         run: |
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "${RUNNER_TEMP}/firebase-sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="${RUNNER_TEMP}/firebase-sa.json"
           set +e
-          out="$(npx --yes firebase-tools@latest deploy --only hosting --project tnakan-23490 --non-interactive 2>&1)"
+          out="$(npx --yes "firebase-tools@${FIREBASE_TOOLS_VERSION}" deploy --only hosting --project tnakan-23490 --non-interactive 2>&1)"
           code=$?
           printf '%s\n' "$out"
           rm -f "${RUNNER_TEMP}/firebase-sa.json"

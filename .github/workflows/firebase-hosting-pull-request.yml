@@ -7,6 +7,9 @@ permissions:
   checks: write
   contents: read
   pull-requests: write
+concurrency:
+  group: pr-preview-${{ github.event.number }}
+  cancel-in-progress: true
 jobs:
   build_and_preview:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
@@ -18,13 +21,41 @@ jobs:
       - name: Deploy preview to Firebase Hosting
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+          FIREBASE_TOOLS_VERSION: '14'
+          CHANNEL_ID: pr-${{ github.event.number }}
         run: |
           printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "${RUNNER_TEMP}/firebase-sa.json"
           export GOOGLE_APPLICATION_CREDENTIALS="${RUNNER_TEMP}/firebase-sa.json"
           set +e
-          out="$(npx --yes firebase-tools@latest hosting:channel:deploy "pr-${{ github.event.number }}" --project tnakan-23490 --expires 7d 2>&1)"
+
+          deploy() {
+            npx --yes "firebase-tools@${FIREBASE_TOOLS_VERSION}" hosting:channel:deploy "$CHANNEL_ID" --project tnakan-23490 --expires 7d 2>&1
+          }
+
+          out="$(deploy)"
           code=$?
           printf '%s\n' "$out"
+
+          # Recent firebase-tools releases can fail with a 409 when the PR's
+          # preview channel already exists (i.e. on every push after the first).
+          # Retry once — a healthy CLI finds the channel and just updates it.
+          if [ "$code" -ne 0 ] && printf '%s' "$out" | grep -q "already exists"; then
+            echo "::notice::Channel ${CHANNEL_ID} already exists; retrying deploy."
+            out="$(deploy)"
+            code=$?
+            printf '%s\n' "$out"
+          fi
+
+          # If the conflict persists, recreate the channel. The preview URL
+          # changes, which is acceptable for PR previews.
+          if [ "$code" -ne 0 ] && printf '%s' "$out" | grep -q "already exists"; then
+            echo "::notice::Conflict persists; recreating channel ${CHANNEL_ID}."
+            npx --yes "firebase-tools@${FIREBASE_TOOLS_VERSION}" hosting:channel:delete "$CHANNEL_ID" --project tnakan-23490 --force
+            out="$(deploy)"
+            code=$?
+            printf '%s\n' "$out"
+          fi
+
           rm -f "${RUNNER_TEMP}/firebase-sa.json"
           if [ "$code" -eq 0 ]; then
             exit 0
