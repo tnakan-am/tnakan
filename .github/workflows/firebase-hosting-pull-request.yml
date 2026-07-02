@@ -18,8 +18,24 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci
       - run: npm run build -- --configuration production
+      # firebase-tools 15.x can retry a release after a "premature close"
+      # network blip; the retry is rejected with "is the current active
+      # version" even though the deploy applied, which fails the step and
+      # skips the PR comment. Pin the CLI to the stable 14.x line.
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        id: preview
+        continue-on-error: true
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
           projectId: tnakan-23490
+          firebaseToolsVersion: '14'
+      # A transient failure still leaves the channel healthy; run the action
+      # once more so a clean deploy posts/updates the preview-URL comment.
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: steps.preview.outcome == 'failure'
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+          projectId: tnakan-23490
+          firebaseToolsVersion: '14'
