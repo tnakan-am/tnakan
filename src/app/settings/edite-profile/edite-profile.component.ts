@@ -60,9 +60,10 @@ export class EditeProfileComponent implements OnInit {
   }
 
   save() {
+    const raw = this.form.getRawValue();
     return {
       ...this.form.value,
-      displayName: this.form.getRawValue().name,
+      displayName: this.type === Type.BUSINESS ? raw.company : raw.name,
     };
   }
 }

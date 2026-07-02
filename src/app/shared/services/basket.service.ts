@@ -21,12 +21,9 @@ export class BasketService {
   }
 
   addToBasket(order: OrderItem) {
-    this.basket.update((value) => {
-      if (!value.find((value1) => value1.id === order.id)) {
-        value.push(order);
-      }
-      return value;
-    });
+    this.basket.update((value) =>
+      value.find((value1) => value1.id === order.id) ? value : [...value, order]
+    );
   }
 
   getCitiesRegions(): Observable<{ city: string; admin_name: string }[]> {

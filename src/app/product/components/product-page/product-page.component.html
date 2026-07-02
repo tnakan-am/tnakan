@@ -21,6 +21,7 @@
       <div class="flex items-center space-x-4 my-4">
         <label class="block text-sm font-medium text-gray-700">Quantity</label>
         <input
+          #qty
           type="number"
           class="w-16 border rounded-md p-2 text-center"
           [value]="product?.minQuantity"
@@ -33,7 +34,7 @@
       <div class="flex space-x-4 mt-6">
         <button
           class="bg-forest text-white px-6 py-3 rounded-full shadow-md hover:bg-forest-mid"
-          (click)="handleAddToCard(product!)"
+          (click)="handleAddToCard(product!, qty.value)"
         >
           Add to Cart
         </button>
