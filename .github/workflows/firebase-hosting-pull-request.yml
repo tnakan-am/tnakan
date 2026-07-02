@@ -18,52 +18,8 @@ jobs:
       - uses: actions/checkout@v4
       - run: npm ci
       - run: npm run build -- --configuration production
-      - name: Deploy preview to Firebase Hosting
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
-          FIREBASE_TOOLS_VERSION: '14'
-          CHANNEL_ID: pr-${{ github.event.number }}
-        run: |
-          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "${RUNNER_TEMP}/firebase-sa.json"
-          export GOOGLE_APPLICATION_CREDENTIALS="${RUNNER_TEMP}/firebase-sa.json"
-          set +e
-
-          deploy() {
-            npx --yes "firebase-tools@${FIREBASE_TOOLS_VERSION}" hosting:channel:deploy "$CHANNEL_ID" --project tnakan-23490 --expires 7d 2>&1
-          }
-
-          out="$(deploy)"
-          code=$?
-          printf '%s\n' "$out"
-
-          # Recent firebase-tools releases can fail with a 409 when the PR's
-          # preview channel already exists (i.e. on every push after the first).
-          # Retry once — a healthy CLI finds the channel and just updates it.
-          if [ "$code" -ne 0 ] && printf '%s' "$out" | grep -q "already exists"; then
-            echo "::notice::Channel ${CHANNEL_ID} already exists; retrying deploy."
-            out="$(deploy)"
-            code=$?
-            printf '%s\n' "$out"
-          fi
-
-          # If the conflict persists, recreate the channel. The preview URL
-          # changes, which is acceptable for PR previews.
-          if [ "$code" -ne 0 ] && printf '%s' "$out" | grep -q "already exists"; then
-            echo "::notice::Conflict persists; recreating channel ${CHANNEL_ID}."
-            npx --yes "firebase-tools@${FIREBASE_TOOLS_VERSION}" hosting:channel:delete "$CHANNEL_ID" --project tnakan-23490 --force
-            out="$(deploy)"
-            code=$?
-            printf '%s\n' "$out"
-          fi
-
-          rm -f "${RUNNER_TEMP}/firebase-sa.json"
-          if [ "$code" -eq 0 ]; then
-            exit 0
-          fi
-          # Same premature-close retry guard as the live deploy: a rejected
-          # retry whose version is already active means the deploy applied.
-          if printf '%s' "$out" | grep -q "is the current active version"; then
-            echo "::notice::Preview version already active; treating as success."
-            exit 0
-          fi
-          exit "$code"
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_TNAKAN_23490 }}
+          projectId: tnakan-23490
