@@ -5,7 +5,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   MatStep,
   MatStepLabel,
@@ -127,7 +127,13 @@ export class BasketComponent implements OnInit {
   }
 
   removeItem(product: OrderItem) {
+    const index = this.products().findIndex((value1) => value1.id === product.id);
+    if (index === -1) {
+      return;
+    }
+    (this.orderForm.get('products') as FormArray).removeAt(index);
     this.products.update((value) => value.filter((value1) => value1.id !== product.id));
+    this.calculateTotal();
   }
 
   calculateTotal() {
