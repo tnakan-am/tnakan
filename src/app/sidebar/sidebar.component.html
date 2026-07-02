@@ -5,7 +5,7 @@
   style="z-index: 9999"
 >
   <div
-    class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-green-200 dark:bg-white-800 dark:border-green-700"
+    class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-line dark:bg-white-800 dark:border-forest-mid"
   >
     <ul class="space-y-2">
       @for (menuItem of menuList; track menuItem) {
@@ -13,7 +13,7 @@
         @if (menuItem.categories.length) {
         <button
           type="button"
-          class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
+          class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
           aria-controls="dropdown-pages"
           data-collapse-toggle="dropdown-pages"
           [routerLink]="[]"
@@ -26,7 +26,7 @@
         </button>
         } @else {
         <button
-          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
         >
           <span class="ml-3">{{ menuItem.categoryName }}</span>
         </button>
@@ -37,7 +37,7 @@
             @if (categories?.categories?.length) {
             <button
               type="button"
-              class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
+              class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
               aria-controls="dropdown-pages"
               data-collapse-toggle="dropdown-pages"
               [routerLink]="[]"
@@ -54,7 +54,7 @@
             <button
               [routerLink]="[]"
               [queryParams]="{ subCategory: categories.categoryId }"
-              class="flex tems-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+              class="flex tems-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
             >
               <span class="ml-3">{{ categories.categoryName }}</span>
             </button>
@@ -65,7 +65,7 @@
                 @if (category?.categories?.length) {
                 <button
                   type="button"
-                  class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-green-100 dark:text-dark dark:hover:bg-green-700"
+                  class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
                   aria-controls="dropdown-pages"
                   data-collapse-toggle="dropdown-pages"
                   (click)="openSub($event, category)"
@@ -81,7 +81,7 @@
                 <a
                   [routerLink]="['/']"
                   [queryParams]="{ productCategory: category.categoryId }"
-                  class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-green-100 dark:hover:bg-green-700 group"
+                  class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
                 >
                   <span class="ml-3">{{ category.categoryName }}</span>
                 </a>

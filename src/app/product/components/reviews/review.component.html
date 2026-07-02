@@ -3,7 +3,7 @@
 >
   <!-- stars -->
   <div class="text-violet-500 flex gap-2">
-    <ngx-stars [color]="'#28a745'" [initialStars]="review.stars" [readonly]="true" />
+    <ngx-stars [color]="starColor" [initialStars]="review.stars" [readonly]="true" />
   </div>
 
   <p class="my-4 mb-0 text-base font-normal leading-relaxed tracking-wide text-gray-400">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div>
-      <p class="leading-relaxed tracking-wide text-green-500">{{ review.userName }}</p>
+      <p class="leading-relaxed tracking-wide text-forest">{{ review.userName }}</p>
     </div>
   </div>
 </div>

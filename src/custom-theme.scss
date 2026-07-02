@@ -1,6 +1,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@use './theme-colors' as brand;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -10,12 +11,18 @@
 @include mat.app-background();
 
 // Define the theme object.
+// Brand palettes (forest primary #1B3A2A, brass tertiary #E9C88B) are generated in
+// _theme-colors.scss. Typography is mapped to the storefront's display/body faces.
 $tnakan-theme: mat.define-theme(
   (
     color: (
       theme-type: light,
-      primary: mat.$spring-green-palette,
-      tertiary: mat.$blue-palette,
+      primary: brand.$primary-palette,
+      tertiary: brand.$tertiary-palette,
+    ),
+    typography: (
+      brand-family: '"Cormorant Garamond", Georgia, serif',
+      plain-family: '"Hanken Grotesk", system-ui, sans-serif',
     ),
     density: (
       scale: 0,

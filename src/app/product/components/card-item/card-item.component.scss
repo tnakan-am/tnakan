@@ -1,78 +1,158 @@
-.card {
-  width: 100%;
-  max-width: 300px;
-  height: 440px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.cooker-info {
+.card.mat-mdc-card {
   display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-direction: column;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #eae3d3;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px -18px rgba(27, 58, 42, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: #b08d57;
+    box-shadow: 0 18px 40px -18px rgba(27, 58, 42, 0.4);
+  }
 }
 
-.cooker-photo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
+.product-img.mat-mdc-card-image {
+  width: 100%;
+  height: 170px;
+  margin: 0;
 }
 
-.cooker-name {
-  font-size: 1em;
-  font-weight: bold;
+.card-body.mat-mdc-card-content {
+  padding: 16px;
 }
 
+.cooker-info,
 .rating {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 6px;
 }
 
-.star {
-  color: #f1c40f;
+.cooker-info {
+  gap: 7px;
+  margin-bottom: 9px;
 }
 
-.star.empty {
-  color: #ddd;
+.rating {
+  margin-bottom: 14px;
 }
 
-.rating-text {
-  font-size: 0.9em;
-  margin-left: 5px;
-  color: #555;
+.cooker-photo {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.price {
-  font-size: 1.2em;
-  color: #28a745;
+.cooker-photo--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eae3d3;
+  color: #8a8578;
+
+  .mat-icon {
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+    line-height: 15px;
+  }
+}
+
+.cooker-name,
+.card-description {
+  overflow: hidden;
+  color: #8a8578;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cooker-name {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cooker-tick {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: #b08d57;
+}
+
+.card-title {
+  margin: 0 0 3px;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 23px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: #1b3a2a;
+}
+
+.card-description {
+  margin: 0 0 12px;
+  font-size: 13px;
+}
+
+.rating-text,
+.price-unit {
+  font-size: 12px;
+  color: #8a8578;
 }
 
 .card-footer {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  justify-content: space-between;
+  gap: 8px;
 }
 
-button.mat-button {
-  transition: background-color 0.3s ease;
+.price-block {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
 }
 
-button.mat-button:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+.price-value {
+  font-size: 19px;
+  font-weight: 700;
+  color: #1b3a2a;
 }
 
-.product_img {
-  height: 225px;
+.price-mark {
+  font-size: 13px;
+  font-weight: 600;
+  color: #b08d57;
+}
+
+.add-btn.mat-mdc-icon-button {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border-radius: 50%;
+  background: #1b3a2a;
+  color: #f5f0e6;
+
+  .mat-icon {
+    color: #f5f0e6;
+  }
+
+  &:hover {
+    background: #2c5f45;
+  }
+
+  &[disabled] {
+    background: #c6c7c4;
+  }
 }

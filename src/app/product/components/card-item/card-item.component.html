@@ -1,46 +1,54 @@
 <mat-card class="card" (click)="navigateToProduct(product)">
-  <!-- Cooker's Photo and Name -->
-  <div class="cooker-info mt-2">
-    @if (product.userPhoto) {
-    <img [src]="product.userPhoto" alt="Cooker" class="cooker-photo ml-2" />
-    } @else {
-    <mat-icon class="text-4xl cooker-photo">person</mat-icon>
-    }
-    <span class="cooker-name">{{ product.userDisplayName }}</span>
-  </div>
-
   <img
     mat-card-image
-    class="product_img object-cover"
+    class="product-img object-cover"
     [src]="product.image || 'assets/homemade.webp'"
     alt="Product"
   />
 
-  <mat-card-content>
-    <h2 class="card-title">{{ product.name }}</h2>
-    <p class="card-description">{{ product.description.slice(0, 17) }}</p>
+  <mat-card-content class="card-body">
+    <!-- Cook's photo and name -->
+    <div class="cooker-info">
+      @if (product.userPhoto) {
+      <img [src]="product.userPhoto" alt="Cook" class="cooker-photo" />
+      } @else {
+      <span class="cooker-photo cooker-photo--placeholder">
+        <mat-icon>person</mat-icon>
+      </span>
+      }
+      <span class="cooker-name">{{ product.userDisplayName }}</span>
+      <span class="cooker-tick" aria-hidden="true">✓</span>
+    </div>
 
-    <!-- Rating Section -->
+    <h2 class="card-title">{{ product.name }}</h2>
+    <p class="card-description">{{ product.description.slice(0, 48) }}</p>
+
+    <!-- Rating -->
     <div class="rating">
-      <ngx-stars [color]="'#28a745'" [initialStars]="product.avgReview" [readonly]="true" />
-      <span class="rating-text">({{ product.avgReview | number : '1.1-1' }})</span>
+      <ngx-stars [color]="starColor" [initialStars]="product.avgReview" [readonly]="true" />
+      <span class="rating-text"
+        >{{ product.avgReview | number : '1.1-1' }} · {{ product.numberReview }}</span
+      >
     </div>
 
     <div class="card-footer">
-      <span class="price" matTooltip="price for unit">{{ product.price }}</span>
-      <span
-        class="price"
-        [matTooltip]="'Minimum quantity ' + product.minQuantity + ' ' + $any(units)[product.unit]"
-        >{{ $any(units)[product.unit] }}</span
-      >
+      <span class="price-block" matTooltip="price for unit">
+        <span class="price-value">{{ product.price }}</span>
+        <span class="price-mark">֏</span>
+        <span
+          class="price-unit"
+          [matTooltip]="'Minimum quantity ' + product.minQuantity + ' ' + $any(units)[product.unit]"
+          >/ {{ $any(units)[product.unit] }}</span
+        >
+      </span>
       <button
+        class="add-btn"
+        mat-icon-button
         [disabled]="product.availability === 0"
         (click)="handleAddToCard(product); $event.stopPropagation()"
-        mat-button
-        color="primary"
+        [attr.aria-label]="'buttons.addToCart' | translate"
       >
-        {{ 'buttons.addToCart' | translate }}
-        <mat-icon color="primary">shopping_cart</mat-icon>
+        <mat-icon>add</mat-icon>
       </button>
     </div>
   </mat-card-content>
