@@ -3,17 +3,19 @@
     <div class="footer-brand">
       <span class="footer-logo">Tnakan</span>
       <p class="footer-blurb">
-        Armenia's marketplace for homemade food. Cooked to order, delivered warm.
+        {{ 'footer.blurb' | translate }}
       </p>
     </div>
 
     <nav class="footer-col" aria-label="Footer links">
-      <span class="footer-head">Get in touch</span>
-      <a href="/terms" class="footer-link">Terms &amp; Conditions</a>
-      <a href="mailto:artursahakyan1992@gmail.com" class="footer-link">Contact us</a>
+      <span class="footer-head">{{ 'footer.getInTouch' | translate }}</span>
+      <a href="/terms" class="footer-link">{{ 'footer.terms' | translate }}</a>
+      <a href="mailto:artursahakyan1992@gmail.com" class="footer-link">{{
+        'footer.contactUs' | translate
+      }}</a>
       <span class="footer-meta">+374 77 777 777</span>
     </nav>
   </div>
 
-  <div class="footer-bottom">© 2026 Tnakan. All rights reserved.</div>
+  <div class="footer-bottom">© 2026 Tnakan. {{ 'footer.rights' | translate }}</div>
 </footer>

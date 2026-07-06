@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { NgxStarsModule } from 'ngx-stars';
+import { TranslateModule } from '@ngx-translate/core';
 import { ProductsService } from '../../shared/services/products.service';
 import { ProductCarouselItem } from '../../shared/interfaces/product-carousel-item.interface';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -12,7 +13,7 @@ import { STAR_COLOR } from '../../shared/constants/theme';
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [CommonModule, CarouselModule, NgxStarsModule],
+  imports: [CommonModule, CarouselModule, NgxStarsModule, TranslateModule],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
 })

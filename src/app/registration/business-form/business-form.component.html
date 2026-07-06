@@ -33,7 +33,13 @@
 
   <mat-form-field class="w-full">
     <mat-label>{{ 'fields.password' | translate }}</mat-label>
-    <input type="password" matInput placeholder="password" formControlName="password" required />
+    <input
+      type="password"
+      matInput
+      [placeholder]="'fields.password' | translate"
+      formControlName="password"
+      required
+    />
     @if (form.get('password')?.invalid) {
     <mat-error>{{ formErrorMessage(form.get('password')!) | translate : { number: 8 } }}</mat-error>
     }
@@ -44,7 +50,7 @@
     <input
       type="password"
       matInput
-      placeholder="re password"
+      [placeholder]="'fields.rePassword' | translate"
       formControlName="rePassword"
       required
     />
@@ -58,7 +64,7 @@
   <div class="w-[400px] flex flex-col" formGroupName="address">
     <div class="flex gap-3">
       <mat-form-field>
-        <mat-label>region</mat-label>
+        <mat-label>{{ 'fields.region' | translate }}</mat-label>
         <mat-select formControlName="region" (valueChange)="regionChange($event)">
           @for (region of regions(); track region) {
           <mat-option [value]="region">{{ region }}</mat-option>
@@ -68,7 +74,7 @@
 
       @if (cities()) {
       <mat-form-field>
-        <mat-label>city</mat-label>
+        <mat-label>{{ 'fields.city' | translate }}</mat-label>
         <mat-select formControlName="city">
           @for (city of citiesList;let id = $index; track id) {
           <mat-option [value]="city.city">{{ city.city }}</mat-option>
@@ -78,18 +84,18 @@
       }
     </div>
     <mat-form-field>
-      <mat-label>Street</mat-label>
-      <input matInput placeholder="Street" formControlName="street" />
+      <mat-label>{{ 'fields.street' | translate }}</mat-label>
+      <input matInput [placeholder]="'fields.street' | translate" formControlName="street" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>House</mat-label>
-      <input matInput placeholder="House" formControlName="house" />
+      <mat-label>{{ 'fields.house' | translate }}</mat-label>
+      <input matInput [placeholder]="'fields.house' | translate" formControlName="house" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Zip</mat-label>
-      <input matInput placeholder="zip" formControlName="zip" />
+      <mat-label>{{ 'fields.zip' | translate }}</mat-label>
+      <input matInput [placeholder]="'fields.zip' | translate" formControlName="zip" />
     </mat-form-field>
   </div>
 

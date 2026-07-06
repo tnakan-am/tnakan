@@ -16,7 +16,7 @@
       <div class="flex flex-col border-2 border-grey-600 px-3 mb-3">
         <div class="flex flex-row justify-between">
           <span class="text-xl flex items-center">
-            <span class="w-[100px] text-gray-500">Email:</span>
+            <span class="w-[100px] text-gray-500">{{ 'settings.email' | translate }}:</span>
             {{ user.email }}
             @if(user.emailVerified) {
             <mat-icon class="text-forest text-lg flex items-center justify-center"
@@ -32,8 +32,8 @@
         </div>
 
         <span class="text-xl flex items-center"
-          ><span class="w-[100px] text-gray-500">Name:</span>{{ userData.displayName }}
-          {{ userData.surname }}</span
+          ><span class="w-[100px] text-gray-500">{{ 'fields.name' | translate }}:</span
+          >{{ userData.displayName }} {{ userData.surname }}</span
         >
         <div>
           <button mat-button color="primary" (click)="openUpdatePassword(userData)">
@@ -45,7 +45,7 @@
       <div class="flex flex-col border-2 border-grey-600 px-3">
         <div class="flex flex-row justify-between">
           <span class="text-xl flex items-center"
-            ><span class="w-[100px] text-gray-500">Region:</span>
+            ><span class="w-[100px] text-gray-500">{{ 'fields.region' | translate }}:</span>
             {{ userData.address?.region }}</span
           >
           <button mat-icon-button (click)="editeAddress(userData)">
@@ -53,16 +53,20 @@
           </button>
         </div>
         <span class="text-xl flex items-center"
-          ><span class="w-[100px] text-gray-500">City:</span> {{ userData.address?.city }}</span
+          ><span class="w-[100px] text-gray-500">{{ 'fields.city' | translate }}:</span>
+          {{ userData.address?.city }}</span
         >
         <span class="text-xl flex items-center"
-          ><span class="w-[100px] text-gray-500">Street:</span> {{ userData.address?.street }}</span
+          ><span class="w-[100px] text-gray-500">{{ 'fields.street' | translate }}:</span>
+          {{ userData.address?.street }}</span
         >
         <span class="text-xl flex items-center"
-          ><span class="w-[100px] text-gray-500">House:</span> {{ userData.address?.house }}</span
+          ><span class="w-[100px] text-gray-500">{{ 'fields.house' | translate }}:</span>
+          {{ userData.address?.house }}</span
         >
         <span class="text-xl flex items-center"
-          ><span class="w-[100px] text-gray-500">Zip:</span> {{ userData.address?.zip }}</span
+          ><span class="w-[100px] text-gray-500">{{ 'fields.zip' | translate }}:</span>
+          {{ userData.address?.zip }}</span
         >
       </div>
     </div>

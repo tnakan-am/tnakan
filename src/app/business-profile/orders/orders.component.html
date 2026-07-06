@@ -18,7 +18,8 @@
           {{ order.address.zip }}
         </mat-panel-title>
         <mat-panel-description class="flex justify-between items-center text-nowrap text-ellipsis">
-          {{ order.products.length }} products @if (order | orderStatus:newOrders()) {
+          {{ 'orders-page.products' | translate : { count: order.products.length } }} @if (order |
+          orderStatus:newOrders()) {
           <mat-icon class="text-red-500">notifications</mat-icon>
           }
         </mat-panel-description>
@@ -33,7 +34,10 @@
           @if (status !== 'delivered') {
           <button
             mat-icon-button
-            matTooltip="mark as {{ orderStatus.get(status) }}"
+            [matTooltip]="
+              'orders-page.markAs'
+                | translate : { status: ('status.' + orderStatus.get(status) | translate) }
+            "
             (click)="orderStatusChange(order)"
           >
             @if (status === 'seen' || status === 'pending') {

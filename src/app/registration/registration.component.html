@@ -3,14 +3,14 @@
     <h1>{{ 'registration.registration' | translate }}</h1>
 
     <mat-tab-group>
-      <mat-tab label="Customer">
+      <mat-tab [label]="'registration.customer' | translate">
         <ng-template matTabContent>
           <app-customer-form (onFormSubmit)="fireAuthentication($any($event))"></app-customer-form>
         </ng-template>
       </mat-tab>
 
       @if (!token) {
-      <mat-tab label="Business">
+      <mat-tab [label]="'registration.business' | translate">
         <ng-template matTabContent>
           <app-business-form (onFormSubmit)="fireAuthentication($any($event))"></app-business-form>
         </ng-template>
