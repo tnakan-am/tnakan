@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnDestroy } f
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatAnchor } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 import { CarouselItem } from '../../shared/interfaces/carusel-item.interface';
 
 /**
@@ -18,7 +19,7 @@ import { CarouselItem } from '../../shared/interfaces/carusel-item.interface';
   styleUrls: ['./advertisement-carousel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [MatAnchor],
+  imports: [MatAnchor, TranslateModule],
 })
 export class AdvertisementCarouselComponent implements AfterViewInit, OnDestroy {
   /** Array of slides */

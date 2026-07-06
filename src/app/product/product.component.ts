@@ -7,11 +7,12 @@ import { ProductsService } from '../shared/services/products.service';
 import { BasketService } from '../shared/services/basket.service';
 import { Status } from '../shared/interfaces/order.interface';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CardItemComponent, AsyncPipe],
+  imports: [CardItemComponent, AsyncPipe, TranslateModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })

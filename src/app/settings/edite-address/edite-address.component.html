@@ -5,7 +5,7 @@
   <div class="w-full flex flex-col" [formGroup]="form">
     <div class="flex gap-8">
       <mat-form-field>
-        <mat-label>region</mat-label>
+        <mat-label>{{ 'fields.region' | translate }}</mat-label>
         <mat-select formControlName="region" (valueChange)="regionChange($event)">
           @for (region of regions(); track region) {
           <mat-option [value]="region">{{ region }}</mat-option>
@@ -15,7 +15,7 @@
 
       @if (cities()) {
       <mat-form-field>
-        <mat-label>city</mat-label>
+        <mat-label>{{ 'fields.city' | translate }}</mat-label>
         <mat-select formControlName="city">
           @for (city of citiesList;let id = $index; track id) {
           <mat-option [value]="city.city">{{ city.city }}</mat-option>
@@ -25,18 +25,18 @@
       }
     </div>
     <mat-form-field>
-      <mat-label>Street</mat-label>
-      <input matInput placeholder="Street" formControlName="street" />
+      <mat-label>{{ 'fields.street' | translate }}</mat-label>
+      <input matInput [placeholder]="'fields.street' | translate" formControlName="street" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>House</mat-label>
-      <input matInput placeholder="House" formControlName="house" />
+      <mat-label>{{ 'fields.house' | translate }}</mat-label>
+      <input matInput [placeholder]="'fields.house' | translate" formControlName="house" />
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Zip</mat-label>
-      <input matInput placeholder="zip" formControlName="zip" />
+      <mat-label>{{ 'fields.zip' | translate }}</mat-label>
+      <input matInput [placeholder]="'fields.zip' | translate" formControlName="zip" />
     </mat-form-field>
   </div>
 </mat-dialog-content>

@@ -17,6 +17,7 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { OrderStatusPipe } from '../../shared/order-status.pipe';
 import { OrderService } from '../../shared/services/order.service';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orders',
@@ -33,6 +34,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     MatAccordion,
     OrderStatusPipe,
     MatProgressSpinner,
+    TranslateModule,
   ],
   standalone: true,
   templateUrl: './orders.component.html',

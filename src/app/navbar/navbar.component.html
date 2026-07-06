@@ -105,12 +105,14 @@
     </button>
     <mat-menu #menu="matMenu">
       @if (user(); as userdata) {
-      <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>Profile</a>
-      <a routerLink="/settings" mat-menu-item>Settings</a>
-      <a (click)="logout()" mat-menu-item>Logout</a>
+      <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
+        'navbar.profile' | translate
+      }}</a>
+      <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
+      <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
       } @else {
-      <a routerLink="login" mat-menu-item>Login</a>
-      <a routerLink="/registration" mat-menu-item>Register</a>
+      <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
+      <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
       }
     </mat-menu>
 

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { TranslateModule } from '@ngx-translate/core';
 import { OrderItem } from '../../../shared/interfaces/order.interface';
 
 @Component({
   selector: 'app-order-item',
   standalone: true,
-  imports: [MatCard, MatCardContent],
+  imports: [MatCard, MatCardContent, TranslateModule],
   templateUrl: './order-item.component.html',
   styleUrl: './order-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
