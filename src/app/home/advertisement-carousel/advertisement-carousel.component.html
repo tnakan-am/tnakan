@@ -9,7 +9,7 @@
     @for (item of items; track i; let i = $index) {
     <section class="slide" [style.background-image]="'url(' + item.image + ')'">
       <div class="content">
-        <span class="eyebrow">Featured kitchen</span>
+        <span class="eyebrow">{{ 'home.featuredKitchen' | translate }}</span>
         <h2>{{ item.headline }}</h2>
         @if (item.subheadline || item.cta || item.link) {
         <p>{{ item.subheadline }}</p>

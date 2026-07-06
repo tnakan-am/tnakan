@@ -1,7 +1,7 @@
 <div class="top-products mb-6">
   <div class="section-head">
-    <span class="eyebrow">On the table this week</span>
-    <h2 class="section-title">Top Products</h2>
+    <span class="eyebrow">{{ 'home.onTheTable' | translate }}</span>
+    <h2 class="section-title">{{ 'home.topProducts' | translate }}</h2>
   </div>
   @if (carouselData().length) {
   <owl-carousel-o [options]="customOptions()">

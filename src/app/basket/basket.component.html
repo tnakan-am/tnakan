@@ -83,7 +83,7 @@
 
           @if (cities()) {
           <mat-form-field>
-            <mat-label>city</mat-label>
+            <mat-label>{{ 'fields.city' | translate }}</mat-label>
             <mat-select formControlName="city">
               @for (city of citiesList;let id = $index; track id) {
               <mat-option [value]="city.city">{{ city.city }}</mat-option>

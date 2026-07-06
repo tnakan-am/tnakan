@@ -27,6 +27,7 @@
     "request-new": "Request a new link"
   },
   "edit": "Edit",
+  "all": "All",
   "login": {
     "login": "Login",
     "forgot": "Forgot password"
@@ -62,10 +63,50 @@
     "address": "Address",
     "street": "Street",
     "house": "House",
-    "zip": "ZIP"
+    "zip": "ZIP",
+    "city": "City",
+    "quantity": "Quantity",
+    "currentPassword": "Current Password"
   },
   "registration": {
-    "registration": "Registration"
+    "registration": "Registration",
+    "customer": "Customer",
+    "business": "Business"
+  },
+  "navbar": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout",
+    "register": "Register"
+  },
+  "home": {
+    "featuredKitchen": "Featured kitchen",
+    "onTheTable": "On the table this week",
+    "topProducts": "Top Products",
+    "marketplace": "The marketplace"
+  },
+  "product-page": {
+    "addToCart": "Add to Cart",
+    "reviews": "Reviews"
+  },
+  "settings": {
+    "email": "Email"
+  },
+  "orders-page": {
+    "markAs": "Mark as {{status}}",
+    "products": "{{count}} products"
+  },
+  "status": {
+    "seen": "seen",
+    "processing": "processing",
+    "delivered": "delivered"
+  },
+  "footer": {
+    "blurb": "Armenia's marketplace for homemade food. Cooked to order, delivered warm.",
+    "getInTouch": "Get in touch",
+    "terms": "Terms & Conditions",
+    "contactUs": "Contact us",
+    "rights": "All rights reserved."
   },
   "buttons": {
     "submit": "Submit",

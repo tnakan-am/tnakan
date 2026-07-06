@@ -9,11 +9,20 @@ import { BasketService } from '../../../shared/services/basket.service';
 import { ProductsService } from '../../../shared/services/products.service';
 import { Status } from '../../../shared/interfaces/order.interface';
 import { ReviewService } from '../../../shared/services/review.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [CommonModule, MatTabGroup, MatTab, ReviewComponent, MatTabContent, RouterLink],
+  imports: [
+    CommonModule,
+    MatTabGroup,
+    MatTab,
+    ReviewComponent,
+    MatTabContent,
+    RouterLink,
+    TranslateModule,
+  ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })

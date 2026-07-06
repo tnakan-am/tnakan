@@ -32,12 +32,18 @@
     </div>
 
     <div class="card-footer">
-      <span class="price-block" matTooltip="price for unit">
+      <span class="price-block" [matTooltip]="'fields.unitPrice' | translate">
         <span class="price-value">{{ product.price }}</span>
         <span class="price-mark">֏</span>
         <span
           class="price-unit"
-          [matTooltip]="'Minimum quantity ' + product.minQuantity + ' ' + $any(units)[product.unit]"
+          [matTooltip]="
+            ('fields.minQuantity' | translate) +
+            ' ' +
+            product.minQuantity +
+            ' ' +
+            $any(units)[product.unit]
+          "
           >/ {{ $any(units)[product.unit] }}</span
         >
       </span>

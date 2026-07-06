@@ -19,7 +19,9 @@
 
       <!-- Quantity -->
       <div class="flex items-center space-x-4 my-4">
-        <label class="block text-sm font-medium text-gray-700">Quantity</label>
+        <label class="block text-sm font-medium text-gray-700">{{
+          'fields.quantity' | translate
+        }}</label>
         <input
           #qty
           type="number"
@@ -36,14 +38,14 @@
           class="bg-forest text-white px-6 py-3 rounded-full shadow-md hover:bg-forest-mid"
           (click)="handleAddToCard(product!, qty.value)"
         >
-          Add to Cart
+          {{ 'product-page.addToCart' | translate }}
         </button>
       </div>
 
       <!-- Stock and Tags -->
       <div class="flex items-center mt-6 space-x-4">
         <mat-tab-group class="w-full" (selectedTabChange)="handleTabChange($event)">
-          <mat-tab label="Description">
+          <mat-tab [label]="'description' | translate">
             <div>
               <p
                 class="my-4 mb-0 text-base font-normal leading-relaxed tracking-wide text-gray-400"
@@ -67,7 +69,11 @@
               </div>
             </div>
           </mat-tab>
-          <mat-tab label="Reviews({{ product?.numberReview }})">
+          <mat-tab
+            [label]="
+              ('product-page.reviews' | translate) + '(' + (product?.numberReview ?? 0) + ')'
+            "
+          >
             <ng-template matTabContent>
               <div
                 class="max-h-[600px] overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-white-100 [&::-webkit-scrollbar-thumb]:bg-brass dark:[&::-webkit-scrollbar-track]:bg-white-700 dark:[&::-webkit-scrollbar-thumb]:bg-brass"

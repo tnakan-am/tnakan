@@ -27,6 +27,7 @@
     "request-new": "Запросить новую ссылку"
   },
   "edit": "Редактировать",
+  "all": "Все",
   "login": {
     "login": "Войти",
     "forgot": "Забыли пароль"
@@ -62,10 +63,50 @@
     "address": "Адрес",
     "street": "Улица",
     "house": "Дом",
-    "zip": "Индекс"
+    "zip": "Индекс",
+    "city": "Город",
+    "quantity": "Количество",
+    "currentPassword": "Текущий пароль"
   },
   "registration": {
-    "registration": "Регистрация"
+    "registration": "Регистрация",
+    "customer": "Покупатель",
+    "business": "Бизнес"
+  },
+  "navbar": {
+    "profile": "Профиль",
+    "settings": "Настройки",
+    "logout": "Выйти",
+    "register": "Зарегистрироваться"
+  },
+  "home": {
+    "featuredKitchen": "Избранная кухня",
+    "onTheTable": "На столе на этой неделе",
+    "topProducts": "Лучшие товары",
+    "marketplace": "Маркетплейс"
+  },
+  "product-page": {
+    "addToCart": "Добавить в корзину",
+    "reviews": "Отзывы"
+  },
+  "settings": {
+    "email": "Эл. почта"
+  },
+  "orders-page": {
+    "markAs": "Отметить как: {{status}}",
+    "products": "Товаров: {{count}}"
+  },
+  "status": {
+    "seen": "просмотрено",
+    "processing": "в обработке",
+    "delivered": "доставлено"
+  },
+  "footer": {
+    "blurb": "Армянский маркетплейс домашней еды. Готовим на заказ, доставляем тёплым.",
+    "getInTouch": "Свяжитесь с нами",
+    "terms": "Условия использования",
+    "contactUs": "Напишите нам",
+    "rights": "Все права защищены."
   },
   "buttons": {
     "submit": "Отправить",

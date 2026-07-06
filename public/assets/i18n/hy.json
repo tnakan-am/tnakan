@@ -27,6 +27,7 @@
     "request-new": "Ստանալ նոր հղում"
   },
   "edit": "Խմբագրել",
+  "all": "Բոլորը",
   "login": {
     "login": "Մուտք",
     "forgot": "Մոռացե՞լ եք գաղտնաբառը"
@@ -62,14 +63,54 @@
     "address": "Հասցե",
     "street": "Փողոց",
     "house": "Տուն",
-    "zip": "Փոստային ինդեքս"
+    "zip": "Փոստային ինդեքս",
+    "city": "Քաղաք",
+    "quantity": "Քանակ",
+    "currentPassword": "Ընթացիկ գաղտնաբառ"
   },
   "registration": {
-    "registration": "Գրանցում"
+    "registration": "Գրանցում",
+    "customer": "Գնորդ",
+    "business": "Բիզնես"
+  },
+  "navbar": {
+    "profile": "Պրոֆիլ",
+    "settings": "Կարգավորումներ",
+    "logout": "Դուրս գալ",
+    "register": "Գրանցվել"
+  },
+  "home": {
+    "featuredKitchen": "Ընտրված խոհանոց",
+    "onTheTable": "Այս շաբաթվա սեղանին",
+    "topProducts": "Լավագույն ապրանքներ",
+    "marketplace": "Շուկան"
+  },
+  "product-page": {
+    "addToCart": "Ավելացնել զամբյուղին",
+    "reviews": "Կարծիքներ"
+  },
+  "settings": {
+    "email": "Էլ․ փոստ"
+  },
+  "orders-page": {
+    "markAs": "Նշել որպես՝ {{status}}",
+    "products": "{{count}} ապրանք"
+  },
+  "status": {
+    "seen": "տեսած",
+    "processing": "մշակվող",
+    "delivered": "առաքված"
+  },
+  "footer": {
+    "blurb": "Տնական ուտեստների հայկական շուկա։ Պատրաստվում է պատվերով, առաքվում է տաք։",
+    "getInTouch": "Կապ մեզ հետ",
+    "terms": "Պայմաններ և դրույթներ",
+    "contactUs": "Գրեք մեզ",
+    "rights": "Բոլոր իրավունքները պաշտպանված են։"
   },
   "buttons": {
     "submit": "Հաստատել",
-    "disable": "Աղքատացնել",
+    "disable": "Անջատել",
     "approve": "Հաստատել",
     "save": "Պահպանել",
     "cancel": "Չեղարկել",

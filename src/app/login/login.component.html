@@ -20,7 +20,7 @@
         <input
           type="password"
           matInput
-          placeholder="password"
+          [placeholder]="'fields.password' | translate"
           formControlName="password"
           (blur)="updateErrorMessage()"
           required
@@ -29,7 +29,9 @@
         <mat-error>{{ 'messages.errors.' + passErrorMessage() | translate }}</mat-error>
         }
       </mat-form-field>
-      <button [disabled]="form.invalid" mat-raised-button>Submit</button>
+      <button [disabled]="form.invalid" mat-raised-button>
+        {{ 'buttons.submit' | translate }}
+      </button>
       <a class="link" routerLink="/forgot-password">{{ 'login.forgot' | translate }}</a>
     </form>
   </div>
