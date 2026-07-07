@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CardItemComponent } from './components/card-item/card-item.component';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Product } from '../shared/interfaces/product.interface';
 import { ProductsService } from '../shared/services/products.service';
@@ -29,8 +29,13 @@ export class ProductComponent implements OnInit {
     this.getProductData();
 
     this.route?.queryParams?.subscribe((params) => {
+      const search = (params['search'] ?? '').trim().toLowerCase();
       if (params['subCategory'] || params['productCategory'] || params['category']) {
         this.products$ = this.productsService.getAllProductsByQuery(params);
+      } else if (search) {
+        this.products$ = this.productsService
+          .getAllProducts()
+          .pipe(map((products) => products.filter((p) => p.name.toLowerCase().includes(search))));
       } else {
         this.getProductData();
       }

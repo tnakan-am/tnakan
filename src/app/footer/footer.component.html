@@ -17,5 +17,21 @@
     </nav>
   </div>
 
-  <div class="footer-bottom">© 2026 Tnakan. {{ 'footer.rights' | translate }}</div>
+  <div class="footer-bottom">
+    <span class="footer-copyright">© 2026 Tnakan. {{ 'footer.rights' | translate }}</span>
+
+    <div class="footer-lang" role="group" aria-label="Language">
+      @for (lang of languages; track lang.code) {
+      <button
+        type="button"
+        class="footer-lang-btn"
+        [class.active]="currentLang() === lang.code"
+        [attr.aria-pressed]="currentLang() === lang.code"
+        (click)="setLanguage(lang.code)"
+      >
+        {{ lang.label }}
+      </button>
+      }
+    </div>
+  </div>
 </footer>

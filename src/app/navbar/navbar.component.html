@@ -1,71 +1,130 @@
-<mat-toolbar class="navbar-toolbar sticky top-0 z-10">
+<mat-toolbar class="navbar-toolbar sticky top-0 z-30">
   <button
     mat-icon-button
-    class="nav-icon-btn"
+    class="nav-icon-btn menu-toggle"
     (click)="toggleSidebar()"
-    aria-label="Toggle navigation menu"
+    aria-label="Toggle categories menu"
   >
     <mat-icon>menu</mat-icon>
   </button>
 
   <a routerLink="" class="brand" aria-label="Tnakan home">
     <span class="brand-name">Tnakan</span>
-    <span class="brand-eyebrow">ՏՆԱԿԱՆ · HOMEMADE</span>
+    <span class="brand-eyebrow">ՏՆԱԿԱՆ · FOOD MARKETPLACE</span>
   </a>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-link"
+    >
+      {{ 'nav.market' | translate }}
+    </a>
+
+    @for (category of categories(); track category.id) {
+    <div class="nav-item">
+      <a
+        class="nav-link"
+        [routerLink]="['/']"
+        [queryParams]="{ category: category.id }"
+        [attr.aria-haspopup]="category.subCategories.length ? 'true' : null"
+      >
+        {{ category.name }}
+        @if (category.subCategories.length) {
+        <mat-icon class="nav-caret">expand_more</mat-icon>
+        }
+      </a>
+
+      @if (category.subCategories.length) {
+      <div class="mega-panel" role="menu">
+        <div class="mega-grid">
+          @for (sub of category.subCategories; track sub.id) {
+          <div class="mega-col">
+            <a
+              class="mega-heading"
+              [routerLink]="['/']"
+              [queryParams]="{ subCategory: sub.id }"
+              role="menuitem"
+            >
+              {{ sub.name }}
+            </a>
+            @for (pc of sub.productCategories; track pc.id) {
+            <a
+              class="mega-link"
+              [routerLink]="['/']"
+              [queryParams]="{ productCategory: pc.id }"
+              role="menuitem"
+            >
+              {{ pc.name }}
+            </a>
+            }
+          </div>
+          }
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </nav>
 
   <span class="example-spacer"></span>
 
-  @if (user()?.type === 'customer') {
-  <a
-    mat-icon-button
-    [routerLink]="basket().length ? ['/basket'] : []"
-    class="nav-icon-btn"
-    aria-label="Basket"
-  >
-    <mat-icon [matBadge]="basket().length">shopping_cart</mat-icon>
-  </a>
-  }
-  <button mat-icon-button class="nav-icon-btn" aria-label="Account menu" [matMenuTriggerFor]="menu">
-    <mat-icon>person</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    @if (user(); as userdata) {
-    <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
-      'navbar.profile' | translate
-    }}</a>
-    <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
-    <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
-    } @else {
-    <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
-    <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
-    }
-  </mat-menu>
+  <form class="search" (ngSubmit)="submitSearch()" role="search">
+    <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+    <input
+      type="search"
+      name="search"
+      class="search-input"
+      [(ngModel)]="searchTerm"
+      [placeholder]="'nav.searchPlaceholder' | translate"
+      [attr.aria-label]="'nav.searchPlaceholder' | translate"
+    />
+  </form>
 
-  <button
-    mat-icon-button
-    class="nav-icon-btn"
-    (click)="redirectToOrders()"
-    aria-label="Notifications"
-  >
-    <mat-icon [matBadge]="notifications?.()?.length">notifications</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="nav-icon-btn"
-    aria-label="Change language"
-    [matMenuTriggerFor]="lang"
-  >
-    <mat-icon>language</mat-icon>
-  </button>
-  <mat-menu #lang="matMenu">
-    <button (click)="changeLanguage('en')" mat-menu-item>
-      {{ 'languages.english' | translate }}
+  <div class="nav-actions">
+    @if (user()?.type === 'business') {
+    <button
+      mat-icon-button
+      class="nav-icon-btn"
+      (click)="redirectToOrders()"
+      aria-label="Notifications"
+    >
+      <mat-icon [matBadge]="notifications?.()?.length || null">notifications</mat-icon>
     </button>
-    <button (click)="changeLanguage('rus')" mat-menu-item>
-      {{ 'languages.russian' | translate }}
+    }
+
+    <button
+      mat-icon-button
+      class="nav-icon-btn"
+      aria-label="Account menu"
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>person_outline</mat-icon>
     </button>
-    <button (click)="changeLanguage('hy')" mat-menu-item>
-      {{ 'languages.armenian' | translate }}
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      @if (user(); as userdata) {
+      <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
+        'navbar.profile' | translate
+      }}</a>
+      <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
+      <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
+      } @else {
+      <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
+      <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
+      }
+    </mat-menu>
+
+    @if (user()?.type !== 'business') {
+    <a
+      mat-icon-button
+      [routerLink]="basket().length ? ['/basket'] : []"
+      class="nav-icon-btn"
+      aria-label="Basket"
+    >
+      <mat-icon [matBadge]="basket().length || null">shopping_cart</mat-icon>
+    </a>
+    }
+  </div>
 </mat-toolbar>

@@ -26,7 +26,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'tnakan';
-  opened: boolean = true;
+  opened: boolean = false;
 
   private breakpointSubscription!: Subscription;
 
@@ -42,11 +42,14 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Observe screen size
+    // Categories live in the header dropdown on desktop; the drawer is a mobile-only
+    // overlay, so collapse it whenever we leave the small/handset breakpoints.
     this.breakpointSubscription = this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.XSmall])
       .subscribe((state: BreakpointState) => {
-        this.opened = !state.matches;
+        if (!state.matches) {
+          this.opened = false;
+        }
       });
   }
 

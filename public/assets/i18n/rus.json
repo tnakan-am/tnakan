@@ -1,5 +1,11 @@
 {
   "title": "Домашнее",
+  "nav": {
+    "market": "Рынок",
+    "categories": "Категории",
+    "sellers": "Продавцы",
+    "searchPlaceholder": "Поиск еды, ферм и поваров"
+  },
   "addProduct": "Добавить продукт",
   "description": "Описание",
   "orders": "Заказы",
