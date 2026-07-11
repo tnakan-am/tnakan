@@ -1,11 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
-import { SidebarHttpService } from '../shared/services/sidebar-http.service';
-import { forkJoin } from 'rxjs';
 import { RouterLink } from '@angular/router';
+
+import { FoodCategoriesService } from '../shared/services/food-categories.service';
+import { CategoryTree } from '../shared/interfaces/categories.interface';
 
 export interface SideBarMenu {
   categoryName: string;
@@ -21,56 +22,38 @@ export interface SideBarMenu {
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
   isOpen: boolean = false;
   menuList: SideBarMenu[] = [];
 
-  sidebarHttpService = inject(SidebarHttpService);
+  private foodCategories = inject(FoodCategoriesService);
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.getCategoriesData();
-  }
-
-  private getCategoriesData(): void {
-    forkJoin([
-      this.sidebarHttpService.getCategoriesList(),
-      this.sidebarHttpService.getSubCategoriesList(),
-      this.sidebarHttpService.getProductCategoriesList(),
-    ]).subscribe(([categories, subCategories, productCategories]) => {
-      this.menuList = categories.map((category: any) => {
-        return {
-          categoryName: category.name,
-          categoryId: category.id,
-          selected: false,
-          categories: subCategories
-            .filter((subCategory: any) => subCategory.categoryId === category.id)
-            .map((subCategory1: any) => {
-              return {
-                categoryName: subCategory1.name,
-                categoryId: subCategory1.id,
-                selected: false,
-                categories: productCategories
-                  .filter(
-                    (productCategory: any) => productCategory.subCategoryId === subCategory1.id
-                  )
-                  .map((productCategoryItem: any) => {
-                    return {
-                      categoryName: productCategoryItem.name,
-                      categoryId: productCategoryItem.id,
-                      selected: false,
-                    };
-                  }) as SideBarMenu[],
-              };
-            }) as SideBarMenu[],
-        };
-      });
+  constructor() {
+    effect(() => {
+      this.menuList = this.toMenu(this.foodCategories.tree());
     });
   }
 
-  openSub(event: MouseEvent, menuItem: any) {
-    // this.isOpen = !this.isOpen;
+  private toMenu(tree: CategoryTree[]): SideBarMenu[] {
+    return tree.map((category) => ({
+      categoryName: category.name,
+      categoryId: category.id,
+      selected: false,
+      categories: category.subCategories.map((sub) => ({
+        categoryName: sub.name,
+        categoryId: sub.id,
+        selected: false,
+        categories: sub.productCategories.map((pc) => ({
+          categoryName: pc.name,
+          categoryId: pc.id,
+          selected: false,
+          categories: [],
+        })),
+      })),
+    }));
+  }
+
+  openSub(event: MouseEvent, menuItem: SideBarMenu) {
     event.stopPropagation();
     event.stopImmediatePropagation();
     menuItem.selected = !menuItem.selected;
