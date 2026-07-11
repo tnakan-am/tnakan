@@ -1,20 +1,18 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, shareReplay } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
 import { Category, CategoryTree } from '../interfaces/categories.interface';
+import { FoodCategoriesService } from './food-categories.service';
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesService {
-  private http = inject(HttpClient);
-  private readonly base = `${environment.apiUrl}/categories`;
+  private foodCategories = inject(FoodCategoriesService);
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(this.base);
+    return of(this.foodCategories.categories());
   }
 
   getCategoriesTree(): Observable<CategoryTree[]> {
-    return this.http.get<CategoryTree[]>(`${this.base}/tree`).pipe(shareReplay(1));
+    return of(this.foodCategories.tree());
   }
 }
