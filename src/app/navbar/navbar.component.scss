@@ -86,6 +86,26 @@
   }
 }
 
+/* Trim inline categories as the row tightens; the drawer keeps them all reachable */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .nav-links {
+    margin-left: 12px;
+  }
+  .nav-link {
+    padding: 0 8px;
+    font-size: 13.5px;
+  }
+  .nav-links .nav-item:nth-child(n + 3) {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) and (max-width: 1727px) {
+  .nav-links .nav-item:nth-child(n + 5) {
+    display: none;
+  }
+}
+
 .nav-item {
   position: relative;
   display: flex;
@@ -200,19 +220,19 @@
 
 /* ---- Search ---- */
 .search {
-  display: none;
+  display: flex;
   align-items: center;
-  gap: 8px;
   height: 44px;
-  padding: 0 18px;
+  padding: 0;
   margin: 0 4px;
-  min-width: 220px;
-  max-width: 340px;
-  flex: 0 1 320px;
+  min-width: 44px;
+  max-width: 44px;
+  flex: 0 1 340px;
+  overflow: hidden;
   background: rgba(245, 240, 230, 0.08);
   border: 1px solid rgba(233, 200, 139, 0.3);
   border-radius: 999px;
-  transition: background 0.18s ease, border-color 0.18s ease;
+  transition: max-width 0.25s ease, background 0.18s ease, border-color 0.18s ease;
 }
 
 .search:focus-within {
@@ -220,10 +240,49 @@
   border-color: rgba(233, 200, 139, 0.6);
 }
 
-@media (min-width: 768px) {
-  .search {
-    display: flex;
+.search-open {
+  max-width: 340px;
+  padding-right: 14px;
+}
+
+@media (hover: hover) and (min-width: 768px) {
+  .search:hover {
+    max-width: 340px;
+    padding-right: 14px;
   }
+}
+
+/* expanded state overlays the toolbar instead of pushing layout on narrow screens */
+@media (max-width: 767px) {
+  .search.search-open {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: none;
+    z-index: 45;
+    background: var(--forest-mid);
+  }
+}
+
+@media (max-width: 479px) {
+  .brand-eyebrow {
+    display: none;
+  }
+}
+
+.search-toggle {
+  flex: 0 0 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
 }
 
 .search-icon {
@@ -273,7 +332,8 @@
   display: inline-flex;
 }
 
-@media (min-width: 1024px) {
+/* Categories can be trimmed from the inline nav below 1728px, so keep the drawer toggle available */
+@media (min-width: 1728px) {
   .menu-toggle {
     display: none;
   }

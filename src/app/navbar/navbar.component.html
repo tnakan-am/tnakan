@@ -8,21 +8,12 @@
     <mat-icon>menu</mat-icon>
   </button>
 
-  <a routerLink="" class="brand" aria-label="Tnakan home">
+  <a routerLink="/" class="brand" aria-label="Tnakan home">
     <span class="brand-name">Tnakan</span>
     <span class="brand-eyebrow">ՏՆԱԿԱՆ · FOOD MARKETPLACE</span>
   </a>
 
   <nav class="nav-links" aria-label="Primary">
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="nav-link"
-    >
-      {{ 'nav.market' | translate }}
-    </a>
-
     @for (category of categories(); track category.id) {
     <div class="nav-item">
       <a
@@ -71,13 +62,32 @@
 
   <span class="example-spacer"></span>
 
-  <form class="search" (ngSubmit)="submitSearch()" role="search">
-    <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+  <form
+    class="search"
+    [class.search-open]="searchOpen()"
+    (ngSubmit)="submitSearch()"
+    (focusin)="searchOpen.set(true)"
+    (focusout)="onSearchFocusOut($event)"
+    role="search"
+  >
+    <button
+      type="button"
+      class="search-toggle"
+      (click)="onSearchIconClick()"
+      (mousedown)="$event.preventDefault()"
+      [attr.aria-expanded]="searchOpen()"
+      [attr.aria-label]="'nav.searchPlaceholder' | translate"
+    >
+      <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+    </button>
     <input
+      #searchInput
       type="search"
       name="search"
       class="search-input"
       [(ngModel)]="searchTerm"
+      (keydown.escape)="closeSearch()"
+      [tabindex]="searchOpen() ? null : -1"
       [placeholder]="'nav.searchPlaceholder' | translate"
       [attr.aria-label]="'nav.searchPlaceholder' | translate"
     />

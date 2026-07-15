@@ -1,9 +1,11 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   inject,
   Output,
   signal,
+  viewChild,
   WritableSignal,
   effect,
 } from '@angular/core';
@@ -11,7 +13,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { MatBadge } from '@angular/material/badge';
@@ -55,7 +57,6 @@ const MAX_INLINE_CATEGORIES = 7;
     MatToolbar,
     MatBadge,
     RouterLink,
-    RouterLinkActive,
     FormsModule,
     TranslateModule,
   ],
@@ -68,6 +69,9 @@ export class NavbarComponent {
   notifications?: WritableSignal<Notification[]>;
   categories = signal<NavCategory[]>([]);
   searchTerm = '';
+  searchOpen = signal(false);
+
+  private searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
 
   @Output() sidenavStatus = new EventEmitter<boolean>();
 
@@ -108,6 +112,28 @@ export class NavbarComponent {
   submitSearch(): void {
     const term = this.searchTerm.trim();
     this.router.navigate(['/'], { queryParams: term ? { search: term } : {} });
+  }
+
+  onSearchIconClick(): void {
+    if (!this.searchOpen()) {
+      this.searchOpen.set(true);
+      this.searchInput()?.nativeElement.focus({ preventScroll: true });
+    } else if (this.searchTerm.trim()) {
+      this.submitSearch();
+    } else {
+      this.searchOpen.set(false);
+    }
+  }
+
+  closeSearch(): void {
+    this.searchOpen.set(false);
+    this.searchInput()?.nativeElement.blur();
+  }
+
+  onSearchFocusOut(event: FocusEvent): void {
+    const form = event.currentTarget as HTMLElement;
+    if (event.relatedTarget && form.contains(event.relatedTarget as Node)) return;
+    if (!this.searchTerm.trim()) this.searchOpen.set(false);
   }
 
   toggleSidebar(): void {
