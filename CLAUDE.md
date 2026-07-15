@@ -236,6 +236,13 @@ When writing Angular/TypeScript code in this repo, follow [.github/copilot-instr
 
 Run `npx -y @angular/cli mcp --help` for the authoritative tool list and flags (`--read-only`, `--local-only`). The exact tool set depends on the installed Angular CLI (currently 20.3.x).
 
-### Angular Agent Skills (not installed)
+### Angular Agent Skills
 
-Angular publishes agent skills at [github.com/angular/skills](https://github.com/angular/skills) (`angular-developer`, `angular-new-app`), installable via `npx skills add https://github.com/angular/skills`. That command targets the [skills.sh](https://skills.sh) framework (Gemini CLI / Antigravity), not Claude Code's plugin/skill system. Install manually if you also use those tools.
+Angular's official agent skills ([github.com/angular/skills](https://github.com/angular/skills)) are installed project-level under [.claude/skills/](.claude/skills/), copied verbatim from upstream (no content edits):
+
+- **`angular-developer`** — Angular code generation and architectural guidance (signals, forms, DI, routing, SSR, ARIA, animations, styling, testing, CLI), with 37 on-demand reference docs in `references/`.
+- **`angular-new-app`** — guidelines for scaffolding a new Angular app via the CLI.
+
+Upstream uses the standard Agent Skills `SKILL.md` format, so Claude Code discovers them natively; `npx skills add` (the install command upstream documents) is only needed for the skills.sh framework (Gemini CLI / Antigravity).
+
+To refresh: re-copy `angular-developer/` and `angular-new-app/` from upstream `main` and update this note. Installed from commit `8f4780e0833f6a2b2945587d9f5184048571ef10` (upstream `BUILD_INFO`: built 2026-07-14 from angular/angular `d997a96b`), fetched 2026-07-15.
