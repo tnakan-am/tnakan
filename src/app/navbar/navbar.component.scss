@@ -6,6 +6,13 @@
   --brass-light: #e9c88b;
   --nav-link: #cbd8cd;
   --nav-muted: #9db3a1;
+
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background-color: var(--forest);
+  border-bottom: 1px solid rgba(233, 200, 139, 0.28);
 }
 
 .example-spacer {
@@ -17,13 +24,13 @@
   --mat-toolbar-container-text-color: var(--cream);
   --mat-badge-background-color: var(--brass-light);
   --mat-badge-text-color: var(--forest);
+  max-width: 100%;
   background-color: var(--forest);
   color: var(--cream);
   min-height: 72px;
   padding: 0 16px;
   gap: 4px;
   overflow: visible;
-  border-bottom: 1px solid rgba(233, 200, 139, 0.28);
 }
 
 @media (min-width: 1024px) {
@@ -34,50 +41,57 @@
   }
 }
 
-/* ---- Brand ---- */
+// ---- Brand ----
 .brand {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
   line-height: 1;
   text-decoration: none;
   margin-left: 4px;
-  white-space: nowrap;
+  overflow: hidden;
 }
 
 .brand-name {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 26px;
+  font-size: clamp(22px, 2.2vw, 30px);
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--brass-light);
 }
 
 .brand-eyebrow {
+  display: none;
   margin-top: 3px;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.26em;
   color: var(--nav-muted);
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .brand-eyebrow {
+    display: block;
+  }
 }
 
 @media (min-width: 1024px) {
-  .brand-name {
-    font-size: 30px;
-  }
   .brand-eyebrow {
     font-size: 9.5px;
     letter-spacing: 0.34em;
   }
 }
 
-/* ---- Primary nav (desktop) ---- */
+// ---- Primary nav (desktop) ----
 .nav-links {
+  position: relative;
   display: none;
-  align-items: stretch;
-  gap: 4px;
-  margin-left: 28px;
-  height: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: 0 32px;
 }
 
 @media (min-width: 1024px) {
@@ -86,19 +100,13 @@
   }
 }
 
-.nav-item {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-}
-
 .nav-link {
   display: inline-flex;
   align-items: center;
   gap: 2px;
-  height: 100%;
-  padding: 0 12px;
-  font-size: 14.5px;
+  min-height: 44px;
+  padding: 0 10px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.01em;
   color: var(--nav-link);
@@ -132,14 +140,15 @@
   transform: rotate(180deg);
 }
 
-/* ---- Mega dropdown ---- */
+// ---- Mega dropdown ----
+// Anchored to the nav row rather than the hovered item so a panel opened near the right
+// edge can never push past the viewport and create a horizontal scrollbar.
 .mega-panel {
   position: absolute;
-  top: calc(100% - 1px);
+  top: 100%;
   left: 0;
+  right: 0;
   z-index: 40;
-  min-width: 260px;
-  max-width: 620px;
   padding: 20px 22px;
   background: var(--cream);
   border: 1px solid #eae3d3;
@@ -161,7 +170,8 @@
 
 .mega-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
+  justify-content: start;
   gap: 18px 28px;
 }
 
@@ -169,7 +179,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 140px;
+  min-width: 0;
 }
 
 .mega-heading {
@@ -198,7 +208,7 @@
   color: var(--forest);
 }
 
-/* ---- Search ---- */
+// ---- Search ----
 .search {
   display: none;
   align-items: center;
@@ -206,8 +216,7 @@
   height: 44px;
   padding: 0 18px;
   margin: 0 4px;
-  min-width: 220px;
-  max-width: 340px;
+  min-width: 0;
   flex: 0 1 320px;
   background: rgba(245, 240, 230, 0.08);
   border: 1px solid rgba(233, 200, 139, 0.3);
@@ -254,14 +263,16 @@
   filter: invert(0.7);
 }
 
-/* ---- Right-side actions ---- */
+// ---- Right-side actions ----
 .nav-actions {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
   gap: 2px;
 }
 
 .nav-icon-btn {
+  flex: 0 0 auto;
   color: var(--cream);
 
   .mat-icon {
