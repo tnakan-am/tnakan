@@ -235,7 +235,3 @@ When writing Angular/TypeScript code in this repo, follow [.github/copilot-instr
 - **`playwright`** (`npx -y @playwright/mcp@latest`) — browser automation for AI-driven E2E / UI checks.
 
 Run `npx -y @angular/cli mcp --help` for the authoritative tool list and flags (`--read-only`, `--local-only`). The exact tool set depends on the installed Angular CLI (currently 20.3.x).
-
-### Angular Agent Skills (not installed)
-
-Angular publishes agent skills at [github.com/angular/skills](https://github.com/angular/skills) (`angular-developer`, `angular-new-app`), installable via `npx skills add https://github.com/angular/skills`. That command targets the [skills.sh](https://skills.sh) framework (Gemini CLI / Antigravity), not Claude Code's plugin/skill system. Install manually if you also use those tools.
