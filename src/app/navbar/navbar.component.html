@@ -1,78 +1,17 @@
-<header>
-  <mat-toolbar class="navbar-toolbar">
-    <button
-      mat-icon-button
-      class="nav-icon-btn menu-toggle"
-      (click)="toggleSidebar()"
-      aria-label="Toggle categories menu"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
+<mat-toolbar class="navbar-toolbar sticky top-0 z-30">
+  <button
+    mat-icon-button
+    class="nav-icon-btn menu-toggle"
+    (click)="toggleSidebar()"
+    aria-label="Toggle categories menu"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
 
-    <a routerLink="" class="brand" aria-label="Tnakan home">
-      <span class="brand-name">Tnakan</span>
-      <span class="brand-eyebrow">ՏՆԱԿԱՆ · FOOD MARKETPLACE</span>
-    </a>
-
-    <span class="example-spacer"></span>
-
-    <form class="search" (ngSubmit)="submitSearch()" role="search">
-      <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
-      <input
-        type="search"
-        name="search"
-        class="search-input"
-        [(ngModel)]="searchTerm"
-        [placeholder]="'nav.searchPlaceholder' | translate"
-        [attr.aria-label]="'nav.searchPlaceholder' | translate"
-      />
-    </form>
-
-    <div class="nav-actions">
-      @if (user()?.type === 'business') {
-      <button
-        mat-icon-button
-        class="nav-icon-btn"
-        (click)="redirectToOrders()"
-        aria-label="Notifications"
-      >
-        <mat-icon [matBadge]="notifications?.()?.length || null">notifications</mat-icon>
-      </button>
-      }
-
-      <button
-        mat-icon-button
-        class="nav-icon-btn"
-        aria-label="Account menu"
-        [matMenuTriggerFor]="menu"
-      >
-        <mat-icon>person_outline</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        @if (user(); as userdata) {
-        <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
-          'navbar.profile' | translate
-        }}</a>
-        <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
-        <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
-        } @else {
-        <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
-        <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
-        }
-      </mat-menu>
-
-      @if (user()?.type !== 'business') {
-      <a
-        mat-icon-button
-        [routerLink]="basket().length ? ['/basket'] : []"
-        class="nav-icon-btn"
-        aria-label="Basket"
-      >
-        <mat-icon [matBadge]="basket().length || null">shopping_cart</mat-icon>
-      </a>
-      }
-    </div>
-  </mat-toolbar>
+  <a routerLink="" class="brand" aria-label="Tnakan home">
+    <span class="brand-name">Tnakan</span>
+    <span class="brand-eyebrow">ՏՆԱԿԱՆ · FOOD MARKETPLACE</span>
+  </a>
 
   <nav class="nav-links" aria-label="Primary">
     <a
@@ -92,7 +31,7 @@
         [queryParams]="{ category: category.id }"
         [attr.aria-haspopup]="category.subCategories.length ? 'true' : null"
       >
-        {{ category.name }}
+        <span class="nav-label">{{ category.name }}</span>
         @if (category.subCategories.length) {
         <mat-icon class="nav-caret">expand_more</mat-icon>
         }
@@ -129,4 +68,63 @@
     </div>
     }
   </nav>
-</header>
+
+  <span class="example-spacer"></span>
+
+  <form class="search" (ngSubmit)="submitSearch()" role="search">
+    <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+    <input
+      type="search"
+      name="search"
+      class="search-input"
+      [(ngModel)]="searchTerm"
+      [placeholder]="'nav.searchPlaceholder' | translate"
+      [attr.aria-label]="'nav.searchPlaceholder' | translate"
+    />
+  </form>
+
+  <div class="nav-actions">
+    @if (user()?.type === 'business') {
+    <button
+      mat-icon-button
+      class="nav-icon-btn"
+      (click)="redirectToOrders()"
+      aria-label="Notifications"
+    >
+      <mat-icon [matBadge]="notifications?.()?.length || null">notifications</mat-icon>
+    </button>
+    }
+
+    <button
+      mat-icon-button
+      class="nav-icon-btn"
+      aria-label="Account menu"
+      [matMenuTriggerFor]="menu"
+    >
+      <mat-icon>person_outline</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      @if (user(); as userdata) {
+      <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
+        'navbar.profile' | translate
+      }}</a>
+      <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
+      <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
+      } @else {
+      <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
+      <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
+      }
+    </mat-menu>
+
+    @if (user()?.type !== 'business') {
+    <a
+      mat-icon-button
+      [routerLink]="basket().length ? ['/basket'] : []"
+      class="nav-icon-btn"
+      aria-label="Basket"
+    >
+      <mat-icon [matBadge]="basket().length || null">shopping_cart</mat-icon>
+    </a>
+    }
+  </div>
+</mat-toolbar>
