@@ -14,8 +14,8 @@
           [routerLink]="[]"
           [queryParams]="{ category: menuItem.categoryId }"
         >
-          <span class="flex-1 ml-3 text-left whitespace-nowrap">{{ menuItem.categoryName }}</span>
-          <span class="material-icons" (click)="openSub($event, menuItem)">{{
+          <span class="flex-1 ml-3 text-left min-w-0 break-words">{{ menuItem.categoryName }}</span>
+          <span class="material-icons shrink-0" (click)="openSub($event, menuItem)">{{
             menuItem.selected ? 'expand_more' : 'chevron_right'
           }}</span>
         </button>
@@ -23,7 +23,7 @@
         <button
           class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
         >
-          <span class="ml-3">{{ menuItem.categoryName }}</span>
+          <span class="ml-3 min-w-0 break-words text-left">{{ menuItem.categoryName }}</span>
         </button>
         }
         <ul [class.hidden]="!menuItem.selected" class="py-2 space-y-2">
@@ -38,10 +38,10 @@
               [routerLink]="[]"
               [queryParams]="{ subCategory: categories.categoryId }"
             >
-              <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
+              <span class="flex-1 ml-3 text-left min-w-0 break-words">{{
                 categories.categoryName
               }}</span>
-              <span class="material-icons" (click)="openSub($event, categories)">{{
+              <span class="material-icons shrink-0" (click)="openSub($event, categories)">{{
                 categories.selected ? 'expand_more' : 'chevron_right'
               }}</span>
             </button>
@@ -51,7 +51,7 @@
               [queryParams]="{ subCategory: categories.categoryId }"
               class="flex tems-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
             >
-              <span class="ml-3">{{ categories.categoryName }}</span>
+              <span class="ml-3 min-w-0 break-words text-left">{{ categories.categoryName }}</span>
             </button>
             }
             <ul [class.hidden]="!categories.selected" class="py-2 space-y-2">
@@ -65,10 +65,10 @@
                   data-collapse-toggle="dropdown-pages"
                   (click)="openSub($event, category)"
                 >
-                  <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
+                  <span class="flex-1 ml-3 text-left min-w-0 break-words">{{
                     category.categoryName
                   }}</span>
-                  <span class="material-icons">{{
+                  <span class="material-icons shrink-0">{{
                     category.selected ? 'expand_more' : 'chevron_right'
                   }}</span>
                 </button>
@@ -78,7 +78,9 @@
                   [queryParams]="{ productCategory: category.categoryId }"
                   class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
                 >
-                  <span class="ml-3">{{ category.categoryName }}</span>
+                  <span class="ml-3 min-w-0 break-words text-left">{{
+                    category.categoryName
+                  }}</span>
                 </a>
                 }
               </li>

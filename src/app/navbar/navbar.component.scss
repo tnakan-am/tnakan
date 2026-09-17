@@ -304,6 +304,14 @@
   display: inline-flex;
 }
 
+// The drawer button is the small-screen stand-in for the category bar, never shown
+// alongside it.
+@media (min-width: 1024px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .mega-panel,
   .nav-link,
@@ -314,27 +322,32 @@
 }
 
 // Keep the bar on one row: trim the tail of the category list as it narrows. Counts are
-// the measured fit for Armenian labels, the longest of the three locales. Anything
-// dropped stays reachable from the drawer behind the menu button.
+// the measured fit for Armenian labels, the longest of the three locales.
 @media (max-width: 2199px) {
-  .nav-item:nth-of-type(n + 6) {
+  .nav-item:nth-of-type(n + 7) {
     display: none;
   }
 }
 
 @media (max-width: 1919px) {
+  .nav-item:nth-of-type(n + 6) {
+    display: none;
+  }
+}
+
+@media (max-width: 1727px) {
   .nav-item:nth-of-type(n + 5) {
     display: none;
   }
 }
 
-@media (max-width: 1439px) {
+@media (max-width: 1365px) {
   .nav-item:nth-of-type(n + 4) {
     display: none;
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1099px) {
   .nav-item:nth-of-type(n + 3) {
     display: none;
   }
