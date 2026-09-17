@@ -351,3 +351,30 @@
     display: none;
   }
 }
+
+// The Categories menu is an overflow list, not a duplicate of the bar: hide whichever
+// entries the bar is already showing at this width, and drop the menu entirely once
+// every category fits. Mirrors the trim breakpoints above.
+@media (min-width: 1024px) {
+  .nav-all-item:nth-of-type(-n + 2) {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .nav-all-item:nth-of-type(-n + 3) {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .nav-all-item:nth-of-type(-n + 4) {
+    display: none;
+  }
+}
+
+@media (min-width: 1728px) {
+  .nav-all {
+    display: none;
+  }
+}

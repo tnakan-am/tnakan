@@ -76,7 +76,12 @@
 
       <mat-menu #allCategoriesMenu="matMenu">
         @for (category of allCategories(); track category.id) {
-        <a mat-menu-item [routerLink]="['/']" [queryParams]="{ category: category.id }">
+        <a
+          mat-menu-item
+          class="nav-all-item"
+          [routerLink]="['/']"
+          [queryParams]="{ category: category.id }"
+        >
           {{ category.name }}
         </a>
         }
