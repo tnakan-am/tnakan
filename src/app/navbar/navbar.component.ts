@@ -13,7 +13,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconAnchor, MatIconButton } from '@angular/material/button';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatBadge } from '@angular/material/badge';
@@ -32,9 +32,8 @@ const MAX_INLINE_CATEGORIES = 7;
  * overflow menu, so the two sets never repeat each other.
  */
 const INLINE_BREAKPOINTS: readonly { readonly minWidth: number; readonly count: number }[] = [
-  { minWidth: 1728, count: 5 },
-  { minWidth: 1440, count: 4 },
-  { minWidth: 1280, count: 3 },
+  { minWidth: 1440, count: 5 },
+  { minWidth: 1200, count: 3 },
   { minWidth: 0, count: 2 },
 ];
 
@@ -54,7 +53,6 @@ const inlineCountFor = (width: number): number =>
     MatToolbar,
     MatBadge,
     RouterLink,
-    RouterLinkActive,
     FormsModule,
     TranslateModule,
   ],
