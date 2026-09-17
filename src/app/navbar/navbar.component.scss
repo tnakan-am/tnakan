@@ -73,15 +73,15 @@
   }
 }
 
-// Between these widths the eyebrow's ~145px would cost a category slot in the bar,
-// so the wordmark stands alone there.
-@media (min-width: 1024px) and (max-width: 1599px) {
+// Wherever the category bar competes for width, the eyebrow's ~145px would cost a
+// category slot, so the wordmark stands alone until everything fits anyway.
+@media (min-width: 1024px) and (max-width: 2199px) {
   .brand-eyebrow {
     display: none;
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 2200px) {
   .brand-eyebrow {
     font-size: 9.5px;
     letter-spacing: 0.34em;
@@ -322,33 +322,40 @@
 }
 
 // Keep the bar on one row: trim the tail of the category list as it narrows. Counts are
-// the measured fit for Armenian labels, the longest of the three locales.
+// the measured fit for Armenian labels, the longest of the three locales. Trimmed
+// categories stay reachable through the .nav-all entry, which is never trimmed.
 @media (max-width: 2199px) {
-  .nav-item:nth-of-type(n + 7) {
+  .nav-item:not(.nav-all):nth-of-type(n + 7) {
+    display: none;
+  }
+}
+
+@media (max-width: 1999px) {
+  .nav-item:not(.nav-all):nth-of-type(n + 6) {
     display: none;
   }
 }
 
 @media (max-width: 1919px) {
-  .nav-item:nth-of-type(n + 6) {
+  .nav-item:not(.nav-all):nth-of-type(n + 5) {
     display: none;
   }
 }
 
-@media (max-width: 1727px) {
-  .nav-item:nth-of-type(n + 5) {
+@media (max-width: 1535px) {
+  .nav-item:not(.nav-all):nth-of-type(n + 4) {
     display: none;
   }
 }
 
-@media (max-width: 1365px) {
-  .nav-item:nth-of-type(n + 4) {
+@media (max-width: 1279px) {
+  .nav-item:not(.nav-all):nth-of-type(n + 3) {
     display: none;
   }
 }
 
 @media (max-width: 1099px) {
-  .nav-item:nth-of-type(n + 3) {
+  .nav-item:not(.nav-all):nth-of-type(n + 2) {
     display: none;
   }
 }

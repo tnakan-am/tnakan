@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -30,16 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private breakpointSubscription!: Subscription;
 
-  constructor(
-    private translateService: TranslateService,
-    private breakpointObserver: BreakpointObserver
-  ) {
-    if (localStorage.getItem('lang')) {
-      translateService.setDefaultLang(localStorage.getItem('lang') as string);
-    } else {
-      translateService.setDefaultLang('hy');
-    }
-  }
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     // Categories live in the header dropdown on desktop; the drawer is a mobile-only

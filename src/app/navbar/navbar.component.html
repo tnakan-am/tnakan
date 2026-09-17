@@ -67,6 +67,28 @@
       }
     </div>
     }
+
+    <div class="nav-item nav-all">
+      <a class="nav-link" [routerLink]="['/']" aria-haspopup="true">
+        <span class="nav-label">{{ 'nav.categories' | translate }}</span>
+        <mat-icon class="nav-caret">expand_more</mat-icon>
+      </a>
+
+      <div class="mega-panel" role="menu">
+        <div class="mega-grid">
+          @for (category of allCategories(); track category.id) {
+          <a
+            class="mega-heading"
+            [routerLink]="['/']"
+            [queryParams]="{ category: category.id }"
+            role="menuitem"
+          >
+            {{ category.name }}
+          </a>
+          }
+        </div>
+      </div>
+    </div>
   </nav>
 
   <span class="example-spacer"></span>
