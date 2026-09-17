@@ -128,6 +128,16 @@
   cursor: pointer;
 }
 
+// The all-categories trigger opens a menu rather than navigating, so it is a button;
+// a link would send touch users to the home page instead of showing the menu.
+.nav-all .nav-link {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-family: inherit;
+  cursor: pointer;
+}
+
 .nav-label {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -324,25 +334,13 @@
 // Keep the bar on one row: trim the tail of the category list as it narrows. Counts are
 // the measured fit for Armenian labels, the longest of the three locales. Trimmed
 // categories stay reachable through the .nav-all entry, which is never trimmed.
-@media (max-width: 2199px) {
-  .nav-item:not(.nav-all):nth-of-type(n + 7) {
-    display: none;
-  }
-}
-
-@media (max-width: 1999px) {
-  .nav-item:not(.nav-all):nth-of-type(n + 6) {
-    display: none;
-  }
-}
-
-@media (max-width: 1919px) {
+@media (max-width: 1727px) {
   .nav-item:not(.nav-all):nth-of-type(n + 5) {
     display: none;
   }
 }
 
-@media (max-width: 1535px) {
+@media (max-width: 1439px) {
   .nav-item:not(.nav-all):nth-of-type(n + 4) {
     display: none;
   }
@@ -350,12 +348,6 @@
 
 @media (max-width: 1279px) {
   .nav-item:not(.nav-all):nth-of-type(n + 3) {
-    display: none;
-  }
-}
-
-@media (max-width: 1099px) {
-  .nav-item:not(.nav-all):nth-of-type(n + 2) {
     display: none;
   }
 }

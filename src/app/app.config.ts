@@ -12,6 +12,7 @@ import { provideTranslateService, TranslateService } from '@ngx-translate/core';
 import { firstValueFrom } from 'rxjs';
 
 import { routes } from './app.routes';
+import { FALLBACK_LANG } from './shared/i18n/languages';
 import { apiInterceptor } from './shared/http/api.interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -26,10 +27,18 @@ export const appConfig: ApplicationConfig = {
     // Activating the language from a component constructor races the first render: the
     // translate pipe evaluates while the bundle is still loading, caches the empty result
     // and never re-renders. Resolving it here blocks bootstrap until the strings exist.
-    provideAppInitializer(() => {
+    // A stored language that no longer ships (an older build used other codes) must not
+    // take the app down with it, so fall back rather than letting bootstrap reject.
+    provideAppInitializer(async () => {
       const translate = inject(TranslateService);
-      translate.setFallbackLang('hy');
-      return firstValueFrom(translate.use(localStorage.getItem('lang') ?? 'hy'));
+      translate.setFallbackLang(FALLBACK_LANG);
+      const stored = localStorage.getItem('lang');
+      try {
+        await firstValueFrom(translate.use(stored ?? FALLBACK_LANG));
+      } catch {
+        localStorage.removeItem('lang');
+        await firstValueFrom(translate.use(FALLBACK_LANG)).catch(() => undefined);
+      }
     }),
   ],
 };
