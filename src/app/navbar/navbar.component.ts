@@ -28,11 +28,14 @@ const MAX_INLINE_CATEGORIES = 7;
 
 /**
  * How many category labels fit beside the brand, search and actions on one row, measured
- * against Armenian, the longest of the three locales. Whatever does not fit moves into the
- * overflow menu, so the two sets never repeat each other.
+ * against Armenian, the longest of the three locales, with the overflow trigger present
+ * wherever it is shown. Whatever does not fit moves into the overflow menu, so the two
+ * sets never repeat each other. Re-measure these if the labels or the surrounding
+ * controls change; a label that no longer fits ellipsizes rather than widening the row.
  */
 const INLINE_BREAKPOINTS: readonly { readonly minWidth: number; readonly count: number }[] = [
   { minWidth: 1440, count: 5 },
+  { minWidth: 1380, count: 4 },
   { minWidth: 1200, count: 3 },
   { minWidth: 0, count: 2 },
 ];
