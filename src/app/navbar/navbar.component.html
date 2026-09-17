@@ -23,7 +23,7 @@
       {{ 'nav.market' | translate }}
     </a>
 
-    @for (category of categories(); track category.id) {
+    @for (category of inlineCategories(); track category.id) {
     <div class="nav-item">
       <a
         class="nav-link"
@@ -66,8 +66,7 @@
       </div>
       }
     </div>
-    }
-
+    } @if (overflowCategories().length) {
     <div class="nav-item nav-all">
       <button type="button" class="nav-link" [matMenuTriggerFor]="allCategoriesMenu">
         <span class="nav-label">{{ 'nav.categories' | translate }}</span>
@@ -75,18 +74,14 @@
       </button>
 
       <mat-menu #allCategoriesMenu="matMenu">
-        @for (category of allCategories(); track category.id) {
-        <a
-          mat-menu-item
-          class="nav-all-item"
-          [routerLink]="['/']"
-          [queryParams]="{ category: category.id }"
-        >
+        @for (category of overflowCategories(); track category.id) {
+        <a mat-menu-item [routerLink]="['/']" [queryParams]="{ category: category.id }">
           {{ category.name }}
         </a>
         }
       </mat-menu>
     </div>
+    }
   </nav>
 
   <span class="example-spacer"></span>
