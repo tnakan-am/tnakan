@@ -23,21 +23,22 @@ import { NotificationsService } from '../shared/services/notifications.service';
 import { FoodCategoriesService } from '../shared/services/food-categories.service';
 import { Notification } from '../shared/interfaces/order.interface';
 
-/** Most top-level categories the bar will ever show inline; width trims this further. */
-const MAX_INLINE_CATEGORIES = 7;
+/** Below this the row has no room for categories at all and the drawer carries them. */
+const CATEGORY_BAR_MIN_WIDTH = 1024;
 
 /**
  * How many category labels fit beside the brand, search and actions on one row, measured
- * against Armenian, the longest of the three locales, with the overflow trigger present
- * wherever it is shown. Whatever does not fit moves into the overflow menu, so the two
- * sets never repeat each other. Re-measure these if the labels or the surrounding
- * controls change; a label that no longer fits ellipsizes rather than widening the row.
+ * against Armenian, the longest of the three locales. Whatever does not fit is reached
+ * through the drawer, which always lists the whole tree. Re-measure these if the labels
+ * or the surrounding controls change; a label that no longer fits ellipsizes rather than
+ * widening the row.
  */
 const INLINE_BREAKPOINTS: readonly { readonly minWidth: number; readonly count: number }[] = [
   { minWidth: 1440, count: 5 },
   { minWidth: 1380, count: 4 },
   { minWidth: 1200, count: 3 },
-  { minWidth: 0, count: 2 },
+  { minWidth: CATEGORY_BAR_MIN_WIDTH, count: 2 },
+  { minWidth: 0, count: 0 },
 ];
 
 const inlineCountFor = (width: number): number =>
@@ -66,15 +67,13 @@ export class NavbarComponent {
   user;
   basket;
   notifications?: WritableSignal<Notification[]>;
-  categories = computed(() => this.foodCategories.tree().slice(0, MAX_INLINE_CATEGORIES));
+  categories = computed(() => this.foodCategories.tree());
   /** Categories the bar has room for at the current width. */
   inlineCategories = computed(() =>
     this.categories().slice(0, inlineCountFor(this.viewportWidth()))
   );
-  /** The rest, offered through the overflow menu; empty once everything fits. */
-  overflowCategories = computed(() =>
-    this.categories().slice(inlineCountFor(this.viewportWidth()))
-  );
+  /** The drawer is offered exactly when the bar cannot show every category. */
+  showDrawerToggle = computed(() => this.inlineCategories().length < this.categories().length);
   searchTerm = '';
 
   @Output() sidenavStatus = new EventEmitter<boolean>();
@@ -97,6 +96,14 @@ export class NavbarComponent {
     effect(() => {
       if (this.user()?.type === 'business' && !this.notifications) {
         this.notifications = this.ordersService.newOrders;
+      }
+    });
+    // Widening the window until every category fits retires the toggle, so the drawer it
+    // opened must not be left hanging over the page with no control to close it.
+    effect(() => {
+      if (!this.showDrawerToggle() && this.isOpenedSidenav) {
+        this.isOpenedSidenav = false;
+        this.sidenavStatus.emit(false);
       }
     });
   }

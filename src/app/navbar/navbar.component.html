@@ -1,4 +1,5 @@
 <mat-toolbar class="navbar-toolbar sticky top-0 z-30">
+  @if (showDrawerToggle()) {
   <button
     mat-icon-button
     class="nav-icon-btn menu-toggle"
@@ -7,12 +8,14 @@
   >
     <mat-icon>menu</mat-icon>
   </button>
+  }
 
   <a routerLink="" class="brand" aria-label="Tnakan home">
     <span class="brand-name">Tnakan</span>
     <span class="brand-eyebrow">ՏՆԱԿԱՆ · FOOD MARKETPLACE</span>
   </a>
 
+  @if (inlineCategories().length) {
   <nav class="nav-links" aria-label="Primary">
     @for (category of inlineCategories(); track category.id) {
     <div class="nav-item">
@@ -57,38 +60,9 @@
       </div>
       }
     </div>
-    } @if (overflowCategories().length) {
-    <div class="nav-item nav-all">
-      <button type="button" class="nav-link" [matMenuTriggerFor]="allCategoriesMenu">
-        <span class="nav-label">{{ 'nav.categories' | translate }}</span>
-        <mat-icon class="nav-caret">expand_more</mat-icon>
-      </button>
-
-      <mat-menu #allCategoriesMenu="matMenu">
-        @for (category of overflowCategories(); track category.id) { @if
-        (category.subCategories.length) {
-        <button type="button" mat-menu-item [matMenuTriggerFor]="categoryMenu">
-          {{ category.name }}
-        </button>
-        <mat-menu #categoryMenu="matMenu">
-          <a mat-menu-item [routerLink]="['/']" [queryParams]="{ category: category.id }">
-            {{ category.name }}
-          </a>
-          @for (sub of category.subCategories; track sub.id) {
-          <a mat-menu-item [routerLink]="['/']" [queryParams]="{ subCategory: sub.id }">
-            {{ sub.name }}
-          </a>
-          }
-        </mat-menu>
-        } @else {
-        <a mat-menu-item [routerLink]="['/']" [queryParams]="{ category: category.id }">
-          {{ category.name }}
-        </a>
-        } }
-      </mat-menu>
-    </div>
     }
   </nav>
+  }
 
   <span class="example-spacer"></span>
 

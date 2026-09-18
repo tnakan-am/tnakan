@@ -90,7 +90,7 @@
 
 // ---- Primary nav (desktop) ----
 .nav-links {
-  display: none;
+  display: flex;
   align-items: stretch;
   flex: 0 1 auto;
   min-width: 0;
@@ -103,12 +103,6 @@
   display: flex;
   align-items: stretch;
   min-width: 0;
-}
-
-@media (min-width: 1024px) {
-  .nav-links {
-    display: flex;
-  }
 }
 
 .nav-link {
@@ -125,16 +119,6 @@
   text-decoration: none;
   border-bottom: 2px solid transparent;
   transition: color 0.18s ease, border-color 0.18s ease;
-  cursor: pointer;
-}
-
-// The all-categories trigger opens a menu rather than navigating, so it is a button;
-// a link would send touch users to the home page instead of showing the menu.
-.nav-all .nav-link {
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  font-family: inherit;
   cursor: pointer;
 }
 
@@ -303,18 +287,6 @@
 
   .mat-icon {
     color: var(--cream);
-  }
-}
-
-.menu-toggle {
-  display: inline-flex;
-}
-
-// The drawer button is the small-screen stand-in for the category bar, never shown
-// alongside it.
-@media (min-width: 1024px) {
-  .menu-toggle {
-    display: none;
   }
 }
 
