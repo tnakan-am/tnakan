@@ -1,60 +1,62 @@
 <div class="container mx-auto">
   @if (loading) {
-  <div class="flex justify-center items-center h-screen min-h-screen">
-    <mat-spinner></mat-spinner>
-  </div>
+    <div class="flex justify-center items-center h-screen min-h-screen">
+      <mat-spinner></mat-spinner>
+    </div>
   } @else {
-  <mat-accordion>
-    @for (order of orders(); track order.orderId) {
-    <mat-expansion-panel (expandedChange)="$event && orderSeen(order)">
-      <mat-expansion-panel-header>
-        <mat-panel-title class="text-ellipsis text-nowrap">
-          {{
-            order.address.region === order.address.city
-              ? order.address.region
-              : order.address.region + ', ' + order.address.city
-          }}, {{ order.address.street }},
-          {{ order.address.house }}
-          {{ order.address.zip }}
-        </mat-panel-title>
-        <mat-panel-description class="flex justify-between items-center text-nowrap text-ellipsis">
-          {{ 'orders-page.products' | translate : { count: order.products.length } }} @if (order |
-          orderStatus:newOrders()) {
-          <mat-icon class="text-red-500">notifications</mat-icon>
-          }
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+    <mat-accordion>
+      @for (order of orders(); track order.orderId) {
+        <mat-expansion-panel (expandedChange)="$event && orderSeen(order)">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="text-ellipsis text-nowrap">
+              {{
+                order.address.region === order.address.city
+                  ? order.address.region
+                  : order.address.region + ', ' + order.address.city
+              }}, {{ order.address.street }},
+              {{ order.address.house }}
+              {{ order.address.zip }}
+            </mat-panel-title>
+            <mat-panel-description
+              class="flex justify-between items-center text-nowrap text-ellipsis"
+            >
+              {{ 'orders-page.products' | translate: { count: order.products.length } }}
+              @if (order | orderStatus: newOrders()) {
+                <mat-icon class="text-red-500">notifications</mat-icon>
+              }
+            </mat-panel-description>
+          </mat-expansion-panel-header>
 
-      <ng-template matExpansionPanelContent>
-        @for (product of order.products; track product.id) {
-        <app-order-item [product]="product"></app-order-item>
-        }
-
-        <div class="w-full flex justify-end border-t border-gray-400">
-          @if (status !== 'delivered') {
-          <button
-            mat-icon-button
-            [matTooltip]="
-              'orders-page.markAs'
-                | translate : { status: ('status.' + orderStatus.get(status) | translate) }
-            "
-            (click)="orderStatusChange(order)"
-          >
-            @if (status === 'seen' || status === 'pending') {
-            <mat-icon class="text-gray-400">local_shipping</mat-icon>
-            } @else if (status === 'processing') {
-            <mat-icon class="text-gray-400">done_outline</mat-icon>
-            } @else {
-            <mat-icon class="text-gray-400">done_outline</mat-icon>
+          <ng-template matExpansionPanelContent>
+            @for (product of order.products; track product.id) {
+              <app-order-item [product]="product"></app-order-item>
             }
-          </button>
-          } @else {
-          <mat-icon class="text-forest">done_outline</mat-icon>
-          }
-        </div>
-      </ng-template>
-    </mat-expansion-panel>
-    }
-  </mat-accordion>
+
+            <div class="w-full flex justify-end border-t border-gray-400">
+              @if (status !== 'delivered') {
+                <button
+                  mat-icon-button
+                  [matTooltip]="
+                    'orders-page.markAs'
+                      | translate: { status: ('status.' + orderStatus.get(status) | translate) }
+                  "
+                  (click)="orderStatusChange(order)"
+                >
+                  @if (status === 'seen' || status === 'pending') {
+                    <mat-icon class="text-gray-400">local_shipping</mat-icon>
+                  } @else if (status === 'processing') {
+                    <mat-icon class="text-gray-400">done_outline</mat-icon>
+                  } @else {
+                    <mat-icon class="text-gray-400">done_outline</mat-icon>
+                  }
+                </button>
+              } @else {
+                <mat-icon class="text-forest">done_outline</mat-icon>
+              }
+            </div>
+          </ng-template>
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
   }
 </div>

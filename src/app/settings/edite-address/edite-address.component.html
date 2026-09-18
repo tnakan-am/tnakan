@@ -8,20 +8,20 @@
         <mat-label>{{ 'fields.region' | translate }}</mat-label>
         <mat-select formControlName="region" (valueChange)="regionChange($event)">
           @for (region of regions(); track region) {
-          <mat-option [value]="region">{{ region }}</mat-option>
+            <mat-option [value]="region">{{ region }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
       @if (cities()) {
-      <mat-form-field>
-        <mat-label>{{ 'fields.city' | translate }}</mat-label>
-        <mat-select formControlName="city">
-          @for (city of citiesList;let id = $index; track id) {
-          <mat-option [value]="city.city">{{ city.city }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ 'fields.city' | translate }}</mat-label>
+          <mat-select formControlName="city">
+            @for (city of citiesList; let id = $index; track id) {
+              <mat-option [value]="city.city">{{ city.city }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       }
     </div>
     <mat-form-field>

@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+/* Keep the palette, fonts, radii and shadows in tailwind.config.js rather than
+   porting them to a CSS-first @theme block. */
+@config '../tailwind.config.js';
+
+/* Tailwind 4 changed three Preflight defaults. Restore the v3 values so the
+   existing markup renders unchanged. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
