@@ -2,47 +2,47 @@
 <div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
   <!-- Product Box -->
   @if (user$ | async; as userData) {
-  <div class="flex gap-6">
-    <!-- Left Column (Image and Thumbnail Slider) -->
-    <div class="max-w-[250px] min-w-[150px]">
-      <img
-        [src]="userData?.image || 'assets/homemade.webp'"
-        alt="Snack Box Image"
-        class="w-full rounded-lg"
-      />
+    <div class="flex gap-6">
+      <!-- Left Column (Image and Thumbnail Slider) -->
+      <div class="max-w-[250px] min-w-[150px]">
+        <img
+          [src]="userData?.image || 'assets/homemade.webp'"
+          alt="Snack Box Image"
+          class="w-full rounded-lg"
+        />
+      </div>
+
+      <!-- Right Column (Product Info) -->
+      <div>
+        <!-- Title and Pricing -->
+        <h1 class="text-3xl mb-2">{{ userData?.displayName }}</h1>
+
+        @if (userData.address) {
+          <span>
+            {{
+              userData.address.region === userData.address.city
+                ? userData.address.region
+                : userData.address.region + ', ' + userData.address.city
+            }}, {{ userData.address.street }},
+            {{ userData.address.house }}
+            {{ userData.address.zip }}
+          </span>
+        }
+      </div>
     </div>
 
-    <!-- Right Column (Product Info) -->
+    <div class="my-4">
+      <h1 class="text-3xl font-bold text-forest">{{ 'products' | translate }}</h1>
+    </div>
+
     <div>
-      <!-- Title and Pricing -->
-      <h1 class="text-3xl mb-2">{{ userData?.displayName }}</h1>
-
-      @if (userData.address) {
-      <span>
-        {{
-          userData.address.region === userData.address.city
-            ? userData.address.region
-            : userData.address.region + ', ' + userData.address.city
-        }}, {{ userData.address.street }},
-        {{ userData.address.house }}
-        {{ userData.address.zip }}
-      </span>
+      @if (products$ | async; as productList) {
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          @for (item of productList; track item.id) {
+            <app-card-item (addToCard)="addToBasket($event)" [product]="item" />
+          }
+        </div>
       }
     </div>
-  </div>
-
-  <div class="my-4">
-    <h1 class="text-3xl font-bold text-forest">{{ 'products' | translate }}</h1>
-  </div>
-
-  <div>
-    @if (products$ | async; as productList) {
-    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      @for (item of productList; track item.id) {
-      <app-card-item (addToCard)="addToBasket($event)" [product]="item" />
-      }
-    </div>
-    }
-  </div>
   }
 </div>

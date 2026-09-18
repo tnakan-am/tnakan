@@ -3,7 +3,7 @@
     <mat-label>{{ 'fields.email' | translate }}</mat-label>
     <input matInput placeholder="pat@example.com" formControlName="email" required />
     @if (form.get('email')?.invalid) {
-    <mat-error>{{ formErrorMessage(form.get('email')!) | translate }}</mat-error>
+      <mat-error>{{ formErrorMessage(form.get('email')!) | translate }}</mat-error>
     }
   </mat-form-field>
 
@@ -11,7 +11,7 @@
     <mat-label>{{ 'fields.phone' | translate }}</mat-label>
     <input matInput placeholder="+37499123456" formControlName="phoneNumber" required />
     @if (form.get('phoneNumber')?.invalid) {
-    <mat-error>{{ formErrorMessage(form.get('phoneNumber')!) | translate }}</mat-error>
+      <mat-error>{{ formErrorMessage(form.get('phoneNumber')!) | translate }}</mat-error>
     }
   </mat-form-field>
 
@@ -19,7 +19,7 @@
     <mat-label>{{ 'fields.company' | translate }}</mat-label>
     <input matInput placeholder="Poxos Poxosyan" formControlName="company" />
     @if (form.get('company')?.invalid) {
-    <mat-error>{{ formErrorMessage(form.get('company')!) | translate }}</mat-error>
+      <mat-error>{{ formErrorMessage(form.get('company')!) | translate }}</mat-error>
     }
   </mat-form-field>
 
@@ -27,7 +27,7 @@
     <mat-label>{{ 'fields.hvhh' | translate }}</mat-label>
     <input matInput placeholder="01234567" formControlName="hvhh" />
     @if (form.get('hvhh')?.invalid) {
-    <mat-error>{{ 'messages.errors.number' | translate }}</mat-error>
+      <mat-error>{{ 'messages.errors.number' | translate }}</mat-error>
     }
   </mat-form-field>
 
@@ -41,7 +41,9 @@
       required
     />
     @if (form.get('password')?.invalid) {
-    <mat-error>{{ formErrorMessage(form.get('password')!) | translate : { number: 8 } }}</mat-error>
+      <mat-error>{{
+        formErrorMessage(form.get('password')!) | translate: { number: 8 }
+      }}</mat-error>
     }
   </mat-form-field>
 
@@ -55,9 +57,9 @@
       required
     />
     @if (form.get('rePassword')?.invalid) {
-    <mat-error>{{
-      formErrorMessage(form.get('rePassword')!) || 'messages.errors.match' | translate
-    }}</mat-error>
+      <mat-error>{{
+        formErrorMessage(form.get('rePassword')!) || 'messages.errors.match' | translate
+      }}</mat-error>
     }
   </mat-form-field>
 
@@ -67,20 +69,20 @@
         <mat-label>{{ 'fields.region' | translate }}</mat-label>
         <mat-select formControlName="region" (valueChange)="regionChange($event)">
           @for (region of regions(); track region) {
-          <mat-option [value]="region">{{ region }}</mat-option>
+            <mat-option [value]="region">{{ region }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
       @if (cities()) {
-      <mat-form-field>
-        <mat-label>{{ 'fields.city' | translate }}</mat-label>
-        <mat-select formControlName="city">
-          @for (city of citiesList;let id = $index; track id) {
-          <mat-option [value]="city.city">{{ city.city }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>{{ 'fields.city' | translate }}</mat-label>
+          <mat-select formControlName="city">
+            @for (city of citiesList; let id = $index; track id) {
+              <mat-option [value]="city.city">{{ city.city }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       }
     </div>
     <mat-form-field>

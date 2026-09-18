@@ -4,90 +4,92 @@
   >
     <ul class="space-y-2">
       @for (menuItem of menuList; track menuItem) {
-      <li>
-        @if (menuItem.categories.length) {
-        <button
-          type="button"
-          class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
-          aria-controls="dropdown-pages"
-          data-collapse-toggle="dropdown-pages"
-          [routerLink]="[]"
-          [queryParams]="{ category: menuItem.categoryId }"
-        >
-          <span class="flex-1 ml-3 text-left whitespace-nowrap">{{ menuItem.categoryName }}</span>
-          <span class="material-icons" (click)="openSub($event, menuItem)">{{
-            menuItem.selected ? 'expand_more' : 'chevron_right'
-          }}</span>
-        </button>
-        } @else {
-        <button
-          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
-        >
-          <span class="ml-3">{{ menuItem.categoryName }}</span>
-        </button>
-        }
-        <ul [class.hidden]="!menuItem.selected" class="py-2 space-y-2">
-          @for (categories of menuItem.categories; track categories) {
-          <li>
-            @if (categories?.categories?.length) {
+        <li>
+          @if (menuItem.categories.length) {
             <button
               type="button"
-              class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
+              class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
               aria-controls="dropdown-pages"
               data-collapse-toggle="dropdown-pages"
               [routerLink]="[]"
-              [queryParams]="{ subCategory: categories.categoryId }"
+              [queryParams]="{ category: menuItem.categoryId }"
             >
               <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
-                categories.categoryName
+                menuItem.categoryName
               }}</span>
-              <span class="material-icons" (click)="openSub($event, categories)">{{
-                categories.selected ? 'expand_more' : 'chevron_right'
+              <span class="material-icons" (click)="openSub($event, menuItem)">{{
+                menuItem.selected ? 'expand_more' : 'chevron_right'
               }}</span>
             </button>
-            } @else {
+          } @else {
             <button
-              [routerLink]="[]"
-              [queryParams]="{ subCategory: categories.categoryId }"
-              class="flex tems-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
+              class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
             >
-              <span class="ml-3">{{ categories.categoryName }}</span>
+              <span class="ml-3">{{ menuItem.categoryName }}</span>
             </button>
-            }
-            <ul [class.hidden]="!categories.selected" class="py-2 space-y-2">
-              @for (category of categories?.categories; track category) {
-              <li>
-                @if (category?.categories?.length) {
-                <button
-                  type="button"
-                  class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
-                  aria-controls="dropdown-pages"
-                  data-collapse-toggle="dropdown-pages"
-                  (click)="openSub($event, category)"
-                >
-                  <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
-                    category.categoryName
-                  }}</span>
-                  <span class="material-icons">{{
-                    category.selected ? 'expand_more' : 'chevron_right'
-                  }}</span>
-                </button>
-                } @else {
-                <a
-                  [routerLink]="['/']"
-                  [queryParams]="{ productCategory: category.categoryId }"
-                  class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
-                >
-                  <span class="ml-3">{{ category.categoryName }}</span>
-                </a>
-                }
-              </li>
-              }
-            </ul>
-          </li>
           }
-        </ul>
-      </li>
+          <ul [class.hidden]="!menuItem.selected" class="py-2 space-y-2">
+            @for (categories of menuItem.categories; track categories) {
+              <li>
+                @if (categories?.categories?.length) {
+                  <button
+                    type="button"
+                    class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
+                    aria-controls="dropdown-pages"
+                    data-collapse-toggle="dropdown-pages"
+                    [routerLink]="[]"
+                    [queryParams]="{ subCategory: categories.categoryId }"
+                  >
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
+                      categories.categoryName
+                    }}</span>
+                    <span class="material-icons" (click)="openSub($event, categories)">{{
+                      categories.selected ? 'expand_more' : 'chevron_right'
+                    }}</span>
+                  </button>
+                } @else {
+                  <button
+                    [routerLink]="[]"
+                    [queryParams]="{ subCategory: categories.categoryId }"
+                    class="flex tems-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
+                  >
+                    <span class="ml-3">{{ categories.categoryName }}</span>
+                  </button>
+                }
+                <ul [class.hidden]="!categories.selected" class="py-2 space-y-2">
+                  @for (category of categories?.categories; track category) {
+                    <li>
+                      @if (category?.categories?.length) {
+                        <button
+                          type="button"
+                          class="flex items-center pl-6 p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-cream dark:text-dark dark:hover:bg-forest-mid"
+                          aria-controls="dropdown-pages"
+                          data-collapse-toggle="dropdown-pages"
+                          (click)="openSub($event, category)"
+                        >
+                          <span class="flex-1 ml-3 text-left whitespace-nowrap">{{
+                            category.categoryName
+                          }}</span>
+                          <span class="material-icons">{{
+                            category.selected ? 'expand_more' : 'chevron_right'
+                          }}</span>
+                        </button>
+                      } @else {
+                        <a
+                          [routerLink]="['/']"
+                          [queryParams]="{ productCategory: category.categoryId }"
+                          class="flex items-center pl-12 p-2 text-base font-normal text-gray-900 rounded-lg dark:text-dark hover:bg-cream dark:hover:bg-forest-mid group"
+                        >
+                          <span class="ml-3">{{ category.categoryName }}</span>
+                        </a>
+                      }
+                    </li>
+                  }
+                </ul>
+              </li>
+            }
+          </ul>
+        </li>
       }
     </ul>
   </div>

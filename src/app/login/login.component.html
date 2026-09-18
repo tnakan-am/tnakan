@@ -12,7 +12,7 @@
           required
         />
         @if (email?.invalid) {
-        <mat-error>{{ 'messages.errors.' + emailErrorMessage() | translate }}</mat-error>
+          <mat-error>{{ 'messages.errors.' + emailErrorMessage() | translate }}</mat-error>
         }
       </mat-form-field>
       <mat-form-field class="w-full">
@@ -26,7 +26,7 @@
           required
         />
         @if (password?.invalid) {
-        <mat-error>{{ 'messages.errors.' + passErrorMessage() | translate }}</mat-error>
+          <mat-error>{{ 'messages.errors.' + passErrorMessage() | translate }}</mat-error>
         }
       </mat-form-field>
       <button [disabled]="form.invalid" mat-raised-button>

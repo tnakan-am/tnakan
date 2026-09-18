@@ -10,11 +10,11 @@
     <!-- Cook's photo and name -->
     <div class="cooker-info">
       @if (product.userPhoto) {
-      <img [src]="product.userPhoto" alt="Cook" class="cooker-photo" />
+        <img [src]="product.userPhoto" alt="Cook" class="cooker-photo" />
       } @else {
-      <span class="cooker-photo cooker-photo--placeholder">
-        <mat-icon>person</mat-icon>
-      </span>
+        <span class="cooker-photo cooker-photo--placeholder">
+          <mat-icon>person</mat-icon>
+        </span>
       }
       <span class="cooker-name">{{ product.userDisplayName }}</span>
       <span class="cooker-tick" aria-hidden="true">✓</span>
@@ -27,7 +27,7 @@
     <div class="rating">
       <ngx-stars [color]="starColor" [initialStars]="product.avgReview" [readonly]="true" />
       <span class="rating-text"
-        >{{ product.avgReview | number : '1.1-1' }} · {{ product.numberReview }}</span
+        >{{ product.avgReview | number: '1.1-1' }} · {{ product.numberReview }}</span
       >
     </div>
 
