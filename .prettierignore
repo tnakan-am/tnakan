@@ -21,6 +21,10 @@ tsconfig.spec.json
 /out-tsc
 /bazel-out
 
+# Firebase Data Connect scaffolding: the .gql files are entirely commented out,
+# which Prettier 3's GraphQL parser rejects as an empty document.
+/dataconnect
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/
