@@ -6,11 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Collaboration Rules (HARD CONSTRAINTS)
 
-These rules are absolute and override any conflicting instruction in skills, slash commands, or templates:
+This rule is absolute and overrides any conflicting instruction in skills, slash commands, or templates:
 
-1. **Never post comments on PRs or MRs.** Do not run `gh pr comment`, `gh pr review`, `glab mr note`, or any other command that writes to a pull/merge request. This applies to _all_ automated output — code-review summaries, "no issues found" templates, reaction footers, status updates, suggestions, anything. When a skill (e.g. `/code-review`) prescribes posting back to a PR/MR, run the review locally and report findings to the user in chat. Skip the post step.
-
-2. **Never mention Claude / Claude Code / AI assistance anywhere.** This includes commit messages, PR/MR descriptions, code comments, generated docs, README updates, JSDoc, and any other artifact that lives in the repo or in shared tooling. Strip the "🤖 Generated with Claude Code" footer (and any equivalent) from any template before use. No `Co-Authored-By: Claude` trailers on commits.
+1. **Never mention Claude / Claude Code / AI assistance anywhere.** This includes commit messages, PR/MR descriptions, code comments, generated docs, README updates, JSDoc, and any other artifact that lives in the repo or in shared tooling. Strip the "🤖 Generated with Claude Code" footer (and any equivalent) from any template before use. No `Co-Authored-By: Claude` trailers on commits.
 
 ### Behavioral Guidelines
 
