@@ -181,15 +181,16 @@
   box-shadow: 0 24px 48px -24px rgba(27, 58, 42, 0.55);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px);
-  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+  // Deliberately fades without sliding. A translated closed panel sits below its resting
+  // position, so a pointer sweeping down faster than the transition crosses a band that
+  // belongs to neither the trigger nor the panel, loses :hover and closes the menu.
+  transition: opacity 0.16s ease, visibility 0.16s;
 }
 
 .nav-item:hover .mega-panel,
 .nav-item:focus-within .mega-panel {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
 
 .mega-grid {
