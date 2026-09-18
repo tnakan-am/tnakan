@@ -65,11 +65,26 @@
       </button>
 
       <mat-menu #allCategoriesMenu="matMenu">
-        @for (category of overflowCategories(); track category.id) {
+        @for (category of overflowCategories(); track category.id) { @if
+        (category.subCategories.length) {
+        <button type="button" mat-menu-item [matMenuTriggerFor]="categoryMenu">
+          {{ category.name }}
+        </button>
+        <mat-menu #categoryMenu="matMenu">
+          <a mat-menu-item [routerLink]="['/']" [queryParams]="{ category: category.id }">
+            {{ category.name }}
+          </a>
+          @for (sub of category.subCategories; track sub.id) {
+          <a mat-menu-item [routerLink]="['/']" [queryParams]="{ subCategory: sub.id }">
+            {{ sub.name }}
+          </a>
+          }
+        </mat-menu>
+        } @else {
         <a mat-menu-item [routerLink]="['/']" [queryParams]="{ category: category.id }">
           {{ category.name }}
         </a>
-        }
+        } }
       </mat-menu>
     </div>
     }
