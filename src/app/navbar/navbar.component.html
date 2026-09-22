@@ -1,13 +1,13 @@
 <mat-toolbar class="navbar-toolbar sticky top-0 z-30">
   @if (showDrawerToggle()) {
-  <button
-    mat-icon-button
-    class="nav-icon-btn menu-toggle"
-    (click)="toggleSidebar()"
-    aria-label="Toggle categories menu"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
+    <button
+      mat-icon-button
+      class="nav-icon-btn menu-toggle"
+      (click)="toggleSidebar()"
+      aria-label="Toggle categories menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
   }
 
   <a routerLink="" class="brand" aria-label="Tnakan home">
@@ -16,52 +16,52 @@
   </a>
 
   @if (inlineCategories().length) {
-  <nav class="nav-links" aria-label="Primary">
-    @for (category of inlineCategories(); track category.id) {
-    <div class="nav-item">
-      <a
-        class="nav-link"
-        [routerLink]="['/']"
-        [queryParams]="{ category: category.id }"
-        [attr.aria-haspopup]="category.subCategories.length ? 'true' : null"
-      >
-        <span class="nav-label">{{ category.name }}</span>
-        @if (category.subCategories.length) {
-        <mat-icon class="nav-caret">expand_more</mat-icon>
-        }
-      </a>
-
-      @if (category.subCategories.length) {
-      <div class="mega-panel" role="menu">
-        <div class="mega-grid">
-          @for (sub of category.subCategories; track sub.id) {
-          <div class="mega-col">
-            <a
-              class="mega-heading"
-              [routerLink]="['/']"
-              [queryParams]="{ subCategory: sub.id }"
-              role="menuitem"
-            >
-              {{ sub.name }}
-            </a>
-            @for (pc of sub.productCategories; track pc.id) {
-            <a
-              class="mega-link"
-              [routerLink]="['/']"
-              [queryParams]="{ productCategory: pc.id }"
-              role="menuitem"
-            >
-              {{ pc.name }}
-            </a>
+    <nav class="nav-links" aria-label="Primary">
+      @for (category of inlineCategories(); track category.id) {
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/']"
+            [queryParams]="{ category: category.id }"
+            [attr.aria-haspopup]="category.subCategories.length ? 'true' : null"
+          >
+            <span class="nav-label">{{ category.name }}</span>
+            @if (category.subCategories.length) {
+              <mat-icon class="nav-caret">expand_more</mat-icon>
             }
-          </div>
+          </a>
+
+          @if (category.subCategories.length) {
+            <div class="mega-panel" role="menu">
+              <div class="mega-grid">
+                @for (sub of category.subCategories; track sub.id) {
+                  <div class="mega-col">
+                    <a
+                      class="mega-heading"
+                      [routerLink]="['/']"
+                      [queryParams]="{ subCategory: sub.id }"
+                      role="menuitem"
+                    >
+                      {{ sub.name }}
+                    </a>
+                    @for (pc of sub.productCategories; track pc.id) {
+                      <a
+                        class="mega-link"
+                        [routerLink]="['/']"
+                        [queryParams]="{ productCategory: pc.id }"
+                        role="menuitem"
+                      >
+                        {{ pc.name }}
+                      </a>
+                    }
+                  </div>
+                }
+              </div>
+            </div>
           }
         </div>
-      </div>
       }
-    </div>
-    }
-  </nav>
+    </nav>
   }
 
   <span class="example-spacer"></span>
@@ -80,14 +80,14 @@
 
   <div class="nav-actions">
     @if (user()?.type === 'business') {
-    <button
-      mat-icon-button
-      class="nav-icon-btn"
-      (click)="redirectToOrders()"
-      aria-label="Notifications"
-    >
-      <mat-icon [matBadge]="notifications?.()?.length || null">notifications</mat-icon>
-    </button>
+      <button
+        mat-icon-button
+        class="nav-icon-btn"
+        (click)="redirectToOrders()"
+        aria-label="Notifications"
+      >
+        <mat-icon [matBadge]="notifications?.()?.length || null">notifications</mat-icon>
+      </button>
     }
 
     <button
@@ -100,26 +100,26 @@
     </button>
     <mat-menu #menu="matMenu">
       @if (user(); as userdata) {
-      <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
-        'navbar.profile' | translate
-      }}</a>
-      <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
-      <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
+        <a routerLink="/profile/{{ userdata?.type }}" mat-menu-item>{{
+          'navbar.profile' | translate
+        }}</a>
+        <a routerLink="/settings" mat-menu-item>{{ 'navbar.settings' | translate }}</a>
+        <a (click)="logout()" mat-menu-item>{{ 'navbar.logout' | translate }}</a>
       } @else {
-      <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
-      <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
+        <a routerLink="login" mat-menu-item>{{ 'login.login' | translate }}</a>
+        <a routerLink="/registration" mat-menu-item>{{ 'navbar.register' | translate }}</a>
       }
     </mat-menu>
 
     @if (user()?.type !== 'business') {
-    <a
-      mat-icon-button
-      [routerLink]="basket().length ? ['/basket'] : []"
-      class="nav-icon-btn"
-      aria-label="Basket"
-    >
-      <mat-icon [matBadge]="basket().length || null">shopping_cart</mat-icon>
-    </a>
+      <a
+        mat-icon-button
+        [routerLink]="basket().length ? ['/basket'] : []"
+        class="nav-icon-btn"
+        aria-label="Basket"
+      >
+        <mat-icon [matBadge]="basket().length || null">shopping_cart</mat-icon>
+      </a>
     }
   </div>
 </mat-toolbar>

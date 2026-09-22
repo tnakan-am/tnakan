@@ -25,7 +25,10 @@ export class RegistrationComponent implements OnInit {
   loader: boolean = false;
   token: boolean = false;
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];

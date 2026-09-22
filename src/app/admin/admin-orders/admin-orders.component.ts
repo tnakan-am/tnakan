@@ -102,7 +102,10 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
     this.orders()?.reduce((acc, cur) => acc + +cur.price * +cur.quantity, 0)
   );
 
-  constructor(private orderService: AdminOrderService, private usersService: UsersService) {
+  constructor(
+    private orderService: AdminOrderService,
+    private usersService: UsersService
+  ) {
     this.selectedMonth = this.months[0];
   }
 

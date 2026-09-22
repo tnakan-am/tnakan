@@ -25,11 +25,17 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
 # tnakan Firebase
+
 #### To host your site with Firebase Hosting, you need the Firebase CLI (a command line tool). Run the following npm command to install the CLI or update to the latest CLI version.
+
 ### npm install -g firebase-tools
+
 # tnakan
+
 ###
+
 You can deploy now or later. To deploy now, open a terminal window, then navigate to or create a root directory for your web app.
 
 Sign in to Google
@@ -46,10 +52,11 @@ Put your static files (e.g., HTML, CSS, JS) in your app's deploy directory (the 
 
 `firebase deploy`
 
-After deploying, view your app at 
+After deploying, view your app at
 
 [tnakan-23490.web.app
 ](https://tnakan-23490.web.app/)
 
 Need help? Check out the [Hosting docs](https://firebase.google.com/docs/hosting/quickstart?hl=en&authuser=0&_gl=1*1e9919y*_ga*MjAwMDE3Mzg2Mi4xNzI3NTU1ODc2*_ga_CW55HF8NVT*MTcyNzU5Mzk0Ni4yLjEuMTcyNzU5NDk3MS42MC4wLjA.)
+
 # tnakan

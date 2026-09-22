@@ -2,32 +2,32 @@
   <div class="example-container">
     <h1>{{ 'verify-email.title' | translate }}</h1>
     @if (state() === 'verifying') {
-    <div class="w-full flex justify-center">
-      <mat-spinner></mat-spinner>
-    </div>
-    <p>{{ 'verify-email.verifying' | translate }}</p>
+      <div class="w-full flex justify-center">
+        <mat-spinner></mat-spinner>
+      </div>
+      <p>{{ 'verify-email.verifying' | translate }}</p>
     } @else if (state() === 'success') {
-    <p>{{ 'verify-email.success' | translate }}</p>
-    <a class="link" routerLink="/login">{{ 'login.login' | translate }}</a>
+      <p>{{ 'verify-email.success' | translate }}</p>
+      <a class="link" routerLink="/login">{{ 'login.login' | translate }}</a>
     } @else {
-    <p>{{ 'verify-email.error' | translate }}</p>
-    @if (resent()) {
-    <p>{{ 'verify-email.resent' | translate }}</p>
-    } @else {
-    <form [formGroup]="resendForm" (ngSubmit)="resend()" class="flex-col flex">
-      <mat-form-field class="w-full">
-        <mat-label>{{ 'fields.email' | translate }}</mat-label>
-        <input matInput placeholder="pat@example.com" formControlName="email" required />
-        @if (resendForm.get('email')?.invalid) {
-        <mat-error>{{ formErrorMessage(resendForm.get('email')!) | translate }}</mat-error>
-        }
-      </mat-form-field>
-      <button [disabled]="resendForm.invalid || loader" mat-raised-button>
-        {{ 'verify-email.resend' | translate }}
-      </button>
-    </form>
-    }
-    <a class="link" routerLink="/login">{{ 'login.login' | translate }}</a>
+      <p>{{ 'verify-email.error' | translate }}</p>
+      @if (resent()) {
+        <p>{{ 'verify-email.resent' | translate }}</p>
+      } @else {
+        <form [formGroup]="resendForm" (ngSubmit)="resend()" class="flex-col flex">
+          <mat-form-field class="w-full">
+            <mat-label>{{ 'fields.email' | translate }}</mat-label>
+            <input matInput placeholder="pat@example.com" formControlName="email" required />
+            @if (resendForm.get('email')?.invalid) {
+              <mat-error>{{ formErrorMessage(resendForm.get('email')!) | translate }}</mat-error>
+            }
+          </mat-form-field>
+          <button [disabled]="resendForm.invalid || loader" mat-raised-button>
+            {{ 'verify-email.resend' | translate }}
+          </button>
+        </form>
+      }
+      <a class="link" routerLink="/login">{{ 'login.login' | translate }}</a>
     }
   </div>
 </div>

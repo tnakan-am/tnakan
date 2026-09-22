@@ -118,7 +118,9 @@
   color: var(--nav-link);
   text-decoration: none;
   border-bottom: 2px solid transparent;
-  transition: color 0.18s ease, border-color 0.18s ease;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease;
   cursor: pointer;
 }
 
@@ -168,7 +170,9 @@
   // Deliberately fades without sliding. A translated closed panel sits below its resting
   // position, so a pointer sweeping down faster than the transition crosses a band that
   // belongs to neither the trigger nor the panel, loses :hover and closes the menu.
-  transition: opacity 0.16s ease, visibility 0.16s;
+  transition:
+    opacity 0.16s ease,
+    visibility 0.16s;
 }
 
 .nav-item:hover .mega-panel,
@@ -231,7 +235,9 @@
   background: rgba(245, 240, 230, 0.08);
   border: 1px solid rgba(233, 200, 139, 0.3);
   border-radius: 999px;
-  transition: background 0.18s ease, border-color 0.18s ease;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .search:focus-within {
