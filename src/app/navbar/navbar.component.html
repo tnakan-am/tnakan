@@ -1,73 +1,68 @@
 <mat-toolbar class="navbar-toolbar sticky top-0 z-30">
-  <button
-    mat-icon-button
-    class="nav-icon-btn menu-toggle"
-    (click)="toggleSidebar()"
-    aria-label="Toggle categories menu"
-  >
-    <mat-icon>menu</mat-icon>
-  </button>
+  @if (showDrawerToggle()) {
+    <button
+      mat-icon-button
+      class="nav-icon-btn menu-toggle"
+      (click)="toggleSidebar()"
+      aria-label="Toggle categories menu"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
 
   <a routerLink="" class="brand" aria-label="Tnakan home">
     <span class="brand-name">Tnakan</span>
     <span class="brand-eyebrow">ՏՆԱԿԱՆ · FOOD MARKETPLACE</span>
   </a>
 
-  <nav class="nav-links" aria-label="Primary">
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="nav-link"
-    >
-      {{ 'nav.market' | translate }}
-    </a>
+  @if (inlineCategories().length) {
+    <nav class="nav-links" aria-label="Primary">
+      @for (category of inlineCategories(); track category.id) {
+        <div class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/']"
+            [queryParams]="{ category: category.id }"
+            [attr.aria-haspopup]="category.subCategories.length ? 'true' : null"
+          >
+            <span class="nav-label">{{ category.name }}</span>
+            @if (category.subCategories.length) {
+              <mat-icon class="nav-caret">expand_more</mat-icon>
+            }
+          </a>
 
-    @for (category of categories(); track category.id) {
-      <div class="nav-item">
-        <a
-          class="nav-link"
-          [routerLink]="['/']"
-          [queryParams]="{ category: category.id }"
-          [attr.aria-haspopup]="category.subCategories.length ? 'true' : null"
-        >
-          {{ category.name }}
           @if (category.subCategories.length) {
-            <mat-icon class="nav-caret">expand_more</mat-icon>
-          }
-        </a>
-
-        @if (category.subCategories.length) {
-          <div class="mega-panel" role="menu">
-            <div class="mega-grid">
-              @for (sub of category.subCategories; track sub.id) {
-                <div class="mega-col">
-                  <a
-                    class="mega-heading"
-                    [routerLink]="['/']"
-                    [queryParams]="{ subCategory: sub.id }"
-                    role="menuitem"
-                  >
-                    {{ sub.name }}
-                  </a>
-                  @for (pc of sub.productCategories; track pc.id) {
+            <div class="mega-panel" role="menu">
+              <div class="mega-grid">
+                @for (sub of category.subCategories; track sub.id) {
+                  <div class="mega-col">
                     <a
-                      class="mega-link"
+                      class="mega-heading"
                       [routerLink]="['/']"
-                      [queryParams]="{ productCategory: pc.id }"
+                      [queryParams]="{ subCategory: sub.id }"
                       role="menuitem"
                     >
-                      {{ pc.name }}
+                      {{ sub.name }}
                     </a>
-                  }
-                </div>
-              }
+                    @for (pc of sub.productCategories; track pc.id) {
+                      <a
+                        class="mega-link"
+                        [routerLink]="['/']"
+                        [queryParams]="{ productCategory: pc.id }"
+                        role="menuitem"
+                      >
+                        {{ pc.name }}
+                      </a>
+                    }
+                  </div>
+                }
+              </div>
             </div>
-          </div>
-        }
-      </div>
-    }
-  </nav>
+          }
+        </div>
+      }
+    </nav>
+  }
 
   <span class="example-spacer"></span>
 

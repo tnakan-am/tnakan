@@ -20,7 +20,7 @@ export class FooterComponent {
   private translate = inject(TranslateService);
 
   setLanguage(code: string): void {
-    this.translate.setDefaultLang(code);
+    this.translate.use(code);
     localStorage.setItem('lang', code);
     this.currentLang.set(code);
   }

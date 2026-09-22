@@ -6,6 +6,8 @@
   --brass-light: #e9c88b;
   --nav-link: #cbd8cd;
   --nav-muted: #9db3a1;
+
+  display: block;
 }
 
 .example-spacer {
@@ -17,6 +19,8 @@
   --mat-toolbar-container-text-color: var(--cream);
   --mat-badge-background-color: var(--brass-light);
   --mat-badge-text-color: var(--forest);
+  position: relative;
+  max-width: 100%;
   background-color: var(--forest);
   color: var(--cream);
   min-height: 72px;
@@ -34,71 +38,81 @@
   }
 }
 
-/* ---- Brand ---- */
+// ---- Brand ----
 .brand {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex: 0 0 auto;
   line-height: 1;
   text-decoration: none;
   margin-left: 4px;
-  white-space: nowrap;
 }
 
 .brand-name {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 26px;
+  font-size: clamp(22px, 2.2vw, 30px);
   font-weight: 600;
   letter-spacing: 0.01em;
   color: var(--brass-light);
 }
 
 .brand-eyebrow {
+  display: none;
   margin-top: 3px;
   font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.26em;
   color: var(--nav-muted);
+  white-space: nowrap;
 }
 
-@media (min-width: 1024px) {
-  .brand-name {
-    font-size: 30px;
+@media (min-width: 640px) {
+  .brand-eyebrow {
+    display: block;
   }
+}
+
+// Wherever the category bar competes for width, the eyebrow's ~145px would cost a
+// category slot, so the wordmark stands alone until everything fits anyway.
+@media (min-width: 1024px) and (max-width: 2199px) {
+  .brand-eyebrow {
+    display: none;
+  }
+}
+
+@media (min-width: 2200px) {
   .brand-eyebrow {
     font-size: 9.5px;
     letter-spacing: 0.34em;
   }
 }
 
-/* ---- Primary nav (desktop) ---- */
+// ---- Primary nav (desktop) ----
 .nav-links {
-  display: none;
+  display: flex;
   align-items: stretch;
-  gap: 4px;
-  margin-left: 28px;
+  flex: 0 1 auto;
+  min-width: 0;
+  gap: 2px;
+  margin-left: 20px;
   height: 100%;
 }
 
-@media (min-width: 1024px) {
-  .nav-links {
-    display: flex;
-  }
-}
-
 .nav-item {
-  position: relative;
   display: flex;
   align-items: stretch;
+  min-width: 0;
 }
 
 .nav-link {
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  min-width: 0;
   height: 100%;
-  padding: 0 12px;
-  font-size: 14.5px;
+  padding: 0 9px;
+  font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.01em;
   color: var(--nav-link);
@@ -110,15 +124,16 @@
   cursor: pointer;
 }
 
+.nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .nav-link:hover,
 .nav-item:hover .nav-link,
 .nav-item:focus-within .nav-link {
   color: var(--cream);
-}
-
-.nav-link.active {
-  color: var(--cream);
-  border-bottom-color: var(--brass-light);
 }
 
 .nav-caret {
@@ -134,15 +149,17 @@
   transform: rotate(180deg);
 }
 
-/* ---- Mega dropdown ---- */
+// ---- Mega dropdown ----
+// Anchored to the toolbar rather than the hovered item so a panel opened near the right
+// edge can never push past the viewport and create a horizontal scrollbar.
 .mega-panel {
   position: absolute;
-  top: calc(100% - 1px);
+  top: 100%;
   left: 0;
+  right: 0;
   z-index: 40;
-  min-width: 260px;
-  max-width: 620px;
   padding: 20px 22px;
+  white-space: normal;
   background: var(--cream);
   border: 1px solid #eae3d3;
   border-top: 2px solid var(--brass-light);
@@ -150,10 +167,11 @@
   box-shadow: 0 24px 48px -24px rgba(27, 58, 42, 0.55);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(6px);
+  // Deliberately fades without sliding. A translated closed panel sits below its resting
+  // position, so a pointer sweeping down faster than the transition crosses a band that
+  // belongs to neither the trigger nor the panel, loses :hover and closes the menu.
   transition:
     opacity 0.16s ease,
-    transform 0.16s ease,
     visibility 0.16s;
 }
 
@@ -161,12 +179,12 @@
 .nav-item:focus-within .mega-panel {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
 
 .mega-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
+  justify-content: start;
   gap: 18px 28px;
 }
 
@@ -174,7 +192,7 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 140px;
+  min-width: 0;
 }
 
 .mega-heading {
@@ -203,7 +221,7 @@
   color: var(--forest);
 }
 
-/* ---- Search ---- */
+// ---- Search ----
 .search {
   display: none;
   align-items: center;
@@ -211,9 +229,9 @@
   height: 44px;
   padding: 0 18px;
   margin: 0 4px;
-  min-width: 220px;
-  max-width: 340px;
-  flex: 0 1 320px;
+  flex: 1 1 150px;
+  min-width: 150px;
+  max-width: 320px;
   background: rgba(245, 240, 230, 0.08);
   border: 1px solid rgba(233, 200, 139, 0.3);
   border-radius: 999px;
@@ -261,28 +279,20 @@
   filter: invert(0.7);
 }
 
-/* ---- Right-side actions ---- */
+// ---- Right-side actions ----
 .nav-actions {
   display: flex;
   align-items: center;
+  flex: 0 0 auto;
   gap: 2px;
 }
 
 .nav-icon-btn {
+  flex: 0 0 auto;
   color: var(--cream);
 
   .mat-icon {
     color: var(--cream);
-  }
-}
-
-.menu-toggle {
-  display: inline-flex;
-}
-
-@media (min-width: 1024px) {
-  .menu-toggle {
-    display: none;
   }
 }
 
