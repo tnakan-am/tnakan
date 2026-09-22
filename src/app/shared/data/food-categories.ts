@@ -34,7 +34,7 @@ export interface RawCategory {
 export const FOOD_CATEGORIES: RawCategory[] = [
   {
     id: 'meat',
-    name: { hy: 'Միս և թռչնամիս', en: 'Meat & Poultry', rus: 'Мясо и птица' },
+    name: { hy: 'Միս և ձուկ', en: 'Meat & Fish', rus: 'Мясо и рыба' },
     subCategories: [
       {
         id: 'meat-beef',
@@ -118,12 +118,6 @@ export const FOOD_CATEGORIES: RawCategory[] = [
           { id: 'meat-cured-ham', name: { hy: 'Խոզապուխտ', en: 'Ham', rus: 'Ветчина' } },
         ],
       },
-    ],
-  },
-  {
-    id: 'fish',
-    name: { hy: 'Ձուկ և ծովամթերք', en: 'Fish & Seafood', rus: 'Рыба и морепродукты' },
-    subCategories: [
       {
         id: 'fish-fresh',
         name: { hy: 'Թարմ ձուկ', en: 'Fresh Fish', rus: 'Свежая рыба' },
@@ -280,11 +274,338 @@ export const FOOD_CATEGORIES: RawCategory[] = [
         },
         productCategories: [],
       },
+      {
+        id: 'preserves-pickles',
+        name: { hy: 'Թթու դրած բանջարեղեն', en: 'Pickled Vegetables', rus: 'Соленья' },
+        productCategories: [
+          {
+            id: 'preserves-pickles-tourshi',
+            name: { hy: 'Թթու (թուրշի)', en: 'Tourshi', rus: 'Туршу' },
+          },
+          {
+            id: 'preserves-pickles-cabbage',
+            name: { hy: 'Թթու կաղամբ', en: 'Pickled Cabbage', rus: 'Квашеная капуста' },
+          },
+        ],
+      },
+      {
+        id: 'preserves-jam',
+        name: { hy: 'Մուրաբա և ջեմ', en: 'Jams & Fruit Preserves', rus: 'Варенье и джем' },
+        productCategories: [
+          { id: 'preserves-jam-jam', name: { hy: 'Ջեմ', en: 'Jam', rus: 'Джем' } },
+          {
+            id: 'preserves-jam-murabba',
+            name: { hy: 'Մուրաբա', en: 'Fruit Preserve (Murabba)', rus: 'Варенье' },
+          },
+        ],
+      },
+      {
+        id: 'preserves-compote',
+        name: { hy: 'Կոմպոտ և օշարակ', en: 'Compotes & Syrups', rus: 'Компоты и сиропы' },
+        productCategories: [],
+      },
+      {
+        id: 'preserves-dried',
+        name: { hy: 'Չիր և պաստեղ', en: 'Sun-Dried & Fruit Leather', rus: 'Сухофрукты и пастила' },
+        productCategories: [
+          {
+            id: 'preserves-dried-lavash',
+            name: {
+              hy: 'Թթու լավաշ (պաստեղ)',
+              en: "Fruit Leather (T'tu Lavash)",
+              rus: 'Тту лаваш (пастила)',
+            },
+          },
+          {
+            id: 'preserves-dried-sujukh',
+            name: { hy: 'Սուջուխ (չուրչխելա)', en: 'Sujukh (Churchkhela)', rus: 'Чурчхела' },
+          },
+          {
+            id: 'preserves-dried-chir',
+            name: { hy: 'Չիր', en: 'Dried Fruit (Chir)', rus: 'Сухофрукты' },
+          },
+        ],
+      },
+      {
+        id: 'preserves-honey',
+        name: {
+          hy: 'Մեղր և մեղվաբուծական մթերք',
+          en: 'Honey & Bee Products',
+          rus: 'Мёд и продукты пчеловодства',
+        },
+        productCategories: [
+          { id: 'preserves-honey-honey', name: { hy: 'Մեղր', en: 'Honey', rus: 'Мёд' } },
+          { id: 'preserves-honey-pollen', name: { hy: 'Ծաղկափոշի', en: 'Pollen', rus: 'Пыльца' } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'dairy',
+    name: { hy: 'Կաթնամթերք և հաց', en: 'Dairy & Bakery', rus: 'Молочное и выпечка' },
+    subCategories: [
+      {
+        id: 'dairy-cheese',
+        name: { hy: 'Պանիր', en: 'Cheese', rus: 'Сыр' },
+        productCategories: [
+          {
+            id: 'dairy-cheese-lori',
+            name: { hy: 'Լոռի պանիր', en: 'Lori Cheese', rus: 'Сыр Лори' },
+          },
+          { id: 'dairy-cheese-chanakh', name: { hy: 'Չանախ', en: 'Chanakh', rus: 'Чанах' } },
+          {
+            id: 'dairy-cheese-chechil',
+            name: { hy: 'Չեչիլ (հյուսած պանիր)', en: 'String Cheese (Chechil)', rus: 'Чечил' },
+          },
+          { id: 'dairy-cheese-motal', name: { hy: 'Մոթալ', en: 'Motal', rus: 'Мотал' } },
+        ],
+      },
+      {
+        id: 'dairy-milk',
+        name: { hy: 'Կաթ և թթվասեր մթերք', en: 'Milk & Cultured', rus: 'Молоко и кисломолочное' },
+        productCategories: [
+          { id: 'dairy-milk-milk', name: { hy: 'Կաթ', en: 'Milk', rus: 'Молоко' } },
+          { id: 'dairy-milk-matsun', name: { hy: 'Մածուն', en: 'Matsun (Yogurt)', rus: 'Мацун' } },
+          { id: 'dairy-milk-kefir', name: { hy: 'Կեֆիր', en: 'Kefir', rus: 'Кефир' } },
+          { id: 'dairy-milk-sourcream', name: { hy: 'Թթվասեր', en: 'Sour Cream', rus: 'Сметана' } },
+        ],
+      },
+      {
+        id: 'dairy-butter',
+        name: { hy: 'Կարագ և սերուցք', en: 'Butter & Cream', rus: 'Масло и сливки' },
+        productCategories: [
+          { id: 'dairy-butter-butter', name: { hy: 'Կարագ', en: 'Butter', rus: 'Масло' } },
+          { id: 'dairy-butter-cream', name: { hy: 'Սերուցք', en: 'Cream', rus: 'Сливки' } },
+        ],
+      },
+      {
+        id: 'dairy-eggs',
+        name: { hy: 'Ձու', en: 'Eggs', rus: 'Яйца' },
+        productCategories: [],
+      },
+      {
+        id: 'bakery-bread',
+        name: { hy: 'Հաց', en: 'Bread', rus: 'Хлеб' },
+        productCategories: [
+          { id: 'bakery-bread-lavash', name: { hy: 'Լավաշ', en: 'Lavash', rus: 'Лаваш' } },
+          {
+            id: 'bakery-bread-matnakash',
+            name: { hy: 'Մատնաքաշ', en: 'Matnakash', rus: 'Матнакаш' },
+          },
+          {
+            id: 'bakery-bread-sourdough',
+            name: { hy: 'Թթխմորով հաց', en: 'Sourdough', rus: 'Хлеб на закваске' },
+          },
+        ],
+      },
+      {
+        id: 'bakery-sweet',
+        name: { hy: 'Քաղցր խմորեղեն', en: 'Sweet Pastry', rus: 'Сладкая выпечка' },
+        productCategories: [
+          { id: 'bakery-sweet-gata', name: { hy: 'Գաթա', en: 'Gata', rus: 'Гата' } },
+          { id: 'bakery-sweet-nazook', name: { hy: 'Նազուկ', en: 'Nazook', rus: 'Назук' } },
+          { id: 'bakery-sweet-baklava', name: { hy: 'Փախլավա', en: 'Baklava', rus: 'Пахлава' } },
+        ],
+      },
+      {
+        id: 'bakery-cakes',
+        name: { hy: 'Տորթեր և աղանդեր', en: 'Cakes & Desserts', rus: 'Торты и десерты' },
+        productCategories: [
+          { id: 'bakery-cakes-cake', name: { hy: 'Տորթեր', en: 'Cakes', rus: 'Торты' } },
+          { id: 'bakery-cakes-pastry', name: { hy: 'Խմորեղեն', en: 'Pastries', rus: 'Пирожные' } },
+        ],
+      },
+      {
+        id: 'bakery-savory',
+        name: { hy: 'Աղի խմորեղեն', en: 'Savory Pastry', rus: 'Несладкая выпечка' },
+        productCategories: [
+          {
+            id: 'bakery-savory-khachapuri',
+            name: { hy: 'Խաչապուրի', en: 'Khachapuri', rus: 'Хачапури' },
+          },
+          { id: 'bakery-savory-byorek', name: { hy: 'Բյորակ', en: 'Byorek', rus: 'Бёрек' } },
+          { id: 'bakery-savory-piroshki', name: { hy: 'Պիրոժկի', en: 'Piroshki', rus: 'Пирожки' } },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'pantry',
+    name: { hy: 'Մթերք և ըմպելիք', en: 'Pantry & Drinks', rus: 'Бакалея и напитки' },
+    subCategories: [
+      {
+        id: 'pantry-grains',
+        name: {
+          hy: 'Ձավարեղեն, բրինձ և մակարոն',
+          en: 'Grains, Rice & Pasta',
+          rus: 'Крупы, рис и макароны',
+        },
+        productCategories: [
+          {
+            id: 'pantry-grains-bulgur',
+            name: { hy: 'Ձավար (բլղուր)', en: 'Bulgur', rus: 'Булгур' },
+          },
+          { id: 'pantry-grains-rice', name: { hy: 'Բրինձ', en: 'Rice', rus: 'Рис' } },
+          {
+            id: 'pantry-grains-buckwheat',
+            name: { hy: 'Հնդկաձավար', en: 'Buckwheat', rus: 'Гречка' },
+          },
+          { id: 'pantry-grains-pasta', name: { hy: 'Մակարոնեղեն', en: 'Pasta', rus: 'Макароны' } },
+        ],
+      },
+      {
+        id: 'pantry-legumes',
+        name: { hy: 'Ընդեղեն', en: 'Legumes & Beans', rus: 'Бобовые' },
+        productCategories: [
+          { id: 'pantry-legumes-lentils', name: { hy: 'Ոսպ', en: 'Lentils', rus: 'Чечевица' } },
+          { id: 'pantry-legumes-beans', name: { hy: 'Լոբի', en: 'Beans', rus: 'Фасоль' } },
+          { id: 'pantry-legumes-chickpeas', name: { hy: 'Սիսեռ', en: 'Chickpeas', rus: 'Нут' } },
+        ],
+      },
+      {
+        id: 'pantry-oils',
+        name: {
+          hy: 'Յուղեր, քացախ և սոուսներ',
+          en: 'Oils, Vinegars & Sauces',
+          rus: 'Масла, уксус и соусы',
+        },
+        productCategories: [
+          {
+            id: 'pantry-oils-sunflower',
+            name: { hy: 'Արևածաղկի յուղ', en: 'Sunflower Oil', rus: 'Подсолнечное масло' },
+          },
+          {
+            id: 'pantry-oils-olive',
+            name: { hy: 'Ձիթապտղի յուղ', en: 'Olive Oil', rus: 'Оливковое масло' },
+          },
+          { id: 'pantry-oils-vinegar', name: { hy: 'Քացախ', en: 'Vinegar', rus: 'Уксус' } },
+          { id: 'pantry-oils-sauces', name: { hy: 'Սոուսներ', en: 'Sauces', rus: 'Соусы' } },
+        ],
+      },
+      {
+        id: 'pantry-spices',
+        name: { hy: 'Համեմունքներ', en: 'Spices & Seasonings', rus: 'Специи и приправы' },
+        productCategories: [
+          {
+            id: 'pantry-spices-herbs',
+            name: { hy: 'Չորացրած կանաչի', en: 'Dried Herbs', rus: 'Сушёная зелень' },
+          },
+          {
+            id: 'pantry-spices-blends',
+            name: { hy: 'Համեմունքների խառնուրդ', en: 'Spice Blends', rus: 'Смеси специй' },
+          },
+        ],
+      },
+      {
+        id: 'pantry-canned',
+        name: { hy: 'Պահածոներ', en: 'Canned & Jarred', rus: 'Консервы' },
+        productCategories: [],
+      },
+      {
+        id: 'pantry-flour',
+        name: { hy: 'Ալյուր և հացաթխման', en: 'Flour & Baking', rus: 'Мука и выпечка' },
+        productCategories: [
+          { id: 'pantry-flour-flour', name: { hy: 'Ալյուր', en: 'Flour', rus: 'Мука' } },
+          { id: 'pantry-flour-sugar', name: { hy: 'Շաքարավազ', en: 'Sugar', rus: 'Сахар' } },
+          { id: 'pantry-flour-yeast', name: { hy: 'Խմորիչ', en: 'Yeast', rus: 'Дрожжи' } },
+        ],
+      },
+      {
+        id: 'sweets-nuts',
+        name: { hy: 'Չիր և ընկուզեղեն', en: 'Dried Fruits & Nuts', rus: 'Сухофрукты и орехи' },
+        productCategories: [
+          {
+            id: 'sweets-nuts-walnut',
+            name: { hy: 'Ընկույզ', en: 'Walnuts', rus: 'Грецкие орехи' },
+          },
+          { id: 'sweets-nuts-almond', name: { hy: 'Նուշ', en: 'Almonds', rus: 'Миндаль' } },
+          {
+            id: 'sweets-nuts-apricot',
+            name: { hy: 'Չիր (ծիրանի)', en: 'Dried Apricot', rus: 'Курага' },
+          },
+          { id: 'sweets-nuts-raisins', name: { hy: 'Չամիչ', en: 'Raisins', rus: 'Изюм' } },
+        ],
+      },
+      {
+        id: 'sweets-chocolate',
+        name: { hy: 'Շոկոլադ և կոնֆետ', en: 'Chocolate & Candy', rus: 'Шоколад и конфеты' },
+        productCategories: [
+          {
+            id: 'sweets-chocolate-chocolate',
+            name: { hy: 'Շոկոլադ', en: 'Chocolate', rus: 'Шоколад' },
+          },
+          { id: 'sweets-chocolate-candy', name: { hy: 'Կոնֆետ', en: 'Candy', rus: 'Конфеты' } },
+        ],
+      },
+      {
+        id: 'sweets-traditional',
+        name: {
+          hy: 'Ավանդական քաղցրավենիք',
+          en: 'Traditional Sweets',
+          rus: 'Традиционные сладости',
+        },
+        productCategories: [
+          {
+            id: 'sweets-traditional-sujukh',
+            name: { hy: 'Սուջուխ (չուրչխելա)', en: 'Sujukh (Churchkhela)', rus: 'Чурчхела' },
+          },
+          { id: 'sweets-traditional-halva', name: { hy: 'Հալվա', en: 'Halva', rus: 'Халва' } },
+          { id: 'sweets-traditional-alani', name: { hy: 'Ալանի', en: 'Alani', rus: 'Аляни' } },
+        ],
+      },
+      {
+        id: 'beverages-water',
+        name: {
+          hy: 'Ջուր և զովացուցիչ ըմպելիքներ',
+          en: 'Water & Soft Drinks',
+          rus: 'Вода и безалкогольные напитки',
+        },
+        productCategories: [
+          { id: 'beverages-water-water', name: { hy: 'Ջուր', en: 'Water', rus: 'Вода' } },
+          {
+            id: 'beverages-water-mineral',
+            name: { hy: 'Հանքային ջուր', en: 'Mineral Water', rus: 'Минеральная вода' },
+          },
+          {
+            id: 'beverages-water-soda',
+            name: { hy: 'Գազավորված ըմպելիքներ', en: 'Soft Drinks', rus: 'Газированные напитки' },
+          },
+        ],
+      },
+      {
+        id: 'beverages-juice',
+        name: { hy: 'Հյութեր և կոմպոտ', en: 'Juices & Compotes', rus: 'Соки и компоты' },
+        productCategories: [
+          { id: 'beverages-juice-juice', name: { hy: 'Հյութ', en: 'Juice', rus: 'Сок' } },
+          { id: 'beverages-juice-compote', name: { hy: 'Կոմպոտ', en: 'Compote', rus: 'Компот' } },
+        ],
+      },
+      {
+        id: 'beverages-coffee',
+        name: { hy: 'Սուրճ և թեյ', en: 'Coffee & Tea', rus: 'Кофе и чай' },
+        productCategories: [
+          { id: 'beverages-coffee-coffee', name: { hy: 'Սուրճ', en: 'Coffee', rus: 'Кофе' } },
+          { id: 'beverages-coffee-tea', name: { hy: 'Թեյ', en: 'Tea', rus: 'Чай' } },
+          {
+            id: 'beverages-coffee-herbal',
+            name: { hy: 'Դեղաբույսերի թեյ', en: 'Herbal Tea', rus: 'Травяной чай' },
+          },
+        ],
+      },
+      {
+        id: 'beverages-alcohol',
+        name: { hy: 'Գինի և ոգելից խմիչքներ', en: 'Wine & Spirits', rus: 'Вино и крепкие напитки' },
+        productCategories: [
+          { id: 'beverages-alcohol-wine', name: { hy: 'Գինի', en: 'Wine', rus: 'Вино' } },
+          { id: 'beverages-alcohol-brandy', name: { hy: 'Կոնյակ', en: 'Brandy', rus: 'Коньяк' } },
+          { id: 'beverages-alcohol-vodka', name: { hy: 'Օղի', en: 'Vodka', rus: 'Водка' } },
+        ],
+      },
     ],
   },
   {
     id: 'prepared',
-    name: { hy: 'Պատրաստի ուտեստներ', en: 'Prepared & Ready-Made', rus: 'Готовые блюда' },
+    name: { hy: 'Պատրաստի ուտեստ', en: 'Prepared Food', rus: 'Готовые блюда' },
     subCategories: [
       {
         id: 'prepared-traditional',
@@ -381,357 +702,6 @@ export const FOOD_CATEGORIES: RawCategory[] = [
             id: 'prepared-grill-lula',
             name: { hy: 'Լյուլա քյաբաբ', en: 'Lula Kebab', rus: 'Люля-кебаб' },
           },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'bakery',
-    name: { hy: 'Հացաբուլկեղեն և խմորեղեն', en: 'Bakery & Pastry', rus: 'Выпечка' },
-    subCategories: [
-      {
-        id: 'bakery-bread',
-        name: { hy: 'Հաց', en: 'Bread', rus: 'Хлеб' },
-        productCategories: [
-          { id: 'bakery-bread-lavash', name: { hy: 'Լավաշ', en: 'Lavash', rus: 'Лаваш' } },
-          {
-            id: 'bakery-bread-matnakash',
-            name: { hy: 'Մատնաքաշ', en: 'Matnakash', rus: 'Матнакаш' },
-          },
-          {
-            id: 'bakery-bread-sourdough',
-            name: { hy: 'Թթխմորով հաց', en: 'Sourdough', rus: 'Хлеб на закваске' },
-          },
-        ],
-      },
-      {
-        id: 'bakery-sweet',
-        name: { hy: 'Քաղցր խմորեղեն', en: 'Sweet Pastry', rus: 'Сладкая выпечка' },
-        productCategories: [
-          { id: 'bakery-sweet-gata', name: { hy: 'Գաթա', en: 'Gata', rus: 'Гата' } },
-          { id: 'bakery-sweet-nazook', name: { hy: 'Նազուկ', en: 'Nazook', rus: 'Назук' } },
-          { id: 'bakery-sweet-baklava', name: { hy: 'Փախլավա', en: 'Baklava', rus: 'Пахлава' } },
-        ],
-      },
-      {
-        id: 'bakery-cakes',
-        name: { hy: 'Տորթեր և աղանդեր', en: 'Cakes & Desserts', rus: 'Торты и десерты' },
-        productCategories: [
-          { id: 'bakery-cakes-cake', name: { hy: 'Տորթեր', en: 'Cakes', rus: 'Торты' } },
-          { id: 'bakery-cakes-pastry', name: { hy: 'Խմորեղեն', en: 'Pastries', rus: 'Пирожные' } },
-        ],
-      },
-      {
-        id: 'bakery-savory',
-        name: { hy: 'Աղի խմորեղեն', en: 'Savory Pastry', rus: 'Несладкая выпечка' },
-        productCategories: [
-          {
-            id: 'bakery-savory-khachapuri',
-            name: { hy: 'Խաչապուրի', en: 'Khachapuri', rus: 'Хачапури' },
-          },
-          { id: 'bakery-savory-byorek', name: { hy: 'Բյորակ', en: 'Byorek', rus: 'Бёрек' } },
-          { id: 'bakery-savory-piroshki', name: { hy: 'Պիրոժկի', en: 'Piroshki', rus: 'Пирожки' } },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'dairy',
-    name: { hy: 'Կաթնամթերք և ձու', en: 'Dairy & Eggs', rus: 'Молочные продукты и яйца' },
-    subCategories: [
-      {
-        id: 'dairy-cheese',
-        name: { hy: 'Պանիր', en: 'Cheese', rus: 'Сыр' },
-        productCategories: [
-          {
-            id: 'dairy-cheese-lori',
-            name: { hy: 'Լոռի պանիր', en: 'Lori Cheese', rus: 'Сыр Лори' },
-          },
-          { id: 'dairy-cheese-chanakh', name: { hy: 'Չանախ', en: 'Chanakh', rus: 'Чанах' } },
-          {
-            id: 'dairy-cheese-chechil',
-            name: { hy: 'Չեչիլ (հյուսած պանիր)', en: 'String Cheese (Chechil)', rus: 'Чечил' },
-          },
-          { id: 'dairy-cheese-motal', name: { hy: 'Մոթալ', en: 'Motal', rus: 'Мотал' } },
-        ],
-      },
-      {
-        id: 'dairy-milk',
-        name: { hy: 'Կաթ և թթվասեր մթերք', en: 'Milk & Cultured', rus: 'Молоко и кисломолочное' },
-        productCategories: [
-          { id: 'dairy-milk-milk', name: { hy: 'Կաթ', en: 'Milk', rus: 'Молоко' } },
-          { id: 'dairy-milk-matsun', name: { hy: 'Մածուն', en: 'Matsun (Yogurt)', rus: 'Мацун' } },
-          { id: 'dairy-milk-kefir', name: { hy: 'Կեֆիր', en: 'Kefir', rus: 'Кефир' } },
-          { id: 'dairy-milk-sourcream', name: { hy: 'Թթվասեր', en: 'Sour Cream', rus: 'Сметана' } },
-        ],
-      },
-      {
-        id: 'dairy-butter',
-        name: { hy: 'Կարագ և սերուցք', en: 'Butter & Cream', rus: 'Масло и сливки' },
-        productCategories: [
-          { id: 'dairy-butter-butter', name: { hy: 'Կարագ', en: 'Butter', rus: 'Масло' } },
-          { id: 'dairy-butter-cream', name: { hy: 'Սերուցք', en: 'Cream', rus: 'Сливки' } },
-        ],
-      },
-      {
-        id: 'dairy-eggs',
-        name: { hy: 'Ձու', en: 'Eggs', rus: 'Яйца' },
-        productCategories: [],
-      },
-    ],
-  },
-  {
-    id: 'pantry',
-    name: { hy: 'Մթերք', en: 'Pantry & Groceries', rus: 'Бакалея' },
-    subCategories: [
-      {
-        id: 'pantry-grains',
-        name: {
-          hy: 'Ձավարեղեն, բրինձ և մակարոն',
-          en: 'Grains, Rice & Pasta',
-          rus: 'Крупы, рис и макароны',
-        },
-        productCategories: [
-          {
-            id: 'pantry-grains-bulgur',
-            name: { hy: 'Ձավար (բլղուր)', en: 'Bulgur', rus: 'Булгур' },
-          },
-          { id: 'pantry-grains-rice', name: { hy: 'Բրինձ', en: 'Rice', rus: 'Рис' } },
-          {
-            id: 'pantry-grains-buckwheat',
-            name: { hy: 'Հնդկաձավար', en: 'Buckwheat', rus: 'Гречка' },
-          },
-          { id: 'pantry-grains-pasta', name: { hy: 'Մակարոնեղեն', en: 'Pasta', rus: 'Макароны' } },
-        ],
-      },
-      {
-        id: 'pantry-legumes',
-        name: { hy: 'Ընդեղեն', en: 'Legumes & Beans', rus: 'Бобовые' },
-        productCategories: [
-          { id: 'pantry-legumes-lentils', name: { hy: 'Ոսպ', en: 'Lentils', rus: 'Чечевица' } },
-          { id: 'pantry-legumes-beans', name: { hy: 'Լոբի', en: 'Beans', rus: 'Фасоль' } },
-          { id: 'pantry-legumes-chickpeas', name: { hy: 'Սիսեռ', en: 'Chickpeas', rus: 'Нут' } },
-        ],
-      },
-      {
-        id: 'pantry-oils',
-        name: {
-          hy: 'Յուղեր, քացախ և սոուսներ',
-          en: 'Oils, Vinegars & Sauces',
-          rus: 'Масла, уксус и соусы',
-        },
-        productCategories: [
-          {
-            id: 'pantry-oils-sunflower',
-            name: { hy: 'Արևածաղկի յուղ', en: 'Sunflower Oil', rus: 'Подсолнечное масло' },
-          },
-          {
-            id: 'pantry-oils-olive',
-            name: { hy: 'Ձիթապտղի յուղ', en: 'Olive Oil', rus: 'Оливковое масло' },
-          },
-          { id: 'pantry-oils-vinegar', name: { hy: 'Քացախ', en: 'Vinegar', rus: 'Уксус' } },
-          { id: 'pantry-oils-sauces', name: { hy: 'Սոուսներ', en: 'Sauces', rus: 'Соусы' } },
-        ],
-      },
-      {
-        id: 'pantry-spices',
-        name: { hy: 'Համեմունքներ', en: 'Spices & Seasonings', rus: 'Специи и приправы' },
-        productCategories: [
-          {
-            id: 'pantry-spices-herbs',
-            name: { hy: 'Չորացրած կանաչի', en: 'Dried Herbs', rus: 'Сушёная зелень' },
-          },
-          {
-            id: 'pantry-spices-blends',
-            name: { hy: 'Համեմունքների խառնուրդ', en: 'Spice Blends', rus: 'Смеси специй' },
-          },
-        ],
-      },
-      {
-        id: 'pantry-canned',
-        name: { hy: 'Պահածոներ', en: 'Canned & Jarred', rus: 'Консервы' },
-        productCategories: [],
-      },
-      {
-        id: 'pantry-flour',
-        name: { hy: 'Ալյուր և հացաթխման', en: 'Flour & Baking', rus: 'Мука и выпечка' },
-        productCategories: [
-          { id: 'pantry-flour-flour', name: { hy: 'Ալյուր', en: 'Flour', rus: 'Мука' } },
-          { id: 'pantry-flour-sugar', name: { hy: 'Շաքարավազ', en: 'Sugar', rus: 'Сахар' } },
-          { id: 'pantry-flour-yeast', name: { hy: 'Խմորիչ', en: 'Yeast', rus: 'Дрожжи' } },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'preserves',
-    name: { hy: 'Պահածոներ և թթուներ', en: 'Preserves & Pickles', rus: 'Заготовки и соленья' },
-    subCategories: [
-      {
-        id: 'preserves-pickles',
-        name: { hy: 'Թթու դրած բանջարեղեն', en: 'Pickled Vegetables', rus: 'Соленья' },
-        productCategories: [
-          {
-            id: 'preserves-pickles-tourshi',
-            name: { hy: 'Թթու (թուրշի)', en: 'Tourshi', rus: 'Туршу' },
-          },
-          {
-            id: 'preserves-pickles-cabbage',
-            name: { hy: 'Թթու կաղամբ', en: 'Pickled Cabbage', rus: 'Квашеная капуста' },
-          },
-        ],
-      },
-      {
-        id: 'preserves-jam',
-        name: { hy: 'Մուրաբա և ջեմ', en: 'Jams & Fruit Preserves', rus: 'Варенье и джем' },
-        productCategories: [
-          { id: 'preserves-jam-jam', name: { hy: 'Ջեմ', en: 'Jam', rus: 'Джем' } },
-          {
-            id: 'preserves-jam-murabba',
-            name: { hy: 'Մուրաբա', en: 'Fruit Preserve (Murabba)', rus: 'Варенье' },
-          },
-        ],
-      },
-      {
-        id: 'preserves-compote',
-        name: { hy: 'Կոմպոտ և օշարակ', en: 'Compotes & Syrups', rus: 'Компоты и сиропы' },
-        productCategories: [],
-      },
-      {
-        id: 'preserves-dried',
-        name: { hy: 'Չիր և պաստեղ', en: 'Sun-Dried & Fruit Leather', rus: 'Сухофрукты и пастила' },
-        productCategories: [
-          {
-            id: 'preserves-dried-lavash',
-            name: {
-              hy: 'Թթու լավաշ (պաստեղ)',
-              en: "Fruit Leather (T'tu Lavash)",
-              rus: 'Тту лаваш (пастила)',
-            },
-          },
-          {
-            id: 'preserves-dried-sujukh',
-            name: { hy: 'Սուջուխ (չուրչխելա)', en: 'Sujukh (Churchkhela)', rus: 'Чурчхела' },
-          },
-          {
-            id: 'preserves-dried-chir',
-            name: { hy: 'Չիր', en: 'Dried Fruit (Chir)', rus: 'Сухофрукты' },
-          },
-        ],
-      },
-      {
-        id: 'preserves-honey',
-        name: {
-          hy: 'Մեղր և մեղվաբուծական մթերք',
-          en: 'Honey & Bee Products',
-          rus: 'Мёд и продукты пчеловодства',
-        },
-        productCategories: [
-          { id: 'preserves-honey-honey', name: { hy: 'Մեղր', en: 'Honey', rus: 'Мёд' } },
-          { id: 'preserves-honey-pollen', name: { hy: 'Ծաղկափոշի', en: 'Pollen', rus: 'Пыльца' } },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'sweets',
-    name: { hy: 'Քաղցրավենիք և չիր-ընկույզ', en: 'Sweets & Nuts', rus: 'Сладости и орехи' },
-    subCategories: [
-      {
-        id: 'sweets-nuts',
-        name: { hy: 'Չիր և ընկուզեղեն', en: 'Dried Fruits & Nuts', rus: 'Сухофрукты и орехи' },
-        productCategories: [
-          {
-            id: 'sweets-nuts-walnut',
-            name: { hy: 'Ընկույզ', en: 'Walnuts', rus: 'Грецкие орехи' },
-          },
-          { id: 'sweets-nuts-almond', name: { hy: 'Նուշ', en: 'Almonds', rus: 'Миндаль' } },
-          {
-            id: 'sweets-nuts-apricot',
-            name: { hy: 'Չիր (ծիրանի)', en: 'Dried Apricot', rus: 'Курага' },
-          },
-          { id: 'sweets-nuts-raisins', name: { hy: 'Չամիչ', en: 'Raisins', rus: 'Изюм' } },
-        ],
-      },
-      {
-        id: 'sweets-chocolate',
-        name: { hy: 'Շոկոլադ և կոնֆետ', en: 'Chocolate & Candy', rus: 'Шоколад и конфеты' },
-        productCategories: [
-          {
-            id: 'sweets-chocolate-chocolate',
-            name: { hy: 'Շոկոլադ', en: 'Chocolate', rus: 'Шоколад' },
-          },
-          { id: 'sweets-chocolate-candy', name: { hy: 'Կոնֆետ', en: 'Candy', rus: 'Конфеты' } },
-        ],
-      },
-      {
-        id: 'sweets-traditional',
-        name: {
-          hy: 'Ավանդական քաղցրավենիք',
-          en: 'Traditional Sweets',
-          rus: 'Традиционные сладости',
-        },
-        productCategories: [
-          {
-            id: 'sweets-traditional-sujukh',
-            name: { hy: 'Սուջուխ (չուրչխելա)', en: 'Sujukh (Churchkhela)', rus: 'Чурчхела' },
-          },
-          { id: 'sweets-traditional-halva', name: { hy: 'Հալվա', en: 'Halva', rus: 'Халва' } },
-          { id: 'sweets-traditional-alani', name: { hy: 'Ալանի', en: 'Alani', rus: 'Аляни' } },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'beverages',
-    name: { hy: 'Ըմպելիքներ', en: 'Beverages', rus: 'Напитки' },
-    subCategories: [
-      {
-        id: 'beverages-water',
-        name: {
-          hy: 'Ջուր և զովացուցիչ ըմպելիքներ',
-          en: 'Water & Soft Drinks',
-          rus: 'Вода и безалкогольные напитки',
-        },
-        productCategories: [
-          { id: 'beverages-water-water', name: { hy: 'Ջուր', en: 'Water', rus: 'Вода' } },
-          {
-            id: 'beverages-water-mineral',
-            name: { hy: 'Հանքային ջուր', en: 'Mineral Water', rus: 'Минеральная вода' },
-          },
-          {
-            id: 'beverages-water-soda',
-            name: { hy: 'Գազավորված ըմպելիքներ', en: 'Soft Drinks', rus: 'Газированные напитки' },
-          },
-        ],
-      },
-      {
-        id: 'beverages-juice',
-        name: { hy: 'Հյութեր և կոմպոտ', en: 'Juices & Compotes', rus: 'Соки и компоты' },
-        productCategories: [
-          { id: 'beverages-juice-juice', name: { hy: 'Հյութ', en: 'Juice', rus: 'Сок' } },
-          { id: 'beverages-juice-compote', name: { hy: 'Կոմպոտ', en: 'Compote', rus: 'Компот' } },
-        ],
-      },
-      {
-        id: 'beverages-coffee',
-        name: { hy: 'Սուրճ և թեյ', en: 'Coffee & Tea', rus: 'Кофе и чай' },
-        productCategories: [
-          { id: 'beverages-coffee-coffee', name: { hy: 'Սուրճ', en: 'Coffee', rus: 'Кофе' } },
-          { id: 'beverages-coffee-tea', name: { hy: 'Թեյ', en: 'Tea', rus: 'Чай' } },
-          {
-            id: 'beverages-coffee-herbal',
-            name: { hy: 'Դեղաբույսերի թեյ', en: 'Herbal Tea', rus: 'Травяной чай' },
-          },
-        ],
-      },
-      {
-        id: 'beverages-alcohol',
-        name: { hy: 'Գինի և ոգելից խմիչքներ', en: 'Wine & Spirits', rus: 'Вино и крепкие напитки' },
-        productCategories: [
-          { id: 'beverages-alcohol-wine', name: { hy: 'Գինի', en: 'Wine', rus: 'Вино' } },
-          { id: 'beverages-alcohol-brandy', name: { hy: 'Կոնյակ', en: 'Brandy', rus: 'Коньяк' } },
-          { id: 'beverages-alcohol-vodka', name: { hy: 'Օղի', en: 'Vodka', rus: 'Водка' } },
         ],
       },
     ],
