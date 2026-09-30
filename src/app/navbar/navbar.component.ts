@@ -28,10 +28,10 @@ const CATEGORY_BAR_MIN_WIDTH = 1024;
 
 /**
  * How many category labels fit beside the brand, search and actions on one row, measured
- * against Armenian, the longest of the three locales. Whatever does not fit is reached
- * through the drawer, which always lists the whole tree. Re-measure these if the labels
- * or the surrounding controls change; a label that no longer fits ellipsizes rather than
- * widening the row.
+ * against Armenian, the longest of the three locales. The bar is all-or-nothing: unless
+ * every category fits, none are shown inline and the drawer, which always lists the whole
+ * tree, carries them. Re-measure these if the labels or the surrounding controls change;
+ * a label that no longer fits ellipsizes rather than widening the row.
  */
 const INLINE_BREAKPOINTS: readonly { readonly minWidth: number; readonly count: number }[] = [
   { minWidth: 1440, count: 5 },
@@ -68,10 +68,11 @@ export class NavbarComponent {
   basket;
   notifications?: WritableSignal<Notification[]>;
   categories = computed(() => this.foodCategories.tree());
-  /** Categories the bar has room for at the current width. */
-  inlineCategories = computed(() =>
-    this.categories().slice(0, inlineCountFor(this.viewportWidth()))
-  );
+  /** Every category when all fit at the current width, otherwise none. */
+  inlineCategories = computed(() => {
+    const categories = this.categories();
+    return inlineCountFor(this.viewportWidth()) >= categories.length ? categories : [];
+  });
   /** The drawer is offered exactly when the bar cannot show every category. */
   showDrawerToggle = computed(() => this.inlineCategories().length < this.categories().length);
   searchTerm = '';
