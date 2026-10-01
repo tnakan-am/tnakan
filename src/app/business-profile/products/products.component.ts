@@ -70,14 +70,7 @@ export class ProductsComponent implements OnInit {
   }
 
   private updateProduct(value: Product, id: string) {
-    return this.productsService.updateProduct(
-      {
-        ...value,
-        availability:
-          value.availability === 'unlimited' ? value.availability : Number(value.availability),
-      },
-      id
-    );
+    return this.productsService.updateProduct(value, id);
   }
 
   private createProduct(value: Product) {

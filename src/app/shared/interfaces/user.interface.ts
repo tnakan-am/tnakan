@@ -20,7 +20,7 @@ export interface IUser {
   image?: string;
   address?: Address;
   isTopSeller?: boolean;
-  emailVerified?: boolean;
+  verified?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }

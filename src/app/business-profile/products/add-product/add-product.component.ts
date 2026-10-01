@@ -67,25 +67,21 @@ export class AddProductComponent implements OnInit {
   constructor(private _fb: FormBuilder) {
     this.form = this._fb.group({
       name: ['', Validators.required],
-      description: ['', [Validators.maxLength(250)]],
+      description: ['', [Validators.required, Validators.maxLength(250)]],
       category: ['', Validators.required],
       subCategory: ['', Validators.required],
       productCategory: [],
-      image: [],
+      image: [null, Validators.required],
       avgReview: [0],
       minQuantity: [1, [Validators.required, Validators.pattern(/^\d+$/)]],
-      unit: ['quantity'],
-      deliveryOption: ['nearest'],
+      unit: [Unit.quantity],
+      deliveryOption: [DeliveryOption.nearest],
       approved: [false],
       availability: [Availability.unlimited, [Validators.nullValidator]],
       price: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
     });
-    this.units = Object.keys(Unit).map((key) => {
-      return { id: key, name: Unit[key as keyof typeof Unit] };
-    });
-    this.options = Object.keys(DeliveryOption).map((key) => {
-      return { id: key, name: DeliveryOption[key as keyof typeof DeliveryOption] };
-    });
+    this.units = Object.values(Unit).map((value) => ({ id: value, name: value }));
+    this.options = Object.values(DeliveryOption).map((value) => ({ id: value, name: value }));
   }
 
   ngOnInit() {
@@ -115,7 +111,13 @@ export class AddProductComponent implements OnInit {
   }
 
   submit(): void {
-    this.dialogRef.close(this.form.getRawValue());
+    const value = this.form.getRawValue();
+    this.dialogRef.close({
+      ...value,
+      price: Number(value.price),
+      minQuantity: Number(value.minQuantity),
+      availability: String(value.availability),
+    });
   }
 
   categoryChanged($event: any) {

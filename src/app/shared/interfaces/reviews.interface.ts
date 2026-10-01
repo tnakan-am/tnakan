@@ -3,6 +3,6 @@ export interface Review {
   comment: string;
   stars: number;
   userId: string;
-  userPhoto: string;
+  userPhoto: string | null;
   userName: string;
 }

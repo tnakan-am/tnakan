@@ -65,11 +65,6 @@ export class ProductsService {
     return this.http.patch<Product>(`${this.base}/${id}`, { avgReview: qnt });
   }
 
-  batchUpdateProductsByUserId(product: Partial<Product>, userId: string): Observable<Product[]> {
-    let params = new HttpParams().set('userId', userId);
-    return this.http.patch<Product[]>(`${this.base}/batch`, product, { params });
-  }
-
   getAllProducts(): Observable<Product[]> {
     return this.listProducts({ sortBy: 'avgReview', sortOrder: 'DESC', limit: 100 });
   }

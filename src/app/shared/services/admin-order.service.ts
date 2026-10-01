@@ -21,8 +21,12 @@ export class AdminOrderService {
 
     const data: { [key: string]: OrderItem[] } = {};
     orders.forEach((order) => {
-      const products = (order.products ?? []).map((p) => ({ ...p, orderId: order.id }));
-      const grouped = groupBy(products, 'userId');
+      const products = (order.products ?? []).map((p) => ({
+        ...p,
+        orderId: order.id,
+        paidAt: order.paidAt,
+      }));
+      const grouped = groupBy(products, 'vendorId');
       Object.keys(grouped).forEach((key) => {
         if (data[key]) {
           data[key].push(...grouped[key]);

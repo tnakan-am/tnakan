@@ -45,7 +45,6 @@ export class OrdersComponent implements OnInit {
   orderService: OrderService = inject(OrderService);
   orders: WritableSignal<Order[]> = signal([]);
   newOrders = computed(() => this.ordersService.newOrders());
-  status!: Status;
   loading: boolean = true;
 
   orderStatus: Map<Status, Status> = new Map<Status, Status>([
@@ -82,51 +81,38 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  // The API returns only this vendor's lines, which move through statuses together.
+  statusOf(order: Order): Status {
+    return order.products[0]?.status ?? Status.pending;
+  }
+
   orderSeen(order: Order) {
-    this.status = order.products.map((value) => value.status)[0];
     if (
       this.newOrders().find((value) => value.orderId === order.orderId)?.status ===
         Status.pending ||
-      this.status === Status.pending
+      this.statusOf(order) === Status.pending
     ) {
       this.ordersService.changeNotificationStatus(order, Status.seen).subscribe({
-        next: () => {
-          this.status = Status.seen;
-          this.orders.update((orders) =>
-            orders.map((value) =>
-              value.orderId === order.orderId
-                ? {
-                    ...value,
-                    products: value.products.map((value1) => ({ ...value1, status: Status.seen })),
-                  }
-                : value
-            )
-          );
-        },
+        next: () => this.setStatus(order, Status.seen),
       });
     }
   }
 
   orderStatusChange(order: Order) {
-    const nextStatus = this.orderStatus.get(this.status);
+    const nextStatus = this.orderStatus.get(this.statusOf(order));
     if (!nextStatus) return;
     fromPromise(this.ordersService.changeProductsStatus(order, nextStatus)).subscribe({
-      next: () => {
-        this.status = nextStatus;
-        this.orders.update((orders) =>
-          orders.map((orderItem) =>
-            orderItem.orderId === order.orderId
-              ? {
-                  ...order,
-                  products: order.products.map((product) => ({
-                    ...product,
-                    status: nextStatus,
-                  })),
-                }
-              : orderItem
-          )
-        );
-      },
+      next: () => this.setStatus(order, nextStatus),
     });
+  }
+
+  private setStatus(order: Order, status: Status) {
+    this.orders.update((orders) =>
+      orders.map((value) =>
+        value.orderId === order.orderId
+          ? { ...value, products: value.products.map((product) => ({ ...product, status })) }
+          : value
+      )
+    );
   }
 }
