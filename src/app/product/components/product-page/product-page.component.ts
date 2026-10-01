@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatTab, MatTabChangeEvent, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { ReviewComponent } from '../reviews/review.component';
@@ -14,15 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-product-page',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatTabGroup,
-    MatTab,
-    ReviewComponent,
-    MatTabContent,
-    RouterLink,
-    TranslateModule,
-  ],
+  imports: [MatTabGroup, MatTab, ReviewComponent, MatTabContent, RouterLink, TranslateModule],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })

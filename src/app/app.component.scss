@@ -8,6 +8,20 @@ mat-sidenav {
 // always reclaims the full width when the sidebar is collapsed.
 .mat-drawer-content {
   transition: margin-left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+// Short routes (empty listings, error pages) used to leave the footer floating in the
+// middle of the viewport; growing the routed page fills the gap without letting tall
+// pages get squashed by flex shrinking.
+.page-content {
+  flex: 1 0 auto;
+}
+
+app-navbar,
+app-footer {
+  flex: 0 0 auto;
 }
 
 .mat-drawer-side:not(.mat-drawer-opened) ~ .mat-drawer-content {

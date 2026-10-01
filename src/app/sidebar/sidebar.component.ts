@@ -1,5 +1,4 @@
 import { Component, effect, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +17,7 @@ export interface SideBarMenu {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, MatSidenavModule, MatButtonModule, FormsModule, RouterLink],
+  imports: [MatSidenavModule, MatButtonModule, FormsModule, RouterLink],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })

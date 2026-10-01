@@ -34,7 +34,10 @@ export class CardItemComponent {
   @Input() product!: Product;
   @Output() addToCard = new EventEmitter<Product>();
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activatedRouter: ActivatedRoute
+  ) {}
 
   handleAddToCard(event: Product) {
     this.addToCard.emit(event);

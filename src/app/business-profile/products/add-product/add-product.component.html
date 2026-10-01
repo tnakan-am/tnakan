@@ -28,7 +28,7 @@
           <mat-label>{{ 'fields.unit' | translate }}</mat-label>
           <mat-select formControlName="unit">
             @for (category of units; track category.id) {
-            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
+              <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -36,16 +36,16 @@
         <mat-form-field>
           <mat-label>{{ 'fields.minQuantity' | translate }}</mat-label>
           <input [readonly]="data.admin" matInput formControlName="minQuantity" />
-          @if(form.get('minQuantity')?.errors) {
-          <mat-error>{{ formErrorMessage(form.get('minQuantity')!) | translate }}</mat-error>
+          @if (form.get('minQuantity')?.errors) {
+            <mat-error>{{ formErrorMessage(form.get('minQuantity')!) | translate }}</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>{{ 'fields.availability' | translate }}</mat-label>
           <input [readonly]="data.admin" matInput formControlName="availability" />
-          @if(form.get('availability')?.errors) {
-          <mat-error>{{ formErrorMessage(form.get('availability')!) | translate }}</mat-error>
+          @if (form.get('availability')?.errors) {
+            <mat-error>{{ formErrorMessage(form.get('availability')!) | translate }}</mat-error>
           }
         </mat-form-field>
 
@@ -53,8 +53,8 @@
           <mat-label>{{ 'fields.unitPrice' | translate }}</mat-label>
           <input [readonly]="data.admin" placeholder="1000" matInput formControlName="price" />
           <span matSuffix>֏</span>
-          @if(form.get('price')?.errors) {
-          <mat-error>{{ formErrorMessage(form.get('price')!) | translate }}</mat-error>
+          @if (form.get('price')?.errors) {
+            <mat-error>{{ formErrorMessage(form.get('price')!) | translate }}</mat-error>
           }
         </mat-form-field>
 
@@ -62,32 +62,32 @@
           <mat-label>{{ 'fields.deliveryOption' | translate }}</mat-label>
           <mat-select formControlName="deliveryOption">
             @for (option of options; track option.id) {
-            <mat-option [value]="option.id">{{ option?.name }}</mat-option>
+              <mat-option [value]="option.id">{{ option?.name }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
       </div>
 
       @if (data.admin) {
-      <img class="w-40" [src]="form.getRawValue().image" />
+        <img class="w-40" [src]="form.getRawValue().image" />
       } @else {
-      <mat-form-field>
-        <mat-label>{{ 'fields.image' | translate }}</mat-label>
-        <input readonly (click)="fileInput.click()" matInput formControlName="image" />
-        <span matSuffix><mat-icon>folder_open</mat-icon></span>
-      </mat-form-field>
-      <input hidden (change)="uploadFile($event)" #fileInput type="file" id="file" />
+        <mat-form-field>
+          <mat-label>{{ 'fields.image' | translate }}</mat-label>
+          <input readonly (click)="fileInput.click()" matInput formControlName="image" />
+          <span matSuffix><mat-icon>folder_open</mat-icon></span>
+        </mat-form-field>
+        <input hidden (change)="uploadFile($event)" #fileInput type="file" id="file" />
       }
       <div class="flex justify-between flex-wrap gap-2">
         <mat-form-field>
           <mat-label>{{ 'fields.category' | translate }}</mat-label>
           <mat-select formControlName="category" (valueChange)="categoryChanged($event)">
             @for (category of data!.categories; track category.id) {
-            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
+              <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
-          @if(form.get('category')?.errors) {
-          <mat-error>{{ formErrorMessage(form.get('category')!) | translate }}</mat-error>
+          @if (form.get('category')?.errors) {
+            <mat-error>{{ formErrorMessage(form.get('category')!) | translate }}</mat-error>
           }
         </mat-form-field>
 
@@ -95,23 +95,23 @@
           <mat-label>{{ 'fields.subCategory' | translate }}</mat-label>
           <mat-select formControlName="subCategory" (valueChange)="subCategoryChanged($event)">
             @for (category of subCategories; track category.id) {
-            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
+              <mat-option [value]="category.id">{{ category?.name }}</mat-option>
             }
           </mat-select>
-          @if(form.get('subCategory')?.errors) {
-          <mat-error>{{ formErrorMessage(form.get('subCategory')!) | translate }}</mat-error>
+          @if (form.get('subCategory')?.errors) {
+            <mat-error>{{ formErrorMessage(form.get('subCategory')!) | translate }}</mat-error>
           }
         </mat-form-field>
 
         @if (productCategories?.length) {
-        <mat-form-field>
-          <mat-label>{{ 'fields.productCategory' | translate }}</mat-label>
-          <mat-select formControlName="productCategory">
-            @for (category of productCategories; track category.id) {
-            <mat-option [value]="category.id">{{ category?.name }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field>
+            <mat-label>{{ 'fields.productCategory' | translate }}</mat-label>
+            <mat-select formControlName="productCategory">
+              @for (category of productCategories; track category.id) {
+                <mat-option [value]="category.id">{{ category?.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
         }
       </div>
     </div>

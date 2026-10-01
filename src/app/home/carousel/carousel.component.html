@@ -4,23 +4,27 @@
     <h2 class="section-title">{{ 'home.topProducts' | translate }}</h2>
   </div>
   @if (carouselData().length) {
-  <owl-carousel-o [options]="customOptions()">
-    @for (slide of carouselData(); track slide) {
-    <ng-template carouselSlide>
-      <a class="outer-link m-2" [href]="slide.url">
-        <div class="slide">
-          <img class="slide-img" [alt]="slide.text" [src]="slide.src" />
-          <div class="slide-caption">
-            <span class="slide-name">{{ slide.text }}</span>
-            <span class="slide-rating">
-              <ngx-stars [color]="starColor" [initialStars]="slide.avgReview" [readonly]="true" />
-              <span class="rating-text">{{ slide.avgReview | number : '1.1-1' }}</span>
-            </span>
-          </div>
-        </div>
-      </a>
-    </ng-template>
-    }
-  </owl-carousel-o>
+    <owl-carousel-o [options]="customOptions()">
+      @for (slide of carouselData(); track slide) {
+        <ng-template carouselSlide>
+          <a class="outer-link m-2" [href]="slide.url">
+            <div class="slide">
+              <img class="slide-img" [alt]="slide.text" [src]="slide.src" />
+              <div class="slide-caption">
+                <span class="slide-name">{{ slide.text }}</span>
+                <span class="slide-rating">
+                  <ngx-stars
+                    [color]="starColor"
+                    [initialStars]="slide.avgReview"
+                    [readonly]="true"
+                  />
+                  <span class="rating-text">{{ slide.avgReview | number: '1.1-1' }}</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        </ng-template>
+      }
+    </owl-carousel-o>
   }
 </div>

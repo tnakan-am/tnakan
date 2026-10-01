@@ -5,7 +5,9 @@
 
   <mat-sidenav-content>
     <app-navbar (sidenavStatus)="handleChange($event)" />
-    <router-outlet />
+    <main class="page-content">
+      <router-outlet />
+    </main>
     <app-footer />
   </mat-sidenav-content>
 </mat-sidenav-container>

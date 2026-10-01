@@ -4,64 +4,66 @@
       <ng-template matStepLabel>{{ 'orders' | translate }}</ng-template>
 
       @for (product of products(); track product.id; let idx = $index) {
-      <mat-card appearance="outlined" class="m-2" [formArrayName]="idx">
-        <mat-card-header class="flex justify-between">
-          <mat-card-title>{{ product.name }}</mat-card-title>
+        <mat-card appearance="outlined" class="m-2" [formArrayName]="idx">
+          <mat-card-header class="flex justify-between">
+            <mat-card-title>{{ product.name }}</mat-card-title>
 
-          <button mat-icon-button (click)="removeItem(product)">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-card-header>
-        <mat-card-content>
-          <div class="w-full relative flex flex-col md:flex-row justify-between gap-3 items-center">
-            <img
-              [src]="product.image || 'assets/homemade.webp'"
-              alt="product image"
-              class="h-[60px] w-[60px]"
-            />
-            <span>{{ product.price }}/{{ product.unit }}</span>
-            <div>
-              <mat-form-field>
-                <mat-label>{{ product.unit }}</mat-label>
-                <input
-                  matInput
-                  type="number"
-                  min="{{ product?.minQuantity || 1 }}"
-                  (change)="calculateTotal()"
-                  formControlName="quantity"
-                />
-                @if(orderForm.get('products.'+idx+'.quantity')?.errors) {
-                <mat-error>{{
-                  formErrorMessage(orderForm.get('products.' + idx + '.quantity')!)
-                    | translate : { min: product.minQuantity, max: product.availability }
-                }}</mat-error>
-                }
-              </mat-form-field>
-            </div>
-            <div>
-              <mat-form-field>
-                <mat-label>{{ 'fields.comment' | translate }}</mat-label>
-                <input
-                  matInput
-                  min="{{ product?.minQuantity || 1 }}"
-                  (change)="calculateTotal()"
-                  formControlName="comment"
-                />
-              </mat-form-field>
-            </div>
+            <button mat-icon-button (click)="removeItem(product)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-card-header>
+          <mat-card-content>
+            <div
+              class="w-full relative flex flex-col md:flex-row justify-between gap-3 items-center"
+            >
+              <img
+                [src]="product.image || 'assets/homemade.webp'"
+                alt="product image"
+                class="h-[60px] w-[60px]"
+              />
+              <span>{{ product.price }}/{{ product.unit }}</span>
+              <div>
+                <mat-form-field>
+                  <mat-label>{{ product.unit }}</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    min="{{ product?.minQuantity || 1 }}"
+                    (change)="calculateTotal()"
+                    formControlName="quantity"
+                  />
+                  @if (orderForm.get('products.' + idx + '.quantity')?.errors) {
+                    <mat-error>{{
+                      formErrorMessage(orderForm.get('products.' + idx + '.quantity')!)
+                        | translate: { min: product.minQuantity, max: product.availability }
+                    }}</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field>
+                  <mat-label>{{ 'fields.comment' | translate }}</mat-label>
+                  <input
+                    matInput
+                    min="{{ product?.minQuantity || 1 }}"
+                    (change)="calculateTotal()"
+                    formControlName="comment"
+                  />
+                </mat-form-field>
+              </div>
 
-            <div>
-              {{
-                product.price * (orderForm.get('products.' + idx + '.quantity')?.value || 1)
-                  | currency : amd : 'symbol-narrow'
-              }}
+              <div>
+                {{
+                  product.price * (orderForm.get('products.' + idx + '.quantity')?.value || 1)
+                    | currency: amd : 'symbol-narrow'
+                }}
+              </div>
             </div>
-          </div>
-        </mat-card-content>
-      </mat-card>
+          </mat-card-content>
+        </mat-card>
       }
       <div class="flex justify-end mr-2">
-        {{ 'fields.total' | translate }}: {{ total | currency : amd : 'symbol-narrow' }}
+        {{ 'fields.total' | translate }}: {{ total | currency: amd : 'symbol-narrow' }}
       </div>
       <div>
         <button mat-button matStepperNext type="button">{{ 'buttons.next' | translate }}</button>
@@ -76,20 +78,20 @@
             <mat-label>{{ 'fields.region' | translate }}</mat-label>
             <mat-select formControlName="region" (valueChange)="regionChange($event)">
               @for (region of regions(); track region) {
-              <mat-option [value]="region">{{ region }}</mat-option>
+                <mat-option [value]="region">{{ region }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
 
           @if (cities()) {
-          <mat-form-field>
-            <mat-label>{{ 'fields.city' | translate }}</mat-label>
-            <mat-select formControlName="city">
-              @for (city of citiesList;let id = $index; track id) {
-              <mat-option [value]="city.city">{{ city.city }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field>
+              <mat-label>{{ 'fields.city' | translate }}</mat-label>
+              <mat-select formControlName="city">
+                @for (city of citiesList; let id = $index; track id) {
+                  <mat-option [value]="city.city">{{ city.city }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
           }
         </div>
         <mat-form-field>

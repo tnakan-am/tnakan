@@ -95,7 +95,7 @@ function sortByCreatedAt(list: Notification[]): Notification[] {
     new Date(a.createdAt) > new Date(b.createdAt)
       ? -1
       : new Date(a.createdAt) < new Date(b.createdAt)
-      ? 1
-      : 0
+        ? 1
+        : 0
   );
 }
