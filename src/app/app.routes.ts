@@ -78,6 +78,7 @@ export const routes: Routes = [
   {
     path: 'basket',
     component: BasketComponent,
+    canActivate: [authGuard],
   },
   {
     path: 'product/:id',

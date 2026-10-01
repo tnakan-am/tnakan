@@ -33,6 +33,7 @@
             }
 
             <div class="w-full flex justify-end border-t border-gray-400">
+              @let status = statusOf(order);
               @if (status !== 'delivered') {
                 <button
                   mat-icon-button

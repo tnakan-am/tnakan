@@ -38,13 +38,9 @@
         <span
           class="price-unit"
           [matTooltip]="
-            ('fields.minQuantity' | translate) +
-            ' ' +
-            product.minQuantity +
-            ' ' +
-            $any(units)[product.unit]
+            ('fields.minQuantity' | translate) + ' ' + product.minQuantity + ' ' + product.unit
           "
-          >/ {{ $any(units)[product.unit] }}</span
+          >/ {{ product.unit }}</span
         >
       </span>
       <button

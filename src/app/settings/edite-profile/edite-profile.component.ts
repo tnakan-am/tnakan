@@ -47,16 +47,29 @@ export class EditeProfileComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.type = this.data.type!;
-      this.form = this.fb.group({
-        email: ['', Validators.email],
-        [this.data.type === Type.BUSINESS ? 'company' : 'name']: ['', Validators.required],
-        [this.data.type === Type.BUSINESS ? 'hvhh' : 'surname']: [''],
-      });
+      this.form = this.fb.group(
+        {
+          email: ['', Validators.email],
+          currentPassword: [''],
+          [this.data.type === Type.BUSINESS ? 'company' : 'name']: ['', Validators.required],
+          [this.data.type === Type.BUSINESS ? 'hvhh' : 'surname']: [''],
+        },
+        {
+          validators: (group) =>
+            this.emailChanged && !group.get('currentPassword')?.value
+              ? { currentPasswordRequired: true }
+              : null,
+        }
+      );
 
       this.form.patchValue({
         ...this.data,
       });
     }
+  }
+
+  get emailChanged(): boolean {
+    return !!this.form?.get('email')?.value && this.form.get('email')?.value !== this.data.email;
   }
 
   save() {

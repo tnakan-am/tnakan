@@ -15,7 +15,13 @@
       "Bash(git log:*)",
       "Bash(git show:*)",
       "Bash(gh pr view:*)",
-      "Bash(gh pr diff:*)"
+      "Bash(gh pr diff:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_snapshot",
+      "mcp__angular-cli__search_documentation",
+      "mcp__angular-cli__get_best_practices",
+      "mcp__angular-cli__list_projects"
     ]
   },
   "hooks": {
@@ -25,7 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path // empty' | { read -r f; case \"$f\" in *.ts|*.html|*.scss|*.css|*.json) [ -f \"$f\" ] && npx prettier --write \"$f\" >/dev/null 2>&1 ;; esac; } ; exit 0"
+            "command": "jq -r '.tool_input.file_path // empty' | { read -r f; case \"$f\" in *.ts|*.html|*.scss|*.css|*.json) [ -f \"$f\" ] && npx --no-install prettier --write \"$f\" >/dev/null 2>&1 ;; esac; } ; exit 0"
           }
         ]
       }

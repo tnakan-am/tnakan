@@ -40,11 +40,14 @@ export class NotificationsService {
     const orderId = order.id ?? order.orderId;
     if (!orderId) return of(null);
     const userId = this.auth.currentUser()?.id;
-    const products = order.products.filter((p) => p.vendorId === userId);
-    if (!products.length) return of(null);
+    // One request per product: the API moves every line of a product together.
+    const productIds = [
+      ...new Set(order.products.filter((p) => p.vendorId === userId).map((p) => p.productId)),
+    ];
+    if (!productIds.length) return of(null);
     return forkJoin(
-      products.map((p) =>
-        this.http.patch(`${environment.apiUrl}/orders/${orderId}/products/${p.productId}/status`, {
+      productIds.map((productId) =>
+        this.http.patch(`${environment.apiUrl}/orders/${orderId}/products/${productId}/status`, {
           status,
         })
       )
