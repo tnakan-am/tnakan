@@ -6,7 +6,6 @@ import { NgxStarsModule } from 'ngx-stars';
 import { DecimalPipe } from '@angular/common';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Unit } from '../../../shared/enums/unit.enum';
 import { Product } from '../../../shared/interfaces/product.interface';
 import { TranslatePipe } from '@ngx-translate/core';
 import { STAR_COLOR } from '../../../shared/constants/theme';
@@ -30,7 +29,6 @@ import { STAR_COLOR } from '../../../shared/constants/theme';
 })
 export class CardItemComponent {
   readonly starColor = STAR_COLOR;
-  units = Unit;
   @Input() product!: Product;
   @Output() addToCard = new EventEmitter<Product>();
 
