@@ -11,8 +11,10 @@
         <div class="content">
           <span class="eyebrow">{{ 'home.featuredKitchen' | translate }}</span>
           <h2>{{ item.headline }}</h2>
-          @if (item.subheadline || item.cta || item.link) {
+          @if (item.subheadline) {
             <p>{{ item.subheadline }}</p>
+          }
+          @if (item.cta && item.link) {
             <a class="cta" mat-flat-button [href]="item.link">{{ item.cta }}</a>
           }
         </div>
