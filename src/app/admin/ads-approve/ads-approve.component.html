@@ -1,1 +1,59 @@
-<p>ads-approve works!</p>
+<div class="container mx-auto">
+  <div class="flex flex-col m-2">
+    <table mat-table [dataSource]="ads()" class="mat-elevation-z8 demo-table">
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>{{ 'fields.image' | translate }}</th>
+        <td mat-cell *matCellDef="let element">
+          <img class="w-24" [src]="element.image" [alt]="element.headline" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="headline">
+        <th mat-header-cell *matHeaderCellDef>{{ 'fields.headline' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.headline }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subheadline">
+        <th mat-header-cell *matHeaderCellDef>{{ 'fields.subheadline' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.subheadline }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef>{{ 'fields.link' | translate }}</th>
+        <td mat-cell *matCellDef="let element">{{ element.link }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{ 'adStatus.title' | translate }}</th>
+        <td mat-cell *matCellDef="let element">
+          {{ (element.approved ? 'adStatus.approved' : 'adStatus.pending') | translate }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="star">
+        <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            [attr.aria-label]="
+              (element.approved ? 'buttons.disable' : 'buttons.approve') | translate
+            "
+            (click)="toggleApproval(element)"
+          >
+            <mat-icon>{{ element.approved ? 'block' : 'check' }}</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            [attr.aria-label]="'buttons.delete' | translate"
+            (click)="delete(element)"
+          >
+            <mat-icon color="accent">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

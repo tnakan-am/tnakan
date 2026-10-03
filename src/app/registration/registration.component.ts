@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTab, MatTabContent, MatTabGroup } from '@angular/material/tabs';
 import { AuthService } from '../shared/services/auth.service';
-import { IUser, Type } from '../shared/interfaces/user.interface';
+import { IUser } from '../shared/interfaces/user.interface';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { BusinessFormComponent } from './business-form/business-form.component';
 import { ActivatedRoute } from '@angular/router';
@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
   loader: boolean = false;
-  token: boolean = false;
+  token = '';
 
   constructor(
     private authService: AuthService,
@@ -45,8 +45,9 @@ export class RegistrationComponent implements OnInit {
       return;
     }
     this.loader = true;
+    // With an invite token the server creates a verified admin and ignores `type`.
     this.authService
-      .signUp({ ...formValue, type: this.token ? Type.ADMIN : formValue.type })
+      .signUp(this.token ? { ...formValue, inviteToken: this.token } : formValue)
       .subscribe({
         next: () => (this.loader = false),
         error: () => (this.loader = false),

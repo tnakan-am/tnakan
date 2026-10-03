@@ -71,7 +71,12 @@
     "zip": "ZIP",
     "city": "City",
     "quantity": "Quantity",
-    "currentPassword": "Current Password"
+    "currentPassword": "Current Password",
+    "headline": "Headline",
+    "subheadline": "Subheadline",
+    "cta": "Button text",
+    "link": "Link",
+    "linkHint": "A site path such as /seller/... or a full http(s) URL"
   },
   "registration": {
     "registration": "Registration",
@@ -122,7 +127,8 @@
     "back": "Back",
     "update-password": "Update password",
     "next": "Next",
-    "addToCart": "Add"
+    "addToCart": "Add",
+    "delete": "Delete"
   },
   "messages": {
     "orderPlaced": "Order successfully placed.",
@@ -136,12 +142,21 @@
       "minlength": "Minimum length requirements {{number}}",
       "min": "Minimum number {{min}}",
       "max": "Maximum number {{max}}",
-      "password": "Passwords must be at least 6 characters"
+      "password": "Passwords must be at least 6 characters",
+      "maxlength": "Maximum length exceeded"
     }
   },
   "languages": {
     "english": "English",
     "russian": "Russian",
     "armenian": "Armenian"
+  },
+  "addAd": "Add ad",
+  "editAd": "Edit ad",
+  "adReviewNote": "Saving changes sends the ad back for review.",
+  "adStatus": {
+    "title": "Status",
+    "approved": "Approved",
+    "pending": "Pending review"
   }
 }
