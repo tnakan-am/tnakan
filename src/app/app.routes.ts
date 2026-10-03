@@ -55,7 +55,7 @@ export const routes: Routes = [
           import('./admin/admin-orders/admin-orders.component').then((m) => m.AdminOrdersComponent),
       },
       {
-        path: 'ads',
+        path: 'ad',
         loadComponent: () =>
           import('./admin/ads-approve/ads-approve.component').then((m) => m.AdsApproveComponent),
       },

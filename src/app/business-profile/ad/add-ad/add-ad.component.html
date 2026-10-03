@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ (data.form ? 'editAd' : 'addAd') | translate }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="flex flex-col">
+    <mat-form-field>
+      <mat-label>{{ 'fields.headline' | translate }}</mat-label>
+      <input matInput formControlName="headline" maxlength="120" />
+      @if (form.controls.headline.errors) {
+        <mat-error>{{ formErrorMessage(form.controls.headline) | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'fields.subheadline' | translate }}</mat-label>
+      <textarea matInput rows="2" formControlName="subheadline"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'fields.cta' | translate }}</mat-label>
+      <input matInput formControlName="cta" maxlength="40" />
+      @if (form.controls.cta.errors) {
+        <mat-error>{{ formErrorMessage(form.controls.cta) | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'fields.link' | translate }}</mat-label>
+      <input matInput formControlName="link" placeholder="/seller/..." />
+      <mat-hint>{{ 'fields.linkHint' | translate }}</mat-hint>
+      @if (form.controls.link.errors) {
+        <mat-error>{{ formErrorMessage(form.controls.link) | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>{{ 'fields.image' | translate }}</mat-label>
+      <input readonly (click)="fileInput.click()" matInput formControlName="image" />
+      <span matSuffix><mat-icon>folder_open</mat-icon></span>
+    </mat-form-field>
+    <input hidden (change)="uploadFile($event)" #fileInput type="file" accept="image/*" />
+    @if (image()) {
+      <img class="w-40" [src]="image()" [alt]="'fields.image' | translate" />
+    }
+
+    @if (data.form) {
+      <p class="text-sm">{{ 'adReviewNote' | translate }}</p>
+    }
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="cancel()">{{ 'buttons.cancel' | translate }}</button>
+  <button mat-button [disabled]="invalid()" (click)="submit()">
+    {{ 'buttons.save' | translate }}
+  </button>
+</mat-dialog-actions>

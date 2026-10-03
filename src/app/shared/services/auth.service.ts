@@ -71,13 +71,16 @@ export class AuthService {
     );
   }
 
-  signUp(formData: IUser): Observable<{ success: boolean; data: IUser; message: string }> {
+  signUp(
+    formData: IUser & { inviteToken?: string }
+  ): Observable<{ success: boolean; data: IUser; message: string }> {
     return this.http
       .post<{ success: boolean; data: IUser; message: string }>(`${this.base}/register`, formData)
       .pipe(
         tap((res) => {
           this.snackBar(res?.message || 'Registration successfully done, please verify your email');
-          this.router.navigate(['/confirm-email']);
+          // Invited admins are created already verified.
+          this.router.navigate([formData.inviteToken ? '/login' : '/confirm-email']);
         })
       );
   }
