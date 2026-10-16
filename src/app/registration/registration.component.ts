@@ -24,6 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RegistrationComponent implements OnInit {
   loader: boolean = false;
   token = '';
+  inviteEmail = '';
 
   constructor(
     private authService: AuthService,
@@ -32,6 +33,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.token = this.route.snapshot.params['token'];
+    this.inviteEmail = this.route.snapshot.queryParams['email'] ?? '';
     this.route.params.subscribe((params) => {
       if (params['token']) {
         this.token = params['token'];

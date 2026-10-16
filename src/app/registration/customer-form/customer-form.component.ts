@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
@@ -30,6 +30,7 @@ import { MatSelect } from '@angular/material/select';
 })
 export class CustomerFormComponent extends BaseFormComponent {
   declare form: FormGroup;
+  inviteEmail = input('');
 
   constructor() {
     super();
@@ -39,6 +40,16 @@ export class CustomerFormComponent extends BaseFormComponent {
       name: ['', [Validators.required]],
       surname: [''],
     });
+  }
+
+  override ngOnInit() {
+    super.ngOnInit();
+    // The server only redeems an invite for the address it was sent to.
+    if (this.inviteEmail()) {
+      const email = this.form.controls['email'];
+      email.setValue(this.inviteEmail());
+      email.disable();
+    }
   }
 
   formSubmit() {

@@ -5,7 +5,10 @@
     <mat-tab-group>
       <mat-tab [label]="'registration.customer' | translate">
         <ng-template matTabContent>
-          <app-customer-form (onFormSubmit)="fireAuthentication($any($event))"></app-customer-form>
+          <app-customer-form
+            [inviteEmail]="inviteEmail"
+            (onFormSubmit)="fireAuthentication($any($event))"
+          ></app-customer-form>
         </ng-template>
       </mat-tab>
 
